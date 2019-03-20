@@ -1,0 +1,19 @@
+{
+  "name": "projekt_inzynierka",
+  "version": "1.0.0",
+  "description": "Projekt programu do zarzadzania przedsiebiorstwem.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tope96/inzynierka2019.git"
+  },
+  "author": "Tomasz Pietrzak, Rafał Gmurczyk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tope96/inzynierka2019/issues"
+  },
+  "homepage": "https://github.com/tope96/inzynierka2019#readme"
+}
