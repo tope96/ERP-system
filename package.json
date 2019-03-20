@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tope96/inzynierka2019/issues"
   },
-  "homepage": "https://github.com/tope96/inzynierka2019#readme"
+  "homepage": "https://github.com/tope96/inzynierka2019#readme",
+  "dependencies": {
+    "passport": "^0.4.0"
+  }
 }
