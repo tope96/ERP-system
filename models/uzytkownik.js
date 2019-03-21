@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     Haslo: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(150),
       allowNull: false
     },
     Email: {
@@ -33,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'uzytkownik'
+    tableName: 'uzytkownik',
+    timestamps: false
   });
 };

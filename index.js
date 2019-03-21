@@ -1,4 +1,3 @@
-const http = require('http');
 var express = require('express');
 var app = express();
 var passport = require('passport')
@@ -6,14 +5,19 @@ var session = require('express-session')
 var bodyParser = require('body-parser')
 var path = require('path');
 var authController = require(__dirname + '/controllers/authController.js');
-
+const http = require('http');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.get('/', authController.signin);
 
 var models = require('./models');
 
