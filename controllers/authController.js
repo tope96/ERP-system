@@ -1,4 +1,3 @@
-var eventUtil = require('../models/.Utilities/EventUtilise.js');
 var exports = module.exports = {}
 
 exports.index = function (req, res) {
@@ -6,11 +5,11 @@ exports.index = function (req, res) {
 }
 
 exports.signup = function (req, res) {
-    res.render('auth/signup');
+    res.render('signup');
 }
 
 exports.signin = function (req, res) {
-    res.render('auth/signin');
+    res.render('signin');
 }
 
 exports.home = function (req, res) {
@@ -30,7 +29,7 @@ exports.notCompleteSingUp = function(req, res){
 }
 
 exports.UserChoose = function(req, res){
-    res.render('auth/UserChoose');
+    res.render('UserChoose');
 }
 
 exports.photo = function(req, res){
