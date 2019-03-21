@@ -3,8 +3,7 @@ var bodyParser = require('body-parser');
 var user = require("../config/passport/passport.js");
 var models = require("../models");
 var passport = require('passport')
-var photoUtil = require('../models/.Utilities/PhotographerUtilise.js');
-var userUtil = require('../models/.Utilities/UserUtilise.js');
+
 
 module.exports = function (app, passport) {
     var Photo = models.fotograf;
