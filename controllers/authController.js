@@ -32,10 +32,6 @@ exports.UserChoose = function(req, res){
     res.render('UserChoose');
 }
 
-exports.photo = function(req, res){
-    res.render('auth/photo');
-}
-
 exports.logout = function (req, res) {
     req.session.destroy(function (err) {
         res.redirect('/');

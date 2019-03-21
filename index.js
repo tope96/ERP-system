@@ -64,10 +64,6 @@ app.use(function (err, req, res, next) {
 });
 
 
-const hostname = '127.0.0.1';
-const port = 5000;
-
-
 app.listen(5000, function (err) {
   if (!err)
       console.log("Site is live");

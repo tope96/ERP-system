@@ -6,8 +6,7 @@ var passport = require('passport')
 
 
 module.exports = function (app, passport) {
-    var Photo = models.fotograf;
-    var Client = models.klient;
+
 
     app.get('/signup', authController.signup);
     app.get('/signin', authController.signin);
@@ -15,8 +14,7 @@ module.exports = function (app, passport) {
     app.get('/logout', authController.logout);
     app.get('/notConfirmedUSer', authController.notConfirmedUser);
     app.get('/notCompleteSingUp', authController.notCompleteSingUp);
-    app.get('/USerChoose', authController.UserChoose);
-    app.get('/photo', authController.photo);
+
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -36,28 +34,6 @@ module.exports = function (app, passport) {
         }
     ));
     
-    app.post('/moreInfo', isLoggedIn, function(req, res) {
-        var id = req.user.IdUzytkownik;
-        var comp = req.body.company;
-        var www = req.body.www;
-        var nr = req.body.nr;
-        var bio = req.body.bio;
-
-        photoUtil.newPhoto(id, comp, www, nr, bio).then(function (){
-            res.redirect("/home");
-        });    
-        
-    });
-
-    app.post('/client', isLoggedIn, function(req, res){
-        var idUser = req.user.IdUzytkownik;
-        Client.create({
-            IdUzytkownik : req.user.IdUzytkownik
-        }).then(function(){
-            res.redirect('/home');
-        });
-        
-    });
 
 
 }

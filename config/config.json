@@ -4,12 +4,12 @@
  
         "username": "root",
  
-        "password": "mattii96",
+        "password": "",
  
         "database": "inz",
  
         "host": "TOMEK-HP",
- 
+
         "dialect": "mysql"
  
     },
