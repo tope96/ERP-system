@@ -24,7 +24,7 @@ var models = require('./models');
 var authRoute = require('./routes/auth.js')(app, passport);
 var siteRoute = require('./routes/site.js')(app, passport);
 
-require('../config/passport/passport.js')(passport, models.uzytkownik);
+require('./config/passport/passport.js')(passport, models.uzytkownik);
 
 models.sequelize.sync().then(function () {
   console.log('Nice! Database looks fine')
