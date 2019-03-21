@@ -1,0 +1,11 @@
+<% include ../partials/auth/headerAuth %>
+        <h2>Została jeszcze jedna rzecz...</h2>
+        <p>Kim jesteś? Świadczysz usługi fotograficzne, czy z nich korzystasz?</p>
+        <div class="panel signInFormPanel">
+            <a class="signup" href="/photo"><input class="btn btn-success" type="button" value="Fotograf" /> </a>
+            <form id="signup" name="signup" method="post" action="client">    
+                <input class="btn btn-success" type="submit" value="Klient" />
+            </form>
+        </div>
+
+        <% include ../partials/auth/footerAuth %>

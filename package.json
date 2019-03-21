@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/tope96/inzynierka2019#readme",
   "dependencies": {
-    "passport": "^0.4.0"
+    "bcrypt-nodejs": "0.0.3",
+    "passport": "^0.4.0",
+    "sequelize": "^5.1.0"
   }
 }
