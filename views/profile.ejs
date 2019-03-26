@@ -1,0 +1,104 @@
+<% include partials/headerLogin %>
+
+<!-- Title -->
+<div class="row">
+    <div class="container text-center col-lg-12">
+        <span class="h1 title">
+            <h1>Tutaj możesz edytować informacje, które podałeś przy logowaniu</h1>
+        </span>
+    </div>
+</div>
+</section>
+
+<section id="profileInfo">
+    <h2>Twój profil</h2>
+    <p>Aby zapisać nowe informacje, musisz nacisnąć "Zapisz", przy edytowanej pozycji.</p>
+
+    <div class="panel-body">
+        <div class="row">
+
+
+            <div class="table-responsive ">
+                <table class="table table-user-information">
+                    <tbody>
+                        <tr>
+                            <td>Imię:</td>
+                            <td>
+                                <%= name %>
+                            </td>
+                            <td>
+                                <form id="newForm newNameForm" name="newNameForm" method="post" action="newName"><input
+                                        type="text" class="newForm form-control form" name="newName" placeholder="Nowe imię"
+                                        required>
+                            </td>
+                            <td><button type="submit" class="btn btn-dark">Zapisz</button></form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nazwisko:</td>
+                            <td>
+                                <%= lastName %>
+                            </td>
+                            <td>
+                                <form id="newForm newLastNameForm" name="newLastNameForm" method="post" action="newLastName"><input
+                                        type="text" class="newForm form-control form" name="newLastName" placeholder="Nowe nazwisko"
+                                        required>
+                            </td>
+                            <td><button type="submit" class="btn btn-dark">Zapisz</button></form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Login</td>
+                            <td>
+                                <%= login %>
+                            </td>
+                            <td>
+                                <form id="newLoginForm" name="newLoginForm" method="post" action="newLogin"><input type="text"
+                                        class="newForm form-control form" name="newLogin" placeholder="Nowy login"
+                                        required>
+                            </td>
+                            <td><button type="submit" class="btn btn-dark">Zapisz</button></form>
+                            </td>
+                        </tr>
+
+                        <tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>
+                                <%= email %>
+                            </td>
+                            <td>
+                                <form id="newForm newEmailForm" name="newEmailForm" method="post" action="newEmail"><input
+                                        type="email" class="newForm form-control form" name="newEmail" placeholder="Nowy email"
+                                        required>
+                            </td>
+                            <td><button type="submit" class="btn btn-dark">Zapisz</button></form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Aktualnie jesteś</td>
+                            <td>
+                                <%= czyKlient %>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        
+
+                    </tbody>
+                </table>
+
+                <%if (czyKlient === "Fotograf") { %>
+                    <form id="photoSearchForm" name="photoSearchForm" method="post" action="whereIShooting">
+                       <input type="submit" class="btn btn-success" value="Sprawdź swoje wydarzenia">
+                    </form>
+                   
+                <% } else {%>
+                    <form id="MyPhotographersForm" name="MyPhotographersForm" method="post" action="getMyPhotographers">
+                            <input type="submit" class="btn btn-success" value="Sprawdź swoich fotografów">
+                         </form>
+                    <% } %>
+                
+
+</section>
+<% include partials/footerLogin %>

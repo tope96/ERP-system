@@ -1,0 +1,29 @@
+﻿body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+h2{
+    text-align: center;
+}
+
+
+/* Navbar */
+.navbar{
+    padding: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+}
+
+.icon{
+    font-size: 20px;
+    color: white;
+}
+
+.logo{
+    font-size: 30px;
+    font-weight: bold;
+}

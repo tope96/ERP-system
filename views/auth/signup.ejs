@@ -1,0 +1,17 @@
+<% include ../partials/auth/headerAuth %>
+       
+    <h2>Zarejestruj się</h2>
+        <p>Podaj wymagane dane</p>
+        <div class="panel signInFormPanel">
+            <form id="signup" name="signup" method="post" action="signup">
+                <input autocomplete="off" type="text" class="form-control form" id="loginSignUp" name="login" alt="login input" placeholder="Login" required>
+                <input autocomplete="off" type="password" class="form-control form" id="passwordLogin" name="password" alt="password input" placeholder="Hasło" required>
+                <input type="text" class="form-control form" id="firstnameLogin" name="firstname" alt="firstname input" placeholder="Imię" required>
+                <input type="text" class="form-control form" id="lastnameLogin" name="lastname" alt="lastname input" placeholder="Nazwisko" required>
+                <input type="email" class="form-control form" id="emailLogin" name="email" alt="email input" placeholder="Email" required>
+                <input class="btn btn-success" type="submit" value="Zarejestruj się" />
+            </form>
+            <p><a class="signup" href="/signin">Masz konto? Zaloguj się.</a></p>
+        </div>
+
+<% include ../partials/auth/footerAuth %>

@@ -1,0 +1,13 @@
+<% include partials/auth/headerAuth %>
+        <h2>Zaloguj się</h2>
+        <p>Aby korzystać z systemu, musisz być zalogowany</p>
+        <div class="panel signInFormPanel">
+            <form id="signin" name="signin" method="post" action="signin">
+                <input type="text" class="form-control form" id="emailLogin" name="login" alt="login input" placeholder="Login" required>
+                <input type="password" class="form-control form" id="passwordLogin" name="password" alt="password input"placeholder="Hasło" required>
+                <input class="btn btn-success" type="submit" value="Zaloguj się" />
+            </form>
+            <p><a class="signup" href="/signup">Nie masz konta? Zarejestruj się.</a></p>
+        </div>
+
+<% include partials/auth/footerAuth %>
