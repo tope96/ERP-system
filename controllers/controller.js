@@ -1,7 +1,5 @@
 
 var models = require("../models");
-var userUtil = require('../models/.Utilities/UserUtilise.js');
-
 var foto = models.fotograf;
 var exports = module.exports = {}
 
