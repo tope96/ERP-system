@@ -14,7 +14,8 @@ module.exports = function (app, passport) {
     app.get('/logout', authController.logout);
     app.get('/notConfirmedUSer', authController.notConfirmedUser);
     app.get('/notCompleteSingUp', authController.notCompleteSingUp);
-
+    app.get('/companyExists', authController.companyExists);
+    app.get('/companyNew', authController.companyNew);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -34,6 +35,6 @@ module.exports = function (app, passport) {
         }
     ));
     
-
+        app.post('/')
 
 }

@@ -32,6 +32,14 @@ exports.UserChoose = function(req, res){
     res.render('UserChoose');
 }
 
+exports.companyExists = function(req, res){
+    res.render('companyExists');
+}
+
+exports.companyNew = function(req, res){
+    res.render('companyNew');
+}
+
 exports.logout = function (req, res) {
     req.session.destroy(function (err) {
         res.redirect('/');

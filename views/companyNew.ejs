@@ -1,0 +1,15 @@
+<% include partials/auth/headerAuth %>
+<h2>Dodaj firmę</h2>
+<p>Podaj wymagane informację, aby dodać nową firmę</p>
+<div class="panel signInFormPanel">
+    <form action="companyNew">
+        <input type="text" class="form-control form" placeholder="Pełna nazwa firmy">
+        <input type="text" class="form-control form" placeholder="NIP firmy">
+        <input type="text" class="form-control form" placeholder="Miasto">
+        <input type="text" class="form-control form" placeholder="Ulica">
+        <button type="submit" class="btn btn-success">Zatwierdź</button>
+    </form>
+
+    <p><a class="signup" href="/signin">Masz konto? Zaloguj się.</a></p>
+</div>
+<% include partials/auth/footerAuth %>
