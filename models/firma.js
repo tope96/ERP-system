@@ -30,6 +30,6 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'firma',
-    timestamps: false
+    timestamps:false
   });
 };
