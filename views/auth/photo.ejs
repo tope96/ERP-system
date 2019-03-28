@@ -1,0 +1,18 @@
+<% include ../partials/auth/headerAuth %>
+        <h2>Została jeszcze jedna rzecz...</h2>
+        <p>Kim jesteś? Świadczysz usługi fotograficzne, czy z nich korzystasz?</p>
+        <div class="panel signInFormPanel">
+            <form id="signup" name="signup" method="post" action="moreInfo">
+                <input type="text" class="form-control form" id="nazwaFirmyInput" name="company" alt="name of company input" placeholder="Nazwa firmy" >
+                <input type="text" class="form-control form" id="adresWwwFirmy" name="www" alt="site of company input" placeholder="Strona internetowa firmy" >
+                <input type="number" class="form-control form" id="nrTelefonu" name="nr" alt="phone number of company input" placeholder="Numer telefonu *" required> 
+                <input type="text" class="form-control form" id="biografia" name="bio" alt="your biography input" placeholder="Twoja biografia" >
+                <input class="btn btn-success" type="submit" value="Zapisz" />
+            </form>
+            <a href="/UserChoose"><input type="button" class="btn btn-danger" value="Wróć"/></a> 
+            <p>Pola zaznaczone * są obowiązkowe.</p>
+
+            
+        </div>
+
+        <% include ../partials/auth/footerAuth %>

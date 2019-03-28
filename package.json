@@ -1,31 +1,32 @@
 {
-  "name": "projekt_inzynierka",
+  "name": "foto2",
   "version": "1.0.0",
-  "description": "Projekt programu do zarzadzania przedsiebiorstwem.",
-  "main": "index.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
+    "start": "nodemon --exec babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tope96/inzynierka2019.git"
-  },
-  "author": "Tomasz Pietrzak, Rafał Gmurczyk",
+  "author": "s13696",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/tope96/inzynierka2019/issues"
-  },
-  "homepage": "https://github.com/tope96/inzynierka2019#readme",
   "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
     "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-dynamic-helpers-patch": "0.0.2",
+    "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
-    "mysql2": "^1.6.5",
-    "nodemon": "^1.18.10",
+    "mysql": "^2.16.0",
+    "mysql2": "^1.6.4",
+    "nodemon": "^1.18.9",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.1.0",
+    "sequelize": "^4.42.0",
     "sequelize-auto": "^0.4.29"
   }
 }

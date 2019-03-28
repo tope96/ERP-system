@@ -1,5 +1,3 @@
-/* jshint indent: 2 */
-
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('uzytkownik', {
     IdUzytkownik: {
@@ -10,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     Imie: {
       type: DataTypes.STRING(25),
-      allowNull: false
+      allowNull: false,
     },
     Nazwisko: {
       type: DataTypes.STRING(25),
@@ -20,16 +18,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(25),
       allowNull: true
     },
+    Email: {
+      type: DataTypes.STRING(30),
+      allowNull: false
+    },
     Login: {
       type: DataTypes.STRING(25),
       allowNull: false
     },
     Haslo: {
       type: DataTypes.STRING(150),
-      allowNull: false
-    },
-    Email: {
-      type: DataTypes.STRING(25),
       allowNull: false
     }
   }, {

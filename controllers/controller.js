@@ -1,5 +1,6 @@
 
 var models = require("../models");
+var foto = models.fotograf;
 var exports = module.exports = {}
 
 exports.events = function (req, res) {
@@ -18,4 +19,9 @@ exports.profile = function(req, res){
         })
     })
 
+}
+
+
+exports.alreadyExists = function(req, res){
+    res.render('alreadyExists');
 }
