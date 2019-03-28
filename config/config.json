@@ -2,13 +2,13 @@
  
     "development": {
  
-        "username": "root",
+        "username": "tomek",
  
         "password": "",
  
         "database": "inz",
  
-        "host": "TOMEK-HP",
+        "host": "localhost",
 
         "dialect": "mysql"
  
