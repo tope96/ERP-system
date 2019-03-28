@@ -4,13 +4,16 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('miasto', {
     IdMiasto: {
       type: DataTypes.INTEGER(11),
-      allowNull: true
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
     },
     Miasto: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     }
   }, {
-    tableName: 'miasto'
+    tableName: 'miasto',
+    timestamps: false
   });
 };

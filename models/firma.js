@@ -18,13 +18,18 @@ module.exports = function(sequelize, DataTypes) {
     },
     IdMiasto: {
       type: DataTypes.INTEGER(11),
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'miasto',
+        key: 'IdMiasto'
+      }
     },
     Adres: {
       type: DataTypes.STRING(50),
       allowNull: true
     }
   }, {
-    tableName: 'firma'
+    tableName: 'firma',
+    timestamps: false
   });
 };

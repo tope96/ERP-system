@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var user = require("../config/passport/passport.js");
 var models = require("../models");
 var passport = require('passport')
-
+var companyUtils = require('../models/.utils/company');
 
 module.exports = function (app, passport) {
 
@@ -16,6 +16,7 @@ module.exports = function (app, passport) {
     app.get('/notCompleteSingUp', authController.notCompleteSingUp);
     app.get('/companyExists', authController.companyExists);
     app.get('/companyNew', authController.companyNew);
+    app.get('/companyRegistered', authController.companyWait);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -35,6 +36,15 @@ module.exports = function (app, passport) {
         }
     ));
     
-        app.post('/')
+    app.post('/createCompany', function(req, res){
+        var companyName = req.body.companyName;
+        var companyId = req.body.companyId;
+        var town = req.body.town;
+        var address = req.body.address;
+
+        companyUtils.createCompany(companyName, companyId, town, address).then(function(){
+            res.redirect('/companyRegistered');
+        });
+    })
 
 }

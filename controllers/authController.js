@@ -40,6 +40,10 @@ exports.companyNew = function(req, res){
     res.render('companyNew');
 }
 
+exports.companyWait = function(req, res){
+    res.render('companyRegistered');
+}
+
 exports.logout = function (req, res) {
     req.session.destroy(function (err) {
         res.redirect('/');
