@@ -13,3 +13,32 @@
     margin-left: 2rem;
     font-weight: bold;
 }
+
+
+/* Right panel navbar */
+.left-navbar{
+    height: 100vh;
+    width: 7rem;
+}
+
+.alignVertical {
+    position:relative;
+    display:inline-block;
+    top:45%;
+    transform:translateY(-45%);
+}
+
+.panel-left-navbar{
+    background-color: dimgrey;
+    padding: 1rem;
+    width: 90%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.button-left-navbar{
+    height: 4rem;
+    width: 4rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
