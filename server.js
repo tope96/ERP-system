@@ -21,9 +21,9 @@ var models = require("./models");
 var authRoute = require('./routes/auth.js')(app, passport);
 var siteRoute = require('./routes/site.js')(app, passport);
 
-app.get('/', authController.index);
+app.get('/', authController.signin);
 
-require('./config/passport/passport.js')(passport, models.uzytkownik);
+require('./config/passport/passport.js')(passport, models.konta_domenowe);
 
 //Sync Database
 models.sequelize.sync().then(function () {

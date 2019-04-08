@@ -3,12 +3,11 @@
     <h2>Zarejestruj się</h2>
         <p>Czy Twoja firma jest już zarejestrowana?</p>
         <div class="panel signInFormPanel">
-                <a href="/companyExists" >
-                    <input type="button" class="btn btn-success" value="Moja firma ma już konto">
-                </a>
-                <a href="/companyNew">
-                    <input type="button" class="btn btn-success" value="Chcę zgłosić nową firmę">
-                </a>
+            <form id="signup" name="signup" method="post" action="signup">
+                    <input type="text" class="form-control form" name="login" placeholder="login">
+                    <input type="password" class="form-control form" name="password" placeholder='Hasło'>
+                    <button type="submit" class="btn btn-success">Zarejestruj się</button>
+                </form>
             <p><a class="signup" href="/signin">Masz konto? Zaloguj się.</a></p>
         </div>
 

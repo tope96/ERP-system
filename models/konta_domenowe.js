@@ -34,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'konta_domenowe'
+    tableName: 'konta_domenowe',
+    timestamps: false
   });
 };

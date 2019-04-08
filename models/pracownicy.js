@@ -48,6 +48,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'pracownicy'
+    tableName: 'pracownicy',
+    timestamps: false
   });
 };

@@ -1,3 +1,5 @@
+var workersUtil = require('../models/.utils/workerUtil.js');
+
 var exports = module.exports = {}
 
 exports.index = function (req, res) {
@@ -13,10 +15,10 @@ exports.signin = function (req, res) {
 }
 
 exports.home = function (req, res) {
-    console.log(req.user.IdUzytkownik)
-    eventUtil.getCategories(req, res).then(function(greetings){
-        res.render('home', {greetings: greetings,
-        name: req.user.Imie});
+    workersUtil.getName(req.user.IdKontoDomenowe).then(function(name){
+        res.render('home', {
+            name: name
+        });
     })
 }
 

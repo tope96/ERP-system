@@ -85,10 +85,7 @@ module.exports = function (passport, user) {
                     var userPassword = generateHash(password);
                     var data =
                     {
-                        Email: req.body.email,
                         Haslo: userPassword,
-                        Imie: req.body.firstname,
-                        Nazwisko: req.body.lastname,
                         Login: req.body.login
                     };
 
@@ -107,7 +104,7 @@ module.exports = function (passport, user) {
     ));
 
     passport.serializeUser(function (user, done) {
-        done(null, user.IdUzytkownik);
+        done(null, user.IdKontoDomenowe);
     });
 
     passport.deserializeUser(function (id, done) {
