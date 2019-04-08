@@ -1,0 +1,15 @@
+/* Navbar */
+
+.navbar-brand{
+    margin-left: 2rem;
+}
+
+.navbar-nav{
+    margin-right: 2rem;
+}
+
+.home-link{
+    margin-right: 2rem;
+    margin-left: 2rem;
+    font-weight: bold;
+}
