@@ -28,7 +28,8 @@
     transform:translateY(-45%);
 }
 
-.panel-left-navbar{
+.panel-left-navbar {
+    height: 75vh;
     background-color: dimgrey;
     padding: 1rem;
     width: 90%;
@@ -36,11 +37,11 @@
     border-bottom-right-radius: 10px;
 }
 
-.button-left-navbar{
+.button-left-navbar {
     height: 4rem;
     width: 4rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 3vh;
+    /* margin-top: 1rem; */
     cursor: pointer;
     border-radius: 5px;
 }

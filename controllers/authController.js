@@ -1,5 +1,4 @@
-var workersUtil = require('../models/.utils/workerUtil.js');
-
+var eventUtil = require('../models/.utils/workerUtil.js');
 var exports = module.exports = {}
 
 exports.index = function (req, res) {
@@ -15,11 +14,8 @@ exports.signin = function (req, res) {
 }
 
 exports.home = function (req, res) {
-    workersUtil.getName(req.user.IdKontoDomenowe).then(function(name){
-        res.render('home', {
-            name: name
-        });
-    })
+    eventUtil.getName()
+    res.render('home');
 }
 
 exports.notConfirmedUser = function(req, res){
