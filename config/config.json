@@ -2,11 +2,11 @@
  
     "development": {
  
-        "username": "root",
+        "username": "tomek",
  
         "password": "mattii96",
  
-        "database": "inzynierka",
+        "database": "inz",
  
         "host": "localhost",
 
