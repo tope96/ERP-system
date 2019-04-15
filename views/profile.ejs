@@ -1,63 +1,40 @@
 <% include partials/headerLogin %>
+<% include partials/leftNavbar %>
 
-<!-- Title -->
-<div class="row">
-    <div class="container text-center col-lg-12">
-        <span class="h1 title">
-            <h1>Tutaj możesz edytować informacje, które podałeś przy logowaniu</h1>
-        </span>
-    </div>
-</div>
-</section>
 
-<section id="profileInfo">
-    <h2>Twój profil</h2>
+<h2>Twój profil</h2>
     <p>Aby zapisać nowe informacje, musisz nacisnąć "Zapisz", przy edytowanej pozycji.</p>
 
     <div class="panel-body">
         <div class="row">
-
-
             <div class="table-responsive ">
                 <table class="table table-user-information">
                     <tbody>
                         <tr>
                             <td>Imię:</td>
                             <td>
-                                <%= name %>
+                                Tomek
                             </td>
                             <td>
-                                <form id="newForm newNameForm" name="newNameForm" method="post" action="newName"><input
-                                        type="text" class="newForm form-control form" name="newName" placeholder="Nowe imię"
-                                        required>
-                            </td>
-                            <td><button type="submit" class="btn btn-dark">Zapisz</button></form>
+                                <input type="text" class="newForm form-control form" name="newName" placeholder="Nowe imię">
                             </td>
                         </tr>
                         <tr>
                             <td>Nazwisko:</td>
                             <td>
-                                <%= lastName %>
+                                Pietrzak
                             </td>
                             <td>
-                                <form id="newForm newLastNameForm" name="newLastNameForm" method="post" action="newLastName"><input
-                                        type="text" class="newForm form-control form" name="newLastName" placeholder="Nowe nazwisko"
-                                        required>
-                            </td>
-                            <td><button type="submit" class="btn btn-dark">Zapisz</button></form>
+                                <input type="text" class="newForm form-control form" name="newLastName" placeholder="Nowe nazwisko">
                             </td>
                         </tr>
                         <tr>
                             <td>Login</td>
                             <td>
-                                <%= login %>
+                                tope
                             </td>
                             <td>
-                                <form id="newLoginForm" name="newLoginForm" method="post" action="newLogin"><input type="text"
-                                        class="newForm form-control form" name="newLogin" placeholder="Nowy login"
-                                        required>
-                            </td>
-                            <td><button type="submit" class="btn btn-dark">Zapisz</button></form>
+                                <input type="text" class="newForm form-control form" name="newLogin" placeholder="Nowy login">
                             </td>
                         </tr>
 
@@ -65,40 +42,22 @@
                         <tr>
                             <td>Email</td>
                             <td>
-                                <%= email %>
+                                email
                             </td>
                             <td>
-                                <form id="newForm newEmailForm" name="newEmailForm" method="post" action="newEmail"><input
-                                        type="email" class="newForm form-control form" name="newEmail" placeholder="Nowy email"
-                                        required>
-                            </td>
-                            <td><button type="submit" class="btn btn-dark">Zapisz</button></form>
+                                <input type="email" class="newForm form-control form" name="newEmail" placeholder="Nowy email">
                             </td>
                         </tr>
-                        <tr>
-                            <td>Aktualnie jesteś</td>
-                            <td>
-                                <%= czyKlient %>
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        
 
                     </tbody>
                 </table>
+                </div>
+                </div>
+                <div class="rowSaveChanges">
+                    <button type="submit" class="btn btn-success saveChangesProfile"><i class="fa fa-save"> </i> Zapisz zmiany</button>
+                </div>
+         
 
-                <%if (czyKlient === "Fotograf") { %>
-                    <form id="photoSearchForm" name="photoSearchForm" method="post" action="whereIShooting">
-                       <input type="submit" class="btn btn-success" value="Sprawdź swoje wydarzenia">
-                    </form>
-                   
-                <% } else {%>
-                    <form id="MyPhotographersForm" name="MyPhotographersForm" method="post" action="getMyPhotographers">
-                            <input type="submit" class="btn btn-success" value="Sprawdź swoich fotografów">
-                         </form>
-                    <% } %>
-                
 
-</section>
+
 <% include partials/footerLogin %>

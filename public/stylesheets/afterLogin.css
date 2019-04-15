@@ -45,3 +45,16 @@
     cursor: pointer;
     border-radius: 5px;
 }
+.navbar-text {
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    text-align: center;
+    margin: auto;
+    padding-top: 10px;
+}
+.jakis{
+    z-index: 1;
+}
+
+  

@@ -1,24 +1,14 @@
-
 var models = require("../models");
-var foto = models.fotograf;
 var exports = module.exports = {}
-
-exports.events = function (req, res) {
-    res.render('events');
-}
+var workersUtil = require('../models/.utils/workerUtil.js');
 
 exports.profile = function(req, res){
-    
-    userUtil.who(req, res).then(function(czyKlient){
-        res.render("profile", {
-            name: req.user.Imie,
-            lastName: req.user.Nazwisko,
-            login: req.user.Login,
-            email: req.user.Email,
-            czyKlient : czyKlient
-        })
-    })
-
+    workersUtil.getName(req.user.IdKontoDomenowe).then(function(name){
+    res.render('profile',{
+        name: name,
+        site: "Profil"
+    });
+})
 }
 
 

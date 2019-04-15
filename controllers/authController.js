@@ -15,7 +15,8 @@ exports.signin = function (req, res) {
 exports.home = function (req, res) {
     workersUtil.getName(req.user.IdKontoDomenowe).then(function(name){
         res.render('home', {
-            name: name
+            name: name,
+            site: "Pulpit"
         });
     })
 }
