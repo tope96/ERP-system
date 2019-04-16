@@ -14,7 +14,7 @@
                         <tr>
                             <td>Imię:</td>
                             <td>
-                                Tomek
+                                <%= name %>
                             </td>
                             <td>
                                 <input type="text" class="newForm form-control form" name="newName" placeholder="Nowe imię">
@@ -23,7 +23,7 @@
                         <tr>
                             <td>Nazwisko:</td>
                             <td>
-                                Pietrzak
+                                <%= lastName %>
                             </td>
                             <td>
                                 <input type="text" class="newForm form-control form" name="newLastName" placeholder="Nowe nazwisko">
@@ -32,7 +32,7 @@
                         <tr>
                             <td>Login</td>
                             <td>
-                                tope
+                                <%= login %>
                             </td>
                             <td>
                                 <input type="text" class="newForm form-control form" name="newLogin" placeholder="Nowy login">
@@ -43,12 +43,21 @@
                         <tr>
                             <td>Email</td>
                             <td>
-                                email
+                                <%= email %>
                             </td>
                             <td>
                                 <input type="email" class="newForm form-control form" name="newEmail" placeholder="Nowy email">
                             </td>
                         </tr>
+                        <tr>
+                                <td>Firma</td>
+                                <td>
+                                    <%= company %>
+                                </td>
+                                <td>
+                                    <input type="email" class="newForm form-control form" name="newEmail" placeholder="Nowy email">
+                                </td>
+                            </tr>
 
                     </tbody>
                 </table>

@@ -14,6 +14,19 @@ function getName(id){
     });
 }
 
+function getWorkerInfo(id){
+    return pracownik.findOne({
+        where:{
+            IdPracownik: id
+        }
+    }).then(function(pracownikFound){
+        if(pracownikFound){
+            return pracownikFound;
+        }
+    })
+}
+
 module.exports = {
-    getName: getName
+    getName: getName,
+    getWorkerInfo: getWorkerInfo
 }
