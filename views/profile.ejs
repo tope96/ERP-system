@@ -10,6 +10,7 @@
         <div class="row">
             <div class="table-responsive ">
                 <table class="table table-user-information">
+                    <form action="editUser" method="POST">
                     <tbody>
                         <tr>
                             <td>Imię:</td>
@@ -55,11 +56,12 @@
                                     <%= company %>
                                 </td>
                                 <td>
-                                    <input type="email" class="newForm form-control form" name="newEmail" placeholder="Nowy email">
+                                    <input type="email" class="newForm form-control form" name="newCompany" placeholder="Nowa nazwa firmy" disabled>
                                 </td>
                             </tr>
 
                     </tbody>
+                </form>
                 </table>
                 </div>
                 </div>

@@ -26,7 +26,13 @@ function getWorkerInfo(id){
     })
 }
 
+//TODO: dokonczyc edytowanie userow
+function editUser(req, res, name, lastName, email, login){
+
+}
+
 module.exports = {
     getName: getName,
-    getWorkerInfo: getWorkerInfo
+    getWorkerInfo: getWorkerInfo,
+    editUser: editUser
 }
