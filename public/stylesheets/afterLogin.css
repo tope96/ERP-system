@@ -57,4 +57,13 @@
     z-index: 1;
 }
 
-  
+.col-1{
+    margin-left: -1rem !important;
+}
+
+/* PROFILE */
+.section-profile{
+    margin-top: 8rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
