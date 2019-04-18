@@ -28,7 +28,6 @@ function getWorkerInfo(id){
 
 //TODO: dokonczyc edytowanie userow
 function editUser(req, res, name, lastName, email, login){
-    console.log("----> " + name);
     var currentUser = req.user.IdKontoDomenowe;
     if(name != ''){
         newName(currentUser, name);
@@ -77,21 +76,6 @@ function newLastName(currUser, newLastName) {
     );
 }
 
-function newLogin(currUser, newLogin) {
-    return pracownik.findOne({
-        where: {
-            IdPracownik: currUser
-        }
-    }).then(function (user) {
-        if (user) {
-            return user.update({
-                Login: newLogin
-            });
-
-        }
-    }
-    );
-}
 
 function newEmail(currUser, newEmail) {
     return pracownik.findOne({
