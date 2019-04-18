@@ -1,5 +1,7 @@
 var models = require('../../models');
+var worker = require('./workerUtil.js');
 var dAccount = models.konta_domenowe;
+
 
 function getLogin(id){
     return dAccount.findOne({
@@ -13,6 +15,23 @@ function getLogin(id){
     });
 }
 
+function newLogin(currUser, newLogin) {
+    return dAccount.findOne({
+        where: {
+            IdPracownik: currUser
+        }
+    }).then(function (user) {
+        if (user) {
+            return user.update({
+                Login: newLogin
+            });
+
+        }
+    }
+    );
+}
+
 module.exports={
-getLogin: getLogin
+    getLogin: getLogin,
+    newLogin: newLogin
 }

@@ -8,6 +8,7 @@ var domaneAccount = require('../models/.utils/domaneAccount.js');
 
 module.exports = function (app, passport) {
     app.get('/profile', isLoggedIn, controller.profile);
+    app.get('/profileEdited', isLoggedIn, controller.profile);
     app.get('/alreadyExists', isLoggedIn, controller.alreadyExists);
 
     function isLoggedIn(req, res, next) {
