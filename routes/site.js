@@ -10,6 +10,7 @@ module.exports = function (app, passport) {
     app.get('/profile', isLoggedIn, controller.profile);
     app.get('/profileEdited', isLoggedIn, controller.profile);
     app.get('/alreadyExists', isLoggedIn, controller.alreadyExists);
+    app.get('/fixedAssets', isLoggedIn, controller.fixedAssets);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())

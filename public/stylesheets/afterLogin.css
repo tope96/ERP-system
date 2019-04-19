@@ -67,3 +67,31 @@
     margin-left: 4rem;
     margin-right: 4rem;
 }
+
+.border{
+    height: auto !important;
+}
+
+.infoPanel{
+    height: 70vh;
+}
+
+.list-group{
+    width: 15rem !important;
+}
+
+.list-group-item{
+    width: 13vw !important;
+}
+
+.search{
+    width: 13vw;
+    margin-bottom: 1rem;
+}
+
+
+@media screen and (max-width: 985px) {
+    .list-group-item{
+        width: 50vw !important;
+    }
+}

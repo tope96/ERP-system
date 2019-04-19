@@ -9,7 +9,7 @@ function getName(id){
         }
     }).then(function(pracownikFound){
         if(pracownikFound){
-            return pracownikFound.Imie;
+            return pracownikFound;
         }
     });
 }

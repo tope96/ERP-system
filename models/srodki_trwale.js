@@ -38,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'srodki_trwale'
+    tableName: 'srodki_trwale',
+    timestamps: false
   });
 };

@@ -2,6 +2,7 @@ var models = require("../models");
 var exports = module.exports = {}
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
+var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
 
 exports.profile = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
@@ -33,6 +34,18 @@ exports.profileEdited = function(req, res){
     });
 })
 })
+}
+
+exports.fixedAssets = function (req, res) {
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+        fixedAssetsUtil.getAssets(account.IdPracownik).then(function (assets) {
+            res.render('fixedAssets', {
+                name: account.Imie,
+                site: "Środki trwałe",
+                assets: assets
+            });
+        });
+    });
 }
 
 exports.alreadyExists = function(req, res){
