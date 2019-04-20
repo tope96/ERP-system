@@ -95,6 +95,12 @@
     overflow-y: scroll;
 }
 
+.addAssets{
+    margin: 0 auto;
+    width: 40%;
+    margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;

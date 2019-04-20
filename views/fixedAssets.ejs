@@ -2,21 +2,23 @@
 <% include partials/leftNavbar %>
 
 <div class="col-11">
-    <div class="section-profile">
-        <h2>Środki trwałe</h2>
-        <div class="border">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-4">
-                    <input type="text" class="form-control search" placeholder="Wyszukaj" >
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2 itemCol">
-                  <div class="list-group" id="list-tab" role="tablist">
-                        <% for(var i=0; i < assets.length; i++) { %>
-                            <a class="list-group-item list-group-item-action" id="list-<%= assets[i].IdSrodkiTrwale %>-list" data-toggle="list" href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab" aria-controls="<%= assets[i].IdSrodkiTrwale %>"><%= assets[i].Nazwa %></a>
-                        <%}%>
+  <div class="section-profile">
+    <h2>Środki trwałe</h2>
+    <div class="border">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-4">
+            <input type="text" class="form-control search" placeholder="Wyszukaj">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2 itemCol">
+            <div class="list-group" id="list-tab" role="tablist">
+              <% for(var i=0; i < assets.length; i++) { %>
+              <a class="list-group-item list-group-item-action" id="list-<%= assets[i].IdSrodkiTrwale %>-list"
+                data-toggle="list" href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab"
+                aria-controls="<%= assets[i].IdSrodkiTrwale %>"><%= assets[i].Nazwa %></a>
+              <%}%>
                         <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
                         <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
                         <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
@@ -40,23 +42,41 @@
                 </div>
                 <div class="col-lg-10 infoPanel" >
                   <div class="tab-content" id="nav-tabContent">
-                        <% for(var i=0; i < assets.length; i++) { %>
-                            <div class="tab-pane fade show " id="list-<%= assets[i].IdSrodkiTrwale %>" role="tabpanel" aria-labelledby="list-<%= assets[i].IdSrodkiTrwale %>-list">
-                                <h2><%= assets[i].Nazwa %></h2>
-                                <p> <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł</p>
-                                <p><b>Data zakupu: </b> <%= assets[i].DataZakupu %></p>
-                                <h3>Opis:</h3>
-                                <%= assets[i].Opis %> <br />
-                                <button type="button" class="btn btn-success">Edytuj</button>
-                               
-                            </div>
-                        <%}%>
+                    <% for(var i=0; i < assets.length; i++) { %>
+                    <div class="tab-pane fade show " id="list-<%= assets[i].IdSrodkiTrwale %>" role="tabpanel" aria-labelledby="list-<%= assets[i].IdSrodkiTrwale %>-list">
+                      <h2><%= assets[i].Nazwa %></h2>
+                      <p> <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł</p>
+                      <p><b>Data zakupu: </b> <%= assets[i].DataZakupu %></p>
+                      <h3>Opis:</h3>
+                      <%= assets[i].Opis %> <br />
+                      <button type="button" class="btn btn-success">Edytuj</button>
+                    </div>
+                    <%}%>
+                        <div id="myDIV">
+                          <div class="tab-pane fade show " role="tabpanel" >
+                            <h2>Dodawanie przedmiotu</h2>
+                            <p>Podaj dane nowego przedmiotu</p>
+                            <form action="addAsset" method="POST">
+                            <input type="text" class="form-control addAssets" name="name" placeholder="Nazwa przedmiotu">
+                            <input type="text" class="form-control addAssets" name="description" placeholder="Opis">
+                            <input type="text" class="form-control addAssets" name="type" placeholder="Rodzaj">
+                            <input type="number" class="form-control addAssets" name="price" placeholder="Wartość netto">
+                            <input type="date" class="form-control addAssets" name="date" placeholder="Data zakupu">
+                            <select class="form-control addAssets" name="owner">
+                              <% for(var i=0; i < users.length; i++) { %>
+                              <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %></option>
+                              <%}%>
+                            </select>
+                          <button type="submit" class="btn btn-success">Zapisz</button>
+                          </form>
+                          </div>
+                        </div>
                         
                   </div>
                 </div>
             </div>
             <div class="row">
-                <button type="button" onclick="myFunction()">Edytuj</button>
+                <button type="button" onclick="myFunction()">Dodaj przedmiot</button>
             </div>
             
 
@@ -66,13 +86,13 @@
 </div>
 
 <script>
-        function myFunction() {
-          var x = document.getElementById("myDIV");
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-        </script>
+  function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
 <% include partials/footerLogin %>

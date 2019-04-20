@@ -39,12 +39,15 @@ exports.profileEdited = function(req, res){
 exports.fixedAssets = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         fixedAssetsUtil.getAssets(account.IdPracownik).then(function (assets) {
+            workersUtil.getWorkers().then(function(users){
             res.render('fixedAssets', {
                 name: account.Imie,
                 site: "Środki trwałe",
-                assets: assets
+                assets: assets,
+                users: users
             });
         });
+    });
     });
 }
 

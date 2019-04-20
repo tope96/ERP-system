@@ -5,6 +5,7 @@ var models = require("../models");
 var passport = require('passport');
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
+var fixedAssets = require('../models/.utils/fixedAssets.js');
 
 module.exports = function (app, passport) {
     app.get('/profile', isLoggedIn, controller.profile);
@@ -27,5 +28,17 @@ module.exports = function (app, passport) {
         workersUtil.editUser(req, res, name, lastName, email, login);
     });
 
+    app.post('/addAsset', isLoggedIn, function(req, res){
+        var name = req.body.name;
+        var description = req.body.description;
+        var type = req.body.type;
+        var price = req.body.price;
+        var date = req.body.date;
+        var owner = req.body.owner;
+        fixedAssets.addAsset(name, description, type, price, date, owner);
+        setTimeout(function(){
+            res.redirect('/fixedAssets');
+        }, 500);
+    });
 
 }

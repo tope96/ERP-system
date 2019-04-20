@@ -93,8 +93,19 @@ function newEmail(currUser, newEmail) {
 }
 
 
+function getWorkers(){
+    return pracownik.findAll({
+
+    }).then(function(user){
+        if(user){
+            return user;
+        }
+    })
+}
+
 module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
-    editUser: editUser
+    editUser: editUser,
+    getWorkers:getWorkers
 }
