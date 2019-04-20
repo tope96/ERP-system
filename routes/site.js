@@ -41,4 +41,28 @@ module.exports = function (app, passport) {
         }, 500);
     });
 
+    app.post('/deleteAsset', isLoggedIn, function(req, resp){
+        var idAsset = req.body.asset;
+        fixedAssets.deleteAsset(idAsset).then(function(req, res){
+            setTimeout(function(){
+                resp.redirect('/fixedAssets');
+            }, 500); 
+        });
+    });
+
+    app.post('/editAsset', isLoggedIn, function(req, resp){
+        var name = req.body.nameEdit;
+        var description = req.body.descriptionEdit;
+        var type = req.body.typeEdit;
+        var price = req.body.priceEdit;
+        var date = req.body.dateEdit;
+        var id = req.body.idEdit;
+
+        fixedAssets.editAsset(name, description, type, price, date, id).then(function(req, res){
+            setTimeout(function(){
+                resp.redirect('/fixedAssets');
+            }, 500); 
+        })
+    });
+
 }

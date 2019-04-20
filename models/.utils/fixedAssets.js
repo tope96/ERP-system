@@ -24,16 +24,33 @@ function addAssets(name, description, type, price, date, owner){
     });
 }
 
-function deleteAsset(name, price, owner, type){
+function deleteAsset(id){
     return fixedAssets.destroy({
         where:{
-
+            IdSrodkiTrwale: id 
         }
+    });
+}
+
+function editAsset(name, description, type, price, date, id){
+    return fixedAssets.findOne({
+        where:{
+            IdSrodkiTrwale: id
+        }
+    }).then(function(asset){
+        return asset.update({
+            Opis: description,
+            Rodzaj: type,
+            WartoscNetto: price,
+            DataZakupu: date,
+            Nazwa: name
+        });
     })
 }
 
 module.exports = {
     getAssets: getAssets,
     addAsset: addAssets,
-    deleteAsset: deleteAsset
+    deleteAsset: deleteAsset,
+    editAsset, editAsset
 }

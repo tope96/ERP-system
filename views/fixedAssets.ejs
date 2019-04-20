@@ -1,98 +1,145 @@
 <% include partials/headerLogin %>
 <% include partials/leftNavbar %>
 
-<div class="col-11">
-  <div class="section-profile">
-    <h2>Środki trwałe</h2>
-    <div class="border">
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-4">
-            <input type="text" class="form-control search" placeholder="Wyszukaj">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-2 itemCol">
-            <div class="list-group" id="list-tab" role="tablist">
-              <% for(var i=0; i < assets.length; i++) { %>
-              <a class="list-group-item list-group-item-action" id="list-<%= assets[i].IdSrodkiTrwale %>-list"
-                data-toggle="list" href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab"
-                aria-controls="<%= assets[i].IdSrodkiTrwale %>"><%= assets[i].Nazwa %></a>
-              <%}%>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                        <a class="list-group-item list-group-item-action" id="list-list" data-toggle="list" href="#list-" role="tab" aria-controls="">dfdf</a>
-                       
-                  </div>
-                 
-                </div>
-                <div class="col-lg-10 infoPanel" >
-                  <div class="tab-content" id="nav-tabContent">
-                    <% for(var i=0; i < assets.length; i++) { %>
-                    <div class="tab-pane fade show " id="list-<%= assets[i].IdSrodkiTrwale %>" role="tabpanel" aria-labelledby="list-<%= assets[i].IdSrodkiTrwale %>-list">
-                      <h2><%= assets[i].Nazwa %></h2>
-                      <p> <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł</p>
-                      <p><b>Data zakupu: </b> <%= assets[i].DataZakupu %></p>
-                      <h3>Opis:</h3>
-                      <%= assets[i].Opis %> <br />
-                      <button type="button" class="btn btn-success">Edytuj</button>
-                    </div>
-                    <%}%>
-                        <div id="myDIV">
-                          <div class="tab-pane fade show " role="tabpanel" >
-                            <h2>Dodawanie przedmiotu</h2>
-                            <p>Podaj dane nowego przedmiotu</p>
-                            <form action="addAsset" method="POST">
-                            <input type="text" class="form-control addAssets" name="name" placeholder="Nazwa przedmiotu">
-                            <input type="text" class="form-control addAssets" name="description" placeholder="Opis">
-                            <input type="text" class="form-control addAssets" name="type" placeholder="Rodzaj">
-                            <input type="number" class="form-control addAssets" name="price" placeholder="Wartość netto">
-                            <input type="date" class="form-control addAssets" name="date" placeholder="Data zakupu">
-                            <select class="form-control addAssets" name="owner">
-                              <% for(var i=0; i < users.length; i++) { %>
-                              <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %></option>
-                              <%}%>
-                            </select>
-                          <button type="submit" class="btn btn-success">Zapisz</button>
-                          </form>
-                          </div>
-                        </div>
-                        
-                  </div>
-                </div>
-            </div>
-            <div class="row">
-                <button type="button" onclick="myFunction()">Dodaj przedmiot</button>
-            </div>
-            
 
+<div class="col-11">
+  <div class="section-assets">
+    <div class="row border">
+      <div class="col-md-2">
+        <input type="text" class="form-control search" placeholder="Wyszukaj">
+        <div class="list-group" id="list-tab" role="tablist">
+          <% for(var i=0; i < assets.length; i++) { %>
+          <a class="list-group-item list-group-item-action" onclick="hide()"
+            id="list-<%= assets[i].IdSrodkiTrwale %>-list" data-toggle="list"
+            href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab"
+            aria-controls="<%= assets[i].IdSrodkiTrwale %>"><%= assets[i].Nazwa %></a>
+          <%}%>       
         </div>
+        <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj przedmiot</button>
     </div>
+    <div class="col-md-8" >
+      <div id="infoPanel">
+        <div class="tab-content" id="nav-tabContent">
+            <% for(var i=0; i < assets.length; i++) { %>
+          <div class="tab-pane fade show " id="list-<%= assets[i].IdSrodkiTrwale %>" role="tabpanel"
+            aria-labelledby="list-<%= assets[i].IdSrodkiTrwale %>-list">
+            <h2><%= assets[i].Nazwa %></h2>
+            <p> <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł</p>
+            <p><b>Data zakupu: </b> <%= assets[i].DataZakupu %></p>
+            <h3>Opis:</h3>
+            <%= assets[i].Opis %> <br />
+            <form action="deleteAsset" method="POST">
+                <input type="hidden" id="asset" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
+                <button type="submit" class="btn btn-danger">Usuń</button>
+            </form>
+            <button type="button" class="btn btn-success" onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')">Edytuj</button>
+          </div>
+          <%}%>
     </div>
+  </div>
+
+  <div id="editPanel">
+      <div class="tab-pane fade show " role="tabpanel" >
+        <h2>Dodawanie przedmiotu</h2>
+        <p>Podaj dane nowego przedmiotu</p>
+        <form action="addAsset" method="POST">
+        <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Nazwa przedmiotu">
+        <input type="text" class="form-control addAssets" id="description" name="description" placeholder="Opis">
+        <input type="text" class="form-control addAssets" id="type" name="type" placeholder="Rodzaj">
+        <input type="number" class="form-control addAssets" id="price" name="price" placeholder="Wartość netto">
+        <input type="date" class="form-control addAssets" id="date" name="date " placeholder="Data zakupu">
+        <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner">
+          <% for(var i=0; i < users.length; i++) { %>
+          <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %></option>
+          <%}%>
+        </select>
+        <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+      <button type="submit" class="btn btn-success">Zapisz</button>
+      </form>
+      </div>
+    </div>
+    
+    <div id="edit">
+        <div class="tab-pane fade show " role="tabpanel" >
+          <h2>Edytowanie przedmiotu</h2>
+          <p>Podaj nowe dane</p>
+          <form action="editAsset" method="POST">
+          <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit" placeholder="Nazwa przedmiotu">
+          <input type="text" class="form-control addAssets" id="descriptionEdit" name="descriptionEdit" placeholder="Opis">
+          <input type="text" class="form-control addAssets" id="typeEdit" name="typeEdit" placeholder="Rodzaj">
+          <input type="number" class="form-control addAssets" id="priceEdit" name="priceEdit" placeholder="Wartość netto">
+          <input type="date" class="form-control addAssets" id="dateEdit" name="dateEdit" placeholder="Data zakupu">
+          <input type="hidden" id="idEdit" name="idEdit" value="">
+          </select>
+          <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+          <button type="submit" class="btn btn-success">Zapisz</button>
+        </form>
+        </div>
+      </div>
+
+  </div>
 </div>
+</div>
+</div>
+
 
 <script>
   function myFunction() {
-    var x = document.getElementById("myDIV");
+    var y = document.getElementById("infoPanel");
+    var x = document.getElementById("editPanel");
+    var z = document.getElementById("edit");
+    z.style.display = "none";
     if (x.style.display === "none") {
       x.style.display = "block";
     } else {
       x.style.display = "none";
     }
+
+    y.style.display = "none";
+
+  }
+
+  function hide() {
+    var z = document.getElementById("edit");
+    z.style.display = "none";
+    var x = document.getElementById("editPanel");
+    var y = document.getElementById("infoPanel");
+    x.style.display = "none";
+    y.style.display = "block";
+  }
+
+  function cancel() {
+    var z = document.getElementById("edit");
+    z.style.display = "none";
+    var x = document.getElementById("editPanel");
+    x.style.display = "none";
+    document.getElementById("name").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("type").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("owner").value = "";
+    var y = document.getElementById("infoPanel");
+    y.style.display = "block";
+  }
+
+  function edit(nazwa, opis, rodzaj, WartoscNetto, DataZakupu, IdSrodkiTrwale){
+    var y = document.getElementById("editPanel");
+    y.style.display = "none";
+
+    var z = document.getElementById("infoPanel");
+    z.style.display="none";
+
+    document.getElementById("nameEdit").value = nazwa;
+    document.getElementById("descriptionEdit").value = opis;
+    document.getElementById("typeEdit").value = rodzaj;
+    document.getElementById("priceEdit").value = WartoscNetto;
+    document.getElementById("dateEdit").value = DataZakupu;
+    document.getElementById("idEdit").value = IdSrodkiTrwale;
+
+    var x = document.getElementById("edit");
+    x.style.display = "block";
+
   }
 </script>
 <% include partials/footerLogin %>

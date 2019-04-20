@@ -91,14 +91,52 @@
 
 
 .list-group{
-    max-height: 70vh;
+    height: 70vh;
     overflow-y: scroll;
+    background-color: rgb(219, 219, 219);
 }
 
 .addAssets{
     margin: 0 auto;
     width: 40%;
     margin-bottom: 1rem;
+}
+
+#editPanel{ 
+    display: none;
+    z-index: 2;
+    position: relative;
+}
+
+
+.section-assets{
+    margin-top: 8rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    height: 80vh;
+}
+
+#infoPanel{
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+#infoPanel h2{
+    text-align: center;
+}
+
+#editPanel{
+    margin-top: 1rem;
+    margin-left: 2rem;
+    text-align: center;
+}
+
+.col-md-2{
+    margin-left: -1rem;
+}
+
+#edit{
+    display: none;
 }
 
 @media screen and (max-width: 985px) {
