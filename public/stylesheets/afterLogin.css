@@ -81,7 +81,7 @@
 }
 
 .list-group-item{
-    width: 13vw !important;
+    /* width: 13vw !important; */
 }
 
 .search{
@@ -89,6 +89,11 @@
     margin-bottom: 1rem;
 }
 
+
+.list-group{
+    max-height: 70vh;
+    overflow-y: scroll;
+}
 
 @media screen and (max-width: 985px) {
     .list-group-item{
