@@ -6,15 +6,15 @@
   <div class="section-assets">
     <div class="row border">
       <div class="col-md-2">
-        <input type="text" class="form-control search" placeholder="Wyszukaj">
-        <div class="list-group" id="list-tab" role="tablist">
+        <input type="text" class="form-control search" id="search" placeholder="Wyszukaj">
+        <ul class="list-group" id="list-tab" role="tablist">
           <% for(var i=0; i < assets.length; i++) { %>
-          <a class="list-group-item list-group-item-action" onclick="hide()"
+          <li class="list-group-item list-group-item-action" onclick="hide()"
             id="list-<%= assets[i].IdSrodkiTrwale %>-list" data-toggle="list"
             href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab"
-            aria-controls="<%= assets[i].IdSrodkiTrwale %>"><%= assets[i].Nazwa %></a>
+            aria-controls="<%= assets[i].IdSrodkiTrwale %>"><%= assets[i].Nazwa %></li>
           <%}%>       
-        </div>
+          </ul>
         <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj przedmiot</button>
     </div>
     <div class="col-md-8" >
@@ -141,5 +141,23 @@
     x.style.display = "block";
 
   }
+
+  $(function(){
+	$('#search').keyup(function(){	
+		var current_query = $('#search').val();
+		if (current_query !== "") {
+			$(".list-group li").hide();
+			$(".list-group li").each(function(){
+				var current_keyword = $(this).text();
+				if (current_keyword.indexOf(current_query) >=0) {
+					$(this).show();    	 	
+				};
+			});    	
+		} else {
+			$(".list-group li").show();
+		};
+	});
+});
+
 </script>
 <% include partials/footerLogin %>
