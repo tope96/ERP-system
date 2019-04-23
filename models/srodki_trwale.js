@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     DataZakupu: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: true
     }
   }, {
     tableName: 'srodki_trwale',

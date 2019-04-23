@@ -28,6 +28,7 @@ module.exports = function (app, passport) {
         workersUtil.editUser(req, res, name, lastName, email, login);
     });
 
+    //FIXED ASSETS
     app.post('/addAsset', isLoggedIn, function(req, res){
         var name = req.body.name;
         var description = req.body.description;
@@ -35,7 +36,9 @@ module.exports = function (app, passport) {
         var price = req.body.price;
         var date = req.body.date;
         var owner = req.body.owner;
-        fixedAssets.addAsset(name, description, type, price, date, owner);
+        var amount = req.body.amount;
+        
+        fixedAssets.addAsset(name, description, type, price, date, owner, amount);
         setTimeout(function(){
             res.redirect('/fixedAssets');
         }, 500);

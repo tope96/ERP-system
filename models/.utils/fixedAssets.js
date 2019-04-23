@@ -14,13 +14,15 @@ function getAssets(id){
 }
 
 function addAssets(name, description, type, price, date, owner){
+    console.log("-------------> " + date);
     return fixedAssets.create({
         Nazwa: name,
         Opis: description,
         Rodzaj: type,
         WartoscNetto: price,
-        DataZakupu: date,
-        IdPracownik: owner
+        IdPracownik: owner,
+        Ilosc: 2,
+        DataZakupu: date
     });
 }
 

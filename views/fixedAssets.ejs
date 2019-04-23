@@ -69,12 +69,13 @@
         <h2>Dodawanie przedmiotu</h2>
         <p>Podaj dane nowego przedmiotu</p>
         <form action="addAsset" method="POST">
-        <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Nazwa przedmiotu">
-        <input type="text" class="form-control addAssets" id="description" name="description" placeholder="Opis">
-        <input type="text" class="form-control addAssets" id="type" name="type" placeholder="Rodzaj">
-        <input type="number" class="form-control addAssets" id="price" name="price" placeholder="Wartość netto">
-        <input type="date" class="form-control addAssets" id="date" name="date " placeholder="Data zakupu">
-        <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner">
+        <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Nazwa przedmiotu" required>
+        <input type="text" class="form-control addAssets" id="description" name="description" placeholder="Opis" required>
+        <input type="text" class="form-control addAssets" id="type" name="type" placeholder="Rodzaj" required>
+        <input type="number" class="form-control addAssets" id="price" name="price" placeholder="Wartość netto" required>
+        <input type="date" class="form-control addAssets" id="date" name="date" placeholder="Data zakupu" required>
+        <input type="number" class="form-control addAssets" id="amount" name="amount" placeholder="Ilość" required>
+        <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner" required>
           <% for(var i=0; i < users.length; i++) { %>
             <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %></option>
           <%}%>
