@@ -50,6 +50,24 @@ module.exports = function (app, passport) {
         });
     });
 
+    app.post('/deleteOneAsset', isLoggedIn, function(req, resp){
+        var idAsset = req.body.asset;
+        fixedAssets.deleteOneasset(idAsset).then(function(req, res){
+            setTimeout(function(){
+                resp.redirect('/fixedAssets');
+            }, 500);
+        })
+    });
+
+    app.post('/addOneAsset', isLoggedIn, function(req, resp){
+        var idAsset = req.body.asset;
+        fixedAssets.addOneAsset(idAsset).then(function(req, res){
+            setTimeout(function(){
+                resp.redirect('/fixedAssets');
+            }, 500);
+        })
+    })
+
     app.post('/editAsset', isLoggedIn, function(req, resp){
         var name = req.body.nameEdit;
         var description = req.body.descriptionEdit;

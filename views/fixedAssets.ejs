@@ -7,34 +7,60 @@
     <div class="row border">
       <div class="col-md-2">
         <input type="text" class="form-control search" id="search" placeholder="Wyszukaj">
-        <ul class="list-group" id="list-tab" role="tablist">
-          <% for(var i=0; i < assets.length; i++) { %>
-          <li class="list-group-item list-group-item-action" onclick="hide()"
-            id="list-<%= assets[i].IdSrodkiTrwale %>-list" data-toggle="list"
-            href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab"
-            aria-controls="<%= assets[i].IdSrodkiTrwale %>"><%= assets[i].Nazwa %></li>
-          <%}%>       
-          </ul>
+        <ul class="ul">
+          <div class="list-group" id="list-tab" role="tablist">
+            <% for(var i=0; i < assets.length; i++) { %>
+            <li class="list-group-item list-group-item-action" onclick="hide()"
+              id="list-<%= assets[i].IdSrodkiTrwale %>-list" data-toggle="list"
+              href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab" aria-controls="<%= assets[i].IdSrodkiTrwale %>">
+              <b><%= assets[i].Nazwa %></b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; szt.: <%= assets[i].Ilosc %></li>
+            <%}%>       
+          </div>
+        </ul>
         <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj przedmiot</button>
     </div>
     <div class="col-md-8" >
       <div id="infoPanel">
         <div class="tab-content" id="nav-tabContent">
             <% for(var i=0; i < assets.length; i++) { %>
-          <div class="tab-pane fade show " id="list-<%= assets[i].IdSrodkiTrwale %>" role="tabpanel"
-            aria-labelledby="list-<%= assets[i].IdSrodkiTrwale %>-list">
-            <h2><%= assets[i].Nazwa %></h2>
-            <p> <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł</p>
-            <p><b>Data zakupu: </b> <%= assets[i].DataZakupu %></p>
-            <h3>Opis:</h3>
-            <%= assets[i].Opis %> <br />
-            <form action="deleteAsset" method="POST">
-                <input type="hidden" id="asset" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-                <button type="submit" class="btn btn-danger">Usuń</button>
-            </form>
-            <button type="button" class="btn btn-success" onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')">Edytuj</button>
-          </div>
-          <%}%>
+            <div class="tab-pane fade show " id="list-<%= assets[i].IdSrodkiTrwale %>" role="tabpanel"
+              aria-labelledby="list-<%= assets[i].IdSrodkiTrwale %>-list">
+
+              <div class="row asset-name">
+                <h2><%= assets[i].Nazwa %></h2>
+                <button type="button" class="btn btn-light"
+                  onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')"><i
+                    class="fa fa-edit"></i></button>
+              </div>
+
+
+              <h3>Opis:</h3>
+              <%= assets[i].Opis %> <br />
+              <p> <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł</p>
+              <p><b>Data zakupu: </b> <%= assets[i].DataZakupu %></p>
+
+
+              <div class="row">
+                <p><b>Ilość:</b> <%= assets[i].Ilosc %></p>
+                <form action="deleteOneAsset" method="POST">
+                  <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
+                  <button type="submit" class="btn btn-outline-danger"><i class="fa fa-minus"></i></button>
+                </form>
+                <form action="addOneAsset" method="POST">
+                  <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
+                  <button type="submit" class="btn btn-outline-success"><i class="fa fa-plus"></i></button>
+                </form>
+              </div>
+              <div class="form">
+                <form action="deleteAsset" method="POST">
+                  <input type="hidden" id="asset" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
+                  <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                </form>
+              </div>
+
+
+            </div>
+            <%}%>
     </div>
   </div>
 
@@ -50,7 +76,7 @@
         <input type="date" class="form-control addAssets" id="date" name="date " placeholder="Data zakupu">
         <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner">
           <% for(var i=0; i < users.length; i++) { %>
-          <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %></option>
+            <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %></option>
           <%}%>
         </select>
         <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
@@ -123,12 +149,12 @@
     y.style.display = "block";
   }
 
-  function edit(nazwa, opis, rodzaj, WartoscNetto, DataZakupu, IdSrodkiTrwale){
+  function edit(nazwa, opis, rodzaj, WartoscNetto, DataZakupu, IdSrodkiTrwale) {
     var y = document.getElementById("editPanel");
     y.style.display = "none";
 
     var z = document.getElementById("infoPanel");
-    z.style.display="none";
+    z.style.display = "none";
 
     document.getElementById("nameEdit").value = nazwa;
     document.getElementById("descriptionEdit").value = opis;
@@ -142,22 +168,22 @@
 
   }
 
-  $(function(){
-	$('#search').keyup(function(){	
-		var current_query = $('#search').val();
-		if (current_query !== "") {
-			$(".list-group li").hide();
-			$(".list-group li").each(function(){
-				var current_keyword = $(this).text();
-				if (current_keyword.indexOf(current_query) >=0) {
-					$(this).show();    	 	
-				};
-			});    	
-		} else {
-			$(".list-group li").show();
-		};
-	});
-});
+  $(function () {
+    $('#search').keyup(function () {
+      var current_query = $('#search').val();
+      if (current_query !== "") {
+        $(".list-group li").hide();
+        $(".list-group li").each(function () {
+          var current_keyword = $(this).text();
+          if (current_keyword.indexOf(current_query) >= 0) {
+            $(this).show();
+          };
+        });
+      } else {
+        $(".list-group li").show();
+      };
+    });
+  });
 
 </script>
 <% include partials/footerLogin %>

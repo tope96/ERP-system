@@ -48,9 +48,38 @@ function editAsset(name, description, type, price, date, id){
     })
 }
 
+function deleteOneasset(id){
+    return fixedAssets.findOne({
+        where:{
+            IdSrodkiTrwale: id
+        }
+    }).then(function(asset){
+        var ile = asset.Ilosc;
+        return asset.update({
+            Ilosc: ile-1
+        });
+    });
+}
+
+
+function addOneAsset(id){
+    return fixedAssets.findOne({
+        where:{
+            IdSrodkiTrwale: id
+        }
+    }).then(function(asset){
+        var ile = asset.Ilosc;
+        return asset.update({
+            Ilosc: ile+1
+        });
+    });
+}
+
 module.exports = {
     getAssets: getAssets,
     addAsset: addAssets,
     deleteAsset: deleteAsset,
-    editAsset, editAsset
+    editAsset, editAsset,
+    deleteOneasset: deleteOneasset,
+    addOneAsset:addOneAsset
 }

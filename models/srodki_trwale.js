@@ -33,6 +33,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false
     },
+    Ilosc: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
     DataZakupu: {
       type: DataTypes.DATEONLY,
       allowNull: false

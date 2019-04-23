@@ -121,8 +121,9 @@
     margin-left: 2rem;
 }
 
-#infoPanel h2{
-    text-align: center;
+.asset-name{
+    margin: 0 auto;
+    width: 20rem;
 }
 
 #editPanel{
@@ -137,6 +138,10 @@
 
 #edit{
     display: none;
+}
+
+.ul{
+    margin-left: -2rem;
 }
 
 @media screen and (max-width: 985px) {
