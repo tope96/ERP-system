@@ -54,3 +54,12 @@ exports.fixedAssets = function (req, res) {
 exports.alreadyExists = function(req, res){
     res.render('alreadyExists');
 }
+
+exports.editCompany = function(req, res){
+    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+        res.render('editCompany', {
+            name: profile.Imie,
+            site: "Edytowanie firmy"
+        });
+    })
+}

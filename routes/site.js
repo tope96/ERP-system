@@ -12,6 +12,7 @@ module.exports = function (app, passport) {
     app.get('/profileEdited', isLoggedIn, controller.profile);
     app.get('/alreadyExists', isLoggedIn, controller.alreadyExists);
     app.get('/fixedAssets', isLoggedIn, controller.fixedAssets);
+    app.get('/editCompany', isLoggedIn, controller.editCompany);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -85,5 +86,8 @@ module.exports = function (app, passport) {
             }, 500); 
         })
     });
+
+    //COMPANY EDIT
+
 
 }
