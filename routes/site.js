@@ -13,6 +13,9 @@ module.exports = function (app, passport) {
     app.get('/alreadyExists', isLoggedIn, controller.alreadyExists);
     app.get('/fixedAssets', isLoggedIn, controller.fixedAssets);
     app.get('/editCompany', isLoggedIn, controller.editCompany);
+    app.get('/editCompanyAddProfile', isLoggedIn, controller.editCompanyAddProfile);
+    app.get('/editCompanyAddProfileError', isLoggedIn, controller.editCompanyAddProfileError);
+    app.get('/editCompanyAddProfileSuccess', isLoggedIn, controller.editCompanyAddProfileSuccess);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -47,7 +50,7 @@ module.exports = function (app, passport) {
 
     app.post('/deleteAsset', isLoggedIn, function(req, resp){
         var idAsset = req.body.asset;
-        fixedAssets.deleteAsset(idAsset).then(function(req, res){
+        fixedAssets.deleteAsset(idAsset).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500); 
@@ -56,7 +59,7 @@ module.exports = function (app, passport) {
 
     app.post('/deleteOneAsset', isLoggedIn, function(req, resp){
         var idAsset = req.body.asset;
-        fixedAssets.deleteOneasset(idAsset).then(function(req, res){
+        fixedAssets.deleteOneasset(idAsset).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500);
@@ -65,7 +68,7 @@ module.exports = function (app, passport) {
 
     app.post('/addOneAsset', isLoggedIn, function(req, resp){
         var idAsset = req.body.asset;
-        fixedAssets.addOneAsset(idAsset).then(function(req, res){
+        fixedAssets.addOneAsset(idAsset).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500);
@@ -80,7 +83,7 @@ module.exports = function (app, passport) {
         var date = req.body.dateEdit;
         var id = req.body.idEdit;
 
-        fixedAssets.editAsset(name, description, type, price, date, id).then(function(req, res){
+        fixedAssets.editAsset(name, description, type, price, date, id).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500); 
@@ -88,6 +91,24 @@ module.exports = function (app, passport) {
     });
 
     //COMPANY EDIT
+    app.post('/addProfile', isLoggedIn, function(req, res){
+        var name = req.body.name;
+        var lastName = req.body.lastName;
+        var email = req.body.email;
+        var tel = req.body.telephone;
+        var login = req.body.login;
+        var password = req.body.password;
+        var superior = req.body.superior;
 
+        workersUtil.addProfile(name, lastName, email, tel, superior).then(function(user){
+            if(user == false){
+                res.redirect('/editCompanyAddProfileError');
+            }else{
+                domaneAccount.newAccount(login, user.IdPracownik, password).then(function(){
+                    res.redirect('/editCompanyAddProfileSuccess');
+                })
+            }
+        });
+    });
 
 }

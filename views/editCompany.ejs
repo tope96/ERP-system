@@ -1,6 +1,60 @@
 <% include partials/headerLogin %>
 <% include partials/leftNavbar %>
 
-<button type="submit" class="btn btn-success">Dodaj </button>
+<div class="col-11">
+        <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success">Dodaj konto</button></a>
+</div>
+
+<%if (add === true){%>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h3>Dodaj konto</h3>
+            <p>Podaj informacje niezbędne do utworzenia nowego konta</p>
+            <form action="/addProfile" method="POST">
+                <input type="text" class="form-control createAccount" name="name" placeholder="Imię">
+                <input type="text" class="form-control createAccount" name="lastName" placeholder="Nazwisko">
+                <input type="email" class="form-control createAccount" name="email" placeholder="Email">
+                <input type="tel" class="form-control createAccount" name="telephone" placeholder="Telefon">
+                <select class="form-control createAccount" placeholder="Przełożony" id="superior" name="superior" required>
+                        <% for(var i=0; i < workers.length; i++) { %>
+                          <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
+                        <%}%>
+                </select>
+                <input type="text" class="form-control createAccount" name="login" placeholder="Login">
+                <input type="password" class="form-control createAccount" name="password" placeholder="Hasło">
+                
+                <div class="row buttonsInRow">
+                <div class="col-6 leftButtonInRow">
+                    <a href="/editCompany"><button type="button" class="btn btn-danger">Anuluj</button></a>
+                </div>
+                <div class="col-6 right">
+                    <button type="submit" class="btn btn-success">Zapisz</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<%if (userAlreadyExists === true){%>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h3>Uwaga!</h3>
+            <p>Użytkownik o takim adresie email i numerze telefonu istnieje!</p>
+            <p>Spróbuj podać inne dane.</p>
+            <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success">Ok</button></a>
+        </div>
+    </div>
+<% } %>
+
+<%if (addSuccess === true){%>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h3>Sukces!</h3>
+            <p>Konto zostało utworzone poprawnie.</p>
+            <a href="/editCompany"><button type="button" class="btn btn-success">Ok</button></a>
+        </div>
+    </div>
+<% } %>
 
 <% include partials/footerLogin %>

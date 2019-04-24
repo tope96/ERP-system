@@ -103,9 +103,32 @@ function getWorkers(){
     })
 }
 
+function addProfile(name, lastName, email, tel, superior){
+    return pracownik.findOne({
+        where:{
+            Email: email,
+            NumerTelefonu: tel
+        }
+    }).then(function(user){
+        if(user){
+            return false;
+        }else{
+            return pracownik.create({
+                Imie: name,
+                Nazwisko: lastName,
+                Email: email,
+                NumerTelefonu: tel,
+                IdUmowy: null, //TODO: zmienić
+                IdPrzelozony: superior
+            });
+        }
+    });
+}
+
 module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
     editUser: editUser,
-    getWorkers:getWorkers
+    getWorkers:getWorkers,
+    addProfile: addProfile
 }

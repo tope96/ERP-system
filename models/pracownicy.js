@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 'NULL'
     },
     Email: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(50),
       allowNull: false
     },
     NumerTelefonu: {

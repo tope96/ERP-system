@@ -59,7 +59,52 @@ exports.editCompany = function(req, res){
     workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
         res.render('editCompany', {
             name: profile.Imie,
-            site: "Edytowanie firmy"
+            site: "Edytowanie firmy",
+            add: false,
+            userAlreadyExists: false,
+            addSuccess: false
         });
     })
+}
+
+exports.editCompanyAddProfile = function(req, res){
+    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+        workersUtil.getWorkers().then(function(workers){
+            res.render('editCompany', {
+                name: profile.Imie,
+                site: "Edytowanie firmy",
+                add: true,
+                workers: workers,
+                userAlreadyExists: false,
+                addSuccess: false
+            });
+        });
+    });
+}
+
+exports.editCompanyAddProfileError = function(req, res){
+    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+        workersUtil.getWorkers().then(function(workers){
+            res.render('editCompany', {
+                name: profile.Imie,
+                site: "Edytowanie firmy",
+                add: false,
+                workers: workers,
+                userAlreadyExists: true,
+                addSuccess: false
+            });
+        });
+    });
+}
+
+exports.editCompanyAddProfileSuccess = function(req, res){
+    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+            res.render('editCompany', {
+                name: profile.Imie,
+                site: "Edytowanie firmy",
+                add: false,
+                userAlreadyExists: false,
+                addSuccess: true
+            });
+        });
 }
