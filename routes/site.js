@@ -16,6 +16,9 @@ module.exports = function (app, passport) {
     app.get('/editCompanyAddProfile', isLoggedIn, controller.editCompanyAddProfile);
     app.get('/editCompanyAddProfileError', isLoggedIn, controller.editCompanyAddProfileError);
     app.get('/editCompanyAddProfileSuccess', isLoggedIn, controller.editCompanyAddProfileSuccess);
+    app.get('/changePassword', isLoggedIn, controller.changePassword);
+    app.get('/passwordChanged', isLoggedIn, controller.passwordChanged);
+    app.get('/changePasswordError', isLoggedIn, controller.changePasswordError);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -23,6 +26,7 @@ module.exports = function (app, passport) {
         res.redirect('/signin');
     }
 
+    //PROFILE
     app.post('/editUser', isLoggedIn, function(req, res){
         var name = req.body.newName;
         var lastName = req.body.newLastName;
@@ -30,6 +34,21 @@ module.exports = function (app, passport) {
         var login = req.body.newLogin;
 
         workersUtil.editUser(req, res, name, lastName, email, login);
+    });
+
+    app.post('/changePassword', isLoggedIn, function(req, res){
+        var currPassword = req.body.currPassword;
+        var newPassword = req.body.newPassword;
+
+        domaneAccount.ifCurrPasswordValid(req.user.IdKontoDomenowe, currPassword).then(function(ifValid){
+            if(ifValid){
+                domaneAccount.changePassword(req.user.IdKontoDomenowe, newPassword).then(function(){
+                    res.redirect('/passwordChanged');
+                });
+            }else{
+                    res.redirect('/changePasswordError');
+            }
+        });
     });
 
     //FIXED ASSETS

@@ -56,8 +56,42 @@ function newAccount(login, workerId, password){
 
 }
 
+function ifCurrPasswordValid(id, currPassword){
+    var isValidPassword = function (userpass, password) {
+        return bCrypt.compareSync(password, userpass);
+    }
+
+    console.log('tutaaj ' + isValidPassword("$2a$08$6L2qwDtv07uC6h0N9929z.2sqnQn0N6r3Pc9PISnHWNsQ866uvkxO", "mattii966"));
+
+    return dAccount.findOne({
+        where:{
+            IdKontoDomenowe: id
+        }
+    }).then(function(user){
+        return isValidPassword(user.Haslo, currPassword)
+    })
+}
+
+function changePassword(id, newPassword){
+    var generateHash = function (password) {
+        return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
+    };
+
+    return dAccount.findOne({
+        where:{
+            IdKontoDomenowe: id
+        }
+    }).then(function(user){
+        return user.update({
+            Haslo: generateHash(newPassword)
+        });
+    });
+}
+
 module.exports={
     getLogin: getLogin,
     newLogin: newLogin,
-    newAccount: newAccount
+    newAccount: newAccount,
+    ifCurrPasswordValid: ifCurrPasswordValid,
+    changePassword: changePassword
 }

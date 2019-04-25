@@ -58,7 +58,14 @@
                                 <td>
                                     <input type="email" class="newForm form-control form" name="newCompany" placeholder="Nowa nazwa firmy" disabled>
                                 </td>
-                            </tr>
+                        </tr>
+                        </tr>
+                                <td>Hasło</td>
+                                <td></td>
+                                <td>
+                                    <a href="/changePassword" ><button type="button" class="btn btn-outline-success">Zmień hasło</button> </a>
+                                </td>
+                        </tr>
 
                     </tbody>
                 
@@ -69,11 +76,46 @@
                     <button type="submit" class="btn btn-success saveChangesProfile"><i class="fa fa-save"> </i> Zapisz zmiany</button>
                 </div>
          </form>
-
-
          
 
             </div>
         </div>
     </div>
+
+    <%if (changePassword === true){%>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h3>Zmiana hasła</h3>
+                <p>Podaj stare i nowe hasło</p>
+                <form action="/changePassword" method="POST">
+                    <input type="password" class="form-control createAccount" name="currPassword" placeholder="Aktualne hasło">
+                    <input type="password" class="form-control createAccount" name="newPassword" placeholder="Nowe hasło">
+                    <a href="/profile"><button type="button" class="btn btn-danger">Anuluj</button> </a>
+                    <button type="submit" class="btn btn-success">Zapisz</button>
+                </form>  
+            </div>
+        </div>
+    <% } %>
+
+    <%if (passwordChanged === true){%>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h3>Sukces!</h3>
+                <p>Hasło zmienione.</p>
+                <a href="/profile"><button type="button" class="btn btn-success">Ok</button></a> 
+            </div>
+        </div>
+    <% } %>
+
+        
+    <%if (wrongCurrentPassword === true){%>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h3>Uwaga!</h3>
+                <p>Podałeś niepoprawne hasło aktualne.</p>
+                <a href="changePassword"><button type="button" class="btn btn-success">Ok</button></a> 
+            </div>
+        </div>
+    <% } %>
+
 <% include partials/footerLogin %>

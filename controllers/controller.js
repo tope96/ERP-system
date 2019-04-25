@@ -14,7 +14,10 @@ exports.profile = function(req, res){
         email: profile.Email,
         company: profile.Firma,
         site: "Profil",
-        ifOk: false
+        ifOk: false,
+        changePassword: false,
+        passwordChanged: false,
+        wrongCurrentPassword: false
     });
 })
 })
@@ -30,7 +33,67 @@ exports.profileEdited = function(req, res){
         email: profile.Email,
         company: profile.Firma,
         site: "Profil",
-        ifOk: true
+        ifOk: true,
+        changePassword: false,
+        passwordChanged: false,
+        wrongCurrentPassword: false
+    });
+})
+})
+}
+
+exports.changePassword = function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    res.render('profile',{
+        name: profile.Imie,
+        lastName: profile.Nazwisko,
+        login: account.Login,
+        email: profile.Email,
+        company: profile.Firma,
+        site: "Profil",
+        ifOk: true,
+        changePassword: true,
+        passwordChanged: false,
+        wrongCurrentPassword: false
+    });
+})
+})
+}
+
+exports.passwordChanged = function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    res.render('profile',{
+        name: profile.Imie,
+        lastName: profile.Nazwisko,
+        login: account.Login,
+        email: profile.Email,
+        company: profile.Firma,
+        site: "Profil",
+        ifOk: true,
+        changePassword: false,
+        passwordChanged: true,
+        wrongCurrentPassword: false
+    });
+})
+})
+}
+
+exports.changePasswordError= function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    res.render('profile',{
+        name: profile.Imie,
+        lastName: profile.Nazwisko,
+        login: account.Login,
+        email: profile.Email,
+        company: profile.Firma,
+        site: "Profil",
+        ifOk: true,
+        changePassword: false,
+        passwordChanged: false,
+        wrongCurrentPassword: true
     });
 })
 })
