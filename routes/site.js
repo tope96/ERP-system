@@ -110,6 +110,7 @@ module.exports = function (app, passport) {
     });
 
     //COMPANY EDIT
+
     app.post('/addProfile', isLoggedIn, function(req, res){
         var name = req.body.name;
         var lastName = req.body.lastName;

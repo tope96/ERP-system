@@ -61,8 +61,6 @@ function ifCurrPasswordValid(id, currPassword){
         return bCrypt.compareSync(password, userpass);
     }
 
-    console.log('tutaaj ' + isValidPassword("$2a$08$6L2qwDtv07uC6h0N9929z.2sqnQn0N6r3Pc9PISnHWNsQ866uvkxO", "mattii966"));
-
     return dAccount.findOne({
         where:{
             IdKontoDomenowe: id

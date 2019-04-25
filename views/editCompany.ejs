@@ -2,7 +2,25 @@
 <% include partials/leftNavbar %>
 
 <div class="col-11">
-        <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success">Dodaj konto</button></a>
+        <div class="section-assets">
+            <div class="row border">
+                <div class="col-md-6">
+                    <b>Nazwa firmy: </b>
+                    <p><%= company.Nazwa %></p>
+
+                    <b>NIP:</b>
+                    <p><%= company.Nip %></p>
+                </div>
+                <div class="col-md-6">
+                    <b>Adres firmy</b>
+                    <p><%= town.Miasto %></p>
+                    <p><%= company.Adres %></p>
+                </div>
+                
+                <p>Załóż nowe konto domenowe dla pracownika: <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success"><i class="fa fa-user-plus"></i></button></a></p>
+        
+            </div>
+        </div>
 </div>
 
 <%if (add === true){%>

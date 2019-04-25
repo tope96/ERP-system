@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     Nip: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(50),
       allowNull: false
     },
     IdMiasto: {

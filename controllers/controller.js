@@ -3,10 +3,12 @@ var exports = module.exports = {}
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
 var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
+var companyUtil = require('../models/.utils/company.js');
+var townUtil = require('../models/.utils/townUtil.js');
 
 exports.profile = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
     res.render('profile',{
         name: profile.Imie,
         lastName: profile.Nazwisko,
@@ -25,7 +27,7 @@ exports.profile = function(req, res){
 
 exports.profileEdited = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
     res.render('profile',{
         name: profile.Imie,
         lastName: profile.Nazwisko,
@@ -44,7 +46,7 @@ exports.profileEdited = function(req, res){
 
 exports.changePassword = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
     res.render('profile',{
         name: profile.Imie,
         lastName: profile.Nazwisko,
@@ -63,7 +65,7 @@ exports.changePassword = function(req, res){
 
 exports.passwordChanged = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
     res.render('profile',{
         name: profile.Imie,
         lastName: profile.Nazwisko,
@@ -82,7 +84,7 @@ exports.passwordChanged = function(req, res){
 
 exports.changePasswordError= function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
     res.render('profile',{
         name: profile.Imie,
         lastName: profile.Nazwisko,
@@ -119,55 +121,88 @@ exports.alreadyExists = function(req, res){
 }
 
 exports.editCompany = function(req, res){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
-        res.render('editCompany', {
+    
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
+        companyUtil.getCompanyInfo(profile.Firma).then(function(company){
+            townUtil.getTown(company.IdMiasto).then(function(town){
+            res.render('editCompany', {
             name: profile.Imie,
             site: "Edytowanie firmy",
             add: false,
             userAlreadyExists: false,
-            addSuccess: false
+            addSuccess: false,
+            company: company,
+            town: town
         });
-    })
+        });
+        });
+    });
+});
 }
 
 exports.editCompanyAddProfile = function(req, res){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
         workersUtil.getWorkers().then(function(workers){
+            companyUtil.getCompanyInfo(profile.Firma).then(function(company){
+                townUtil.getTown(company.IdMiasto).then(function(town){
             res.render('editCompany', {
                 name: profile.Imie,
                 site: "Edytowanie firmy",
                 add: true,
                 workers: workers,
                 userAlreadyExists: false,
-                addSuccess: false
+                addSuccess: false,
+                company: company,
+                town: town
             });
         });
+        });
+    });
+    });
     });
 }
 
 exports.editCompanyAddProfileError = function(req, res){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
         workersUtil.getWorkers().then(function(workers){
+            companyUtil.getCompanyInfo(profile.Firma).then(function(company){
+                townUtil.getTown(company.IdMiasto).then(function(town){
             res.render('editCompany', {
                 name: profile.Imie,
                 site: "Edytowanie firmy",
                 add: false,
                 workers: workers,
                 userAlreadyExists: true,
-                addSuccess: false
+                addSuccess: false,
+                company: company,
+                town: town
             });
+        });
+        });
+        });
         });
     });
 }
 
 exports.editCompanyAddProfileSuccess = function(req, res){
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(profile){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
+            companyUtil.getCompanyInfo(profile.Firma).then(function(company){
+                townUtil.getTown(company.IdMiasto).then(function(town){
             res.render('editCompany', {
                 name: profile.Imie,
                 site: "Edytowanie firmy",
                 add: false,
                 userAlreadyExists: false,
-                addSuccess: true
+                addSuccess: true,
+                company: company,
+                town: town
             });
         });
+        });
+        });
+    });
 }
