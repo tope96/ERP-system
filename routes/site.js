@@ -6,6 +6,7 @@ var passport = require('passport');
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
 var fixedAssets = require('../models/.utils/fixedAssets.js');
+var companyUtil = require('../models/.utils/company.js');
 
 module.exports = function (app, passport) {
     app.get('/profile', isLoggedIn, controller.profile);
@@ -19,6 +20,7 @@ module.exports = function (app, passport) {
     app.get('/changePassword', isLoggedIn, controller.changePassword);
     app.get('/passwordChanged', isLoggedIn, controller.passwordChanged);
     app.get('/changePasswordError', isLoggedIn, controller.changePasswordError);
+    app.get('/editCompanyEdition', isLoggedIn, controller.editCompanyEdition);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -130,5 +132,19 @@ module.exports = function (app, passport) {
             }
         });
     });
+
+    app.post('/companyEdition', isLoggedIn, function(req, res){
+        var name = req.body.companyName;
+        var nip = req.body.companyNip;
+        var town = req.body.companyTown;
+        var address = req.body.companyAddress;
+        var id = req.body.companyId;
+
+        companyUtil.editCompany(name, nip, address,town, id).then(function(success){
+            if(success){
+                res.redirect('editCompany');
+            }
+        });
+    })
 
 }

@@ -2,6 +2,7 @@
 <% include partials/leftNavbar %>
 
 <div class="col-11">
+        <%if (normal === true){%>
         <div class="section-assets">
             <div class="row border">
                 <div class="col-md-6">
@@ -18,9 +19,34 @@
                 </div>
                 
                 <p>Załóż nowe konto domenowe dla pracownika: <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success"><i class="fa fa-user-plus"></i></button></a></p>
-        
+                <a href="/editCompanyEdition" ><button type="button" class="btn btn-success">Edytuj</button></a>
             </div>
         </div>
+        <% } %>
+        <%if (normal === false){%>
+            <div class="section-assets">
+                <div class="row border">
+                    <div class="col-md-6">
+                       <form action="/companyEdition" method="POST">
+                        <b>Nazwa firmy: </b>
+                        <p> <input type="text" class="form-control" name="companyName" placeholder="Nowa nazwa" value="<%= company.Nazwa %>"> </p>
+            
+                        <b>NIP:</b>
+                        <p><input type="number" class="form-control" name="companyNip" placeholder="Nowy NIP" value="<%= company.Nip %>"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <b>Adres firmy</b>
+                        <p><input type="text" class="form-control" name="companyTown" placeholder="Nowe miasto" value="<%= town.Miasto %>"></p>
+                        <p><input type="text" class="form-control" name="companyAddress" placeholder="Nowy adres" value="<%= company.Adres %>"></p>
+                    </div>
+            
+                    <a href="/editCompany"><button type="button" class="btn btn-danger">Anuluj</button></a>
+                    <button type="submit" class="btn btn-success">Zapisz</button>
+                    <input type="hidden" name="copmanyId" value="<%= company.IdFirma %>">
+                    </form> 
+                </div>
+            </div>
+        <% } %>
 </div>
 
 <%if (add === true){%>

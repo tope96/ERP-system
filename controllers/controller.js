@@ -121,7 +121,6 @@ exports.alreadyExists = function(req, res){
 }
 
 exports.editCompany = function(req, res){
-    
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
     workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
         companyUtil.getCompanyInfo(profile.Firma).then(function(company){
@@ -133,7 +132,29 @@ exports.editCompany = function(req, res){
             userAlreadyExists: false,
             addSuccess: false,
             company: company,
-            town: town
+            town: town,
+            normal: true
+        });
+        });
+        });
+    });
+});
+}
+
+exports.editCompanyEdition = function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
+        companyUtil.getCompanyInfo(profile.Firma).then(function(company){
+            townUtil.getTown(company.IdMiasto).then(function(town){
+            res.render('editCompany', {
+            name: profile.Imie,
+            site: "Edytowanie firmy",
+            add: false,
+            userAlreadyExists: false,
+            addSuccess: false,
+            company: company,
+            town: town,
+            normal: false
         });
         });
         });
@@ -155,7 +176,8 @@ exports.editCompanyAddProfile = function(req, res){
                 userAlreadyExists: false,
                 addSuccess: false,
                 company: company,
-                town: town
+                town: town,
+                normal: true
             });
         });
         });
@@ -178,7 +200,8 @@ exports.editCompanyAddProfileError = function(req, res){
                 userAlreadyExists: true,
                 addSuccess: false,
                 company: company,
-                town: town
+                town: town,
+                normal: true
             });
         });
         });
@@ -199,7 +222,8 @@ exports.editCompanyAddProfileSuccess = function(req, res){
                 userAlreadyExists: false,
                 addSuccess: true,
                 company: company,
-                town: town
+                town: town,
+                normal: true
             });
         });
         });

@@ -11,6 +11,25 @@ function getTown(townId){
     });
 }
 
+function getOrInsertTown(town){
+    return town.findOne({
+        where:{
+            Miasto: town
+        }
+    }).then(function(foundTown){
+        if(foundTown){
+            return foundTown.IdMiasto;
+        }else{
+            return town.create({
+               Miasto: town
+            }).then(function(createdTown){
+                return createdTown.IdMiasto;
+            })
+        }
+    });
+}
+
 module.exports = {
-    getTown: getTown
+    getTown: getTown,
+    getOrInsertTown: getOrInsertTown
 }
