@@ -21,6 +21,7 @@ module.exports = function (app, passport) {
     app.get('/passwordChanged', isLoggedIn, controller.passwordChanged);
     app.get('/changePasswordError', isLoggedIn, controller.changePasswordError);
     app.get('/editCompanyEdition', isLoggedIn, controller.editCompanyEdition);
+    app.get('/editCompanySuccess', isLoggedIn, controller.editCompanySuccess);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -140,9 +141,11 @@ module.exports = function (app, passport) {
         var address = req.body.companyAddress;
         var id = req.body.companyId;
 
+        console.log(name + " " + nip + " " + town + " " + address + " " + id);
+
         companyUtil.editCompany(name, nip, address,town, id).then(function(success){
             if(success){
-                res.redirect('editCompany');
+                res.redirect('/editCompanySuccess');
             }
         });
     })

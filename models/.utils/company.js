@@ -15,11 +15,11 @@ function getCompanyInfo(IdCompany) {
 }
 
 function editCompany(newName, newNip, newAddress, newTown, idCompany) {
-
+    return new Promise((resolve, reject) => { 
     if (newName != '' || newNip != '') {
         ifcompanyExists(newName, newNip).then(function (ifExists) {
-            if (ifExists) {
-                return false;
+            if (ifExists == false) {
+                resolve(false);
             } else {
                 if (newName != '') {
                     editName(idCompany, newName);
@@ -28,13 +28,13 @@ function editCompany(newName, newNip, newAddress, newTown, idCompany) {
                     editNip(idCompany, newNip);
                 }
                 if (newAddress != '') {
-                    editAdress(idCompany, newNip);
+                    editAdress(idCompany, newAddress);
                 }
                 if (newTown != '') {
-                    townUtils.getOrInsertTown(newTown);
+                    editTown(idCompany, newTown);
                 }
                 setTimeout(function(){
-                    return true;
+                    resolve(true);
                 }, 500);
             }
         });
@@ -43,12 +43,13 @@ function editCompany(newName, newNip, newAddress, newTown, idCompany) {
             editAdress(idCompany, newNip);
         }
         if (newTown != '') {
-            townUtils.getOrInsertTown(newTown);
+            editTown(idCompany, newTown);
         }
         setTimeout(function(){
-            return true;
+            resolve(true);
         }, 500);
     }
+});
 
 }
 
@@ -92,6 +93,23 @@ function editAdress(idCompany, newAddress){
             });
         }
     });
+}
+
+function editTown(idCompany, newTown){
+    townUtils.getOrInsertTown(newTown).then(function(newT){
+        console.log("----" + newT);
+        return companyModel.findOne({
+            where:{
+                IdFirma: idCompany
+            }
+        }).then(function(company){
+            if(company){
+                return company.update({
+                    IdMiasto: newT
+                });
+            }
+        });
+    })
 }
 
 function ifcompanyExists(name, nip){

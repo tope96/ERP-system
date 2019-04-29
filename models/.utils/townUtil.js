@@ -1,8 +1,8 @@
 var models = require('../../models');
-var town = models.miasto;
+var town1 = models.miasto;
 
 function getTown(townId){
-    return town.findOne({
+    return town1.findOne({
         where:{
             IdMiasto: townId
         }
@@ -12,7 +12,7 @@ function getTown(townId){
 }
 
 function getOrInsertTown(town){
-    return town.findOne({
+    return town1.findOne({
         where:{
             Miasto: town
         }
@@ -20,7 +20,7 @@ function getOrInsertTown(town){
         if(foundTown){
             return foundTown.IdMiasto;
         }else{
-            return town.create({
+            return town1.create({
                Miasto: town
             }).then(function(createdTown){
                 return createdTown.IdMiasto;

@@ -133,7 +133,9 @@ exports.editCompany = function(req, res){
             addSuccess: false,
             company: company,
             town: town,
-            normal: true
+            normal: true,
+            companyAlreadyExists: false,
+            editSuccess: false
         });
         });
         });
@@ -154,7 +156,9 @@ exports.editCompanyEdition = function(req, res){
             addSuccess: false,
             company: company,
             town: town,
-            normal: false
+            normal: false,
+            companyAlreadyExists: false,
+            editSuccess: false
         });
         });
         });
@@ -177,7 +181,9 @@ exports.editCompanyAddProfile = function(req, res){
                 addSuccess: false,
                 company: company,
                 town: town,
-                normal: true
+                normal: true,
+                companyAlreadyExists: false,
+                editSuccess: false
             });
         });
         });
@@ -201,7 +207,9 @@ exports.editCompanyAddProfileError = function(req, res){
                 addSuccess: false,
                 company: company,
                 town: town,
-                normal: true
+                normal: true,
+                companyAlreadyExists: false,
+                editSuccess: false
             });
         });
         });
@@ -223,7 +231,57 @@ exports.editCompanyAddProfileSuccess = function(req, res){
                 addSuccess: true,
                 company: company,
                 town: town,
-                normal: true
+                normal: true,
+                companyAlreadyExists: false,
+                editSuccess: false
+            });
+        });
+        });
+        });
+    });
+}
+
+exports.editCompanyAddProfileSuccess = function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
+            companyUtil.getCompanyInfo(profile.Firma).then(function(company){
+                townUtil.getTown(company.IdMiasto).then(function(town){
+            res.render('editCompany', {
+                name: profile.Imie,
+                site: "Edytowanie firmy",
+                add: false,
+                userAlreadyExists: false,
+                addSuccess: true,
+                company: company,
+                town: town,
+                normal: true,
+                companyAlreadyExists: false,
+                editSuccess: false
+            });
+        });
+        });
+        });
+    });
+}
+
+exports.editCompanySuccess = function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
+            companyUtil.getCompanyInfo(profile.Firma).then(function(company){
+                townUtil.getTown(company.IdMiasto).then(function(town){
+                    res.render('editCompany', {
+                        name: profile.Imie,
+                        site: "Edytowanie firmy",
+                        add: false,
+                        userAlreadyExists: false,
+                        addSuccess: false,
+                        company: company,
+                        town: town,
+                        normal: true,
+                        companyAlreadyExists: false,
+                        editSuccess: false,
+                companyAlreadyExists: false,
+                editSuccess: true
             });
         });
         });
