@@ -22,6 +22,8 @@ module.exports = function (app, passport) {
     app.get('/changePasswordError', isLoggedIn, controller.changePasswordError);
     app.get('/editCompanyEdition', isLoggedIn, controller.editCompanyEdition);
     app.get('/editCompanySuccess', isLoggedIn, controller.editCompanySuccess);
+    app.get('/settings', isLoggedIn, controller.settings);
+    app.get('/humanResources', isLoggedIn, controller.humanResources);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())

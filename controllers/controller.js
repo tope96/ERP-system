@@ -120,6 +120,7 @@ exports.alreadyExists = function(req, res){
     res.render('alreadyExists');
 }
 
+//COMPANY EDIT
 exports.editCompany = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
     workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
@@ -287,4 +288,28 @@ exports.editCompanySuccess = function(req, res){
         });
         });
     });
+}
+
+//SETTINGS
+exports.settings = function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
+    res.render('settings',{
+        name: profile.Imie,
+        site: "Ustawienia"
+    });
+})
+})
+}
+
+//HUMAN RESOURCES
+exports.humanResources = function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
+    workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
+    res.render('humanResources',{
+        name: profile.Imie,
+        site: "Zasoby ludzkie"
+    });
+})
+})
 }
