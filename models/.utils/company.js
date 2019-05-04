@@ -4,34 +4,35 @@ var townUtils = require('./townUtil.js');
 var worker = require('./workerUtil.js');
 var domaneAccount = require('./domaneAccount.js');
 
-function getCompanyInfo(IdCompany) {
+function getCompanyInfo(IdCompany, idTeam) {
     return companyModel.findOne({
         where: {
-            IdFirma: IdCompany
+            IdFirma: IdCompany,
+            IdZespol: idTeam
         }
     }).then(function (company) {
         return company;
     });
 }
 
-function editCompany(newName, newNip, newAddress, newTown, idCompany) {
+function editCompany(newName, newNip, newAddress, newTown, idCompany, idTeam) {
     return new Promise((resolve, reject) => { 
     if (newName != '' || newNip != '') {
-        ifcompanyExists(newName, newNip).then(function (ifExists) {
+        ifcompanyExists(newName, newNip, idTeam).then(function (ifExists) {
             if (ifExists == false) {
                 resolve(false);
             } else {
                 if (newName != '') {
-                    editName(idCompany, newName);
+                    editName(idCompany, newName, idTeam);
                 }
                 if (newNip != '') {
-                    editNip(idCompany, newNip);
+                    editNip(idCompany, newNip, idTeam);
                 }
                 if (newAddress != '') {
-                    editAdress(idCompany, newAddress);
+                    editAdress(idCompany, newAddress, idTeam);
                 }
                 if (newTown != '') {
-                    editTown(idCompany, newTown);
+                    editTown(idCompany, newTown, idTeam);
                 }
                 setTimeout(function(){
                     resolve(true);
@@ -40,10 +41,10 @@ function editCompany(newName, newNip, newAddress, newTown, idCompany) {
         });
     } else {
         if (newAddress != '') {
-            editAdress(idCompany, newNip);
+            editAdress(idCompany, newNip, idTeam);
         }
         if (newTown != '') {
-            editTown(idCompany, newTown);
+            editTown(idCompany, newTown, idTeam);
         }
         setTimeout(function(){
             resolve(true);
@@ -53,10 +54,11 @@ function editCompany(newName, newNip, newAddress, newTown, idCompany) {
 
 }
 
-function editName(idCompany, newName){
+function editName(idCompany, newName, idTeam){
     return companyModel.findOne({
         where:{
-            IdFirma: idCompany
+            IdFirma: idCompany,
+            IdZespol: idTeam
         }
     }).then(function(company){
         if(company){
@@ -70,7 +72,8 @@ function editName(idCompany, newName){
 function editNip(idCompany, newNip){
     return companyModel.findOne({
         where:{
-            IdFirma: idCompany
+            IdFirma: idCompany,
+            IdZespol: idTeam
         }
     }).then(function(company){
         if(company){
@@ -84,7 +87,8 @@ function editNip(idCompany, newNip){
 function editAdress(idCompany, newAddress){
     return companyModel.findOne({
         where:{
-            IdFirma: idCompany
+            IdFirma: idCompany,
+            IdZespol: idTeam
         }
     }).then(function(company){
         if(company){
@@ -97,15 +101,16 @@ function editAdress(idCompany, newAddress){
 
 function editTown(idCompany, newTown){
     townUtils.getOrInsertTown(newTown).then(function(newT){
-        console.log("----" + newT);
         return companyModel.findOne({
             where:{
-                IdFirma: idCompany
+                IdFirma: idCompany,
+                IdZespol: idTeam
             }
         }).then(function(company){
             if(company){
                 return company.update({
-                    IdMiasto: newT
+                    IdMiasto: newT,
+                    IdZespol: idTeam
                 });
             }
         });

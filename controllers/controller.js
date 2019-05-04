@@ -103,7 +103,7 @@ exports.changePasswordError= function(req, res){
 
 exports.fixedAssets = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
-        fixedAssetsUtil.getAssets(account.IdPracownik).then(function (assets) {
+        fixedAssetsUtil.getAssets(account.IdPracownik, req.user.IdZespol).then(function (assets) {
             workersUtil.getWorkers().then(function(users){
             res.render('fixedAssets', {
                 name: account.Imie,
@@ -124,7 +124,7 @@ exports.alreadyExists = function(req, res){
 exports.editCompany = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
     workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
-        companyUtil.getCompanyInfo(profile.Firma).then(function(company){
+        companyUtil.getCompanyInfo(profile.Firma, req.user.IdZespol).then(function(company){
             townUtil.getTown(company.IdMiasto).then(function(town){
             res.render('editCompany', {
             name: profile.Imie,

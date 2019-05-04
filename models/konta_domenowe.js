@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
     Haslo: {
       type: DataTypes.STRING(150),
       allowNull: false
+    },
+    IdZespol: {
+      type: DataTypes.INTEGER(1),
+      allowNull: true
     }
   }, {
     tableName: 'konta_domenowe',

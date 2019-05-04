@@ -66,7 +66,7 @@ module.exports = function (app, passport) {
         var owner = req.body.owner;
         var amount = req.body.amount;
         
-        fixedAssets.addAsset(name, description, type, price, date, owner, amount);
+        fixedAssets.addAsset(name, description, type, price, date, owner, amount, req.user.IdZespol);
         setTimeout(function(){
             res.redirect('/fixedAssets');
         }, 500);
@@ -74,7 +74,7 @@ module.exports = function (app, passport) {
 
     app.post('/deleteAsset', isLoggedIn, function(req, resp){
         var idAsset = req.body.asset;
-        fixedAssets.deleteAsset(idAsset).then(function(){
+        fixedAssets.deleteAsset(idAsset, req.user.IdZespol).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500); 
@@ -83,7 +83,7 @@ module.exports = function (app, passport) {
 
     app.post('/deleteOneAsset', isLoggedIn, function(req, resp){
         var idAsset = req.body.asset;
-        fixedAssets.deleteOneasset(idAsset).then(function(){
+        fixedAssets.deleteOneasset(idAsset, req.user.IdZespol).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500);
@@ -92,7 +92,7 @@ module.exports = function (app, passport) {
 
     app.post('/addOneAsset', isLoggedIn, function(req, resp){
         var idAsset = req.body.asset;
-        fixedAssets.addOneAsset(idAsset).then(function(){
+        fixedAssets.addOneAsset(idAsset, req.user.IdZespol).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500);
@@ -107,7 +107,7 @@ module.exports = function (app, passport) {
         var date = req.body.dateEdit;
         var id = req.body.idEdit;
 
-        fixedAssets.editAsset(name, description, type, price, date, id).then(function(){
+        fixedAssets.editAsset(name, description, type, price, date, id, req.user.IdZespol).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500); 
@@ -145,7 +145,7 @@ module.exports = function (app, passport) {
 
         console.log(name + " " + nip + " " + town + " " + address + " " + id);
 
-        companyUtil.editCompany(name, nip, address,town, id).then(function(success){
+        companyUtil.editCompany(name, nip, address,town, id, req.user.IdZespol).then(function(success){
             if(success){
                 res.redirect('/editCompanySuccess');
             }

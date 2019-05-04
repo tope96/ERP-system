@@ -1,10 +1,11 @@
 var models = require('../../models');
 var fixedAssets = models.srodki_trwale;
 
-function getAssets(id){
+function getAssets(id, idTeam){
     return fixedAssets.findAll({
         where:{
-            IdPracownik: id
+            IdPracownik: id,
+            IdZespol: idTeam
         }
     }).then(function(assetsFound){
         if(assetsFound){
@@ -13,8 +14,7 @@ function getAssets(id){
     });
 }
 
-function addAssets(name, description, type, price, date, owner){
-    console.log("-------------> " + date);
+function addAssets(name, description, type, price, date, owner, idTeam){
     return fixedAssets.create({
         Nazwa: name,
         Opis: description,
@@ -22,19 +22,21 @@ function addAssets(name, description, type, price, date, owner){
         WartoscNetto: price,
         IdPracownik: owner,
         Ilosc: 2,
-        DataZakupu: date
+        DataZakupu: date,
+        IdZespol: idTeam
     });
 }
 
-function deleteAsset(id){
+function deleteAsset(id, idTeam){
     return fixedAssets.destroy({
         where:{
-            IdSrodkiTrwale: id 
+            IdSrodkiTrwale: id,
+            IdZespol: idTeam
         }
     });
 }
 
-function editAsset(name, description, type, price, date, id){
+function editAsset(name, description, type, price, date, id, idTeam){
     return fixedAssets.findOne({
         where:{
             IdSrodkiTrwale: id
@@ -45,15 +47,17 @@ function editAsset(name, description, type, price, date, id){
             Rodzaj: type,
             WartoscNetto: price,
             DataZakupu: date,
-            Nazwa: name
+            Nazwa: name,
+            IdZespol: idTeam
         });
     })
 }
 
-function deleteOneasset(id){
+function deleteOneasset(id, idTeam){
     return fixedAssets.findOne({
         where:{
-            IdSrodkiTrwale: id
+            IdSrodkiTrwale: id,
+            IdZespol: idTeam
         }
     }).then(function(asset){
         var ile = asset.Ilosc;
@@ -64,10 +68,11 @@ function deleteOneasset(id){
 }
 
 
-function addOneAsset(id){
+function addOneAsset(id, idTeam){
     return fixedAssets.findOne({
         where:{
-            IdSrodkiTrwale: id
+            IdSrodkiTrwale: id,
+            IdZespol: idTeam
         }
     }).then(function(asset){
         var ile = asset.Ilosc;

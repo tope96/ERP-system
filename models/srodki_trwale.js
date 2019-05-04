@@ -40,6 +40,10 @@ module.exports = function(sequelize, DataTypes) {
     DataZakupu: {
       type: DataTypes.DATEONLY,
       allowNull: true
+    },
+    IdZespol: {
+      type: DataTypes.INTEGER(1),
+      allowNull: true
     }
   }, {
     tableName: 'srodki_trwale',

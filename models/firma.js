@@ -27,6 +27,10 @@ module.exports = function(sequelize, DataTypes) {
     Adres: {
       type: DataTypes.STRING(50),
       allowNull: true
+    },
+    IdZespol: {
+      type: DataTypes.INTEGER(1),
+      allowNull: true
     }
   }, {
     tableName: 'firma',

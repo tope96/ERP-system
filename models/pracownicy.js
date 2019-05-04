@@ -46,6 +46,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'umowy',
         key: 'IdUmowy'
       }
+    },
+    IdZespol: {
+      type: DataTypes.INTEGER(1),
+      allowNull: true
     }
   }, {
     tableName: 'pracownicy',
