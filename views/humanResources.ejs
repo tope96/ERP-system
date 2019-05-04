@@ -1,11 +1,162 @@
 <% include partials/headerLogin %>
 <% include partials/leftNavbar %>
 
+
 <div class="col-11">
-        <div class="section-assets">
-            <div class="row border">
-                <button type="button" class="btn btn-success">Dodaj zespol</button>
+  <div class="section-assets">
+    <div class="row border">
+      <div class="col-md-2">
+        <input type="text" class="form-control search" id="search" placeholder="Wyszukaj">
+        <ul class="ul">
+          <div class="list-group" id="list-tab" role="tablist">
+            <% for(var i=0; i < workers.length; i++) { %>
+            <li class="list-group-item list-group-item-action" onclick="hide()"
+              id="list-<%= workers[i].IdPracownik %>-list" data-toggle="list"
+              href="#list-<%= workers[i].IdPracownik %>" role="tab" aria-controls="<%= workers[i].IdPracownik%>">
+              <b><%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
+            <%}%>       
+          </div>
+        </ul>
+        <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj pracownika</button>
+    </div>
+<div class="col-md-8" >
+    <div id="infoPanel">
+    <div class="tab-content" id="nav-tabContent">
+        <% for(var i=0; i < workers.length; i++) { %>
+            <div class="tab-pane fade show " id="list-<%= workers[i].IdPracownik %>" role="tabpanel"
+                aria-labelledby="list-<%= workers[i].IdPracownik %>-list">
+                <div class="row asset-name">
+                    <h2><%= workers[i].Imie %> <%= workers[i].Nazwisko %></h2>
+                  </div>
+                  <p>Email: <%= workers[i].Email %></p>
+                  <p>Numer telefonu:<%= workers[i].NumerTelefonu %></p>
             </div>
+        <% } %>
+    </div>
+  </div>
+
+  <div id="editPanel">
+    <div class="tab-pane fade show " role="tabpanel" >
+      <h2>Dodawanie pracownika</h2>
+      <p>Podaj dane nowego pracownika</p>
+      <form action="addHuman" method="POST">
+      <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
+      <input type="text" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko" required>
+      <input type="number" class="form-control addAssets" id="telephone" name="telephone" placeholder="Numer telefonu" required>
+      <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email" required>
+      <input type="file" class="form-control addAssets" id="" name="" placeholder="Umowa" >
+      <select class="form-control createAccount" placeholder="Przełożony" id="superior" name="superior" required>
+          <% for(var i=0; i < workers.length; i++) { %>
+            <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
+          <%}%>
+      </select>
+       
+      </select>
+      <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+    <button type="submit" class="btn btn-success">Zapisz</button>
+    </form>
+    </div>
+  </div>
+    
+    <div id="edit">
+        <div class="tab-pane fade show " role="tabpanel" >
+          <h2>Edytowanie przedmiotu</h2>
+          <p>Podaj nowe dane</p>
+          <form action="editAsset" method="POST">
+          <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit" placeholder="Nazwa przedmiotu">
+          <input type="text" class="form-control addAssets" id="descriptionEdit" name="descriptionEdit" placeholder="Opis">
+          <input type="text" class="form-control addAssets" id="typeEdit" name="typeEdit" placeholder="Rodzaj">
+          <input type="number" class="form-control addAssets" id="priceEdit" name="priceEdit" placeholder="Wartość netto">
+          <input type="date" class="form-control addAssets" id="dateEdit" name="dateEdit" placeholder="Data zakupu">
+          <input type="hidden" id="idEdit" name="idEdit" value="">
+          </select>
+          <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+          <button type="submit" class="btn btn-success">Zapisz</button>
+        </form>
         </div>
-</div>    
+      </div>
+
+  </div>
+</div>
+</div>
+</div>
+
+
+<script>
+  function myFunction() {
+    var y = document.getElementById("infoPanel");
+    var x = document.getElementById("editPanel");
+    var z = document.getElementById("edit");
+    z.style.display = "none";
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+
+    y.style.display = "none";
+
+  }
+
+  function hide() {
+    var z = document.getElementById("edit");
+    z.style.display = "none";
+    var x = document.getElementById("editPanel");
+    var y = document.getElementById("infoPanel");
+    x.style.display = "none";
+    y.style.display = "block";
+  }
+
+  function cancel() {
+    var z = document.getElementById("edit");
+    z.style.display = "none";
+    var x = document.getElementById("editPanel");
+    x.style.display = "none";
+    document.getElementById("name").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("type").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("owner").value = "";
+    var y = document.getElementById("infoPanel");
+    y.style.display = "block";
+  }
+
+  function edit(nazwa, opis, rodzaj, WartoscNetto, DataZakupu, IdSrodkiTrwale) {
+    var y = document.getElementById("editPanel");
+    y.style.display = "none";
+
+    var z = document.getElementById("infoPanel");
+    z.style.display = "none";
+
+    document.getElementById("nameEdit").value = nazwa;
+    document.getElementById("descriptionEdit").value = opis;
+    document.getElementById("typeEdit").value = rodzaj;
+    document.getElementById("priceEdit").value = WartoscNetto;
+    document.getElementById("dateEdit").value = DataZakupu;
+    document.getElementById("idEdit").value = IdSrodkiTrwale;
+
+    var x = document.getElementById("edit");
+    x.style.display = "block";
+
+  }
+
+  $(function () {
+    $('#search').keyup(function () {
+      var current_query = $('#search').val();
+      if (current_query !== "") {
+        $(".list-group li").hide();
+        $(".list-group li").each(function () {
+          var current_keyword = $(this).text();
+          if (current_keyword.indexOf(current_query) >= 0) {
+            $(this).show();
+          };
+        });
+      } else {
+        $(".list-group li").show();
+      };
+    });
+  });
+
+</script>
 <% include partials/footerLogin %>

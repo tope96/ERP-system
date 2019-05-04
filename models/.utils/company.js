@@ -8,7 +8,7 @@ function getCompanyInfo(IdCompany, idTeam) {
     return companyModel.findOne({
         where: {
             IdFirma: IdCompany,
-            IdZespol: idTeam
+            IdZespol: idTeam,
         }
     }).then(function (company) {
         return company;
@@ -69,7 +69,7 @@ function editName(idCompany, newName, idTeam){
     });
 }
 
-function editNip(idCompany, newNip){
+function editNip(idCompany, newNip, idTeam){
     return companyModel.findOne({
         where:{
             IdFirma: idCompany,
@@ -84,7 +84,7 @@ function editNip(idCompany, newNip){
     });
 }
 
-function editAdress(idCompany, newAddress){
+function editAdress(idCompany, newAddress, idTeam){
     return companyModel.findOne({
         where:{
             IdFirma: idCompany,
@@ -99,7 +99,7 @@ function editAdress(idCompany, newAddress){
     });
 }
 
-function editTown(idCompany, newTown){
+function editTown(idCompany, newTown, idTeam){
     townUtils.getOrInsertTown(newTown).then(function(newT){
         return companyModel.findOne({
             where:{

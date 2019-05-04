@@ -93,9 +93,11 @@ function newEmail(currUser, newEmail) {
 }
 
 
-function getWorkers(){
+function getWorkers(idTeam){
     return pracownik.findAll({
-
+        where:{
+            IdZespol: idTeam
+        }
     }).then(function(user){
         if(user){
             return user;
@@ -103,7 +105,7 @@ function getWorkers(){
     })
 }
 
-function addProfile(name, lastName, email, tel, superior){
+function addProfile(name, lastName, email, tel, superior, idTeam){
     return pracownik.findOne({
         where:{
             Email: email,
@@ -118,8 +120,10 @@ function addProfile(name, lastName, email, tel, superior){
                 Nazwisko: lastName,
                 Email: email,
                 NumerTelefonu: tel,
-                IdUmowy: null, //TODO: zmienić
-                IdPrzelozony: superior
+                IdUmowy: null, 
+                IdPrzelozony: superior,
+                IdZespol: idTeam,
+                Firma: 1
             });
         }
     });

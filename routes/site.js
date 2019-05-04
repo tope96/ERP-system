@@ -1,4 +1,6 @@
 var controller = require('../controllers/controller.js');
+var companyController = require('../controllers/companyController.js');
+var humanResourcesController = require('../controllers/humanResourcesController.js')
 var bodyParser = require('body-parser');
 var user = require("../config/passport/passport.js");
 var models = require("../models");
@@ -13,17 +15,17 @@ module.exports = function (app, passport) {
     app.get('/profileEdited', isLoggedIn, controller.profile);
     app.get('/alreadyExists', isLoggedIn, controller.alreadyExists);
     app.get('/fixedAssets', isLoggedIn, controller.fixedAssets);
-    app.get('/editCompany', isLoggedIn, controller.editCompany);
-    app.get('/editCompanyAddProfile', isLoggedIn, controller.editCompanyAddProfile);
-    app.get('/editCompanyAddProfileError', isLoggedIn, controller.editCompanyAddProfileError);
-    app.get('/editCompanyAddProfileSuccess', isLoggedIn, controller.editCompanyAddProfileSuccess);
+    app.get('/editCompany', isLoggedIn, companyController.editCompany);
+    app.get('/editCompanyAddProfile', isLoggedIn, companyController.editCompanyAddProfile);
+    app.get('/editCompanyAddProfileError', isLoggedIn, companyController.editCompanyAddProfileError);
+    app.get('/editCompanyAddProfileSuccess', isLoggedIn, companyController.editCompanyAddProfileSuccess);
     app.get('/changePassword', isLoggedIn, controller.changePassword);
     app.get('/passwordChanged', isLoggedIn, controller.passwordChanged);
     app.get('/changePasswordError', isLoggedIn, controller.changePasswordError);
-    app.get('/editCompanyEdition', isLoggedIn, controller.editCompanyEdition);
-    app.get('/editCompanySuccess', isLoggedIn, controller.editCompanySuccess);
+    app.get('/editCompanyEdition', isLoggedIn, companyController.editCompanyEdition);
+    app.get('/editCompanySuccess', isLoggedIn, companyController.editCompanySuccess);
     app.get('/settings', isLoggedIn, controller.settings);
-    app.get('/humanResources', isLoggedIn, controller.humanResources);
+    app.get('/humanResources', isLoggedIn, humanResourcesController.humanResources);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -143,13 +145,27 @@ module.exports = function (app, passport) {
         var address = req.body.companyAddress;
         var id = req.body.companyId;
 
-        console.log(name + " " + nip + " " + town + " " + address + " " + id);
-
         companyUtil.editCompany(name, nip, address,town, id, req.user.IdZespol).then(function(success){
             if(success){
                 res.redirect('/editCompanySuccess');
             }
         });
-    })
+    });
+
+    app.post('/addHuman', isLoggedIn, function(req, res){
+        var name = req.body.name;
+        var lastName = req.body.lastName;
+        var email = req.body.email;
+        var tel = req.body.telephone;
+        var superior = req.body.superior;
+
+        workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol).then(function(user){
+            if(user == false){
+                res.redirect('/editCompanyAddProfileError');
+            }else{
+                res.redirect('/humanResources');
+            }
+        });
+    });
 
 }
