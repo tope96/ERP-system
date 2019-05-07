@@ -168,4 +168,19 @@ module.exports = function (app, passport) {
         });
     });
 
+    app.post('/editHr', isLoggedIn, function(req, res){
+        var name = req.body.firstNameEdit;
+        var lastName = req.body.lastNameEdit;
+        var email = req.body.emailEdit;
+        var tel = req.body.telephoneEdit;
+        var id = req.body.idEdit;
+
+        console.log(name + " " + lastName + " " + email + " " + tel);
+
+        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id);
+        setTimeout(function(){
+            res.redirect('/humanResources');
+        }, 500);
+    })
+
 }

@@ -26,8 +26,8 @@ function getWorkerInfo(id){
     })
 }
 
-//TODO: dokonczyc edytowanie userow
-function editUser(req, res, name, lastName, email, login){
+
+function editUser(req, res, name, lastName, email, login, id){
     var currentUser = req.user.IdKontoDomenowe;
     if(name != ''){
         newName(currentUser, name);
@@ -44,6 +44,21 @@ function editUser(req, res, name, lastName, email, login){
     setTimeout(function(){
         res.redirect('/profileEdited');
     }, 500);
+}
+
+function editUserfromHr(req, res, name, lastName, email, tel, id){
+    if(name != ''){
+        newName(id, name);
+    }
+    if(lastName != ''){
+        newLastName(id, lastName);
+    }
+    if(email != ''){
+        newEmail(id, email);
+    }
+    if(tel != ''){
+        newTelephone(id, tel);
+    }
 }
 
 function newName(currUser, newName) {
@@ -92,6 +107,20 @@ function newEmail(currUser, newEmail) {
     );
 }
 
+function newTelephone(currUser, newTel) {
+    return pracownik.findOne({
+        where: {
+            IdPracownik: currUser
+        }
+    }).then(function (user) {
+        if (user) {
+            return user.update({
+                NumerTelefonu: newTel
+            });
+        }
+    }
+    );
+}
 
 function getWorkers(idTeam){
     return pracownik.findAll({
@@ -134,5 +163,6 @@ module.exports = {
     getWorkerInfo: getWorkerInfo,
     editUser: editUser,
     getWorkers:getWorkers,
-    addProfile: addProfile
+    addProfile: addProfile,
+    editUserfromHr: editUserfromHr
 }

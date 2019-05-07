@@ -30,6 +30,9 @@
                   </div>
                   <p>Email: <%= workers[i].Email %></p>
                   <p>Numer telefonu:<%= workers[i].NumerTelefonu %></p>
+                  <button type="button" class="btn btn-light"
+                  onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
+                    class="fa fa-edit"></i></button>
             </div>
         <% } %>
     </div>
@@ -62,12 +65,11 @@
         <div class="tab-pane fade show " role="tabpanel" >
           <h2>Edytowanie przedmiotu</h2>
           <p>Podaj nowe dane</p>
-          <form action="editAsset" method="POST">
-          <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit" placeholder="Nazwa przedmiotu">
-          <input type="text" class="form-control addAssets" id="descriptionEdit" name="descriptionEdit" placeholder="Opis">
-          <input type="text" class="form-control addAssets" id="typeEdit" name="typeEdit" placeholder="Rodzaj">
-          <input type="number" class="form-control addAssets" id="priceEdit" name="priceEdit" placeholder="Wartość netto">
-          <input type="date" class="form-control addAssets" id="dateEdit" name="dateEdit" placeholder="Data zakupu">
+          <form action="editHr" method="POST">
+          <input type="text" class="form-control addAssets" id="firstNameEdit" name="firstNameEdit" placeholder="Imię">
+          <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit" placeholder="Nazwisko">
+          <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit" placeholder="Email">
+          <input type="number" class="form-control addAssets" id="telephoneEdit" name="telephoneEdit" placeholder="Numer telefonu">
           <input type="hidden" id="idEdit" name="idEdit" value="">
           </select>
           <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
@@ -122,19 +124,18 @@
     y.style.display = "block";
   }
 
-  function edit(nazwa, opis, rodzaj, WartoscNetto, DataZakupu, IdSrodkiTrwale) {
+  function edit(firstName, lastName, email, telephone, id) {
     var y = document.getElementById("editPanel");
     y.style.display = "none";
 
     var z = document.getElementById("infoPanel");
     z.style.display = "none";
 
-    document.getElementById("nameEdit").value = nazwa;
-    document.getElementById("descriptionEdit").value = opis;
-    document.getElementById("typeEdit").value = rodzaj;
-    document.getElementById("priceEdit").value = WartoscNetto;
-    document.getElementById("dateEdit").value = DataZakupu;
-    document.getElementById("idEdit").value = IdSrodkiTrwale;
+    document.getElementById("firstNameEdit").value = firstName;
+    document.getElementById("lastNameEdit").value = lastName;
+    document.getElementById("telephoneEdit").value = telephone;
+    document.getElementById("emailEdit").value = email;
+    document.getElementById("idEdit").value = id;
 
     var x = document.getElementById("edit");
     x.style.display = "block";
