@@ -17,7 +17,10 @@
             <%}%>       
           </div>
         </ul>
-        <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj pracownika</button>
+        <div class="row">
+          <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj pracownika</button>
+          <button type="button" class="btn btn-success" onclick="teams()">Zespoly</button>
+        </div>
     </div>
 <div class="col-md-8" >
     <div id="infoPanel">
@@ -78,6 +81,14 @@
         </div>
       </div>
 
+      <div id="teamsManage">
+        <div class="tab-pane fade show " role="tabpanel" >
+          <h2>Edytowanie przedmiotu</h2>
+          <p>Podaj nowe dane</p>
+          fff
+        </form>
+        </div>
+      </div>
   </div>
 </div>
 </div>
@@ -97,6 +108,24 @@
     }
 
     y.style.display = "none";
+
+  }
+
+  function teams() {
+    var y = document.getElementById("infoPanel");
+    var x = document.getElementById("editPanel");
+    var z = document.getElementById("edit");
+    var a = document.getElementById("teamsManage");
+    z.style.display = "none";
+    y.style.display = "none";
+    x.style.display = "none";
+    if (a.style.display === "none") {
+      a.style.display = "block";
+    } else {
+      a.style.display = "none";
+    }
+
+    
 
   }
 
