@@ -100,14 +100,18 @@
     var y = document.getElementById("infoPanel");
     var x = document.getElementById("editPanel");
     var z = document.getElementById("edit");
+    var a = document.getElementById("teamsManage");
+    a.style.display="none";
     z.style.display = "none";
+    y.style.display = "none";
+
     if (x.style.display === "none") {
       x.style.display = "block";
     } else {
       x.style.display = "none";
     }
 
-    y.style.display = "none";
+    
 
   }
 
@@ -119,23 +123,24 @@
     z.style.display = "none";
     y.style.display = "none";
     x.style.display = "none";
+    
     if (a.style.display === "none") {
       a.style.display = "block";
     } else {
       a.style.display = "none";
     }
 
-    
-
   }
 
   function hide() {
     var z = document.getElementById("edit");
-    z.style.display = "none";
     var x = document.getElementById("editPanel");
     var y = document.getElementById("infoPanel");
+    var a = document.getElementById("teamsManage");
     x.style.display = "none";
     y.style.display = "block";
+    z.style.display = "none";
+    a.style.display = "none";
   }
 
   function cancel() {

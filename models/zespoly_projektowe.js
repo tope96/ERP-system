@@ -19,8 +19,13 @@ module.exports = function(sequelize, DataTypes) {
         model: 'zespoly',
         key: 'IdZespol'
       }
+    },
+      Nazwa: {
+        type: DataTypes.STRING(80),
+        allowNull: true,
     }
   }, {
-    tableName: 'zespoly_projektowe'
+    tableName: 'zespoly_projektowe',
+    timestamps: false
   });
 };
