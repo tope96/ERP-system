@@ -11,8 +11,8 @@
           <div class="list-group" id="list-tab" role="tablist">
             <% for(var i=0; i < workers.length; i++) { %>
             <li class="list-group-item list-group-item-action" onclick="hide()"
-              id="list-<%= workers[i].IdPracownik %>-list" data-toggle="list"
-              href="#list-<%= workers[i].IdPracownik %>" role="tab" aria-controls="<%= workers[i].IdPracownik%>">
+              id="list-<%= workers[i].IdPracownik %>-list" data-toggle="list" href="#list-<%= workers[i].IdPracownik %>"
+              role="tab" aria-controls="<%= workers[i].IdPracownik%>">
               <b><%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
             <%}%>       
           </div>
@@ -27,42 +27,58 @@
     <div class="tab-content" id="nav-tabContent">
         <% for(var i=0; i < workers.length; i++) { %>
             <div class="tab-pane fade show " id="list-<%= workers[i].IdPracownik %>" role="tabpanel"
-                aria-labelledby="list-<%= workers[i].IdPracownik %>-list">
-                <div class="row asset-name">
-                    <h2><%= workers[i].Imie %> <%= workers[i].Nazwisko %></h2>
-                  </div>
-                  <p>Email: <%= workers[i].Email %></p>
-                  <p>Numer telefonu:<%= workers[i].NumerTelefonu %></p>
-                  <button type="button" class="btn btn-light"
-                  onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
-                    class="fa fa-edit"></i></button>
+              aria-labelledby="list-<%= workers[i].IdPracownik %>-list">
+              <div class="row asset-name">
+                <h2><%= workers[i].Imie %> <%= workers[i].Nazwisko %></h2>
+              </div>
+              <p>Email: <%= workers[i].Email %></p>
+              <p>Numer telefonu:<%= workers[i].NumerTelefonu %></p>
+              <button type="button" class="btn btn-light"
+                onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
+                  class="fa fa-edit"></i></button>
             </div>
-        <% } %>
-    </div>
-  </div>
+            <% } %>
+          </div>
+      </div>
 
-  <div id="editPanel">
-    <div class="tab-pane fade show " role="tabpanel" >
-      <h2>Dodawanie pracownika</h2>
-      <p>Podaj dane nowego pracownika</p>
-      <form action="addHuman" method="POST">
-      <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
-      <input type="text" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko" required>
-      <input type="number" class="form-control addAssets" id="telephone" name="telephone" placeholder="Numer telefonu" required>
-      <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email" required>
-      <input type="file" class="form-control addAssets" id="" name="" placeholder="Umowa" >
-      <select class="form-control createAccount" placeholder="Przełożony" id="superior" name="superior" required>
-          <% for(var i=0; i < workers.length; i++) { %>
-            <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
-          <%}%>
-      </select>
-       
-      </select>
-      <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
-    <button type="submit" class="btn btn-success">Zapisz</button>
-    </form>
+      <div id="editPanel">
+        <div class="tab-pane fade show " role="tabpanel">
+          <div class="container">
+
+            <h2>Dodawanie pracownika</h2>
+            <p>Podaj dane nowego pracownika</p>
+            <div class="row">
+              <div class="col-md">
+                <form action="addHuman" method="POST">
+                  <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
+                  <input type="text" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko"
+                    required>
+                  <input type="number" class="form-control addAssets" id="telephone" name="telephone"
+                    placeholder="Numer telefonu" required>
+                  <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email"
+                    required>
+                  <select class="form-control" placeholder="Przełożony" id="superior" name="superior"
+                    required>
+                    <% for(var i=0; i < workers.length; i++) { %>
+                    <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
+                    <%}%>
+                  </select>
+              </div> 
+              <div class="col-md">
+                  <p>Dane umowy</p>
+                  <label class="radio-inline"><input type="radio" name="agreement" checked>Umowa o pracę </label>
+                  <label class="radio-inline"><input type="radio" name="">Umowa zlecenie </label>
+                  <label class="radio-inline"><input type="radio" name="">Umowa B2B </label>
+                  <input type="file" class="form-control addAssets" id="" name="" placeholder="Umowa">
+              </div>
+            </div>
+        </div>
+        </select>
+                  <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+                  <button type="submit" class="btn btn-success">Zapisz</button>
+                </form>
+      </div>
     </div>
-  </div>
     
     <div id="edit">
         <div class="tab-pane fade show " role="tabpanel" >
@@ -101,7 +117,7 @@
     var x = document.getElementById("editPanel");
     var z = document.getElementById("edit");
     var a = document.getElementById("teamsManage");
-    a.style.display="none";
+    a.style.display = "none";
     z.style.display = "none";
     y.style.display = "none";
 
@@ -111,7 +127,7 @@
       x.style.display = "none";
     }
 
-    
+
 
   }
 
@@ -123,7 +139,7 @@
     z.style.display = "none";
     y.style.display = "none";
     x.style.display = "none";
-    
+
     if (a.style.display === "none") {
       a.style.display = "block";
     } else {
@@ -176,6 +192,8 @@
 
   }
 
+
+
   $(function () {
     $('#search').keyup(function () {
       var current_query = $('#search').val();
@@ -192,6 +210,11 @@
       };
     });
   });
+
+  var radios = document.getElementsByName('agreement');
+  radios.addEventListener("click", function() {
+        alert("clicked");
+    }, false);
 
 </script>
 <% include partials/footerLogin %>
