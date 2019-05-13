@@ -66,14 +66,39 @@
               </div> 
               <div class="col-md">
                   <p>Dane umowy</p>
-                  <label class="radio-inline"><input type="radio" name="agreement" checked>Umowa o pracę </label>
-                  <label class="radio-inline"><input type="radio" name="">Umowa zlecenie </label>
-                  <label class="radio-inline"><input type="radio" name="">Umowa B2B </label>
+                  <label class="radio-inline"><input type="radio" name="agreement" onclick="agreementView()">Umowa o pracę </label>
+                  <label class="radio-inline"><input type="radio" name="agreement" onclick="agreement2View()">Umowa zlecenie </label>
+                  <label class="radio-inline"><input type="radio" name="agreement" onclick="agreementB2bView()">Umowa B2B </label>
                   <input type="file" class="form-control addAssets" id="" name="" placeholder="Umowa">
+                  <!-- Optional inputs -->
+                  <div class="agreement"> <!-- umowa o prace is checked-->
+                    <input type="number" class="form-control addAssets" id="timeAgreement" placeholder="Wymiar czasu" name="timeAgreement">
+                  </div>
+                  <div id="agreement2"> <!-- umowa zlecenie is checked -->
+                    <p>Czy jest studentem?</p>
+                    <label class="radio-inline"><input type="radio" name="ifStudent">Tak</label>
+                    <label class="radio-inline"><input type="radio" name="ifStudent">Nie</label>
+
+                    <p>Czy obowiazuje ZUS?</p>
+                    <label class="radio-inline"><input type="radio" name="ifZus">Tak</label>
+                    <label class="radio-inline"><input type="radio" name="ifZus">Nie</label>
+                  </div>
+                  <div id="b2b">
+                    <select class="form-control" placeholder="Firma" id="companyB2b">
+                      <% for(var i=0; i < company.length; i++) { %>
+                        <option selected>Wybierz firmę</option>
+                        <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
+                      <%}%>
+                    </select>
+                    <button type="button" class="btn btn-warning" onclick="addCompanyView()">Dodaj firmę</button>
+
+                    <p>Czy zakaz konkurencji?</p>
+                    <label class="radio-inline"><input type="radio" name="ifZus">Tak</label>
+                    <label class="radio-inline"><input type="radio" name="ifZus">Nie</label>
+                  </div>
               </div>
             </div>
         </div>
-        </select>
                   <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
                   <button type="submit" class="btn btn-success">Zapisz</button>
                 </form>
@@ -105,6 +130,9 @@
         </form>
         </div>
       </div>
+
+
+
   </div>
 </div>
 </div>
@@ -117,6 +145,9 @@
     var x = document.getElementById("editPanel");
     var z = document.getElementById("edit");
     var a = document.getElementById("teamsManage");
+    hideAgreementB2b();
+    hideAgreementInput();
+    hideAgreemtnInput2();
     a.style.display = "none";
     z.style.display = "none";
     y.style.display = "none";
@@ -126,8 +157,6 @@
     } else {
       x.style.display = "none";
     }
-
-
 
   }
 
@@ -139,6 +168,7 @@
     z.style.display = "none";
     y.style.display = "none";
     x.style.display = "none";
+
 
     if (a.style.display === "none") {
       a.style.display = "block";
@@ -181,6 +211,9 @@
     var z = document.getElementById("infoPanel");
     z.style.display = "none";
 
+    var agreementInput = document.getElementById("timeAgreement");
+    agreementInput.style.display = "none";
+
     document.getElementById("firstNameEdit").value = firstName;
     document.getElementById("lastNameEdit").value = lastName;
     document.getElementById("telephoneEdit").value = telephone;
@@ -193,6 +226,41 @@
   }
 
 
+  function agreementView(){
+    hideAgreemtnInput2();
+    hideAgreementB2b();
+    var inputs = document.getElementById('timeAgreement');
+    inputs.style.display = "block";
+  }
+
+  function agreement2View(){
+    hideAgreementInput();
+    hideAgreementB2b();
+    var input2 = document.getElementById("agreement2");
+    input2.style.display = "block";
+  }
+
+  function agreementB2bView(){
+    hideAgreementInput();
+    hideAgreemtnInput2();
+    var input3 = document.getElementById('b2b');
+    input3.style.display = "block";
+  }
+
+  function hideAgreementB2b(){
+    var input3 = document.getElementById('b2b');
+    input3.style.display = "none";
+  }
+
+  function hideAgreementInput(){
+    var inputs = document.getElementById('timeAgreement');
+    inputs.style.display = "none";
+  }
+
+  function hideAgreemtnInput2(){
+    var input2 = document.getElementById("agreement2");
+    input2.style.display = "none";
+  }
 
   $(function () {
     $('#search').keyup(function () {
@@ -211,10 +279,7 @@
     });
   });
 
-  var radios = document.getElementsByName('agreement');
-  radios.addEventListener("click", function() {
-        alert("clicked");
-    }, false);
+
 
 </script>
 <% include partials/footerLogin %>

@@ -15,6 +15,16 @@ function getCompanyInfo(IdCompany, idTeam) {
     });
 }
 
+function getAllCopmany(idTeam){
+    return companyModel.findAll({
+        where:{
+            IdZespol: idTeam
+        }
+    }).then(function(company){
+        return company;
+    })
+}
+
 function editCompany(newName, newNip, newAddress, newTown, idCompany, idTeam) {
     return new Promise((resolve, reject) => { 
     if (newName != '' || newNip != '') {
@@ -142,5 +152,6 @@ function ifcompanyExists(name, nip){
 
 module.exports = {
     getCompanyInfo: getCompanyInfo,
-    editCompany: editCompany
+    editCompany: editCompany,
+    getAllCopmany: getAllCopmany
 }

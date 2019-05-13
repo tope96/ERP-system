@@ -11,11 +11,14 @@ exports.humanResources = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                companyUtil.getAllCopmany(req.user.IdPracownik).then(function(company){
                 res.render('humanResources', {
                     name: profile.Imie,
                     site: "Zasoby ludzkie",
-                    workers: workers
+                    workers: workers,
+                    company: company
                 });
+            });
             });
         });
     });
