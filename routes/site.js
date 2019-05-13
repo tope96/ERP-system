@@ -158,14 +158,33 @@ module.exports = function (app, passport) {
         var email = req.body.email;
         var tel = req.body.telephone;
         var superior = req.body.superior;
+        var typeOfAgreement = req.body.agreement; // 1 - umowa o prace, 2 - umowa zlecenie, 3 - umowa B2B
+        var timeOfContract = req.body.timeOfContract;
+        var ifStudent = req.body.ifStudent;
+        var ifZus = req.body.ifZus;
+        var ifCompetition = req.body.ifCompetition;
+        var startDate = req.body.startDate;
+        var endDate = req.body.endDate;
+        var lumpSum = req.body.lumpSum;
+        var hourlyRate = req.body.hourlyRate;
 
+        if(typeOfAgreement == 1){
+            console.log("umowa o prace");
+        }
+        if(typeOfAgreement == 2){
+            console.log("umowa zlecenie");
+        }
+        if(typeOfAgreement == 3){
+            console.log("umowa B2B");
+        }
+        /*
         workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol).then(function(user){
             if(user == false){
                 res.redirect('/editCompanyAddProfileError');
             }else{
                 res.redirect('/humanResources');
             }
-        });
+        });*/
     });
 
     app.post('/editHr', isLoggedIn, function(req, res){

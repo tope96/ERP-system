@@ -49,6 +49,7 @@
             <p>Podaj dane nowego pracownika</p>
             <div class="row">
               <div class="col-md">
+                <p><b>Dane pracownika</b></p>
                 <form action="addHuman" method="POST">
                   <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
                   <input type="text" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko"
@@ -65,23 +66,29 @@
                   </select>
               </div> 
               <div class="col-md">
-                  <p>Dane umowy</p>
-                  <label class="radio-inline"><input type="radio" name="agreement" onclick="agreementView()">Umowa o pracę </label>
-                  <label class="radio-inline"><input type="radio" name="agreement" onclick="agreement2View()">Umowa zlecenie </label>
-                  <label class="radio-inline"><input type="radio" name="agreement" onclick="agreementB2bView()">Umowa B2B </label>
+                  <p><b>Dane umowy</b></p>
+                  <p>Data rozpoczęcia zatrudnienia: </p>
+                  <input type="date" class="form-control addAssets" name="startDate" placeholder="Data rozpoczęcia">
+                  <p>Data końca zatrudnienia: </p>
+                  <input type="date" class="form-control addAssets" name="endDate" placeholder="Data rozpoczęcia">
+                  <input type="number" class="form-control addAssets" name="lumpSum" placeholder="Stawka ryczałt">
+                  <input type="number" class="form-control addAssets" name="hourlyRate" placeholder="Stawka godzinowa">
+                  <label class="radio-inline"><input type="radio" name="agreement" value="1" onclick="agreementView()">Umowa o pracę </label>
+                  <label class="radio-inline"><input type="radio" name="agreement" value="2" onclick="agreement2View()">Umowa zlecenie </label>
+                  <label class="radio-inline"><input type="radio" name="agreement" value="3" onclick="agreementB2bView()">Umowa B2B </label>
                   <input type="file" class="form-control addAssets" id="" name="" placeholder="Umowa">
                   <!-- Optional inputs -->
-                  <div class="agreement"> <!-- umowa o prace is checked-->
-                    <input type="number" class="form-control addAssets" id="timeAgreement" placeholder="Wymiar czasu" name="timeAgreement">
+                  <div id="agreement"> <!-- umowa o prace is checked-->
+                    <input type="number" class="form-control addAssets" id="timeOfContract" placeholder="Wymiar czasu" name="timeAgreement">
                   </div>
                   <div id="agreement2"> <!-- umowa zlecenie is checked -->
                     <p>Czy jest studentem?</p>
-                    <label class="radio-inline"><input type="radio" name="ifStudent">Tak</label>
-                    <label class="radio-inline"><input type="radio" name="ifStudent">Nie</label>
+                    <label class="radio-inline"><input type="radio" value="1" name="ifStudent">Tak</label>
+                    <label class="radio-inline"><input type="radio" value="0" name="ifStudent">Nie</label>
 
                     <p>Czy obowiazuje ZUS?</p>
-                    <label class="radio-inline"><input type="radio" name="ifZus">Tak</label>
-                    <label class="radio-inline"><input type="radio" name="ifZus">Nie</label>
+                    <label class="radio-inline"><input type="radio" value="1" name="ifZus">Tak</label>
+                    <label class="radio-inline"><input type="radio" value="0" name="ifZus">Nie</label>
                   </div>
                   <div id="b2b">
                     <select class="form-control" placeholder="Firma" id="companyB2b">
@@ -93,8 +100,8 @@
                     <button type="button" class="btn btn-warning" onclick="addCompanyView()">Dodaj firmę</button>
 
                     <p>Czy zakaz konkurencji?</p>
-                    <label class="radio-inline"><input type="radio" name="ifZus">Tak</label>
-                    <label class="radio-inline"><input type="radio" name="ifZus">Nie</label>
+                    <label class="radio-inline"><input type="radio" value="1" name="ifCompetition">Tak</label>
+                    <label class="radio-inline"><input type="radio" value="0" name="ifCompetition">Nie</label>
                   </div>
               </div>
             </div>
@@ -211,7 +218,7 @@
     var z = document.getElementById("infoPanel");
     z.style.display = "none";
 
-    var agreementInput = document.getElementById("timeAgreement");
+    var agreementInput = document.getElementById("agreement");
     agreementInput.style.display = "none";
 
     document.getElementById("firstNameEdit").value = firstName;
@@ -229,7 +236,7 @@
   function agreementView(){
     hideAgreemtnInput2();
     hideAgreementB2b();
-    var inputs = document.getElementById('timeAgreement');
+    var inputs = document.getElementById('agreement');
     inputs.style.display = "block";
   }
 
@@ -253,7 +260,7 @@
   }
 
   function hideAgreementInput(){
-    var inputs = document.getElementById('timeAgreement');
+    var inputs = document.getElementById('agreement');
     inputs.style.display = "none";
   }
 
