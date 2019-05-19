@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'umowy_zlecenie'
+    tableName: 'umowy_zlecenie',
+    timestamps: false
   });
 };

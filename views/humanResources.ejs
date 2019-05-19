@@ -36,6 +36,11 @@
               <button type="button" class="btn btn-light"
                 onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
                   class="fa fa-edit"></i></button>
+              <form action="deleteHuman" method="POST">
+                <input type="hidden" name="workerId" value="<%= workers[i].IdPracownik %>">
+                <button type="submit" class="btn btn-danger">Zwolnij!</button>
+              </form>
+              
             </div>
             <% } %>
           </div>
@@ -79,7 +84,7 @@
                   <input type="file" class="form-control addAssets" id="" name="" placeholder="Umowa">
                   <!-- Optional inputs -->
                   <div id="agreement"> <!-- umowa o prace is checked-->
-                    <input type="number" class="form-control addAssets" id="timeOfContract" placeholder="Wymiar czasu" name="timeAgreement">
+                    <input type="number" class="form-control addAssets" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
                   </div>
                   <div id="agreement2"> <!-- umowa zlecenie is checked -->
                     <p>Czy jest studentem?</p>
@@ -91,9 +96,9 @@
                     <label class="radio-inline"><input type="radio" value="0" name="ifZus">Nie</label>
                   </div>
                   <div id="b2b">
-                    <select class="form-control" placeholder="Firma" id="companyB2b">
-                      <% for(var i=0; i < company.length; i++) { %>
+                    <select class="form-control" placeholder="Firma" name="companyB2b" id="companyB2b">
                         <option selected>Wybierz firmę</option>
+                      <% for(var i=0; i < company.length; i++) { %>
                         <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
                       <%}%>
                     </select>
@@ -131,14 +136,34 @@
 
       <div id="teamsManage">
         <div class="tab-pane fade show " role="tabpanel" >
-          <h2>Edytowanie przedmiotu</h2>
-          <p>Podaj nowe dane</p>
+          <h2>Zespoły</h2>
+    
           fff
         </form>
         </div>
       </div>
-
-
+      
+      <div id="addCompany">
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h3>Dodaj firmę</h3>
+            <p>Podaj informacje niezbędne do dodania nowej firmy</p>
+            
+            <form action="addCompany" method="POST">
+              <input type="text" class="form-control addAssets" id="nameCompany" name="nameCompany" placeholder="Nazwa">
+              <input type="number" class="form-control addAssets" id="nipCompany" name="nipCompany" placeholder="NIP">
+              <input type="text" class="form-control addAssets" id="addressCompany" name="addressCompany" placeholder="Adres">
+              <input type="text" class="form-control addAssets" id="townCompany" name="townCompany" placeholder="Miasto">
+              
+              <div class="row">
+                <button type="button" class="btn btn-danger" onclick="addCompanyHide()">Anuluj</button>
+                <button type="submit" class="btn btn-success">Zapisz</button>
+              </div>
+              
+            </form>
+        </div>
+        </div>
+      </div>
 
   </div>
 </div>
@@ -147,17 +172,32 @@
 
 
 <script>
+    var x = document.getElementById("addCompany");
+    x.style.display = "none";
+
+  function addCompanyView(){
+    var x = document.getElementById("addCompany");
+    x.style.display = "inline";
+  }
+
+  function addCompanyHide(){
+    var x = document.getElementById("addCompany");
+    x.style.display = "none";
+  }
+
   function myFunction() {
     var y = document.getElementById("infoPanel");
     var x = document.getElementById("editPanel");
     var z = document.getElementById("edit");
     var a = document.getElementById("teamsManage");
+    var addCompany = document.getElementById("addCompany");
     hideAgreementB2b();
     hideAgreementInput();
     hideAgreemtnInput2();
     a.style.display = "none";
     z.style.display = "none";
     y.style.display = "none";
+    addCompany.style.display = "none";
 
     if (x.style.display === "none") {
       x.style.display = "block";
@@ -172,10 +212,12 @@
     var x = document.getElementById("editPanel");
     var z = document.getElementById("edit");
     var a = document.getElementById("teamsManage");
+    var addCompany = document.getElementById("addCompany");
+
     z.style.display = "none";
     y.style.display = "none";
     x.style.display = "none";
-
+    addCompany.style.display = "none";
 
     if (a.style.display === "none") {
       a.style.display = "block";
@@ -186,14 +228,16 @@
   }
 
   function hide() {
-    var z = document.getElementById("edit");
-    var x = document.getElementById("editPanel");
-    var y = document.getElementById("infoPanel");
-    var a = document.getElementById("teamsManage");
-    x.style.display = "none";
-    y.style.display = "block";
-    z.style.display = "none";
-    a.style.display = "none";
+    var edit = document.getElementById("edit");
+    var editPanel = document.getElementById("editPanel");
+    var infoPanel = document.getElementById("infoPanel");
+    var teamManage = document.getElementById("teamsManage");
+    var addCompany = document.getElementById("addCompany");
+    editPanel.style.display = "none";
+    infoPanel.style.display = "block";
+    edit.style.display = "none";
+    teamManage.style.display = "none";
+    addCompany.style.display = "none";
   }
 
   function cancel() {

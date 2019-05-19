@@ -158,11 +158,20 @@ function addProfile(name, lastName, email, tel, superior, idTeam){
     });
 }
 
+function deleteWorker(IdWorker){
+    return pracownik.destroy({
+        where:{
+            IdPracownik: IdWorker
+        }
+    });
+}
+
 module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
     editUser: editUser,
     getWorkers:getWorkers,
     addProfile: addProfile,
-    editUserfromHr: editUserfromHr
+    editUserfromHr: editUserfromHr,
+    deleteWorker: deleteWorker
 }

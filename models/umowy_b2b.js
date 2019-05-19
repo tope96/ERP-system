@@ -8,12 +8,8 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    NazwaFirmy: {
-      type: DataTypes.STRING(25),
-      allowNull: false
-    },
-    AdresFirmy: {
-      type: DataTypes.STRING(50),
+    IdFirma: {
+      type: DataTypes.INTEGER(11),
       allowNull: false
     },
     ZakazKonkurencji: {
@@ -22,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '0'
     }
   }, {
-    tableName: 'umowy_b2b'
+    tableName: 'umowy_b2b',
+    timestamps: false
   });
 };

@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'umowy_o_prace'
+    tableName: 'umowy_o_prace',
+    timestamps: false
   });
 };

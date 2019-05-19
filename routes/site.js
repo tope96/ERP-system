@@ -9,6 +9,8 @@ var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
 var fixedAssets = require('../models/.utils/fixedAssets.js');
 var companyUtil = require('../models/.utils/company.js');
+var agreementUtil = require('../models/.utils/agreementsUtil.js');
+
 
 module.exports = function (app, passport) {
     app.get('/profile', isLoggedIn, controller.profile);
@@ -167,24 +169,44 @@ module.exports = function (app, passport) {
         var endDate = req.body.endDate;
         var lumpSum = req.body.lumpSum;
         var hourlyRate = req.body.hourlyRate;
-
-        if(typeOfAgreement == 1){
-            console.log("umowa o prace");
-        }
-        if(typeOfAgreement == 2){
-            console.log("umowa zlecenie");
-        }
-        if(typeOfAgreement == 3){
-            console.log("umowa B2B");
-        }
-        /*
+        var companyId = req.body.companyB2b;
+        
         workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol).then(function(user){
             if(user == false){
                 res.redirect('/editCompanyAddProfileError');
             }else{
-                res.redirect('/humanResources');
+                agreementUtil.addAgreement(startDate, endDate, lumpSum, hourlyRate).then(function(agreeId){
+                    if(agreeId == false){
+                       
+                    }else{
+                        if(typeOfAgreement == 1){
+                            agreementUtil.addOPrace(timeOfContract).then(function(oPrace){
+                                agreementUtil.addOPraceToAgree(agreeId, oPrace).then(function(){
+                                    res.redirect('/humanResources');
+                                })
+                            });
+                        }
+                        if(typeOfAgreement == 2){
+                            agreementUtil.addZlecenie(ifStudent, ifZus).then(function(zlecenie){
+                                agreementUtil.addZlecenieToAgree(agreeId, zlecenie).then(function(){
+                                    res.redirect('/humanResources');
+                                })
+                            });
+                        }
+                        if(typeOfAgreement == 3){
+                            agreementUtil.addB2b(companyId, ifCompetition).then(function(b2bId){
+                                agreementUtil.addB2bToAgree(agreeId, b2bId).then(function(){
+                                    res.redirect('/humanResources');
+                                })
+                            });
+                        }
+
+                       
+                    }
+                })
+                
             }
-        });*/
+        });
     });
 
     app.post('/editHr', isLoggedIn, function(req, res){
@@ -194,12 +216,34 @@ module.exports = function (app, passport) {
         var tel = req.body.telephoneEdit;
         var id = req.body.idEdit;
 
-        console.log(name + " " + lastName + " " + email + " " + tel);
 
         workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id);
         setTimeout(function(){
             res.redirect('/humanResources');
         }, 500);
+    });
+
+    app.post('/deleteHuman', isLoggedIn, function(req, res){
+        var workerId = req.body.workerId;
+
+        workersUtil.deleteWorker(workerId).then(function(){
+            res.redirect('/humanResources');
+        })
+    })
+
+    app.post('/addCompany', isLoggedIn, function(req, res){
+        var name = req.body.nameCompany;
+        var nip = req.body.nipCompany;
+        var address = req.body.addressCompany;
+        var town = req.body.townCompany;
+
+        companyUtil.addCompany(name, nip, address, town, req.user.IdZespol).then(function(ifOk){
+            if(ifOk){
+                res.redirect('/humanResources');
+            }else{
+                console.log("nieeeeee"); //TODO: make something
+            }
+        })
     })
 
 }

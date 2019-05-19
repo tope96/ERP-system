@@ -20,11 +20,24 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.FLOAT,
       allowNull: true
     },
+    umowy_b2b: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
+    umowy_o_prace: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
+    umowy_zlecenie: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
     StawkaGodzinowa: {
       type: DataTypes.FLOAT,
       allowNull: true
     }
   }, {
-    tableName: 'umowy'
+    tableName: 'umowy',
+    timestamps: false
   });
 };
