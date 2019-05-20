@@ -13,7 +13,7 @@ exports.signin = function (req, res) {
 }
 
 exports.home = function (req, res) {
-    workersUtil.getWorkerInfo(req.user.IdKontoDomenowe).then(function(user){
+    workersUtil.getWorkerInfo(req.user.IdPracownik).then(function(user){
         res.render('home', {
             name: user.Imie,
             site: "Pulpit"

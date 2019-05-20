@@ -166,6 +166,16 @@ function deleteWorker(IdWorker){
     });
 }
 
+function layOff(IdWorker){
+    return new Promise((resolve, reject) => { 
+    dAccount.deleteAccount(IdWorker).then(function(){
+        deleteWorker(IdWorker).then(function(){
+            resolve(true);
+        });
+    });
+});
+}
+
 module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
@@ -173,5 +183,6 @@ module.exports = {
     getWorkers:getWorkers,
     addProfile: addProfile,
     editUserfromHr: editUserfromHr,
-    deleteWorker: deleteWorker
+    deleteWorker: deleteWorker,
+    layOff:layOff
 }

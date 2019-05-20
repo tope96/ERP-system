@@ -121,23 +121,18 @@ module.exports = function (app, passport) {
     //COMPANY EDIT
 
     app.post('/addProfile', isLoggedIn, function(req, res){
-        var name = req.body.name;
-        var lastName = req.body.lastName;
-        var email = req.body.email;
-        var tel = req.body.telephone;
+       
         var login = req.body.login;
         var password = req.body.password;
-        var superior = req.body.superior;
+        var worker = req.body.worker;
 
-        workersUtil.addProfile(name, lastName, email, tel, superior).then(function(user){
-            if(user == false){
-                res.redirect('/editCompanyAddProfileError');
+        domaneAccount.newAccount(login, password, worker, req.res.IdZespol).then(function(ifOk){
+            if(ifOk){
+                res.redirect('/editCompany');
             }else{
-                domaneAccount.newAccount(login, user.IdPracownik, password).then(function(){
-                    res.redirect('/editCompanyAddProfileSuccess');
-                })
+
             }
-        });
+        })
     });
 
     app.post('/companyEdition', isLoggedIn, function(req, res){
@@ -226,10 +221,11 @@ module.exports = function (app, passport) {
     app.post('/deleteHuman', isLoggedIn, function(req, res){
         var workerId = req.body.workerId;
 
-        workersUtil.deleteWorker(workerId).then(function(){
+        workersUtil.layOff(workerId).then(function(){
             res.redirect('/humanResources');
         })
-    })
+
+    });
 
     app.post('/addCompany', isLoggedIn, function(req, res){
         var name = req.body.nameCompany;
@@ -243,7 +239,7 @@ module.exports = function (app, passport) {
             }else{
                 console.log("nieeeeee"); //TODO: make something
             }
-        })
-    })
+        });
+    });
 
 }

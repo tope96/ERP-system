@@ -2,6 +2,24 @@ var models = require('../../models');
 var worker = require('./workerUtil.js');
 var dAccount = models.konta_domenowe;
 var bCrypt = require('bcrypt-nodejs');
+const dotenv = require('dotenv').config();
+
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
+    logging: false,
+    pool: {
+      max: process.env.DB_POOLMAX,
+      min: process.env.DB_POOLMIN,
+      idle: process.env.DB_IDLE,
+      acquire: process.env.DB_ACQUIRE,
+      evict: process.env.DB_EVICT,
+      handleDisconnects: process.env.DB_DISC
+      },
+  });
+
+
 
 function getLogin(id){
     return dAccount.findOne({
@@ -31,7 +49,7 @@ function newLogin(currUser, newLogin) {
     );
 }
 
-function newAccount(login, workerId, password){
+function newAccount(login, password, workerId, idTeam){
     var generateHash = function (password) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
     };
@@ -40,7 +58,8 @@ function newAccount(login, workerId, password){
         where:{
             Login: login, 
             Haslo: generateHash(password),
-            IdPracownik: workerId
+            IdPracownik: workerId,
+            IdZespol: idTeam
         }
     }).then(function(account){
         if(account){
@@ -49,8 +68,15 @@ function newAccount(login, workerId, password){
             return dAccount.create({
                 Login: login,
                 Haslo: generateHash(password),
-                IdPracownik: workerId
-            });
+                IdPracownik: workerId,
+                IdZespol: idTeam
+            }).then(function(newAcc){
+                if(newAcc){
+                    return true;
+                }else{
+                    return false;
+                }
+            })
         }
     })
 
@@ -86,10 +112,27 @@ function changePassword(id, newPassword){
     });
 }
 
+function workersWithoutDomaneAccount(IdTeam){
+    return sequelize.query("SELECT Imie, Nazwisko, IdPracownik FROM pracownicy WHERE IdPracownik NOT IN (SELECT IdPracownik FROM konta_domenowe) AND IdZespol = " + IdTeam,
+    {type: sequelize.QueryTypes.SELECT}).then(workersWithoutDomane =>
+     {return workersWithoutDomane}); 
+   }
+
+   function deleteAccount(IdWorker){
+        
+    return dAccount.destroy({
+            where:{
+                IdPracownik: IdWorker
+            }
+        });
+   }
+
 module.exports={
     getLogin: getLogin,
     newLogin: newLogin,
     newAccount: newAccount,
     ifCurrPasswordValid: ifCurrPasswordValid,
-    changePassword: changePassword
+    changePassword: changePassword,
+    workersWithoutDomaneAccount:workersWithoutDomaneAccount,
+    deleteAccount: deleteAccount
 }

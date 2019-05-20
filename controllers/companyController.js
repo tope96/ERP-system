@@ -55,7 +55,7 @@ exports.editCompanyEdition = function(req, res){
 exports.editCompanyAddProfile = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
         workersUtil.getWorkerInfo(account.IdPracownik).then(function(profile){
-        workersUtil.getWorkers().then(function(workers){
+        domaneAccount.workersWithoutDomaneAccount(req.user.IdZespol).then(function(workers){
             companyUtil.getCompanyInfo(profile.Firma, req.user.IdZespol).then(function(company){
                 townUtil.getTown(company.IdMiasto).then(function(town){
             res.render('editCompany', {

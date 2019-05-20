@@ -53,13 +53,14 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <h3>Dodaj konto</h3>
-            <p>Podaj informacje niezbędne do utworzenia nowego konta</p>
             <form action="/addProfile" method="POST">
-                <input type="text" class="form-control createAccount" name="name" placeholder="Imię">
-                <input type="text" class="form-control createAccount" name="lastName" placeholder="Nazwisko">
-                <input type="email" class="form-control createAccount" name="email" placeholder="Email">
-                <input type="tel" class="form-control createAccount" name="telephone" placeholder="Telefon">
-                <select class="form-control createAccount" placeholder="Przełożony" id="superior" name="superior" required>
+                <p>Wybierz pracownika, któremu utworzysz konto domenowe</p>
+                <select class="form-control createAccount" placeholder="Pracownik" id="worker" name="worker" required>
+                    <%if (workers.length < 1){ %>
+                        <option>Brak pracowników bez kont</option>
+                    <% } else {%>
+                        <option>Wybierz pracownika</option>
+                    <% } %>
                         <% for(var i=0; i < workers.length; i++) { %>
                           <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
                         <%}%>
