@@ -177,13 +177,15 @@ module.exports = function (app, passport) {
                         if(typeOfAgreement == 1){
                             agreementUtil.addOPrace(timeOfContract).then(function(oPrace){
                                 agreementUtil.addOPraceToAgree(agreeId, oPrace).then(function(){
+                                    workersUtil.addAgreeToHuman(user, agreeId);
                                     res.redirect('/humanResources');
                                 })
                             });
                         }
                         if(typeOfAgreement == 2){
                             agreementUtil.addZlecenie(ifStudent, ifZus).then(function(zlecenie){
-                                agreementUtil.addZlecenieToAgree(agreeId, zlecenie).then(function(){
+                                agreementUtil.addZlecenieToAgree(agreeId, zlecenie).then(function(IdAgree){
+                                    workersUtil.addAgreeToHuman(user, agreeId);
                                     res.redirect('/humanResources');
                                 })
                             });
@@ -191,6 +193,7 @@ module.exports = function (app, passport) {
                         if(typeOfAgreement == 3){
                             agreementUtil.addB2b(companyId, ifCompetition).then(function(b2bId){
                                 agreementUtil.addB2bToAgree(agreeId, b2bId).then(function(){
+                                    workersUtil.addAgreeToHuman(user, agreeId);
                                     res.redirect('/humanResources');
                                 })
                             });

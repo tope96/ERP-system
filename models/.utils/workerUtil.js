@@ -176,6 +176,21 @@ function layOff(IdWorker){
 });
 }
 
+function addAgreeToHuman(IdWorker, IdAgree){
+    var workId = IdWorker.IdPracownik;
+    return pracownik.findOne({
+        where:{
+            IdPracownik: workId
+        }
+    }).then(function(id){
+        if(id){
+            return id.update({
+                IdUmowy: IdAgree
+            });
+        }
+    })
+}
+
 module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
@@ -184,5 +199,6 @@ module.exports = {
     addProfile: addProfile,
     editUserfromHr: editUserfromHr,
     deleteWorker: deleteWorker,
-    layOff:layOff
+    layOff:layOff,
+    addAgreeToHuman:addAgreeToHuman
 }

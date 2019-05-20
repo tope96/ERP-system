@@ -5,6 +5,7 @@ var domaneAccount = require('../models/.utils/domaneAccount.js');
 var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
 var companyUtil = require('../models/.utils/company.js');
 var townUtil = require('../models/.utils/townUtil.js');
+var agreementUtil = require('../models/.utils/agreementsUtil.js');
 
 
 exports.humanResources = function (req, res) {
@@ -12,6 +13,7 @@ exports.humanResources = function (req, res) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                 companyUtil.getAllCopmany(req.user.IdPracownik).then(function(company){
+                    
                 res.render('humanResources', {
                     name: profile.Imie,
                     site: "Zasoby ludzkie",
@@ -22,4 +24,5 @@ exports.humanResources = function (req, res) {
             });
         });
     });
+    agreementUtil.getAgreeInfo(0);
 }

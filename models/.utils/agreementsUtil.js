@@ -126,6 +126,8 @@ function addOPraceToAgree(agreeId, oPrace){
         if(agree){
             agree.update({
                 umowy_o_prace: oPrace
+            }).then(function(agreement){
+                return agreement.IdUmowy;
             });
         }
     });
@@ -139,9 +141,47 @@ function addZlecenieToAgree(agreeId, zlecenie){
         if(agree){
             agree.update({
                 umowy_zlecenie: zlecenie
-            });
+            }).then(function(agr){
+                return agr.IdUmowy;
+            })
         }
     });
+}
+
+function getAgreeInfo(idAgree){
+    return agreementModel.findOne({
+        where:{
+            IdUmowy: 11
+        }
+    }).then(function(agree){
+        if(agree.umowy_b2b != null){
+            return agreementB2b.findOne({
+                where:{
+                    IdUmowy: agree.umowy_b2b
+                }
+            }).then(function(agreeB2b){
+                return agreeB2b
+            });
+        }
+        if(agree.umowy_o_prace != null){
+            return agreementModel.findOne({
+                where:{
+                    IdUmowy: agree.umowy_o_prace
+                }
+            }).then(function(agreeOPrace){
+                return agreeOPrace;
+            });
+        }
+        if(agree.zlecenie != null){
+            return agreementZlecenie.findOne({
+                where:{
+                    IdUmowy: agree.umowy_zlecenie
+                }
+            }).then(function(agreeZlecenie){
+                return agreeZlecenie;
+            });
+        }
+    })
 }
 
 module.exports = {
@@ -151,5 +191,6 @@ module.exports = {
     addOPrace:addOPrace,
     addOPraceToAgree: addOPraceToAgree,
     addZlecenie: addZlecenie,
-    addZlecenieToAgree: addZlecenieToAgree
+    addZlecenieToAgree: addZlecenieToAgree,
+    getAgreeInfo: getAgreeInfo
 }
