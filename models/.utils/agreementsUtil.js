@@ -3,6 +3,7 @@ var agreementModel = models.umowy;
 var agreementB2b = models.umowy_b2b;
 var agreementPraca = models.umowy_o_prace;
 var agreementZlecenie = models.umowy_zlecenie;
+var pracownik = models.pracownicy;
 
 function addAgreement(startDate, endDate, lumpSum, hourlyRate) {
     return agreementModel.findOne({
@@ -151,7 +152,7 @@ function addZlecenieToAgree(agreeId, zlecenie){
 function getAgreeInfo(idAgree){
     return agreementModel.findOne({
         where:{
-            IdUmowy: 11
+            IdUmowy: idAgree
         }
     }).then(function(agree){
         if(agree.umowy_b2b != null){
@@ -160,10 +161,9 @@ function getAgreeInfo(idAgree){
                     IdUmowy: agree.umowy_b2b
                 }
             }).then(function(agreeB2b){
-                return agreeB2b
+                return agreeB2b;
             });
-        }
-        if(agree.umowy_o_prace != null){
+        }else if(agree.umowy_o_prace != null){
             return agreementModel.findOne({
                 where:{
                     IdUmowy: agree.umowy_o_prace
@@ -171,8 +171,7 @@ function getAgreeInfo(idAgree){
             }).then(function(agreeOPrace){
                 return agreeOPrace;
             });
-        }
-        if(agree.zlecenie != null){
+        }else if(agree.zlecenie != null){
             return agreementZlecenie.findOne({
                 where:{
                     IdUmowy: agree.umowy_zlecenie

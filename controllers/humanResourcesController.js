@@ -12,15 +12,17 @@ exports.humanResources = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
-                companyUtil.getAllCopmany(req.user.IdPracownik).then(function(company){
-                    
-                res.render('humanResources', {
-                    name: profile.Imie,
-                    site: "Zasoby ludzkie",
-                    workers: workers,
-                    company: company
+                companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                    agreementUtil.getAgreeInfo(profile.IdUmowy).then(function (agree) {
+                        res.render('humanResources', {
+                            name: profile.Imie,
+                            site: "Zasoby ludzkie",
+                            workers: workers,
+                            company: company,
+                            agree: agree
+                        });
+                    });
                 });
-            });
             });
         });
     });

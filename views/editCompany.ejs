@@ -55,7 +55,7 @@
             <h3>Dodaj konto</h3>
             <form action="/addProfile" method="POST">
                 <p>Wybierz pracownika, któremu utworzysz konto domenowe</p>
-                <select class="form-control createAccount" placeholder="Pracownik" id="worker" name="worker" required>
+                <select class="form-control createAccount selectWorker input" placeholder="Pracownik" id="worker" name="worker" required>
                     <%if (workers.length < 1){ %>
                         <option>Brak pracowników bez kont</option>
                     <% } else {%>
@@ -65,15 +65,15 @@
                           <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
                         <%}%>
                 </select>
-                <input type="text" class="form-control createAccount" name="login" placeholder="Login">
-                <input type="password" class="form-control createAccount" name="password" placeholder="Hasło">
+                <input type="text" class="form-control createAccount input" name="login" placeholder="Login">
+                <input type="password" class="form-control createAccount input" name="password" placeholder="Hasło">
                 
                 <div class="row buttonsInRow">
                 <div class="col-6 leftButtonInRow">
                     <a href="/editCompany"><button type="button" class="btn btn-danger">Anuluj</button></a>
                 </div>
                 <div class="col-6 right">
-                    <button type="submit" class="btn btn-success">Zapisz</button>
+                    <button type="submit" class="btn btn-success continue" disabled>Zapisz</button>
                 </div>
             </form>
             </div>
@@ -113,4 +113,45 @@
     </div>
 <% } %>
 
+<script>
+    $(document).ready(function () {
+        //makes submit button disable when inputs are empty
+        $(document).ready(function () {
+            $('.input').keyup(function () {
+
+                var empty = false;
+                $('.input').each(function () {
+                    if ($(this).val().length == 0 || $('.selectWorker').val() == 'Brak pracowników bez kont' || $('.selectWorker').val() == 'Wybierz pracownika') {
+                        empty = true;
+                    }
+                });
+
+                if (empty) {
+                    $('.continue').attr('disabled', 'disabled');
+                } else {
+                    $('.continue').attr('disabled', false);
+                }
+            });
+
+            $('.selectWorker').click(function () {
+                var empty = false;
+                $('.input').each(function () {
+                    if ($(this).val().length == 0 || $('.selectWorker').val() == 'Brak pracowników bez kont' || $('.selectWorker').val() == 'Wybierz pracownika') {
+                        empty = true;
+                    }
+                });
+
+                if (empty) {
+                    $('.continue').attr('disabled', 'disabled');
+                } else {
+                    $('.continue').attr('disabled', false);
+                }
+            });
+        });
+
+    });
+</script>
+
 <% include partials/footerLogin %>
+
+

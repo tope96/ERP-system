@@ -33,6 +33,15 @@
               </div>
               <p>Email: <%= workers[i].Email %></p>
               <p>Numer telefonu:<%= workers[i].NumerTelefonu %></p>
+              <%if (agree.ZakazKonkurencji != null) {%>
+                <b>Typ umowy:</b> Umowa B2B
+                <p>Zakaz konkurencji: <%if(agree.ZakazKonkurencji){%> Tak <%} else {%> Nie <%} %> </p>
+              <% } %>
+              <%if (agree.WymiarCzasuPracy != null) {%>
+                <b>Typ umowy:</b> Umowa o pracę
+                <p>Wymiar czasu pray: <%= agree.WymiarCzasuPracy %> </p>
+                <p>ZUS: <%if(agree.ZakazKonkurencji){%> Tak <%} else {%> Nie <%} %> </p>
+              <% } %>
               <button type="button" class="btn btn-light"
                 onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
                   class="fa fa-edit"></i></button>
