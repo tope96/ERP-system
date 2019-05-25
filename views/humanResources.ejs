@@ -33,15 +33,16 @@
               </div>
               <p>Email: <%= workers[i].Email %></p>
               <p>Numer telefonu:<%= workers[i].NumerTelefonu %></p>
-              <%if (agree.ZakazKonkurencji != null) {%>
-                <b>Typ umowy:</b> Umowa B2B
-                <p>Zakaz konkurencji: <%if(agree.ZakazKonkurencji){%> Tak <%} else {%> Nie <%} %> </p>
-              <% } %>
-              <%if (agree.WymiarCzasuPracy != null) {%>
-                <b>Typ umowy:</b> Umowa o pracę
-                <p>Wymiar czasu pray: <%= agree.WymiarCzasuPracy %> </p>
-                <p>ZUS: <%if(agree.ZakazKonkurencji){%> Tak <%} else {%> Nie <%} %> </p>
-              <% } %>
+              <p><b>Umowa: </b> 
+                <%if ( workers[i].PlikUmowy == null) { %>
+                  <button type="button" class="btn btn-success" disabled><i class="fa fa-file-download"></i> Brak umowy do pobrania</button>
+                <% } else{ %>
+                <form action="downloadContract" method="POST">
+                    <input type="hidden" name="fileName" value="<%= workers[i].PlikUmowy %>">
+                      <button type="submit" class="btn btn-success"><i class="fa fa-file-download"></i> Pobierz umowę </button>
+                </form>
+                <% } %>
+              </p>
               <button type="button" class="btn btn-light"
                 onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
                   class="fa fa-edit"></i></button>
@@ -64,7 +65,7 @@
             <div class="row">
               <div class="col-md">
                 <p><b>Dane pracownika</b></p>
-                <form action="addHuman" method="POST">
+                <form enctype="multipart/form-data" action="addHuman" method="POST">
                   <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
                   <input type="text" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko"
                     required>
@@ -87,10 +88,12 @@
                   <input type="date" class="form-control addAssets" name="endDate" placeholder="Data rozpoczęcia">
                   <input type="number" class="form-control addAssets" name="lumpSum" placeholder="Stawka ryczałt">
                   <input type="number" class="form-control addAssets" name="hourlyRate" placeholder="Stawka godzinowa">
+                  <p>Plik umowy:</p>
+                  <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf">
                   <label class="radio-inline"><input type="radio" name="agreement" value="1" onclick="agreementView()">Umowa o pracę </label>
                   <label class="radio-inline"><input type="radio" name="agreement" value="2" onclick="agreement2View()">Umowa zlecenie </label>
                   <label class="radio-inline"><input type="radio" name="agreement" value="3" onclick="agreementB2bView()">Umowa B2B </label>
-                  <input type="file" class="form-control addAssets" id="" name="" placeholder="Umowa">
+                  
                   <!-- Optional inputs -->
                   <div id="agreement"> <!-- umowa o prace is checked-->
                     <input type="number" class="form-control addAssets" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
@@ -128,18 +131,24 @@
     
     <div id="edit">
         <div class="tab-pane fade show " role="tabpanel" >
-          <h2>Edytowanie przedmiotu</h2>
+          <h2>Edytowanie pracownika</h2>
           <p>Podaj nowe dane</p>
-          <form action="editHr" method="POST">
+          <form enctype="multipart/form-data" action="editHr" method="POST">
           <input type="text" class="form-control addAssets" id="firstNameEdit" name="firstNameEdit" placeholder="Imię">
           <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit" placeholder="Nazwisko">
           <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit" placeholder="Email">
           <input type="number" class="form-control addAssets" id="telephoneEdit" name="telephoneEdit" placeholder="Numer telefonu">
+          <p>Plik z umową:</p>
+          <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" >
           <input type="hidden" id="idEdit" name="idEdit" value="">
           </select>
+
+        
+
           <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
           <button type="submit" class="btn btn-success">Zapisz</button>
-        </form>
+        </form> 
+      
         </div>
       </div>
 

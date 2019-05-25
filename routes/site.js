@@ -1,4 +1,7 @@
 var controller = require('../controllers/controller.js');
+var multer = require('multer');
+var path = require('path');
+var fs = require('fs');
 var companyController = require('../controllers/companyController.js');
 var humanResourcesController = require('../controllers/humanResourcesController.js')
 var bodyParser = require('body-parser');
@@ -11,8 +14,21 @@ var fixedAssets = require('../models/.utils/fixedAssets.js');
 var companyUtil = require('../models/.utils/company.js');
 var agreementUtil = require('../models/.utils/agreementsUtil.js');
 
+var uploadsPath = path.join(__dirname, '../contracts');
 
 module.exports = function (app, passport) {
+
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'contracts/');
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now() + '.pdf');
+        }
+    });
+
+    var upload = multer({ storage: storage });
+
     app.get('/profile', isLoggedIn, controller.profile);
     app.get('/profileEdited', isLoggedIn, controller.profile);
     app.get('/alreadyExists', isLoggedIn, controller.alreadyExists);
@@ -149,7 +165,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/addHuman', isLoggedIn, function(req, res){
+    app.post('/addHuman', upload.single('file-to-upload'), isLoggedIn, function(req, res){
         var name = req.body.name;
         var lastName = req.body.lastName;
         var email = req.body.email;
@@ -165,8 +181,11 @@ module.exports = function (app, passport) {
         var lumpSum = req.body.lumpSum;
         var hourlyRate = req.body.hourlyRate;
         var companyId = req.body.companyB2b;
+        var contractFileLink = req.file.filename;
+
+
         
-        workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol).then(function(user){
+        workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol, contractFileLink).then(function(user){
             if(user == false){
                 res.redirect('/editCompanyAddProfileError');
             }else{
@@ -207,15 +226,16 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/editHr', isLoggedIn, function(req, res){
+    app.post('/editHr', upload.single('file-to-upload'), isLoggedIn, function(req, res){
         var name = req.body.firstNameEdit;
         var lastName = req.body.lastNameEdit;
         var email = req.body.emailEdit;
         var tel = req.body.telephoneEdit;
         var id = req.body.idEdit;
+        var contractFileName = req.file.filename;
 
 
-        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id);
+        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, contractFileName);
         setTimeout(function(){
             res.redirect('/humanResources');
         }, 500);
@@ -243,6 +263,13 @@ module.exports = function (app, passport) {
                 console.log("nieeeeee"); //TODO: make something
             }
         });
+    });
+
+    app.post('/downloadContract', function (req, res) {
+        var fileName1 = req.body.fileName;
+
+        var file = __dirname + '../../contracts/' + fileName1;
+        res.download(file);
     });
 
 }

@@ -46,7 +46,7 @@ function editUser(req, res, name, lastName, email, login, id){
     }, 500);
 }
 
-function editUserfromHr(req, res, name, lastName, email, tel, id){
+function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile){
     if(name != ''){
         newName(id, name);
     }
@@ -58,6 +58,9 @@ function editUserfromHr(req, res, name, lastName, email, tel, id){
     }
     if(tel != ''){
         newTelephone(id, tel);
+    }
+    if(contractFile != ''){
+        newContractfile(id, contractFile);
     }
 }
 
@@ -91,6 +94,20 @@ function newLastName(currUser, newLastName) {
     );
 }
 
+function newContractfile(currUser, newContractFile) {
+    return pracownik.findOne({
+        where: {
+            IdPracownik: currUser
+        }
+    }).then(function (user) {
+        if (user) {
+            return user.update({
+                PlikUmowy: newContractFile
+            });
+        }
+    }
+    );
+}
 
 function newEmail(currUser, newEmail) {
     return pracownik.findOne({
@@ -134,7 +151,7 @@ function getWorkers(idTeam){
     })
 }
 
-function addProfile(name, lastName, email, tel, superior, idTeam){
+function addProfile(name, lastName, email, tel, superior, idTeam, contractLink){
     return pracownik.findOne({
         where:{
             Email: email,
@@ -152,7 +169,8 @@ function addProfile(name, lastName, email, tel, superior, idTeam){
                 IdUmowy: null, 
                 IdPrzelozony: superior,
                 IdZespol: idTeam,
-                Firma: 1
+                Firma: 1,
+                PlikUmowy: contractLink
             });
         }
     });

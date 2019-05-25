@@ -47,6 +47,10 @@ module.exports = function(sequelize, DataTypes) {
         key: 'IdUmowy'
       }
     },
+    PlikUmowy: {
+      type: DataTypes.STRING(150),
+      allowNull: true
+    },
     IdZespol: {
       type: DataTypes.INTEGER(1),
       allowNull: true
