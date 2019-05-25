@@ -1,6 +1,11 @@
 var models = require('../../models');
 var pracownik = models.pracownicy;
 var dAccount = require('./domaneAccount.js');
+var position = require('./position.js');
+var spec = require('./specialization.js');
+var analit = models.analitycy;
+var programmers = models.programisci;
+
 
 function getName(id){
     return pracownik.findOne({
@@ -46,7 +51,7 @@ function editUser(req, res, name, lastName, email, login, id){
     }, 500);
 }
 
-function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile){
+function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile, newPosition, spec){
     if(name != ''){
         newName(id, name);
     }
@@ -62,6 +67,10 @@ function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile){
     if(contractFile != ''){
         newContractfile(id, contractFile);
     }
+    if(position != ''){
+        position.newPosition(id, newPosition);
+    }
+   
 }
 
 function newName(currUser, newName) {
@@ -187,8 +196,11 @@ function deleteWorker(IdWorker){
 function layOff(IdWorker){
     return new Promise((resolve, reject) => { 
     dAccount.deleteAccount(IdWorker).then(function(){
+        position.deleteOne(IdWorker).then(function(){
         deleteWorker(IdWorker).then(function(){
-            resolve(true);
+                resolve(true);
+            });
+            
         });
     });
 });
@@ -209,6 +221,22 @@ function addAgreeToHuman(IdWorker, IdAgree){
     })
 }
 
+function getAllProgrammers(){
+    return programmers.findAll({
+
+    }).then(function(programm){
+        return programm;
+    })
+}
+
+function getAllAnalit(){
+    return analit.findAll({
+
+    }).then(function(analit1){
+        return analit1;
+    })
+}
+
 module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
@@ -218,5 +246,7 @@ module.exports = {
     editUserfromHr: editUserfromHr,
     deleteWorker: deleteWorker,
     layOff:layOff,
-    addAgreeToHuman:addAgreeToHuman
+    addAgreeToHuman:addAgreeToHuman,
+    getAllProgrammers:getAllProgrammers,
+    getAllAnalit: getAllAnalit
 }

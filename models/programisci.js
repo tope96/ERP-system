@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'programisci'
+    tableName: 'programisci',
+    timestamps: false
   });
 };

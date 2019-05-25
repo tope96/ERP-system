@@ -33,16 +33,28 @@
               </div>
               <p>Email: <%= workers[i].Email %></p>
               <p>Numer telefonu:<%= workers[i].NumerTelefonu %></p>
-              <p><b>Umowa: </b> 
+              <p><b>Umowa: </b>
                 <%if ( workers[i].PlikUmowy == null) { %>
-                  <button type="button" class="btn btn-success" disabled><i class="fa fa-file-download"></i> Brak umowy do pobrania</button>
+                <button type="button" class="btn btn-success" disabled><i class="fa fa-file-download"></i> Brak umowy do
+                  pobrania</button>
                 <% } else{ %>
                 <form action="downloadContract" method="POST">
-                    <input type="hidden" name="fileName" value="<%= workers[i].PlikUmowy %>">
-                      <button type="submit" class="btn btn-success"><i class="fa fa-file-download"></i> Pobierz umowę </button>
+                  <input type="hidden" name="fileName" value="<%= workers[i].PlikUmowy %>">
+                  <button type="submit" class="btn btn-success"><i class="fa fa-file-download"></i> Pobierz umowę
+                  </button>
                 </form>
                 <% } %>
               </p>
+              <% for(var a=0; a < programmers.length; a++) { %>
+                <%if (programmers[a].IdPracownik == workers[i].IdPracownik && programmers[a].IdSpecjalizacja != null) {%>
+                  Programista, specjalizacja: <%= programmers[a].IdSpecjalizacja %>
+                <% } %> 
+                <% } %>
+                  <% for(var b=0; b < analit.length; b++) { %>
+                    <%if (analit[b].IdPracownik == workers[i].IdPracownik && analit[b].IdSpecjalizacja != null) {%>
+                      Analityk, specjalizacja: <%= analit[b].IdSpecjalizacja %>
+                    <% } %>
+                  <% } %>
               <button type="button" class="btn btn-light"
                 onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
                   class="fa fa-edit"></i></button>
@@ -50,7 +62,7 @@
                 <input type="hidden" name="workerId" value="<%= workers[i].IdPracownik %>">
                 <button type="submit" class="btn btn-danger">Zwolnij!</button>
               </form>
-              
+
             </div>
             <% } %>
           </div>
@@ -73,11 +85,20 @@
                     placeholder="Numer telefonu" required>
                   <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email"
                     required>
-                  <select class="form-control" placeholder="Przełożony" id="superior" name="superior"
-                    required>
+                  <select class="form-control addAssets" placeholder="Przełożony" id="superior" name="superior" required>
                     <% for(var i=0; i < workers.length; i++) { %>
-                    <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
+                    <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %>
+                    </option>
                     <%}%>
+                  </select>
+                  <p>Stanowisko: </p>
+                  <label class="radio-inline"><input type="radio" value="1" name="position">Programista</label>
+                  <label class="radio-inline"><input type="radio" value="0" name="position">Analityk</label>
+                  <select class="form-control" placeholder="Firma" name="spec" id="spec">
+                      <option selected>Wybierz specjalizację</option>
+                      <% for(var i=0; i < spec.length; i++) { %>
+                        <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
+                      <%}%>
                   </select>
               </div> 
               <div class="col-md">
@@ -138,6 +159,17 @@
           <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit" placeholder="Nazwisko">
           <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit" placeholder="Email">
           <input type="number" class="form-control addAssets" id="telephoneEdit" name="telephoneEdit" placeholder="Numer telefonu">
+
+
+          <label class="radio-inline"><input type="radio" value="1" name="positionEdit">Programista</label>
+          <label class="radio-inline"><input type="radio" value="0" name="positionEdit">Analityk</label>
+          <select class="form-control" placeholder="Firma" name="specEdit" id="spec">
+          <option selected>Wybierz specjalizację</option>
+            <% for(var i=0; i < spec.length; i++) { %>
+          <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
+            <%}%>
+            </select>
+
           <p>Plik z umową:</p>
           <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" >
           <input type="hidden" id="idEdit" name="idEdit" value="">
@@ -190,15 +222,15 @@
 
 
 <script>
-    var x = document.getElementById("addCompany");
-    x.style.display = "none";
+  var x = document.getElementById("addCompany");
+  x.style.display = "none";
 
-  function addCompanyView(){
+  function addCompanyView() {
     var x = document.getElementById("addCompany");
     x.style.display = "inline";
   }
 
-  function addCompanyHide(){
+  function addCompanyHide() {
     var x = document.getElementById("addCompany");
     x.style.display = "none";
   }
@@ -295,38 +327,38 @@
   }
 
 
-  function agreementView(){
+  function agreementView() {
     hideAgreemtnInput2();
     hideAgreementB2b();
     var inputs = document.getElementById('agreement');
     inputs.style.display = "block";
   }
 
-  function agreement2View(){
+  function agreement2View() {
     hideAgreementInput();
     hideAgreementB2b();
     var input2 = document.getElementById("agreement2");
     input2.style.display = "block";
   }
 
-  function agreementB2bView(){
+  function agreementB2bView() {
     hideAgreementInput();
     hideAgreemtnInput2();
     var input3 = document.getElementById('b2b');
     input3.style.display = "block";
   }
 
-  function hideAgreementB2b(){
+  function hideAgreementB2b() {
     var input3 = document.getElementById('b2b');
     input3.style.display = "none";
   }
 
-  function hideAgreementInput(){
+  function hideAgreementInput() {
     var inputs = document.getElementById('agreement');
     inputs.style.display = "none";
   }
 
-  function hideAgreemtnInput2(){
+  function hideAgreemtnInput2() {
     var input2 = document.getElementById("agreement2");
     input2.style.display = "none";
   }

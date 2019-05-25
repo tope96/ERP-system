@@ -13,6 +13,7 @@ var domaneAccount = require('../models/.utils/domaneAccount.js');
 var fixedAssets = require('../models/.utils/fixedAssets.js');
 var companyUtil = require('../models/.utils/company.js');
 var agreementUtil = require('../models/.utils/agreementsUtil.js');
+var positionUtil = require('../models/.utils/position.js');
 
 var uploadsPath = path.join(__dirname, '../contracts');
 
@@ -182,10 +183,16 @@ module.exports = function (app, passport) {
         var hourlyRate = req.body.hourlyRate;
         var companyId = req.body.companyB2b;
         var contractFileLink = req.file.filename;
-
+        var position = req.body.position; // 0 - analityk, 1 - programista
+        var spec = req.body.spec;
 
         
         workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol, contractFileLink).then(function(user){
+            if(position == 1){
+                positionUtil.addProgram(user.IdPracownik, spec);
+            }else{
+                positionUtil.addAnalit(user.IdPracownik, spec);
+            }
             if(user == false){
                 res.redirect('/editCompanyAddProfileError');
             }else{
@@ -233,9 +240,10 @@ module.exports = function (app, passport) {
         var tel = req.body.telephoneEdit;
         var id = req.body.idEdit;
         var contractFileName = req.file.filename;
+        var position = req.body.positionEdit;
+        var spec = req.body.specEdit;
 
-
-        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, contractFileName);
+        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, contractFileName, position, spec);
         setTimeout(function(){
             res.redirect('/humanResources');
         }, 500);

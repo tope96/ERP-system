@@ -6,6 +6,7 @@ var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
 var companyUtil = require('../models/.utils/company.js');
 var townUtil = require('../models/.utils/townUtil.js');
 var agreementUtil = require('../models/.utils/agreementsUtil.js');
+var spec = require('../models/.utils/specialization');
 
 
 exports.humanResources = function (req, res) {
@@ -14,12 +15,21 @@ exports.humanResources = function (req, res) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                 companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
                     agreementUtil.getAgreeInfo(profile.IdUmowy).then(function (agree) {
-                        res.render('humanResources', {
-                            name: profile.Imie,
-                            site: "Zasoby ludzkie",
-                            workers: workers,
-                            company: company,
-                            agree: agree
+                        workersUtil.getAllProgrammers().then(function (programmers) {
+                            workersUtil.getAllAnalit().then(function (analit) {
+                                spec.getAllSpec().then(function (specs) {
+                                    res.render('humanResources', {
+                                        name: profile.Imie,
+                                        site: "Zasoby ludzkie",
+                                        workers: workers,
+                                        company: company,
+                                        agree: agree,
+                                        programmers: programmers,
+                                        analit: analit,
+                                        spec: specs
+                                    });
+                                });
+                            });
                         });
                     });
                 });
