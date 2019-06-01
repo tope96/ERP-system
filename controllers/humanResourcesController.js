@@ -10,6 +10,7 @@ var spec = require('../models/.utils/specialization');
 
 
 exports.humanResources = function (req, res) {
+    
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {

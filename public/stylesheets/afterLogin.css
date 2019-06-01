@@ -96,6 +96,13 @@
     background-color: rgb(219, 219, 219);
 }
 
+.list-group-teams{
+    height: 30vh;
+    width: 20rem;
+    overflow-y: scroll;
+    background-color: rgb(219, 219, 219);
+}
+
 .addAssets{
     margin: 0 auto;
     width: 90%;

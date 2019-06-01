@@ -24,7 +24,7 @@ var sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, proc
 function getLogin(id){
     return dAccount.findOne({
         where:{
-            IdPracownik: id
+            IdKontoDomenowe: id
         }
     }).then(function(accountFound){
         if(accountFound){

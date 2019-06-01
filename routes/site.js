@@ -14,6 +14,7 @@ var fixedAssets = require('../models/.utils/fixedAssets.js');
 var companyUtil = require('../models/.utils/company.js');
 var agreementUtil = require('../models/.utils/agreementsUtil.js');
 var positionUtil = require('../models/.utils/position.js');
+var teamUtil = require('../models/.utils/teamsUtil.js');
 
 var uploadsPath = path.join(__dirname, '../contracts');
 
@@ -278,6 +279,16 @@ module.exports = function (app, passport) {
 
         var file = __dirname + '../../contracts/' + fileName1;
         res.download(file);
+    });
+
+    app.post('/addTeam', function(req, res){
+        var teamName = req.body.teamName;
+        var teamsMember = req.body.teamsMember;
+       
+        teamUtil.createTeam(teamName).then(function(teamId){
+            console.log(teamId);
+            teamUtil.createTeamWithWorkers(teamId, teamsMember);
+        });
     });
 
 }

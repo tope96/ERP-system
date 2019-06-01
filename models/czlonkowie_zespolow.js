@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'czlonkowie_zespolow'
+    tableName: 'czlonkowie_zespolow',
+    timestamps:false
   });
 };

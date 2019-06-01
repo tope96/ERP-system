@@ -187,9 +187,34 @@
       <div id="teamsManage">
         <div class="tab-pane fade show " role="tabpanel" >
           <h2>Zespoły</h2>
-    
-          fff
+            <button type="button" class="btn btn-success" onclick="addTeamView()">Dodaj nowy zespół</button>
         </form>
+        </div>
+      </div>
+
+      <div id="addTeam">
+        <div class="tab-pane fade show " role="tabpanel" >
+          <h2>Dodaj nowy zespół</h2>
+          <p>Podaj dane zespołu</p>
+          <form action="addTeam" method="POST">
+          <div class="row">
+            <div class="column">
+              <input type="text" class="form-control addAssets" name="teamName" placeholder="Nazwa zespołu">
+            </div>
+            <div class="column">
+              <p>Wybierz członków zespołu:</p>
+              <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+              <ul class="ul">
+              <div class="list-group-teams" id="list-tab" role="tablist">
+                  <% for(var i=0; i < workers.length; i++) { %>
+                    <li class="list-group-item " ><b><input type="checkbox" name="teamsMember" value="<%=workers[i].IdPracownik %>"> <%= workers[i].Imie %> <%= workers[i].Nazwisko %>  </b> </li>
+                  <%}%>       
+                </div>
+               </ul> 
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success">Zapisz</button>
+          </form>
         </div>
       </div>
       
@@ -224,6 +249,8 @@
 <script>
   var x = document.getElementById("addCompany");
   x.style.display = "none";
+  var y = document.getElementById("addTeam");
+  y.style.display = "none";
 
   function addCompanyView() {
     var x = document.getElementById("addCompany");
@@ -235,15 +262,35 @@
     x.style.display = "none";
   }
 
+  function addTeamHide(){
+    var x = document.getElementById("addTeam");
+    x.style.display = "none";
+  }
+
+  function addTeamView(){
+    var y = document.getElementById("infoPanel");
+    var x = document.getElementById("editPanel");
+    var z = document.getElementById("edit");
+    var a = document.getElementById("teamsManage");
+    var b = document.getElementById("addTeam");
+    a.style.display = "none";
+    z.style.display = "none";
+    y.style.display = "none";
+    b.style.display = "block";
+  }
+
   function myFunction() {
     var y = document.getElementById("infoPanel");
     var x = document.getElementById("editPanel");
     var z = document.getElementById("edit");
     var a = document.getElementById("teamsManage");
+    var b = document.getElementById("addTeam");
     var addCompany = document.getElementById("addCompany");
     hideAgreementB2b();
     hideAgreementInput();
     hideAgreemtnInput2();
+
+    b.style.display = "none";
     a.style.display = "none";
     z.style.display = "none";
     y.style.display = "none";
@@ -262,8 +309,9 @@
     var x = document.getElementById("editPanel");
     var z = document.getElementById("edit");
     var a = document.getElementById("teamsManage");
+    var b = document.getElementById("addTeam");
     var addCompany = document.getElementById("addCompany");
-
+    b.style.display = "none";
     z.style.display = "none";
     y.style.display = "none";
     x.style.display = "none";
@@ -283,6 +331,8 @@
     var infoPanel = document.getElementById("infoPanel");
     var teamManage = document.getElementById("teamsManage");
     var addCompany = document.getElementById("addCompany");
+    var b = document.getElementById("addTeam");
+    b.style.display = "none";
     editPanel.style.display = "none";
     infoPanel.style.display = "block";
     edit.style.display = "none";
@@ -380,6 +430,22 @@
     });
   });
 
+  $(function () {
+    $('#searchTeams').keyup(function () {
+      var current_query = $('#searchTeams').val();
+      if (current_query !== "") {
+        $(".list-group-teams li").hide();
+        $(".list-group-teams li").each(function () {
+          var current_keyword = $(this).text();
+          if (current_keyword.indexOf(current_query) >= 0) {
+            $(this).show();
+          };
+        });
+      } else {
+        $(".list-group-teams li").show();
+      };
+    });
+  });
 
 
 </script>
