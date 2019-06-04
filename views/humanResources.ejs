@@ -188,6 +188,8 @@
         <div class="tab-pane fade show " role="tabpanel" >
           <h2>Zespoły</h2>
             <button type="button" class="btn btn-success" onclick="addTeamView()">Dodaj nowy zespół</button>
+            <div class="list-group-teams" id="list-tab" role="tablist">
+              <div class="container">
             <% for(var i=0; i < teams.length; i++) { %>
               <div class="panel-group">
                 <div class="panel panel-default">
@@ -214,7 +216,9 @@
         </form>
         </div>
       </div>
-
+      </div>
+    </div>
+    
       <div id="addTeam">
         <div class="tab-pane fade show " role="tabpanel" >
           <h2>Dodaj nowy zespół</h2>

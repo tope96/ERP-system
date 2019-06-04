@@ -287,6 +287,7 @@ module.exports = function (app, passport) {
        console.log(teamsMember);
         teamUtil.createTeam(teamName, req.user.IdZespol).then(function(teamId){
             teamUtil.createTeamWithWorkers(teamId, teamsMember);
+            res.redirect('/humanResources');
         });
     });
 
