@@ -7,6 +7,7 @@ var companyUtil = require('../models/.utils/company.js');
 var townUtil = require('../models/.utils/townUtil.js');
 var agreementUtil = require('../models/.utils/agreementsUtil.js');
 var spec = require('../models/.utils/specialization');
+var teamsUtil = require('../models/.utils/teamsUtil.js');
 
 
 exports.humanResources = function (req, res) {
@@ -19,6 +20,9 @@ exports.humanResources = function (req, res) {
                         workersUtil.getAllProgrammers().then(function (programmers) {
                             workersUtil.getAllAnalit().then(function (analit) {
                                 spec.getAllSpec().then(function (specs) {
+                                    teamsUtil.getAllTeams(req.user.IdZespol).then(function(teams){
+                                        teamsUtil.getAllTeamsMembers().then(function(teamsMember){
+
                                     res.render('humanResources', {
                                         name: profile.Imie,
                                         site: "Zasoby ludzkie",
@@ -27,7 +31,11 @@ exports.humanResources = function (req, res) {
                                         agree: agree,
                                         programmers: programmers,
                                         analit: analit,
-                                        spec: specs
+                                        spec: specs,
+                                        teams: teams,
+                                        teamsMember:teamsMember 
+                                    })
+                                    });
                                     });
                                 });
                             });

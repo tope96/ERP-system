@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(25),
       allowNull: false
     },
+    zespolyDomenowe: {
+      type: DataTypes.INTEGER(6),
+      allowNull: false
+    },
     ZrealizowanychZlecen: {
       type: DataTypes.INTEGER(6),
       allowNull: true

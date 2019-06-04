@@ -284,9 +284,8 @@ module.exports = function (app, passport) {
     app.post('/addTeam', function(req, res){
         var teamName = req.body.teamName;
         var teamsMember = req.body.teamsMember;
-       
-        teamUtil.createTeam(teamName).then(function(teamId){
-            console.log(teamId);
+       console.log(teamsMember);
+        teamUtil.createTeam(teamName, req.user.IdZespol).then(function(teamId){
             teamUtil.createTeamWithWorkers(teamId, teamsMember);
         });
     });
