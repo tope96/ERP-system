@@ -104,7 +104,7 @@ exports.changePasswordError= function(req, res){
 exports.fixedAssets = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         fixedAssetsUtil.getAssets(account.IdPracownik, req.user.IdZespol).then(function (assets) {
-            workersUtil.getWorkers().then(function(users){
+            workersUtil.getWorkers(req.user.IdKontoDomenowe).then(function(users){
             res.render('fixedAssets', {
                 name: account.Imie,
                 site: "Środki trwałe",

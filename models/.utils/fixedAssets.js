@@ -14,14 +14,14 @@ function getAssets(id, idTeam){
     });
 }
 
-function addAssets(name, description, type, price, date, owner, idTeam){
+function addAssets(name, description, type, price, date, owner, amount, idTeam){
     return fixedAssets.create({
         Nazwa: name,
         Opis: description,
         Rodzaj: type,
         WartoscNetto: price,
         IdPracownik: owner,
-        Ilosc: 2,
+        Ilosc: amount,
         DataZakupu: date,
         IdZespol: idTeam
     });

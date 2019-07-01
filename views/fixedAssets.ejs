@@ -75,9 +75,9 @@
         <input type="number" class="form-control addAssets" id="price" name="price" placeholder="Wartość netto" required>
         <input type="date" class="form-control addAssets" id="date" name="date" placeholder="Data zakupu" required>
         <input type="number" class="form-control addAssets" id="amount" name="amount" placeholder="Ilość" required>
-        <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner" required>
+        <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner" >
           <% for(var i=0; i < users.length; i++) { %>
-            <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %></option>
+            <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %> <%= users[i].Nazwisko %></option>
           <%}%>
         </select>
         <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>

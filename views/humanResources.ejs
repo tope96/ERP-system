@@ -195,7 +195,8 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" href="#collapse<%=i%>"><%= teams[i].Nazwa %></a>
+                      <a data-toggle="collapse" href="#collapse<%=i%>"><%= teams[i].Nazwa %> </a>
+                      <i onclick="editTeamView()" class="fa fa-edit"></i>
                     </h4>
                   </div>
                   <div id="collapse<%=i%>" class="panel-collapse collapse">
@@ -244,6 +245,31 @@
           </form>
         </div>
       </div>
+
+      <div id="editTeam">
+        <div class="tab-pane fade show " role="tabpanel" >
+          <h2>Edycja zespołu</h2>
+          <p>Podaj nowe dane zespołu</p>
+          <% for(var i=0; i < teams.length; i++) { %>
+            <%if (teams[i].IdZespol == 25){%>
+          <input type="text" class="form-control addAssets" value="<%= teams[i].Nazwa %>">
+          <% } %>
+          <% } %>
+          <div class="list-group-teams" id="list-tab" role="tablist">
+            <% for(var q=0; q < teamsMember.length; q++) { %>
+              <% for(var w=0; w < workers.length; w++) { %>
+              <%if (teamsMember[q].IdZespol == 25){%>
+                <%if (teamsMember[q].IdPracownik == workers[w].IdPracownik){%>
+                <div class="panel-body"><%= workers[w].Imie %> <%= workers[w].Nazwisko %> <i class="fa fa-user-minus"></i></div>
+              <%}%>
+              <%}%>
+              <%}%> 
+              <%}%>
+          </div>
+          <button type="button" onclick="editTeamHide();teamsManageView()" class="btn btn-danger">Anuluj</button>
+          <button type="submit" class="btn btn-success">Zapisz</button>
+        </div>
+      </div>
       
       <div id="addCompany">
       <div id="myModal" class="modal">
@@ -274,10 +300,13 @@
 
 
 <script>
-  var x = document.getElementById("addCompany");
-  x.style.display = "none";
-  var y = document.getElementById("addTeam");
-  y.style.display = "none";
+  var addCompany = document.getElementById("addCompany");
+  addCompany.style.display = "none";
+  var addTeam = document.getElementById("addTeam");
+  addTeam.style.display = "none";
+  var editTeam = document.getElementById("editTeam");
+  editTeam.style.display = "none";
+
 
   function addCompanyView() {
     var x = document.getElementById("addCompany");
@@ -294,12 +323,35 @@
     x.style.display = "none";
   }
 
+  function editTeamHide(){
+    var x = document.getElementById("editTeam");
+    x.style.display = "none";
+  }
+
+  function teamsManageHide(){
+    var x = document.getElementById("teamsManage");
+    x.style.display = "none";
+  }
+
+  function teamsManageView(){
+    var x = document.getElementById("teamsManage");
+    x.style.display = "block";
+  }
+
+  function editTeamView(teamId){
+    var x = document.getElementById("editTeam");
+    x.style.display = "inline";
+    teamsManageHide();
+    var dupa =3;
+  }
+
   function addTeamView(){
     var y = document.getElementById("infoPanel");
     var x = document.getElementById("editPanel");
     var z = document.getElementById("edit");
     var a = document.getElementById("teamsManage");
     var b = document.getElementById("addTeam");
+    editTeamHide();
     a.style.display = "none";
     z.style.display = "none";
     y.style.display = "none";
@@ -316,7 +368,7 @@
     hideAgreementB2b();
     hideAgreementInput();
     hideAgreemtnInput2();
-
+    editTeamHide();
     b.style.display = "none";
     a.style.display = "none";
     z.style.display = "none";
@@ -343,7 +395,7 @@
     y.style.display = "none";
     x.style.display = "none";
     addCompany.style.display = "none";
-
+    editTeamHide();
     if (a.style.display === "none") {
       a.style.display = "block";
     } else {
@@ -365,6 +417,7 @@
     edit.style.display = "none";
     teamManage.style.display = "none";
     addCompany.style.display = "none";
+    editTeamHide();
   }
 
   function cancel() {
