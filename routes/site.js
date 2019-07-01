@@ -291,4 +291,29 @@ module.exports = function (app, passport) {
         });
     });
 
+    app.post('/editTeams', function(req, res){
+        var newName = req.body.newName;
+        var idTeam = req.body.idTeam;
+
+        teamUtil.changeTeamName(idTeam, newName, req.user.IdZespol).then(function(){
+            res.redirect('/humanResources');
+        })
+    });
+
+    app.post('/deleteFromTeam', function(req, res){
+        var toDelete = req.body.toDelete;
+        var idTeam = req.body.idTeam;
+
+        teamUtil.deleteFromTeam(toDelete, idTeam).then(function(){
+            res.redirect('/humanResources');
+        })
+    });
+
+    app.post('/addNewMembers', function(req, res){
+        var members = req.body.newMembers;
+        var idTeam = req.body.idTeam;
+
+        teamUtil.addNewMembers(idTeam, members);
+    });
+
 }

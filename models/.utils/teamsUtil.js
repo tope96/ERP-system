@@ -57,9 +57,60 @@ function getAllTeamsMembers(){
     });
 }
 
+function changeTeamName(idTeam, newName, idKontoDomenowe){
+    return teams.findAll({
+        where:{
+            Nazwa: newName,
+            zespolyDomenowe: idKontoDomenowe
+        }
+    }).then(function(foundTeam){
+        if(foundTeam == null){
+            console.log('tutaj');
+        }else{
+            return teams.findOne({
+                where:{
+                    IdZespol: idTeam
+                }
+            }).then(function(team){
+                return team.update({
+                    Nazwa: newName
+                });
+            });
+        }
+    });
+}
+
+function deleteFromTeam(toDelete, idTeam){
+    return teamMember.destroy({
+        where:{
+            IdPracownik: toDelete
+        }
+    });
+}
+
+function addNewMembers(IdTeam, members){
+    if(Array.isArray(members)){
+        for(var i = 0; i<members; i++){
+            return teamMember.create({
+                IdPracownik: members[i],
+                IdZespol: IdTeam
+            });   
+        }
+    }else{
+        return teamMember.create({
+            IdPracownik: members,
+            IdZespol: IdTeam
+        });
+    }
+
+}
+
 module.exports = {
     createTeam: createTeam,
     createTeamWithWorkers: createTeamWithWorkers,
     getAllTeams: getAllTeams,
-    getAllTeamsMembers:getAllTeamsMembers
+    getAllTeamsMembers:getAllTeamsMembers,
+    changeTeamName: changeTeamName,
+    deleteFromTeam: deleteFromTeam,
+    addNewMembers:addNewMembers
 }

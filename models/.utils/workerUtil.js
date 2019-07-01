@@ -3,74 +3,75 @@ var pracownik = models.pracownicy;
 var dAccount = require('./domaneAccount.js');
 var position = require('./position.js');
 var spec = require('./specialization.js');
+var teamsUtil = require('./teamsUtil.js');
 var analit = models.analitycy;
 var programmers = models.programisci;
 
 
-function getName(id){
+function getName(id) {
     return pracownik.findOne({
-        where:{
+        where: {
             IdPracownik: id
         }
-    }).then(function(pracownikFound){
-        if(pracownikFound){
+    }).then(function (pracownikFound) {
+        if (pracownikFound) {
             return pracownikFound;
         }
     });
 }
 
-function getWorkerInfo(id){
+function getWorkerInfo(id) {
     return pracownik.findOne({
-        where:{
+        where: {
             IdPracownik: id
         }
-    }).then(function(pracownikFound){
-        if(pracownikFound){
+    }).then(function (pracownikFound) {
+        if (pracownikFound) {
             return pracownikFound;
         }
     })
 }
 
 
-function editUser(req, res, name, lastName, email, login, id){
+function editUser(req, res, name, lastName, email, login, id) {
     var currentUser = req.user.IdKontoDomenowe;
-    if(name != ''){
+    if (name != '') {
         newName(currentUser, name);
     }
-    if(lastName != ''){
+    if (lastName != '') {
         newLastName(currentUser, lastName);
     }
-    if(email != ''){
+    if (email != '') {
         newEmail(currentUser, email);
     }
-    if(login != ''){
+    if (login != '') {
         dAccount.newLogin(currentUser, login);
     }
-    setTimeout(function(){
+    setTimeout(function () {
         res.redirect('/profileEdited');
     }, 500);
 }
 
-function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile, newPosition, spec){
-    if(name != ''){
+function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile, newPosition, spec) {
+    if (name != '') {
         newName(id, name);
     }
-    if(lastName != ''){
+    if (lastName != '') {
         newLastName(id, lastName);
     }
-    if(email != ''){
+    if (email != '') {
         newEmail(id, email);
     }
-    if(tel != ''){
+    if (tel != '') {
         newTelephone(id, tel);
     }
-    if(contractFile != ''){
+    if (contractFile != '') {
         newContractfile(id, contractFile);
     }
-    if(position != ''){
+    if (position != '') {
         position.newPosition(id, newPosition);
     }
-   
+
 }
 
 function newName(currUser, newName) {
@@ -148,34 +149,34 @@ function newTelephone(currUser, newTel) {
     );
 }
 
-function getWorkers(idTeam){
+function getWorkers(idTeam) {
     return pracownik.findAll({
-        where:{
+        where: {
             IdZespol: idTeam
         }
-    }).then(function(user){
-        if(user){
+    }).then(function (user) {
+        if (user) {
             return user;
         }
     })
 }
 
-function addProfile(name, lastName, email, tel, superior, idTeam, contractLink){
+function addProfile(name, lastName, email, tel, superior, idTeam, contractLink) {
     return pracownik.findOne({
-        where:{
+        where: {
             Email: email,
             NumerTelefonu: tel
         }
-    }).then(function(user){
-        if(user){
+    }).then(function (user) {
+        if (user) {
             return false;
-        }else{
+        } else {
             return pracownik.create({
                 Imie: name,
                 Nazwisko: lastName,
                 Email: email,
                 NumerTelefonu: tel,
-                IdUmowy: null, 
+                IdUmowy: null,
                 IdPrzelozony: superior,
                 IdZespol: idTeam,
                 Firma: 1,
@@ -185,35 +186,36 @@ function addProfile(name, lastName, email, tel, superior, idTeam, contractLink){
     });
 }
 
-function deleteWorker(IdWorker){
+function deleteWorker(IdWorker) {
     return pracownik.destroy({
-        where:{
+        where: {
             IdPracownik: IdWorker
         }
     });
 }
 
-function layOff(IdWorker){
-    return new Promise((resolve, reject) => { 
-    dAccount.deleteAccount(IdWorker).then(function(){
-        position.deleteOne(IdWorker).then(function(){
-        deleteWorker(IdWorker).then(function(){
-                resolve(true);
+function layOff(IdWorker) {
+    return new Promise((resolve, reject) => {
+        teamsUtil.deleteFromTeam(IdWorker).then(function () {
+            dAccount.deleteAccount(IdWorker).then(function () {
+                position.deleteOne(IdWorker).then(function () {
+                    deleteWorker(IdWorker).then(function () {
+                        resolve(true);
+                    });
+                });
             });
-            
         });
     });
-});
 }
 
-function addAgreeToHuman(IdWorker, IdAgree){
+function addAgreeToHuman(IdWorker, IdAgree) {
     var workId = IdWorker.IdPracownik;
     return pracownik.findOne({
-        where:{
+        where: {
             IdPracownik: workId
         }
-    }).then(function(id){
-        if(id){
+    }).then(function (id) {
+        if (id) {
             return id.update({
                 IdUmowy: IdAgree
             });
@@ -221,18 +223,18 @@ function addAgreeToHuman(IdWorker, IdAgree){
     })
 }
 
-function getAllProgrammers(){
+function getAllProgrammers() {
     return programmers.findAll({
 
-    }).then(function(programm){
+    }).then(function (programm) {
         return programm;
     })
 }
 
-function getAllAnalit(){
+function getAllAnalit() {
     return analit.findAll({
 
-    }).then(function(analit1){
+    }).then(function (analit1) {
         return analit1;
     })
 }
@@ -241,12 +243,12 @@ module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
     editUser: editUser,
-    getWorkers:getWorkers,
+    getWorkers: getWorkers,
     addProfile: addProfile,
     editUserfromHr: editUserfromHr,
     deleteWorker: deleteWorker,
-    layOff:layOff,
-    addAgreeToHuman:addAgreeToHuman,
-    getAllProgrammers:getAllProgrammers,
+    layOff: layOff,
+    addAgreeToHuman: addAgreeToHuman,
+    getAllProgrammers: getAllProgrammers,
     getAllAnalit: getAllAnalit
 }

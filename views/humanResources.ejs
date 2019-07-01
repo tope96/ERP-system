@@ -174,9 +174,6 @@
           <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" >
           <input type="hidden" id="idEdit" name="idEdit" value="">
           </select>
-
-        
-
           <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
           <button type="submit" class="btn btn-success">Zapisz</button>
         </form> 
@@ -247,29 +244,60 @@
       </div>
 
       <div id="editTeam">
-        <div class="tab-pane fade show " role="tabpanel" >
-          <h2>Edycja zespołu</h2>
-          <p>Podaj nowe dane zespołu</p>
-          <% for(var i=0; i < teams.length; i++) { %>
-            <%if (teams[i].IdZespol == 25){%>
-          <input type="text" class="form-control addAssets" value="<%= teams[i].Nazwa %>">
-          <% } %>
-          <% } %>
-          <div class="list-group-teams" id="list-tab" role="tablist">
-            <% for(var q=0; q < teamsMember.length; q++) { %>
-              <% for(var w=0; w < workers.length; w++) { %>
-              <%if (teamsMember[q].IdZespol == 25){%>
-                <%if (teamsMember[q].IdPracownik == workers[w].IdPracownik){%>
-                <div class="panel-body"><%= workers[w].Imie %> <%= workers[w].Nazwisko %> <i class="fa fa-user-minus"></i></div>
-              <%}%>
-              <%}%>
-              <%}%> 
-              <%}%>
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+                <h2>Edycja zespołu</h2>
+                <p>Podaj nowe dane zespołu</p>
+                
+                <form action="editTeams" method="POST">
+                  <% for(var i=0; i < teams.length; i++) { %>
+                    <%if (teams[i].IdZespol == 25){%>
+                      <input type="text" class="form-control addAssets" name="newName" value="<%= teams[i].Nazwa %>">
+                      <input type="hidden" name="idTeam" value="25">
+                    <% } %>
+                  <% } %>
+                <button type="button" onclick="editTeamHide();teamsManageView()" class="btn btn-danger">Anuluj</button>
+                <button type="submit" class="btn btn-success">Zapisz</button>
+                </form>
+        
+                <form action="deleteFromTeam" method="POST">
+                  <div class="list-group-teams" id="list-tab" role="tablist">
+                    <% for(var q=0; q < teamsMember.length; q++) { %>
+                      <% for(var w=0; w < workers.length; w++) { %>
+                        <%if (teamsMember[q].IdZespol == 25){%>
+                          <%if (teamsMember[q].IdPracownik == workers[w].IdPracownik){%>
+                            <div class="panel-body"><%= workers[w].Imie %> <%= workers[w].Nazwisko %>
+                              <input type="checkbox" name="toDelete" value="<%=workers[w].IdPracownik %>">
+                              <input type="hidden" value='25' name="idTeam">
+                            </div>
+                          <%}%>
+                        <%}%>
+                      <%}%> 
+                    <%}%>
+                </form>
+                <button type="submit" class="btn btn-danger">Usuń</button>
+            </div>
+
+            <div class="col-md">
+              <p>Dodaj nowych czlonkow zespolu:</p>
+              <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+              <ul class="ul">
+                <form action="addNewMembers" method="POST">
+                  <div class="list-group-teams" id="list-tab" role="tablist">
+                    <% for(var i=0; i < workers.length; i++) { %>
+                      <li class="list-group-item " ><b><input type="checkbox" name="newMembers" value="<%=workers[i].IdPracownik %>"> <%= workers[i].Imie %> <%= workers[i].Nazwisko %>  </b> </li>
+                    <%}%>
+                    <input type="hidden" value='25' name="idTeam">       
+                  </div>
+                  <button type="submit" class="btn btn-danger">Dodaj</button>
+                </form>
+              </ul> 
+            </div>
           </div>
-          <button type="button" onclick="editTeamHide();teamsManageView()" class="btn btn-danger">Anuluj</button>
-          <button type="submit" class="btn btn-success">Zapisz</button>
         </div>
       </div>
+
       
       <div id="addCompany">
       <div id="myModal" class="modal">
