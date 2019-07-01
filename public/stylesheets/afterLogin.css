@@ -45,17 +45,7 @@
     cursor: pointer;
     border-radius: 5px;
 }
-.navbar-text {
-    position: absolute;
-    width: 100vw;
-    left: 0;
-    text-align: center;
-    margin: auto;
-    padding-top: 10px;
-}
-.jakis{
-    z-index: 1;
-}
+
 
 .col-1{
     margin-left: -1rem !important;
@@ -180,8 +170,30 @@
       visibility: hidden;
   }
 
+  .forSmallScreens{
+      display:none;
+  }
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;
     }
 }
+
+@media screen and (max-width: 995px) , screen and (max-height: 800px) {
+    .list-group-item{
+        width: 50vw !important;
+    }
+
+    .forBigScreens{
+        display:none;
+    }
+
+    .forSmallScreens{
+        display: contents
+    }
+
+    .left-navbar{
+        display: none
+    }
+  }

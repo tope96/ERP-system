@@ -44,28 +44,79 @@
 
         
 
-        <div class="collapse navbar-collapse jakis" id="navbarTogglerDemo01">
-          <ul class="navbar-nav ml-auto">
-
-           <li class="nav-item ">
-              <a class="nav-link home-link" href="/home">Strona główna </a>
-            </li>
-            <li class="nav-link">
-              <a class="nav-item"><%= name %></a>
-            </li>
-            <li class="nav-link">
-                 <a class="nav-item" href="/profile">Konto</a> <!-- Uzupelnic href -->
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/settings">Ustawienia </a>
+        <div class="forBigScreens">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <ul class="navbar-nav ml-auto">
+              <li class="nav-item ">
+                <a class="nav-link" href="/home">Strona główna </a>
               </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Wyloguj się </a>
-            </li>
+              <li class="nav-link">
+                <a class="nav-item"><%= name %></a>
+              </li>
+              <li class="nav-link">
+                 <a class="nav-item" href="/profile">Konto</a> <!-- Uzupelnic href -->
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/settings">Ustawienia </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Wyloguj się </a>
+              </li>
 
-          </ul>
+            </ul>
+          </div>
         </div>
-        </div><div class="navbar-text"><%= site %></div>
+
+        
+        <div class="forSmallScreens">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <ul class="navbar-nav ml-auto">
+  
+                <li class="nav-item ">
+                  <a class="nav-link" href="/home">Strona główna </a>
+                </li>
+                <li class="nav-link">
+                  <a class="nav-item"><%= name %></a>
+                </li>
+                <li class="nav-link">
+                   <a class="nav-item" href="/profile">Konto</a> <!-- Uzupelnic href -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/settings">Ustawienia </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">Wyloguj się </a>
+                </li>
+  
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Pulpit </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/fixedAssets">Środki trwałe</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/humanResources">Zasoby ludzkie</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/humanResources">Produkcja</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/editCompany">Edytuj firmę</a>
+                </li>
+
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/editCompany">Kalendarz</a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
       </nav>
     
      
