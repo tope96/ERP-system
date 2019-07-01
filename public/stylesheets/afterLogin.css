@@ -107,8 +107,8 @@
 
 
 .section-assets{
-    margin-top: 8rem;
-    margin-left: 4rem;
+    margin-top: 3rem;
+    margin-left: 2rem;
     margin-right: 4rem;
     height: 80vh;
 }
@@ -174,6 +174,10 @@
       display:none;
   }
 
+  .collapse-button{
+    display: none;
+}
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;
@@ -182,7 +186,7 @@
 
 @media screen and (max-width: 995px) , screen and (max-height: 800px) {
     .list-group-item{
-        width: 50vw !important;
+        width: 100% !important;
     }
 
     .forBigScreens{
@@ -195,5 +199,41 @@
 
     .left-navbar{
         display: none
+    }
+
+    .section-assets{
+        margin-top: 2rem;
+        margin-left: 0rem;
+        margin-right: 0rem;
+        height: 80vh;
+    }
+    
+    .col-md-2{
+        margin-left: 0rem;
+    }
+
+    .list-group{
+        width: 100% !important;
+    }
+
+    .search{
+        width: 100%;
+
+    }
+
+    .list-group {
+        height: 50%;
+        overflow-y: scroll;
+        background-color: rgb(219, 219, 219);
+    }
+
+    #editPanel {
+        margin-top: 1rem;
+        margin-left: 0rem; 
+        text-align: center;
+    }
+
+    .collapse-button{
+        display: block;
     }
   }

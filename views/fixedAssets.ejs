@@ -3,9 +3,11 @@
 
 
 <div class="col-11">
-  <div class="section-assets">
+    <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar">Przedmioty</button></div>
+   
+    <div class="section-assets">
     <div class="row border">
-      <div class="col-md-2">
+      <div id="itemsBar" class="col-lg-3 collapse show"> 
         <input type="text" class="form-control search" id="search" placeholder="Wyszukaj">
         <ul class="ul">
           <div class="list-group" id="list-tab" role="tablist">
@@ -19,7 +21,7 @@
         </ul>
         <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj przedmiot</button>
     </div>
-    <div class="col-md-8" >
+    <div class="col-lg-9" >
       <div id="infoPanel">
         <div class="tab-content" id="nav-tabContent">
             <% for(var i=0; i < assets.length; i++) { %>
@@ -27,7 +29,7 @@
               aria-labelledby="list-<%= assets[i].IdSrodkiTrwale %>-list">
 
               <div class="row asset-name">
-                <h2><%= assets[i].Nazwa %></h2>
+                <h2>nazwa: <%= assets[i].Nazwa %></h2>
                 <button type="button" class="btn btn-light"
                   onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')"><i
                     class="fa fa-edit"></i></button>
@@ -185,6 +187,13 @@
       };
     });
   });
+
+  var width = $(window).width();
+$(window).resize(function () {
+    if (width <= 720) {
+        $('demo').addClass('collapse');
+    }
+});
 
 </script>
 <% include partials/footerLogin %>
