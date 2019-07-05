@@ -3,25 +3,29 @@
 
 
 <div class="col-11">
-    <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar">Przedmioty</button></div>
-   
     <div class="section-assets">
     <div class="row border">
-      <div id="itemsBar" class="col-lg-3 collapse show"> 
-        <input type="text" class="form-control search" id="search" placeholder="Wyszukaj">
+        
+      <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar"><i class="fa fa-caret-square-up"></i></button></div>
+      <div id="itemsBar" class="col-lg-2 collapse show"> 
+        <input type="text" class="form-control search shadow p-3 bg-white rounded" id="search" placeholder="Wyszukaj">
         <ul class="ul">
           <div class="list-group" id="list-tab" role="tablist">
             <% for(var i=0; i < assets.length; i++) { %>
-            <li class="list-group-item list-group-item-action" onclick="hide()"
+            <li class="list-group-item list-group-item-action shadow-sm p-3 mb-2 rounded" onclick="hide()"
               id="list-<%= assets[i].IdSrodkiTrwale %>-list" data-toggle="list"
               href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab" aria-controls="<%= assets[i].IdSrodkiTrwale %>">
               <b><%= assets[i].Nazwa %></b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; szt.: <%= assets[i].Ilosc %></li>
             <%}%>       
           </div>
         </ul>
-        <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj przedmiot</button>
+        <div class="row">
+          <div class="col text-center">
+              <button type="button" class="btn btn-success buttonUnderList" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj przedmiot</button>
+          </div>
+        </div>
     </div>
-    <div class="col-lg-9" >
+    <div class="col-lg-10" >
       <div id="infoPanel">
         <div class="tab-content" id="nav-tabContent">
             <% for(var i=0; i < assets.length; i++) { %>
@@ -29,39 +33,63 @@
               aria-labelledby="list-<%= assets[i].IdSrodkiTrwale %>-list">
 
               <div class="row asset-name">
-                <h2>nazwa: <%= assets[i].Nazwa %></h2>
-                <button type="button" class="btn btn-light"
-                  onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')"><i
-                    class="fa fa-edit"></i></button>
+                <div class="col text-center">
+                    <h2>nazwa: <%= assets[i].Nazwa %></h2>
+                </div>
               </div>
-
-
-              <h3>Opis:</h3>
-              <%= assets[i].Opis %> <br />
-              <p> <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł</p>
-              <p><b>Data zakupu: </b> <%= assets[i].DataZakupu %></p>
-
+              
+              <hr>
 
               <div class="row">
-                <p><b>Ilość:</b> <%= assets[i].Ilosc %></p>
-                <form action="deleteOneAsset" method="POST">
-                  <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-                  <button type="submit" class="btn btn-outline-danger"><i class="fa fa-minus"></i></button>
-                </form>
-                <form action="addOneAsset" method="POST">
-                  <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-                  <button type="submit" class="btn btn-outline-success"><i class="fa fa-plus"></i></button>
-                </form>
+                <div class="col text-center">
+              
+                  <form action="deleteAsset" method="POST">
+                    <button type="button" class="btn btn-light"
+                      onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')"><i
+                        class="fa fa-edit" data-toggle="tooltip" data-placement="top"
+                        title="Edytuj ten przedmiot"></i>
+                    </button>
+              
+                    <input type="hidden" id="asset" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
+                    <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                      title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+              
+                </div>
               </div>
-              <div class="form">
-                <form action="deleteAsset" method="POST">
-                  <input type="hidden" id="asset" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-                  <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                </form>
+              
+              <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                <h3>Opis:</h3>
+                <%= assets[i].Opis %>
+              </div>
+              
+              <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                  <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł
               </div>
 
+              <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                <b>Data zakupu: </b> <%= assets[i].DataZakupu %>
+              </div>
 
+            
+          <div class="row ">
+            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+              <b>Ilość:</b> <%= assets[i].Ilosc %>
             </div>
+          
+            <form action="deleteOneAsset" method="POST">
+              <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
+              <button type="submit" class="btn btn-outline-danger littleButtons" data-toggle="tooltip" data-placement="top"
+                title="Odejmij jedną sztukę"><i class="fa fa-minus"></i></button>
+            </form>
+            <form action="addOneAsset" method="POST">
+              <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
+              <button type="submit" class="btn btn-outline-success littleButtons" data-toggle="tooltip" data-placement="top"
+              title="Dodaj jedną sztukę"><i class="fa fa-plus"></i></button>
+            </form>
+          </div>
+
+          </div>
             <%}%>
     </div>
   </div>
@@ -90,21 +118,63 @@
     
     <div id="edit">
         <div class="tab-pane fade show " role="tabpanel" >
-          <h2>Edytowanie przedmiotu</h2>
-          <p>Podaj nowe dane</p>
+            
+          <div class="row asset-name">
+                <div class="col text-center">
+                    <h2>Edytowanie przedmiotu</h2>
+                    <p>Podaj nowe dane</p>
+                </div>
+          </div>
+    
           <form action="editAsset" method="POST">
-          <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit" placeholder="Nazwa przedmiotu">
-          <input type="text" class="form-control addAssets" id="descriptionEdit" name="descriptionEdit" placeholder="Opis">
-          <input type="text" class="form-control addAssets" id="typeEdit" name="typeEdit" placeholder="Rodzaj">
-          <input type="number" class="form-control addAssets" id="priceEdit" name="priceEdit" placeholder="Wartość netto">
-          <input type="date" class="form-control addAssets" id="dateEdit" name="dateEdit" placeholder="Data zakupu">
+              <div class="form-group row">
+                  <label for="nameEdit" class="col-sm-2 col-form-label">Nazwa przedmiotu:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit" placeholder="Nazwa przedmiotu">
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="descriptionEdit" class="col-sm-2 col-form-label">Opis:</label>
+                  <div class="col-sm-10">
+                    <textarea class="form-control addAssets" rows="10" id="descriptionEdit" name="descriptionEdit" placeholder="Opis"></textarea>
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="typeEdit" class="col-sm-2 col-form-label">Rodzaj:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control addAssets" id="typeEdit" name="typeEdit" placeholder="Rodzaj">
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="priceEdit" class="col-sm-2 col-form-label">Wartość netto:</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control addAssets" id="priceEdit" name="priceEdit" placeholder="Wartość netto">
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="dateEdit" class="col-sm-2 col-form-label">Data zakupu:</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control addAssets" id="dateEdit" name="dateEdit" placeholder="Data zakupu">
+                  </div>
+              </div>
+
+      
+
           <input type="hidden" id="idEdit" name="idEdit" value="">
-          </select>
-          <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
-          <button type="submit" class="btn btn-success">Zapisz</button>
+
+          
+          <div class="col text-center">
+            <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+            <button type="submit" class="btn btn-success">Zapisz</button>
+          </div>
+          
         </form>
         </div>
-      </div>
+    </div>
 
   </div>
 </div>

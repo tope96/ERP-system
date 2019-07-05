@@ -5,12 +5,14 @@
 <div class="col-11">
   <div class="section-assets">
     <div class="row border">
-      <div class="col-md-2">
-        <input type="text" class="form-control search" id="search" placeholder="Wyszukaj">
+
+      <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar"><i class="fa fa-caret-square-up"></i></button></div>
+      <div id="itemsBar" class="col-lg-2 collapse show"> 
+        <input type="text" class="form-control search shadow p-3 bg-white rounded" id="search" placeholder="Wyszukaj">
         <ul class="ul">
           <div class="list-group" id="list-tab" role="tablist">
             <% for(var i=0; i < workers.length; i++) { %>
-            <li class="list-group-item list-group-item-action" onclick="hide()"
+            <li class="list-group-item list-group-item-action shadow-sm p-3 mb-2 rounded" onclick="hide()"
               id="list-<%= workers[i].IdPracownik %>-list" data-toggle="list" href="#list-<%= workers[i].IdPracownik %>"
               role="tab" aria-controls="<%= workers[i].IdPracownik%>">
               <b><%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
@@ -18,11 +20,17 @@
           </div>
         </ul>
         <div class="row">
-          <button type="button" class="btn btn-success" onclick="myFunction()">Dodaj pracownika</button>
-          <button type="button" class="btn btn-success" onclick="teams()">Zespoly</button>
+          <div class="col text-center">
+              <button type="button" class="btn btn-success buttonUnderList" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj pracownika</button>
+          </div>
         </div>
+        <div class="row">
+          <div class="col text-center">
+              <button type="button" class="btn btn-success buttonUnderList" onclick="teams()"><i class="fas fa-users"></i> Zespoly</button>
+          </div>
+        </div>        
     </div>
-<div class="col-md-8" >
+<div class="col-lg-10" >
     <div id="infoPanel">
     <div class="tab-content" id="nav-tabContent">
         <% for(var i=0; i < workers.length; i++) { %>

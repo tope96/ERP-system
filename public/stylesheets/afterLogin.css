@@ -66,24 +66,29 @@
     height: 70vh;
 }
 
-.list-group{
-    width: 15rem !important;
-}
-
 .list-group-item{
-    /* width: 13vw !important; */
+    cursor: pointer;
 }
 
 .search{
-    width: 13vw;
+    z-index: 2;
+    width: 100%;
     margin-bottom: 1rem;
+    position: relative;
+    height: 3rem;
+    margin-top: 1rem;
 }
 
+.buttonUnderList{
+    margin-bottom: 1rem;
+    margin-top: 1 rem;
+}
 
 .list-group{
     height: 70vh;
-    overflow-y: scroll;
-    background-color: rgb(219, 219, 219);
+    overflow: auto;
+    min-width: 60px;
+    z-index: 1
 }
 
 .list-group-teams{
@@ -115,13 +120,9 @@
 
 #infoPanel{
     margin-top: 1rem;
-    margin-left: 2rem;
+
 }
 
-.asset-name{
-    margin: 0 auto;
-    width: 20rem;
-}
 
 #editPanel{
     margin-top: 1rem;
@@ -135,10 +136,11 @@
 
 #edit{
     display: none;
+    margin-top: 1rem;
 }
 
 .ul{
-    margin-left: -2rem;
+    margin-left: -2.5rem;
 }
 
 .modal {
@@ -177,6 +179,17 @@
   .collapse-button{
     display: none;
 }
+
+.property{
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.littleButtons{
+    margin-top: 0.8rem;
+    margin-left: 1rem;
+}
+
 
 @media screen and (max-width: 985px) {
     .list-group-item{
@@ -223,8 +236,7 @@
 
     .list-group {
         height: 50%;
-        overflow-y: scroll;
-        background-color: rgb(219, 219, 219);
+        overflow: auto;
     }
 
     #editPanel {
@@ -235,5 +247,10 @@
 
     .collapse-button{
         display: block;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        text-align: right
     }
+
+
   }
