@@ -92,10 +92,10 @@
 }
 
 .list-group-teams{
-    height: 30vh;
-    width: 20rem;
-    overflow-y: scroll;
-    background-color: rgb(219, 219, 219);
+    height: 30rem;
+    /* width: 20rem; */
+    overflow: auto;
+   
 }
 
 .addAssets{
@@ -189,6 +189,16 @@
     margin-top: 0.8rem;
     margin-left: 1rem;
 }
+
+.copyIcon{
+    color: rgb(158, 158, 158);
+}
+
+.copyIcon:hover{
+    color: black;
+    cursor: copy;
+}
+
 
 
 @media screen and (max-width: 985px) {

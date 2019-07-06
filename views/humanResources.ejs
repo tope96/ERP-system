@@ -1,7 +1,6 @@
 <% include partials/headerLogin %>
 <% include partials/leftNavbar %>
 
-
 <div class="col-11">
   <div class="section-assets">
     <div class="row border">
@@ -36,40 +35,79 @@
         <% for(var i=0; i < workers.length; i++) { %>
             <div class="tab-pane fade show " id="list-<%= workers[i].IdPracownik %>" role="tabpanel"
               aria-labelledby="list-<%= workers[i].IdPracownik %>-list">
+
               <div class="row asset-name">
-                <h2><%= workers[i].Imie %> <%= workers[i].Nazwisko %></h2>
+                <div class="col text-center">
+                  <h2><%= workers[i].Imie %> <%= workers[i].Nazwisko %></h2>
+                </div>
               </div>
-              <p>Email: <%= workers[i].Email %></p>
-              <p>Numer telefonu:<%= workers[i].NumerTelefonu %></p>
-              <p><b>Umowa: </b>
-                <%if ( workers[i].PlikUmowy == null) { %>
-                <button type="button" class="btn btn-success" disabled><i class="fa fa-file-download"></i> Brak umowy do
-                  pobrania</button>
-                <% } else{ %>
-                <form action="downloadContract" method="POST">
-                  <input type="hidden" name="fileName" value="<%= workers[i].PlikUmowy %>">
-                  <button type="submit" class="btn btn-success"><i class="fa fa-file-download"></i> Pobierz umowę
-                  </button>
-                </form>
-                <% } %>
-              </p>
-              <% for(var a=0; a < programmers.length; a++) { %>
-                <%if (programmers[a].IdPracownik == workers[i].IdPracownik && programmers[a].IdSpecjalizacja != null) {%>
-                  Programista, specjalizacja: <%= programmers[a].IdSpecjalizacja %>
-                <% } %> 
-                <% } %>
-                  <% for(var b=0; b < analit.length; b++) { %>
-                    <%if (analit[b].IdPracownik == workers[i].IdPracownik && analit[b].IdSpecjalizacja != null) {%>
-                      Analityk, specjalizacja: <%= analit[b].IdSpecjalizacja %>
+              <hr>
+
+              <div class="row">
+                <div class="col text-center">
+                  <form action="deleteHuman" method="POST">
+                  <button type="button" class="btn btn-light"
+                    onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
+                      class="fa fa-edit" data-toggle="tooltip" data-placement="top"
+                      title="Edytuj informacje o pracowniku"></i></button>
+                    <input type="hidden" name="workerId" value="<%= workers[i].IdPracownik %>">
+                    <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                    title="Usuń tego pracownika"><i class="fas fa-user-minus"></i></button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                    <i class="fa fa-at fa-2x contactIcon"></i> Email:<a id="p<%=i%>"><%= workers[i].Email %></a>
+                    <i class="far fa-copy copyIcon" onclick="copyToClipboard('#p<%=i%>')" data-toggle="tooltip" data-placement="top"
+                      title="Kopiuj adres email"></i>
+                  </div>
+                </div>
+              
+                <div class="col-lg-6">
+                  <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                    <i class="fas fa-mobile fa-2x contactIcon"></i> Numer telefonu: <a
+                      id="a<%=i%>"><%= workers[i].NumerTelefonu %></a>
+                    <i class="far fa-copy copyIcon" onclick="copyToClipboard('#a<%=i%>')" data-toggle="tooltip" data-placement="top"
+                      title="Kopiuj numer telefonu"></i>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                    <h2> <i class="fa fa-file-contract"></i> Informacje o zatrudnieniu:</h2> <br />
+                    Pracownik zatrudniony jako 
+                    <% for(var a=0; a < programmers.length; a++) { %>
+                      <%if (programmers[a].IdPracownik == workers[i].IdPracownik && programmers[a].IdSpecjalizacja != null) {%>
+                        programista, specjalizacja: <%= programmers[a].IdSpecjalizacja %>
+                      <% } %>
                     <% } %>
-                  <% } %>
-              <button type="button" class="btn btn-light"
-                onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
-                  class="fa fa-edit"></i></button>
-              <form action="deleteHuman" method="POST">
-                <input type="hidden" name="workerId" value="<%= workers[i].IdPracownik %>">
-                <button type="submit" class="btn btn-danger">Zwolnij!</button>
-              </form>
+                    
+                    <% for(var b=0; b < analit.length; b++) { %>
+                      <%if (analit[b].IdPracownik == workers[i].IdPracownik && analit[b].IdSpecjalizacja != null) {%>
+                        analityk, specjalizacja: <%= analit[b].IdSpecjalizacja %>
+                      <% } %>
+                    <% } %>
+                    
+                    <%if ( workers[i].PlikUmowy == null) { %>
+                    <button type="button" class="btn btn-success" disabled><i class="fa fa-file-download"></i> Brak umowy do
+                      pobrania</button>
+                    <% } else{ %>
+                    <form action="downloadContract" method="POST">
+                      <input type="hidden" name="fileName" value="<%= workers[i].PlikUmowy %>">
+                      <button type="submit" class="btn btn-success"><i class="fa fa-file-download"></i> Pobierz umowę
+                      </button>
+                    </form>
+                    <% } %>
+                    <!-- TODO: informacje o umowie -->
+                  </div>
+                </div>
+              </div>
+
 
             </div>
             <% } %>
@@ -158,153 +196,280 @@
       </div>
     </div>
     
+    <!-- EDYTOWANIE UZYTKOWNIKA -->
     <div id="edit">
-        <div class="tab-pane fade show " role="tabpanel" >
-          <h2>Edytowanie pracownika</h2>
-          <p>Podaj nowe dane</p>
-          <form enctype="multipart/form-data" action="editHr" method="POST">
-          <input type="text" class="form-control addAssets" id="firstNameEdit" name="firstNameEdit" placeholder="Imię">
-          <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit" placeholder="Nazwisko">
-          <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit" placeholder="Email">
-          <input type="number" class="form-control addAssets" id="telephoneEdit" name="telephoneEdit" placeholder="Numer telefonu">
-
-
-          <label class="radio-inline"><input type="radio" value="1" name="positionEdit">Programista</label>
-          <label class="radio-inline"><input type="radio" value="0" name="positionEdit">Analityk</label>
-          <select class="form-control" placeholder="Firma" name="specEdit" id="spec">
-          <option selected>Wybierz specjalizację</option>
-            <% for(var i=0; i < spec.length; i++) { %>
-          <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
-            <%}%>
-            </select>
-
-          <p>Plik z umową:</p>
-          <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" >
-          <input type="hidden" id="idEdit" name="idEdit" value="">
-          </select>
-          <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
-          <button type="submit" class="btn btn-success">Zapisz</button>
-        </form> 
-      
+      <div class="tab-pane fade show " role="tabpanel">
+        <div class="row asset-name">
+          <div class="col text-center">
+            <h2>Edytowanie pracownika</h2>
+            <p>Podaj nowe dane</p>
+          </div>
         </div>
-      </div>
+    
+        <form enctype="multipart/form-data" action="editHr" method="POST">
+          <div class="form-group row">
+            <label for="firstNameEdit" class="col-sm-2 col-form-label">Imię:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control addAssets" id="firstNameEdit" name="firstNameEdit" placeholder="Imię">
+            </div>
+          </div>
+    
+          <div class="form-group row">
+            <label for="lastNameEdit" class="col-sm-2 col-form-label">Nazwisko:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit"
+                placeholder="Nazwisko">
+            </div>
+          </div>
+    
+          <div class="form-group row">
+            <label for="emailEdit" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit" placeholder="Email">
+            </div>
+          </div>
+    
+          <div class="form-group row">
+            <label for="telephoneEdit" class="col-sm-2 col-form-label">Numer telefonu:</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control addAssets" id="telephoneEdit" name="telephoneEdit"
+                placeholder="Numer telefonu">
+            </div>
+          </div>
+    
+          <div class="form-group row">
+            <label for="positionEdit" class="col-sm-2 col-form-label">Stanowisko:</label>
+            <div class="col-sm-10">
+              <label class="radio-inline"><input type="radio" value="1" name="positionEdit"
+                  id="positionEdit">Programista</label>
+              <label class="radio-inline"><input type="radio" value="0" name="positionEdit"
+                  id="positionEdit">Analityk</label>
+            </div>
+          </div>
+    
+          <div class="form-group row">
+            <label for="spec" class="col-sm-2 col-form-label">Specjalizacja:</label>
+            <div class="col-sm-10">
+              <select class="form-control" placeholder="Firma" name="specEdit" id="spec">
+                <option selected>Wybierz specjalizację</option>
+                <% for(var i=0; i < spec.length; i++) { %>
+                <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
+                <%}%>
+               </select>
+             </div>
+          </div>
+    
+                <div class="form-group row">
+                    <label for="file-to-upload" class="col-sm-2 col-form-label">Plik z umową:</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" >          
+                    </div>
+                </div>
+    
+              <input type="hidden" id="idEdit" name="idEdit" value="">
+    
+              <div class="col text-center">
+                <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+                <button type="submit" class="btn btn-success">Zapisz</button>
+              </div>
+    
+            </form> 
+            </div>
+          </div>
 
+          <!-- ZESPOLY -->
       <div id="teamsManage">
-        <div class="tab-pane fade show " role="tabpanel" >
-          <h2>Zespoły</h2>
-            <button type="button" class="btn btn-success" onclick="addTeamView()">Dodaj nowy zespół</button>
-            <div class="list-group-teams" id="list-tab" role="tablist">
-              <div class="container">
-            <% for(var i=0; i < teams.length; i++) { %>
-              <div class="panel-group">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" href="#collapse<%=i%>"><%= teams[i].Nazwa %> </a>
-                      <i onclick="editTeamView()" class="fa fa-edit"></i>
-                    </h4>
-                  </div>
-                  <div id="collapse<%=i%>" class="panel-collapse collapse">
-                      <% for(var a=0; a < teamsMember.length; a++) { %>
-                        <% for(var b=0; b < workers.length; b++) { %>
-                        <%if (teamsMember[a].IdZespol == teams[i].IdZespol){%>
-                          <%if (teamsMember[a].IdPracownik == workers[b].IdPracownik){%>
-                          <div class="panel-body"><%= workers[b].Imie %> <%= workers[b].Nazwisko %></div>
-                        <%}%>
-                        <%}%>
-                        <%}%> 
-                        <%}%>
+        <div class="tab-pane fade show " role="tabpanel">
+          <div class="row asset-name">
+            <div class="col text-center">
+              <h2>Zarządzanie zespołami</h2>
+            </div>
+          </div>
+          <hr>
+      
+          <div class="row">
+            <div class="col">
+              <div class=" property shadow p-3 mb-2 bg-white rounded" id="list-tab" role="tablist">
+                <div class="row asset-name">
+                  <div class="col text-center">
+                    <h2>Wszystkie zespoły</h2>
                   </div>
                 </div>
+                <div class="container list-group-teams property shadow-sm p-3 mb-5 bg-white rounded">
+                  <% for(var i=0; i < teams.length; i++) { %>
+                  <div class="panel-group">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" href="#collapse<%=i%>"><%= teams[i].Nazwa %> </a>
+                          <i onclick="editTeamView()" class="fa fa-edit"></i>
+                        </h4>
+                      </div>
+                      <div id="collapse<%=i%>" class="panel-collapse collapse">
+                        <% for(var a=0; a < teamsMember.length; a++) { %>
+                          <% for(var b=0; b < workers.length; b++) { %>
+                            <%if (teamsMember[a].IdZespol == teams[i].IdZespol){%>
+                              <%if (teamsMember[a].IdPracownik == workers[b].IdPracownik){%>
+                                <div class="panel-body"><%= workers[b].Imie %> <%= workers[b].Nazwisko %></div>
+                              <%}%>
+                            <%}%>
+                          <%}%> 
+                        <%}%>
+                      </div>
+                    </div>
+                  </div>
+                  <%}%>     
+              </form>
+      
               </div>
-               
-            <%}%>     
-        </form>
-        </div>
-      </div>
-      </div>
-    </div>
+              <button type="button" class="btn btn-success" onclick="addTeamView()">Dodaj nowy zespół</button>
+            </div>
+            </div>
+            </div>
+          </div>
+          </div>
     
+    <!-- DODAWANIE ZESPOLU -->
       <div id="addTeam">
         <div class="tab-pane fade show " role="tabpanel" >
-          <h2>Dodaj nowy zespół</h2>
-          <p>Podaj dane zespołu</p>
-          <form action="addTeam" method="POST">
-          <div class="row">
-            <div class="column">
-              <input type="text" class="form-control addAssets" name="teamName" placeholder="Nazwa zespołu">
-            </div>
-            <div class="column">
-              <p>Wybierz członków zespołu:</p>
-              <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
-              <ul class="ul">
-              <div class="list-group-teams" id="list-tab" role="tablist">
-                  <% for(var i=0; i < workers.length; i++) { %>
-                    <li class="list-group-item " ><b><input type="checkbox" name="teamsMember" value="<%=workers[i].IdPracownik %>"> <%= workers[i].Imie %> <%= workers[i].Nazwisko %>  </b> </li>
-                  <%}%>       
+            <div class="row asset-name">
+                <div class="col text-center">
+                    <h2>Dodaj nowy zespół</h2>
+                    <p>Podaj dane zespołu</p>
                 </div>
-               </ul> 
+              </div>
+              <hr>
+          <form action="addTeam" method="POST">
+
+              <div class="form-group row">
+                <label for="teamName" class="col-sm-2 col-form-label">Nazwa zespołu:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control addAssets" id="teamName" name="teamName" placeholder="Nazwa zespołu">
+                </div>
+              </div>
+
+              
+        <p>Wybierz członków zespołu:</p>
+          <div class="row">
+            <div class="col">
+              <div class="property shadow-sm p-3 mb-5 bg-white rounded">
+                <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+                  <div class="list-group-teams property shadow-sm p-3 mb-5 bg-white rounded">
+                    <ul class="ul">
+                      <div class="list-group-teams" id="list-tab" role="tablist">
+                        <% for(var i=0; i < workers.length; i++) { %>
+                          <li class="list-group-item "><b><input type="checkbox" name="teamsMember"
+                          value="<%=workers[i].IdPracownik %>">
+                          <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> 
+                          </li>
+                        <%}%>       
+                      </div>
+                    </ul> 
+                  </div>
+              </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-success">Zapisz</button>
-          </form>
-        </div>
-      </div>
 
-      <div id="editTeam">
-        <div class="container">
           <div class="row">
-            <div class="col-md">
-                <h2>Edycja zespołu</h2>
-                <p>Podaj nowe dane zespołu</p>
-                
-                <form action="editTeams" method="POST">
-                  <% for(var i=0; i < teams.length; i++) { %>
-                    <%if (teams[i].IdZespol == 25){%>
-                      <input type="text" class="form-control addAssets" name="newName" value="<%= teams[i].Nazwa %>">
-                      <input type="hidden" name="idTeam" value="25">
-                    <% } %>
-                  <% } %>
-                <button type="button" onclick="editTeamHide();teamsManageView()" class="btn btn-danger">Anuluj</button>
-                <button type="submit" class="btn btn-success">Zapisz</button>
-                </form>
+            <div class="col text-center">
+                <button type="button" onclick="newTeamHide(); teamsManageView()" class="btn btn-danger">Anuluj</button>
+                <button type="submit" class="btn btn-success"> <i class="fas fa-save"></i> Zapisz</button>
+            </div>
+          </div>
+          
+            </form>
+          </div>
+        </div>
+
+
+      <!-- EDYCJA ZESPOLU -->
+      <div id="editTeam">
+        <div class="row asset-name">
+          <div class="col text-center">
+            <h2>Edycja zespołu</h2>
+            <p>Podaj nowe dane zespołu</p>
+          </div>
+        </div>
         
-                <form action="deleteFromTeam" method="POST">
-                  <div class="list-group-teams" id="list-tab" role="tablist">
-                    <% for(var q=0; q < teamsMember.length; q++) { %>
-                      <% for(var w=0; w < workers.length; w++) { %>
-                        <%if (teamsMember[q].IdZespol == 25){%>
-                          <%if (teamsMember[q].IdPracownik == workers[w].IdPracownik){%>
-                            <div class="panel-body"><%= workers[w].Imie %> <%= workers[w].Nazwisko %>
-                              <input type="checkbox" name="toDelete" value="<%=workers[w].IdPracownik %>">
+        <hr>
+                
+      <form action="editTeams" method="POST">
+        <% for(var i=0; i < teams.length; i++) { %>
+          <%if (teams[i].IdZespol == 25){%>
+            <div class="form-group row">
+                <label for="newName" class="col-sm-2 col-form-label">Nazwa zespołu:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control addAssets" name="newName" id="newName" value="<%= teams[i].Nazwa %>">              
+                </div>
+            </div>
+            <input type="hidden" name="idTeam" value="25">
+
+          <% } %>
+        <% } %>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" onclick="editTeamHide();teamsManageView()" class="btn btn-danger">Anuluj</button>
+            <button type="submit" class="btn btn-success">Zapisz</button>
+          </div>
+        </div>
+      
+      </form>
+      
+
+      <div class="row">
+        
+        <div class="col-lg-6">
+          <form action="deleteFromTeam" method="POST">
+            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+              Członkowie zespołu: 
+            <div class="list-group-teams property shadow-sm p-3 mb-2 bg-white rounded" id="list-tab" role="tablist">
+              <% for(var q=0; q < teamsMember.length; q++) { %>
+                <% for(var w=0; w < workers.length; w++) { %>
+                  <%if (teamsMember[q].IdZespol == 25){%>
+                    <%if (teamsMember[q].IdPracownik == workers[w].IdPracownik){%>
+                      <ul class="ul">
+                          <li class="list-group-item ">
+                            <div class="panel-body">
+                              <label><input type="checkbox" name="toDelete" value="<%=workers[w].IdPracownik %>"><%= workers[w].Imie %> <%= workers[w].Nazwisko %></label>
                               <input type="hidden" value='25' name="idTeam">
                             </div>
-                          <%}%>
-                        <%}%>
-                      <%}%> 
+                          </li>
+                      </ul>
                     <%}%>
-                </form>
-                <button type="submit" class="btn btn-danger">Usuń</button>
+                  <%}%>
+                <%}%> 
+              <%}%>
             </div>
-
-            <div class="col-md">
-              <p>Dodaj nowych czlonkow zespolu:</p>
-              <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
-              <ul class="ul">
-                <form action="addNewMembers" method="POST">
-                  <div class="list-group-teams" id="list-tab" role="tablist">
-                    <% for(var i=0; i < workers.length; i++) { %>
-                      <li class="list-group-item " ><b><input type="checkbox" name="newMembers" value="<%=workers[i].IdPracownik %>"> <%= workers[i].Imie %> <%= workers[i].Nazwisko %>  </b> </li>
-                    <%}%>
-                    <input type="hidden" value='25' name="idTeam">       
-                  </div>
-                  <button type="submit" class="btn btn-danger">Dodaj</button>
-                </form>
-              </ul> 
-            </div>
+            <button type="submit" class="btn btn-danger"><i class="fas fa-user-minus"></i> Usuń członka zespołu</button>
+          </div>
+          </form> 
+        </div>
+          
+          <div class="col-lg-6">
+            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+          <p>Dodaj nowych czlonkow zespolu:</p><div class="property shadow-sm p-3 mb-2 bg-white rounded">
+          <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+          
+          <ul class="ul">
+            <form action="addNewMembers" method="POST">
+              <div class="list-group-teams" id="list-tab" role="tablist">
+                <% for(var i=0; i < workers.length; i++) { %>
+                <li class="list-group-item "><b><input type="checkbox" name="newMembers" value="<%=workers[i].IdPracownik %>">
+                    <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
+                <%}%>
+                <input type="hidden" value='25' name="idTeam">       
+              </div>
+              
+             
+            </div> <button type="submit" class="btn btn-success"><i class="fas fa-user-plus"></i> Dodaj członka zespołu</button>
+            </form>
+          </ul> 
           </div>
         </div>
-      </div>
+        </div>
+        </div>
+
+ 
 
       
       <div id="addCompany">
@@ -334,235 +499,7 @@
 </div>
 </div>
 
+<!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/HR.js"></script>
 
-<script>
-  var addCompany = document.getElementById("addCompany");
-  addCompany.style.display = "none";
-  var addTeam = document.getElementById("addTeam");
-  addTeam.style.display = "none";
-  var editTeam = document.getElementById("editTeam");
-  editTeam.style.display = "none";
-
-
-  function addCompanyView() {
-    var x = document.getElementById("addCompany");
-    x.style.display = "inline";
-  }
-
-  function addCompanyHide() {
-    var x = document.getElementById("addCompany");
-    x.style.display = "none";
-  }
-
-  function addTeamHide(){
-    var x = document.getElementById("addTeam");
-    x.style.display = "none";
-  }
-
-  function editTeamHide(){
-    var x = document.getElementById("editTeam");
-    x.style.display = "none";
-  }
-
-  function teamsManageHide(){
-    var x = document.getElementById("teamsManage");
-    x.style.display = "none";
-  }
-
-  function teamsManageView(){
-    var x = document.getElementById("teamsManage");
-    x.style.display = "block";
-  }
-
-  function editTeamView(teamId){
-    var x = document.getElementById("editTeam");
-    x.style.display = "inline";
-    teamsManageHide();
-    var dupa =3;
-  }
-
-  function addTeamView(){
-    var y = document.getElementById("infoPanel");
-    var x = document.getElementById("editPanel");
-    var z = document.getElementById("edit");
-    var a = document.getElementById("teamsManage");
-    var b = document.getElementById("addTeam");
-    editTeamHide();
-    a.style.display = "none";
-    z.style.display = "none";
-    y.style.display = "none";
-    b.style.display = "block";
-  }
-
-  function myFunction() {
-    var y = document.getElementById("infoPanel");
-    var x = document.getElementById("editPanel");
-    var z = document.getElementById("edit");
-    var a = document.getElementById("teamsManage");
-    var b = document.getElementById("addTeam");
-    var addCompany = document.getElementById("addCompany");
-    hideAgreementB2b();
-    hideAgreementInput();
-    hideAgreemtnInput2();
-    editTeamHide();
-    b.style.display = "none";
-    a.style.display = "none";
-    z.style.display = "none";
-    y.style.display = "none";
-    addCompany.style.display = "none";
-
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-
-  }
-
-  function teams() {
-    var y = document.getElementById("infoPanel");
-    var x = document.getElementById("editPanel");
-    var z = document.getElementById("edit");
-    var a = document.getElementById("teamsManage");
-    var b = document.getElementById("addTeam");
-    var addCompany = document.getElementById("addCompany");
-    b.style.display = "none";
-    z.style.display = "none";
-    y.style.display = "none";
-    x.style.display = "none";
-    addCompany.style.display = "none";
-    editTeamHide();
-    if (a.style.display === "none") {
-      a.style.display = "block";
-    } else {
-      a.style.display = "none";
-    }
-
-  }
-
-  function hide() {
-    var edit = document.getElementById("edit");
-    var editPanel = document.getElementById("editPanel");
-    var infoPanel = document.getElementById("infoPanel");
-    var teamManage = document.getElementById("teamsManage");
-    var addCompany = document.getElementById("addCompany");
-    var b = document.getElementById("addTeam");
-    b.style.display = "none";
-    editPanel.style.display = "none";
-    infoPanel.style.display = "block";
-    edit.style.display = "none";
-    teamManage.style.display = "none";
-    addCompany.style.display = "none";
-    editTeamHide();
-  }
-
-  function cancel() {
-    var z = document.getElementById("edit");
-    z.style.display = "none";
-    var x = document.getElementById("editPanel");
-    x.style.display = "none";
-    document.getElementById("name").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("type").value = "";
-    document.getElementById("price").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("owner").value = "";
-    var y = document.getElementById("infoPanel");
-    y.style.display = "block";
-  }
-
-  function edit(firstName, lastName, email, telephone, id) {
-    var y = document.getElementById("editPanel");
-    y.style.display = "none";
-
-    var z = document.getElementById("infoPanel");
-    z.style.display = "none";
-
-    var agreementInput = document.getElementById("agreement");
-    agreementInput.style.display = "none";
-
-    document.getElementById("firstNameEdit").value = firstName;
-    document.getElementById("lastNameEdit").value = lastName;
-    document.getElementById("telephoneEdit").value = telephone;
-    document.getElementById("emailEdit").value = email;
-    document.getElementById("idEdit").value = id;
-
-    var x = document.getElementById("edit");
-    x.style.display = "block";
-
-  }
-
-
-  function agreementView() {
-    hideAgreemtnInput2();
-    hideAgreementB2b();
-    var inputs = document.getElementById('agreement');
-    inputs.style.display = "block";
-  }
-
-  function agreement2View() {
-    hideAgreementInput();
-    hideAgreementB2b();
-    var input2 = document.getElementById("agreement2");
-    input2.style.display = "block";
-  }
-
-  function agreementB2bView() {
-    hideAgreementInput();
-    hideAgreemtnInput2();
-    var input3 = document.getElementById('b2b');
-    input3.style.display = "block";
-  }
-
-  function hideAgreementB2b() {
-    var input3 = document.getElementById('b2b');
-    input3.style.display = "none";
-  }
-
-  function hideAgreementInput() {
-    var inputs = document.getElementById('agreement');
-    inputs.style.display = "none";
-  }
-
-  function hideAgreemtnInput2() {
-    var input2 = document.getElementById("agreement2");
-    input2.style.display = "none";
-  }
-
-  $(function () {
-    $('#search').keyup(function () {
-      var current_query = $('#search').val();
-      if (current_query !== "") {
-        $(".list-group li").hide();
-        $(".list-group li").each(function () {
-          var current_keyword = $(this).text();
-          if (current_keyword.indexOf(current_query) >= 0) {
-            $(this).show();
-          };
-        });
-      } else {
-        $(".list-group li").show();
-      };
-    });
-  });
-
-  $(function () {
-    $('#searchTeams').keyup(function () {
-      var current_query = $('#searchTeams').val();
-      if (current_query !== "") {
-        $(".list-group-teams li").hide();
-        $(".list-group-teams li").each(function () {
-          var current_keyword = $(this).text();
-          if (current_keyword.indexOf(current_query) >= 0) {
-            $(this).show();
-          };
-        });
-      } else {
-        $(".list-group-teams li").show();
-      };
-    });
-  });
-
-
-</script>
 <% include partials/footerLogin %>
