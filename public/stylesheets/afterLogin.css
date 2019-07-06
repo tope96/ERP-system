@@ -199,11 +199,22 @@
     cursor: copy;
 }
 
+.asset-name{
+    margin-top:0.5rem
+}
 
 
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 95%;
     }
 }
 

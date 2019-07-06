@@ -4,48 +4,131 @@
 <div class="col-11">
         <%if (normal === true){%>
         <div class="section-assets">
-            <div class="row border">
-                <div class="col-md-6">
-                    <b>Nazwa firmy: </b>
-                    <p><%= company.Nazwa %></p>
-
-                    <b>NIP:</b>
-                    <p><%= company.Nip %></p>
+            <div class="border">
+                <div class="row asset-name">
+                    <div class="col text-center">
+                        <h2>Informacje o firmie</h2>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <b>Adres firmy</b>
-                    <p><%= town.Miasto %></p>
-                    <p><%= company.Adres %></p>
+                <hr>
+            
+                <div class="row">
+                    <div class="col text-center">
+                        <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success" data-toggle="tooltip"
+                                data-placement="top" title="Dodaj konto domenowe"><i class="fa fa-user-plus"></i> </button></a>
+                        <a href="/editCompanyEdition"><button type="button" class="btn btn-light" data-toggle="tooltip"
+                                data-placement="top" title="Edytuj firmę"><i class="fa fa-edit"></i></button></a>
+                    </div>
                 </div>
-                
-                <p>Załóż nowe konto domenowe dla pracownika: <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success"><i class="fa fa-user-plus"></i></button></a></p>
-                <a href="/editCompanyEdition" ><button type="button" class="btn btn-success">Edytuj</button></a>
+            
+            
+            
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="shadow-sm p-3 bg-white rounded">
+                            <h2><b>Nazwa firmy: </b></h2>
+                            <div class="text-center">
+                                <h4><%= company.Nazwa %></h4>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="col-lg-6">
+                        <div class="shadow-sm p-3 bg-white rounded">
+                            <h2><b>Adres firmy</b></h2>
+                            <div class="text-center">
+                                <h4><%= town.Miasto %>
+                                    <%= company.Adres %></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shadow-sm p-3 bg-white rounded">
+                            <h2><b>NIP:</b></h2>
+                            <div class="col text-center">
+                                <h4><%= company.Nip %></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
             </div>
         </div>
         <% } %>
+
         <%if (normal === false){%>
             <div class="section-assets">
                 <div class="row border">
-                    <div class="col-md-6">
+                    <div class="col-lg-12">
+
+                            <div class="row asset-name">
+                                    <div class="col text-center">
+                                        <h2>Edycja firmy</h2>
+                                    </div>
+                                </div>
+                                <hr>
+                    
                        <form action="/companyEdition" method="POST">
-                        <b>Nazwa firmy: </b>
-                        <p> <input type="text" class="form-control" name="companyName" placeholder="Nowa nazwa" value="<%= company.Nazwa %>"> </p>
-            
-                        <b>NIP:</b>
-                        <p><input type="number" class="form-control" name="companyNip" placeholder="Nowy NIP" value="<%= company.Nip %>"></p>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <h3><b>Podstawowe informacje</b></h3>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="companyName" class="col-sm-2 col-form-label">Nazwa firmy:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="companyName" placeholder="Nowa nazwa" id="companyName"
+                                    value="<%= company.Nazwa %>">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="companyNip" class="col-sm-2 col-form-label">NIP:</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" name="companyNip" placeholder="Nowy NIP" id="companyNip"
+                                    value="<%= company.Nip %>">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col text-center">
+                                <h3><b>Adres firmy</b></h3>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="companyTown" class="col-sm-2 col-form-label">Miasto:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="companyTown" placeholder="Nowe miasto" id="copmanyTown"
+                                    value="<%= town.Miasto %>">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="companyAddress" class="col-sm-2 col-form-label">Adres:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="companyAddress" placeholder="Nowy adres" id="companyAddress"
+                                    value="<%= company.Adres %>">
+                            </div>
+                        </div>
+                        
+                    <div class="row">
+                        <div class="col text-center">
+                            <a href="/editCompany"><button type="button" class="btn btn-danger">Anuluj</button></a>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Zapisz</button>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <b>Adres firmy</b>
-                        <p><input type="text" class="form-control" name="companyTown" placeholder="Nowe miasto" value="<%= town.Miasto %>"></p>
-                        <p><input type="text" class="form-control" name="companyAddress" placeholder="Nowy adres" value="<%= company.Adres %>"></p>
-                    </div>
-            
-                    <a href="/editCompany"><button type="button" class="btn btn-danger">Anuluj</button></a>
-                    <button type="submit" class="btn btn-success">Zapisz</button>
+
                     <input type="hidden" name="companyId" value="<%= company.IdFirma %>">
                     </form> 
                 </div>
             </div>
+        </div>
         <% } %>
 </div>
 
@@ -68,17 +151,18 @@
                 <input type="text" class="form-control createAccount input" name="login" placeholder="Login">
                 <input type="password" class="form-control createAccount input" name="password" placeholder="Hasło">
                 
-                <div class="row buttonsInRow">
-                <div class="col-6 leftButtonInRow">
-                    <a href="/editCompany"><button type="button" class="btn btn-danger">Anuluj</button></a>
+                <div class="row">
+                    <div class="col text-center">
+                        <a href="/editCompany"><button type="button" class="btn btn-danger">Anuluj</button></a>
+                        <button type="submit" class="btn btn-success continue" disabled>Zapisz</button>
+                    </div>
                 </div>
-                <div class="col-6 right">
-                    <button type="submit" class="btn btn-success continue" disabled>Zapisz</button>
-                </div>
+
             </form>
-            </div>
         </div>
     </div>
+    
+</div>
 <% } %>
 
 <%if (userAlreadyExists === true){%>
@@ -113,44 +197,8 @@
     </div>
 <% } %>
 
-<script>
-    $(document).ready(function () {
-        //makes submit button disable when inputs are empty
-        $(document).ready(function () {
-            $('.input').keyup(function () {
-
-                var empty = false;
-                $('.input').each(function () {
-                    if ($(this).val().length == 0 || $('.selectWorker').val() == 'Brak pracowników bez kont' || $('.selectWorker').val() == 'Wybierz pracownika') {
-                        empty = true;
-                    }
-                });
-
-                if (empty) {
-                    $('.continue').attr('disabled', 'disabled');
-                } else {
-                    $('.continue').attr('disabled', false);
-                }
-            });
-
-            $('.selectWorker').click(function () {
-                var empty = false;
-                $('.input').each(function () {
-                    if ($(this).val().length == 0 || $('.selectWorker').val() == 'Brak pracowników bez kont' || $('.selectWorker').val() == 'Wybierz pracownika') {
-                        empty = true;
-                    }
-                });
-
-                if (empty) {
-                    $('.continue').attr('disabled', 'disabled');
-                } else {
-                    $('.continue').attr('disabled', false);
-                }
-            });
-        });
-
-    });
-</script>
+<!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/editCompany.js"></script>
 
 <% include partials/footerLogin %>
 
