@@ -203,6 +203,13 @@
     margin-top:0.5rem
 }
 
+#clientPanel{
+    display: none;
+}
+
+#addProject{
+    display: none;
+}
 
 @media screen and (max-width: 985px) {
     .list-group-item{

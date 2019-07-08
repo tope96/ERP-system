@@ -1,0 +1,144 @@
+<% include partials/headerLogin %></div>
+<% include partials/leftNavbar %>
+
+
+<div class="col-11">
+    <div class="section-assets">
+        <div class="row border">
+                <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar"><i class="fa fa-caret-square-up"></i></button></div>
+                <div id="itemsBar" class="col-lg-2 collapse show"> 
+                  <input type="text" class="form-control search shadow p-3 bg-white rounded" id="search" placeholder="Wyszukaj">
+                  <ul class="ul">
+                    <div class="list-group" id="list-tab" role="tablist">
+                      
+                      <li class="list-group-item list-group-item-action shadow-sm p-3 mb-2 rounded" onclick="hide()"
+                        id="list--list" data-toggle="list"
+                        href="#list-" role="tab" aria-controls="">
+                        <b></b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; szt.: </li>
+                      
+                    </div>
+                  </ul>
+                  <div class="row">
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-success buttonUnderList" onclick="addProjectShow()"><i class="fa fa-plus-circle"></i>Dodaj projekt</button>
+                        <button type="button" class="btn btn-success buttonUnderList" onclick="addClientShow()"><i class="fa fa-plus-circle"></i>Dodaj klienta</button>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-lg-10" >
+                <div id="infoPanel">
+                  <div class="tab-content" id="nav-tabContent">
+                     
+                      <div class="tab-pane fade show " id="list-" role="tabpanel"
+                        aria-labelledby="list--list">
+          
+                        <div class="row asset-name">
+                          <div class="col text-center">
+                             
+                          </div>
+                        </div>
+                        
+                        <hr>
+          
+                        <div class="row">
+                          <div class="col text-center">
+                        
+                            <form action="deleteAsset" method="POST">
+                              <button type="button" class="btn btn-light"
+                                onclick=""><i
+                                  class="fa fa-edit" data-toggle="tooltip" data-placement="top"
+                                  title="Edytuj ten przedmiot"></i>
+                              </button>
+                        
+                              <input type="hidden" id="asset" name="asset" value="">
+                              <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        
+                          </div>
+                        </div>
+                        
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                          <h3>Opis:</h3>
+                         
+                        </div>
+                        
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                            <b>Wartosc netto: </b>
+                        </div>
+          
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                          <b>Data zakupu: </b> 
+                        </div>
+          
+                      
+                    <div class="row ">
+                      <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                        <b>Ilość:</b> 
+                      </div>
+                    
+                      <form action="deleteOneAsset" method="POST">
+                        <input type="hidden" name="asset" value="">
+                        <button type="submit" class="btn btn-outline-danger littleButtons" data-toggle="tooltip" data-placement="top"
+                          title="Odejmij jedną sztukę"><i class="fa fa-minus"></i></button>
+                      </form>
+                      <form action="addOneAsset" method="POST">
+                        <input type="hidden" name="asset" value="">
+                        <button type="submit" class="btn btn-outline-success littleButtons" data-toggle="tooltip" data-placement="top"
+                        title="Dodaj jedną sztukę"><i class="fa fa-plus"></i></button>
+                      </form>
+                    </div>
+          
+                    </div>
+                     
+              </div>
+            </div>
+            <!-- ADDING PROJECT -->
+            <div class="col-lg-10">
+                <div id="addProject">
+                    <div class="row asset-name">
+                        <div class="col text-center">
+                            <h2>Dodawanie projektu</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADDING CLIENT -->
+            <div class="col-lg-10">
+                <div id="clientPanel">
+                    <div class="row asset-name">
+                        <div class="col text-center">
+                            <h2>Dodawanie klienta</h2>
+
+                            <form action="addClient" method="POST">
+                                    <select class="form-control addAssets" placeholder="Firma" name="company" id="company">
+                                        <option selected>Wybierz firmę</option>
+                                          <% for(var i=0; i < company.length; i++) { %>
+                                            <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
+                                          <%}%>
+                                    </select>
+                                    <input type="text" class="form-control addAssets" id="firstName" name="firstName"placeholder="Imię przedstawiciela">
+                                    <input type="text" class="form-control addAssets" id="lastName" name="lastName"placeholder="Nazwisko przedstawiciela">
+                                    <input type="tel" class="form-control addAssets" id="tel" name="tel"placeholder="Numer kontaktowy">
+                                    <input type="email" class="form-control addAssets" id="email" name="email"placeholder="Email">
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <button type="button" class="btn btn-danger">Anuluj</button>
+                                            <button type="submit" class="btn btn-success">Zapisz</button>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/production.js"></script>
+
+<% include partials/footerLogin %>

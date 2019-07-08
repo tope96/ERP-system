@@ -1,9 +1,13 @@
+//Controllers
 var controller = require('../controllers/controller.js');
+var companyController = require('../controllers/companyController.js');
+var humanResourcesController = require('../controllers/humanResourcesController.js');
+var productionController = require('../controllers/productionController.js');
+
+//Dependencies
 var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
-var companyController = require('../controllers/companyController.js');
-var humanResourcesController = require('../controllers/humanResourcesController.js')
 var bodyParser = require('body-parser');
 var user = require("../config/passport/passport.js");
 var models = require("../models");
@@ -15,6 +19,7 @@ var companyUtil = require('../models/.utils/company.js');
 var agreementUtil = require('../models/.utils/agreementsUtil.js');
 var positionUtil = require('../models/.utils/position.js');
 var teamUtil = require('../models/.utils/teamsUtil.js');
+var clientsUtil = require('../models/.utils/clients.js');
 
 var uploadsPath = path.join(__dirname, '../contracts');
 
@@ -46,6 +51,7 @@ module.exports = function (app, passport) {
     app.get('/editCompanySuccess', isLoggedIn, companyController.editCompanySuccess);
     app.get('/settings', isLoggedIn, controller.settings);
     app.get('/humanResources', isLoggedIn, humanResourcesController.humanResources);
+    app.get('/production', isLoggedIn, productionController.production);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -314,6 +320,18 @@ module.exports = function (app, passport) {
         var idTeam = req.body.idTeam;
 
         teamUtil.addNewMembers(idTeam, members);
+    });
+
+    app.post('/addClient', function(req, res){
+        var firstName = req.body.firstName;
+        var lastName = req.body.lastName;
+        var email = req.body.email;
+        var tel = req.body.tel;
+        var company = req.body.company;
+
+        clientsUtil.addClient(company,firstName,lastName,tel,email,req.user.IdZespol).then(function(){
+            res.redirect('/production');
+        })
     });
 
 }

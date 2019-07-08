@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    NazwaFirmy: {
-      type: DataTypes.STRING(25),
+    Firma: {
+      type: DataTypes.INTEGER(11),
       allowNull: false
     },
     ImiePrzedstawiciela: {
@@ -24,11 +24,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(25),
       allowNull: false
     },
+    zespolDomenowy: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false
+    },
     EmailKontaktowy: {
       type: DataTypes.STRING(25),
       allowNull: false
     }
   }, {
-    tableName: 'klienci'
+    tableName: 'klienci',
+    timestamps: false
   });
 };
