@@ -20,6 +20,8 @@ var agreementUtil = require('../models/.utils/agreementsUtil.js');
 var positionUtil = require('../models/.utils/position.js');
 var teamUtil = require('../models/.utils/teamsUtil.js');
 var clientsUtil = require('../models/.utils/clients.js');
+var projectsUtil = require('../models/.utils/projects.js');
+
 
 var uploadsPath = path.join(__dirname, '../contracts');
 
@@ -331,7 +333,40 @@ module.exports = function (app, passport) {
 
         clientsUtil.addClient(company,firstName,lastName,tel,email,req.user.IdZespol).then(function(){
             res.redirect('/production');
+        });
+    });
+
+    app.post('/addCategory', function(req, res){
+        var categoryName = req.body.nameCategory;
+
+        projectsUtil.addCategory(categoryName, req.user.IdZespol).then(function(){
+            res.redirect('/production');
+        });
+    });
+
+    app.post('/addProject', function(req, res){
+        var projectName = req.body.projectName;
+        var client = req.body.client;
+        var category = req.body.category;
+        var dateFrom = req.body.dateFrom;
+        var dateTo = req.body.dateTo;
+        var team = req.body.team;
+        var description = req.body.description;
+
+        projectsUtil.addProject(projectName, client, category, dateFrom, dateTo, description, req.user.IdZespol).then(function(idProject){
+            teamUtil.teamToProject(idProject, team).then(function(){
+                res.redirect('/production');            
+            })
         })
     });
 
+    app.post('/deleteProject', function(req, res){
+        var project = req.body.project;
+
+        teamUtil.deleteProjectsTeam(project).then(function(){
+            projectsUtil.deleteProject(project).then(function(){
+                res.redirect('/production');
+            })
+        })
+    });
 }

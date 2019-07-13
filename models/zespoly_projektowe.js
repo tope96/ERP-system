@@ -20,10 +20,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'IdZespol'
       }
     },
-      Nazwa: {
-        type: DataTypes.STRING(80),
-        allowNull: true,
-    }
   }, {
     tableName: 'zespoly_projektowe',
     timestamps: false

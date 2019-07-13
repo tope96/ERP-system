@@ -20,6 +20,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(25),
       allowNull: true
     },
+    IdZespol: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
+    Nazwa: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    Opis: {
+      type: DataTypes.STRING(300),
+      allowNull: true
+    },
     DataRozpoczecia: {
       type: DataTypes.DATEONLY,
       allowNull: false
@@ -29,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'projekty'
+    tableName: 'projekty',
+    timestamps: false
   });
 };

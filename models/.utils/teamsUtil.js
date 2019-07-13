@@ -1,6 +1,7 @@
 var models = require('../../models');
 var teams = models.zespoly;
 var teamMember = models.czlonkowie_zespolow;
+var projectTeams = models.zespoly_projektowe;
 
 function createTeam(teamName, idTeamDom){
     return teams.findOne({
@@ -102,7 +103,31 @@ function addNewMembers(IdTeam, members){
             IdZespol: IdTeam
         });
     }
+}
 
+function teamToProject(idProject, idTeam){
+    return projectTeams.create({
+        IdProjekt: idProject,
+        IdZespol: idTeam
+    })
+}
+
+function getAllProjectsTeams(){
+    return projectTeams.findAll({
+        where:{
+
+        }
+    }).then(function(projects){
+        return projects;
+    })
+}
+
+function deleteProjectsTeam(idProject){
+    return projectTeams.destroy({
+        where:{
+            IdProjekt: idProject
+        }
+    })
 }
 
 module.exports = {
@@ -112,5 +137,8 @@ module.exports = {
     getAllTeamsMembers:getAllTeamsMembers,
     changeTeamName: changeTeamName,
     deleteFromTeam: deleteFromTeam,
-    addNewMembers:addNewMembers
+    addNewMembers:addNewMembers,
+    teamToProject: teamToProject,
+    getAllProjectsTeams: getAllProjectsTeams,
+    deleteProjectsTeam: deleteProjectsTeam
 }

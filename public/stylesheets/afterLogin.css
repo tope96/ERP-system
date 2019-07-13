@@ -215,6 +215,10 @@
     display: none;
 }
 
+#addCategory{
+    display: none;
+}
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;

@@ -1,9 +1,9 @@
 function addProjectShow() {
     var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
-    var clientPanel = document.getElementById("clientPanel");
     infoPanel.style.display = "none";
-    clientPanel.style.display = "none";
+
+    addClientHide();
 
     if (addProject.style.display === "none") {
         addProject.style.display = "block";
@@ -27,6 +27,11 @@ function addProjectShow() {
     }
   }
 
+  function addClientHide(){
+    var clientPanel = document.getElementById("clientPanel");
+    clientPanel.style.display = "none";
+  }
+
   function addCompanyShow() {
     var x = document.getElementById("addCompany");
     x.style.display = "inline";
@@ -34,5 +39,20 @@ function addProjectShow() {
   
   function addCompanyHide() {
     var x = document.getElementById("addCompany");
+    x.style.display = "none";
+  }
+
+  function addCategoryShow() {
+    var x = document.getElementById("addCategory");
+    x.style.display = "inline";
+  }
+  
+  function addCategoryHide() {
+    var x = document.getElementById("addCategory");
+    x.style.display = "none";
+  }
+
+  function addProjectHide() {
+    var x = document.getElementById("addProject");
     x.style.display = "none";
   }

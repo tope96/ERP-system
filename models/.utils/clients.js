@@ -27,6 +27,19 @@ function addClient(company, firstName, lastName, tel, email, zespolDomenow){
     })
 }
 
+function getAllClients(zespolDomenowy){
+    return clientsModel.findAll({
+        where:{
+            zespolDomenowy: zespolDomenowy
+        }
+    }).then(function(found){
+        if(found){
+            return found;
+        }
+    })
+}
+
 module.exports = {
-    addClient: addClient
+    addClient: addClient,
+    getAllClients: getAllClients
 }
