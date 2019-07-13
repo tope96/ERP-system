@@ -112,12 +112,20 @@
                             <h2>Dodawanie klienta</h2>
 
                             <form action="addClient" method="POST">
+                              <div class="row">
+                                <div class="col-lg-10">
                                     <select class="form-control addAssets" placeholder="Firma" name="company" id="company">
                                         <option selected>Wybierz firmę</option>
                                           <% for(var i=0; i < company.length; i++) { %>
                                             <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
                                           <%}%>
                                     </select>
+                                </div>
+                                <div class="col-lg-2">
+                                  <button type="button" class="btn btn-success" onclick="addCompanyShow()"><i class="fas fa-plus"></i> Dodaj firmę</button>
+                                </div>
+                              </div>
+
                                     <input type="text" class="form-control addAssets" id="firstName" name="firstName"placeholder="Imię przedstawiciela">
                                     <input type="text" class="form-control addAssets" id="lastName" name="lastName"placeholder="Nazwisko przedstawiciela">
                                     <input type="tel" class="form-control addAssets" id="tel" name="tel"placeholder="Numer kontaktowy">
@@ -134,6 +142,32 @@
                     </div>
                 </div>
             </div>
+
+
+            <div id="addCompany">
+                <div id="myModal" class="modal">
+                  <div class="modal-content">
+                      <h3>Dodaj firmę</h3>
+                      <p>Podaj informacje niezbędne do dodania nowej firmy</p>
+                      
+                      <form action="addCompany" method="POST">
+                        <input type="text" class="form-control addAssets" id="nameCompany" name="nameCompany" placeholder="Nazwa">
+                        <input type="number" class="form-control addAssets" id="nipCompany" name="nipCompany" placeholder="NIP">
+                        <input type="text" class="form-control addAssets" id="addressCompany" name="addressCompany" placeholder="Adres">
+                        <input type="text" class="form-control addAssets" id="townCompany" name="townCompany" placeholder="Miasto">
+                        
+                        <div class="row">
+                          <div class="col text-center">
+                            <button type="button" class="btn btn-danger" onclick="addCompanyHide()">Anuluj</button>
+                            <button type="submit" class="btn btn-success">Zapisz</button>
+                          </div>
+
+                        </div>
+                        
+                      </form>
+                  </div>
+                  </div>
+                </div>
 
         </div>
     </div>

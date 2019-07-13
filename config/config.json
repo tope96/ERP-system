@@ -2,13 +2,13 @@
  
     "development": {
  
-        "username": "root",
+        "username": "tope",
  
         "password": "mattii96",
  
-        "database": "inzynierka",
+        "database": "inz",
  
-        "host": "localhost",
+        "host": "213.92.206.242",
 
         "dialect": "mysql"
  

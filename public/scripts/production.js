@@ -26,3 +26,13 @@ function addProjectShow() {
         clientPanel.style.display = "none";
     }
   }
+
+  function addCompanyShow() {
+    var x = document.getElementById("addCompany");
+    x.style.display = "inline";
+  }
+  
+  function addCompanyHide() {
+    var x = document.getElementById("addCompany");
+    x.style.display = "none";
+  }
