@@ -44,11 +44,22 @@
                           <div class="col text-center">
                         
                             <form action="deleteProject" method="POST">
-                              <button type="button" class="btn btn-light"
-                                onclick=""><i
+                                <% for(var a=0; a < teamProjects.length; a++) { %>
+                                  <% if(teamProjects[a].IdProjekt == projects[i].IdProjekt ){ %>
+                                    <% for(var b=0; b < teams.length; b++) { %>
+                                      <% if(teamProjects[a].IdZespol == teams[b].IdZespol ){ %>
+                                        <button type="button" class="btn btn-light"
+                                onclick="edit('<%= projects[i].Nazwa %>', '<%= projects[i].Opis %>', '<%= projects[i].DataRozpoczecia %>',
+                                '<%= projects[i].DataZakonczenia %>', '<%= projects[i].IdKlient %>', '<%= projects[i].KategoriaProjektu %>', 
+                                '<%= projects[i].IdProjekt %>', '<%= teams[b].IdZespol %>')"><i
                                   class="fa fa-edit" data-toggle="tooltip" data-placement="top"
                                   title="Edytuj ten przedmiot"></i>
                               </button>
+                                      <%}%>
+                                    <%}%>
+                                  <%}%>
+                                <%}%>
+                              
                         
                               <input type="hidden" id="project" name="project" value="<%= projects[i].IdProjekt %>">
                               <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
@@ -174,6 +185,82 @@
                 </div>
             </div>
 
+
+            <!-- EDYTOWANIE PROJEKTU -->
+            <div id="editProject">
+                <div class="tab-pane fade show " role="tabpanel" >
+                  <div class="row asset-name">
+                    <div class="col text-center">
+                        <h2>Edytowanie przedmiotu</h2>
+                        <p>Podaj nowe dane</p>
+                    </div>
+                  </div>
+                  <form action="editProject" method="POST">
+                      <div class="form-group row">
+                          <label for="nameEdit" class="col-sm-2 col-form-label">Nazwa projektu:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit" placeholder="Nazwa przedmiotu">
+                          </div>
+                      </div>
+                      <input type="hidden" id="projectIdEdit" name="projectIdEdit" value="">
+                      <div class="form-group row">
+                          <label for="categoryEdit" class="col-sm-2 col-form-label">Kategoria projektu:</label>
+                              <select class="form-control addAssets" placeholder="Kategoria projektu" name="categoryEdit" id="categoryEdit">
+                                    <% for(var i=0; i < category.length; i++) { %>
+                                        <option value="<%=category[i].IdKategoriaProjektu %>" ><%=category[i].Nazwa %></option>
+                                    <%}%>
+                              </select>
+                      </div>
+                      
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  Od:
+                                  <input class="form-control addAssets" type="date" id="dateFromEdit" name="dateFromEdit">
+                                </div>
+                                <div class="col-lg-6">
+                                  Do:
+                                  <input class="form-control addAssets" type="date" id="dateToEdit" name="dateToEdit">
+                                </div>
+                              </div>
+  
+                              <div class="form-group row">
+                                  <label for="clientEdit" class="col-sm-2 col-form-label">Klient: </label>
+                                  <select class="form-control addAssets" placeholder="Klient" name="clientEdit" id="clientEdit">
+                                      <% for(var i=0; i < clients.length; i++) { %>
+                                        <option value="<%=clients[i].IdKlient %>"><%=clients[i].ImiePrzedstawiciela %> <%=clients[i].NazwiskoPrzedstawiciela %></option>
+                                      <%}%>
+                                    </select>
+                              </div>
+
+                              
+
+                              <div class="form-group row">
+                                <label for="teamEdit" class="col-sm-2 col-form-label">Przypisany zespół: </label>
+                                  <select class="form-control addAssets" placeholder="Zespół" name="teamEdit" id="teamEdit">
+                                    <option selected>Przypisz zespół do projektu</option>
+                                      <% for(var i=0; i < teams.length; i++) { %>
+                                        <option value="<%=teams[i].IdZespol%>"><%=teams[i].Nazwa %></option>
+                                      <%}%>
+                                  </select>
+                              </div>
+  
+                              <div class="form-group row">
+                                  <label for="teamEdit" class="col-sm-2 col-form-label">Opis: </label>
+                                  <textarea class="form-control addAssets" rows="10" id="descriptionEdit" name="descriptionEdit" placeholder="Opis"></textarea>
+                              </div>
+                          </div>
+  
+                      <div class="row">
+                        <div class="col text-center">
+                          <button type="button" class="btn btn-danger" onclick="editProjectHide()">Anuluj</button>
+                          <button type="submit" class="btn btn-success">Zapisz</button>                        
+                        </div>
+                      </div>
+                  </form>
+                </div>
+
+
+
             <!-- ADDING CLIENT -->
             <div class="col-lg-10">
                 <div id="clientPanel">
@@ -240,7 +327,7 @@
                 </div>
 
 
-
+                <!-- DODAWANIE KATEGORII -->
                 <div id="addCategory">
                     <div id="myModal" class="modal">
                       <div class="modal-content">

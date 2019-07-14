@@ -369,4 +369,20 @@ module.exports = function (app, passport) {
             })
         })
     });
+
+    app.post('/editProject', function(req, res){
+        var project = req.body.projectIdEdit;
+        var projectName = req.body.nameEdit;
+        var client = req.body.clientEdit;
+        var category = req.body.categoryEdit;
+        var dateFrom = req.body.dateFromEdit;
+        var dateTo = req.body.dateToEdit;
+        var team = req.body.teamEdit;
+        var description = req.body.descriptionEdit;
+        
+        projectsUtil.updateProject(project, projectName, client, category, dateFrom, dateTo, description).then(function(){
+            res.redirect('/production');
+        })
+    });
+
 }

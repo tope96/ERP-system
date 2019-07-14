@@ -4,6 +4,7 @@ function addProjectShow() {
     infoPanel.style.display = "none";
 
     addClientHide();
+    editProjectHide();
 
     if (addProject.style.display === "none") {
         addProject.style.display = "block";
@@ -16,7 +17,7 @@ function addProjectShow() {
     var clientPanel = document.getElementById("clientPanel");
     var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
-
+    editProjectHide();
     infoPanel.style.display = "none";
     addProject.style.display = "none";
 
@@ -55,4 +56,30 @@ function addProjectShow() {
   function addProjectHide() {
     var x = document.getElementById("addProject");
     x.style.display = "none";
+  }
+
+  function editProjectHide() {
+    var x = document.getElementById("editProject");
+    x.style.display = "none";
+  }
+
+  function edit(name, description, dateFrom, dateTo, client, category, id, team) {
+
+    var z = document.getElementById("infoPanel");
+    z.style.display = "none";
+
+    document.getElementById("nameEdit").value = name;
+    document.getElementById("descriptionEdit").value = description;
+    document.getElementById("dateToEdit").value = dateTo;
+    document.getElementById("dateFromEdit").value = dateFrom;
+    document.getElementById("clientEdit").value = client;
+    document.getElementById("categoryEdit").value = category;
+    document.getElementById("projectIdEdit").value = id;
+    document.getElementById("teamEdit").value = team;
+
+    console.log(team);
+
+    var x = document.getElementById("editProject");
+    x.style.display = "block";
+
   }

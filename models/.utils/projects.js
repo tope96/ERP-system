@@ -1,6 +1,7 @@
 var models = require('../../models');
 var projectCategory = models.kategoria_projektu;
 var projectModel = models.projekty;
+var projectTeams = require('./teamsUtil.js');
 
 
 function getAllProjectCategory(zespolDomenowy){
@@ -79,10 +80,28 @@ function deleteProject(idProject){
     })
 }
 
+function updateProject(projectId, name, client, category, dateFrom, dateTo, description){
+    return projectModel.findOne({
+        where:{
+            IdProjekt: projectId
+        }
+    }).then(function(found){
+        return found.update({
+            Opis: description,
+            Nazwa: name,
+            IdKlient: client,
+            KategoriaProjektu: category,
+            DataRozpoczecia: dateFrom,
+            DataZakonczenia: dateTo,
+        });
+    });
+}
+
 module.exports = {
     getAllProjectCategory: getAllProjectCategory,
     addCategory: addCategory,
     addProject: addProject,
     getAllProjects:getAllProjects,
-    deleteProject: deleteProject
+    deleteProject: deleteProject,
+    updateProject: updateProject
 }

@@ -130,6 +130,15 @@ function deleteProjectsTeam(idProject){
     })
 }
 
+function updateProjectsTeam(idProject, idTeam){
+    return projectTeams.update({
+        where:{
+            IdProjekt: idProject,
+            IdZespol: idTeam
+        }
+    });
+}
+
 module.exports = {
     createTeam: createTeam,
     createTeamWithWorkers: createTeamWithWorkers,
@@ -140,5 +149,6 @@ module.exports = {
     addNewMembers:addNewMembers,
     teamToProject: teamToProject,
     getAllProjectsTeams: getAllProjectsTeams,
-    deleteProjectsTeam: deleteProjectsTeam
+    deleteProjectsTeam: deleteProjectsTeam,
+    updateProjectsTeam: updateProjectsTeam
 }
