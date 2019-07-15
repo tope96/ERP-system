@@ -2,7 +2,7 @@ function addProjectShow() {
     var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
     infoPanel.style.display = "none";
-
+    addJobHide();
     addClientHide();
     editProjectHide();
 
@@ -18,6 +18,7 @@ function addProjectShow() {
     var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
     editProjectHide();
+    addJobHide();
     infoPanel.style.display = "none";
     addProject.style.display = "none";
 
@@ -27,6 +28,23 @@ function addProjectShow() {
         clientPanel.style.display = "none";
     }
   }
+
+  function addJobShow(idProject) {
+    var addJob = document.getElementById("addJob");
+    var infoPanel = document.getElementById("infoPanel");
+
+    editProjectHide();
+    addClientHide()
+    addProjectHide();
+
+    document.getElementById("projectIdJob").value = idProject;
+    
+    infoPanel.style.display = "none";
+    addJob.style.display = "block";
+
+  }
+
+
 
   function addClientHide(){
     var clientPanel = document.getElementById("clientPanel");
@@ -63,6 +81,11 @@ function addProjectShow() {
     x.style.display = "none";
   }
 
+  function addJobHide(){
+    var x = document.getElementById("addJob");
+    x.style.display = "none"; 
+  }
+
   function edit(name, description, dateFrom, dateTo, client, category, id, team) {
 
     var z = document.getElementById("infoPanel");
@@ -76,8 +99,8 @@ function addProjectShow() {
     document.getElementById("categoryEdit").value = category;
     document.getElementById("projectIdEdit").value = id;
     document.getElementById("teamEdit").value = team;
+    document.getElementById("oldTeamId").value = team;
 
-    console.log(team);
 
     var x = document.getElementById("editProject");
     x.style.display = "block";

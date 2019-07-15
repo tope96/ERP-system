@@ -80,7 +80,7 @@ function deleteProject(idProject){
     })
 }
 
-function updateProject(projectId, name, client, category, dateFrom, dateTo, description){
+function updateProject(projectId, name, client, category, dateFrom, dateTo, description, idTeam, idOldTeam){
     return projectModel.findOne({
         where:{
             IdProjekt: projectId
@@ -93,7 +93,9 @@ function updateProject(projectId, name, client, category, dateFrom, dateTo, desc
             KategoriaProjektu: category,
             DataRozpoczecia: dateFrom,
             DataZakonczenia: dateTo,
-        });
+        }).then(function(){
+            projectTeams.updateProjectsTeam(projectId, idTeam, idOldTeam);
+        })
     });
 }
 

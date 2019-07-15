@@ -33,14 +33,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     Status: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.INTEGER(11),
+      allowNull: false
+    },
+    IdKontoDomenowe: {
+      type: DataTypes.INTEGER(11),
       allowNull: false
     },
     Priorytet: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.INTEGER(211),
       allowNull: true
     }
   }, {
-    tableName: 'zadania'
+    tableName: 'zadania',
+    timestamps: false
   });
 };

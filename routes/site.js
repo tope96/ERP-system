@@ -21,6 +21,7 @@ var positionUtil = require('../models/.utils/position.js');
 var teamUtil = require('../models/.utils/teamsUtil.js');
 var clientsUtil = require('../models/.utils/clients.js');
 var projectsUtil = require('../models/.utils/projects.js');
+var jobUtil = require('../models/.utils/job.js');
 
 
 var uploadsPath = path.join(__dirname, '../contracts');
@@ -379,10 +380,28 @@ module.exports = function (app, passport) {
         var dateTo = req.body.dateToEdit;
         var team = req.body.teamEdit;
         var description = req.body.descriptionEdit;
+        var oldTeamId = req.body.oldTeamId;
         
-        projectsUtil.updateProject(project, projectName, client, category, dateFrom, dateTo, description).then(function(){
+        console.log("nowy team: " + team + ", stary team: " + oldTeamId);
+
+
+        projectsUtil.updateProject(project, projectName, client, category, dateFrom, dateTo, description, team, oldTeamId).then(function(){
             res.redirect('/production');
         })
+    });
+
+    app.post('/addingJob', function(req, res){
+        var project = req.body.projectIdJob;
+        var name = req.body.nameJob;
+        var description = req.body.descriptionJob;
+        var status = req.body.status;
+        var priority = req.body.priority;
+        var worker =req.body.workerJob;
+
+        jobUtil.addJob(project, name, description, status, priority, worker, req.user.IdZespol).then(function(){
+            res.redirect('/production');
+        });
+
     });
 
 }
