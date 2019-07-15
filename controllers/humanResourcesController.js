@@ -11,7 +11,7 @@ var teamsUtil = require('../models/.utils/teamsUtil.js');
 
 
 exports.humanResources = function (req, res) {
-    
+
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
@@ -20,22 +20,22 @@ exports.humanResources = function (req, res) {
                         workersUtil.getAllProgrammers().then(function (programmers) {
                             workersUtil.getAllAnalit().then(function (analit) {
                                 spec.getAllSpec().then(function (specs) {
-                                    teamsUtil.getAllTeams(req.user.IdZespol).then(function(teams){
-                                        teamsUtil.getAllTeamsMembers().then(function(teamsMember){
+                                    teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                        teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
 
-                                    res.render('humanResources', {
-                                        name: profile.Imie,
-                                        site: "Zasoby ludzkie",
-                                        workers: workers,
-                                        company: company,
-                                        agree: agree,
-                                        programmers: programmers,
-                                        analit: analit,
-                                        spec: specs,
-                                        teams: teams,
-                                        teamsMember:teamsMember 
-                                    })
-                                    });
+                                            res.render('humanResources', {
+                                                name: profile.Imie,
+                                                site: "Zasoby ludzkie",
+                                                workers: workers,
+                                                company: company,
+                                                agree: agree,
+                                                programmers: programmers,
+                                                analit: analit,
+                                                spec: specs,
+                                                teams: teams,
+                                                teamsMember: teamsMember
+                                            })
+                                        });
                                     });
                                 });
                             });

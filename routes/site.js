@@ -24,6 +24,17 @@ var projectsUtil = require('../models/.utils/projects.js');
 var jobUtil = require('../models/.utils/job.js');
 
 
+var models = require("../models");
+var exports = module.exports = {}
+var workersUtil = require('../models/.utils/workerUtil.js');
+var domaneAccount = require('../models/.utils/domaneAccount.js');
+var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
+var companyUtil = require('../models/.utils/company.js');
+var townUtil = require('../models/.utils/townUtil.js');
+var agreementUtil = require('../models/.utils/agreementsUtil.js');
+var spec = require('../models/.utils/specialization');
+var teamsUtil = require('../models/.utils/teamsUtil.js');
+
 var uploadsPath = path.join(__dirname, '../contracts');
 
 module.exports = function (app, passport) {
@@ -312,17 +323,88 @@ module.exports = function (app, passport) {
     app.post('/deleteFromTeam', function(req, res){
         var toDelete = req.body.toDelete;
         var idTeam = req.body.idTeam;
-
+        var idTeamEdited = req.body.idTeamEdited;
         teamUtil.deleteFromTeam(toDelete, idTeam).then(function(){
-            res.redirect('/humanResources');
+            var teamiii = idTeamEdited.replace("\'", "");
+            var teamiiii = teamiii.replace("\'", "");
+            domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+                workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                    workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                        companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                            agreementUtil.getAgreeInfo(profile.IdUmowy).then(function (agree) {
+                                workersUtil.getAllProgrammers().then(function (programmers) {
+                                    workersUtil.getAllAnalit().then(function (analit) {
+                                        spec.getAllSpec().then(function (specs) {
+                                            teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                                teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                                    res.render('humanResourcesTeamsEdit', {
+                                                        name: profile.Imie,
+                                                        site: "Zasoby ludzkie",
+                                                        workers: workers,
+                                                        company: company,
+                                                        agree: agree,
+                                                        programmers: programmers,
+                                                        analit: analit,
+                                                        spec: specs,
+                                                        teams: teams,
+                                                        teamsMember: teamsMember,
+                                                        Team: teamiiii
+                                                    })
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         })
     });
 
     app.post('/addNewMembers', function(req, res){
         var members = req.body.newMembers;
         var idTeam = req.body.idTeam;
+        var idTeamEdited = req.body.idTeamEdited;
 
-        teamUtil.addNewMembers(idTeam, members);
+        teamUtil.addNewMembers(idTeam, members).then(function(){
+            var teamiii = idTeamEdited.replace("\'", "");
+            var teamiiii = teamiii.replace("\'", "");
+            domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+                workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                    workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                        companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                            agreementUtil.getAgreeInfo(profile.IdUmowy).then(function (agree) {
+                                workersUtil.getAllProgrammers().then(function (programmers) {
+                                    workersUtil.getAllAnalit().then(function (analit) {
+                                        spec.getAllSpec().then(function (specs) {
+                                            teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                                teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                                    res.render('humanResourcesTeamsEdit', {
+                                                        name: profile.Imie,
+                                                        site: "Zasoby ludzkie",
+                                                        workers: workers,
+                                                        company: company,
+                                                        agree: agree,
+                                                        programmers: programmers,
+                                                        analit: analit,
+                                                        spec: specs,
+                                                        teams: teams,
+                                                        teamsMember: teamsMember,
+                                                        Team: teamiiii
+                                                    })
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        })
     });
 
     app.post('/addClient', function(req, res){
@@ -400,6 +482,48 @@ module.exports = function (app, passport) {
 
         jobUtil.addJob(project, name, description, status, priority, worker, req.user.IdZespol).then(function(){
             res.redirect('/production');
+        });
+
+    });
+
+    app.post('/editTeam', function(req, res){
+        
+        var idTeam = req.body.idTeamEdit;
+        var teamiii = idTeam.replace("\'", "");
+        var teamiiii = teamiii.replace("\'", "");
+console.log("===============" + idTeam)
+        domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+            workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                    companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                        agreementUtil.getAgreeInfo(profile.IdUmowy).then(function (agree) {
+                            workersUtil.getAllProgrammers().then(function (programmers) {
+                                workersUtil.getAllAnalit().then(function (analit) {
+                                    spec.getAllSpec().then(function (specs) {
+                                        teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                            teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                                res.render('humanResourcesTeamsEdit', {
+                                                    name: profile.Imie,
+                                                    site: "Zasoby ludzkie",
+                                                    workers: workers,
+                                                    company: company,
+                                                    agree: agree,
+                                                    programmers: programmers,
+                                                    analit: analit,
+                                                    spec: specs,
+                                                    teams: teams,
+                                                    teamsMember: teamsMember,
+                                                    Team: teamiiii
+                                                })
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         });
 
     });

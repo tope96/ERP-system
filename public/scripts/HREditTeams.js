@@ -1,9 +1,15 @@
 var addCompany = document.getElementById("addCompany");
 addCompany.style.display = "none";
+
 var addTeam = document.getElementById("addTeam");
 addTeam.style.display = "none";
+
+var teamsManage = document.getElementById("teamsManage");
+teamsManage.style.display = "none";
+
 var editTeam = document.getElementById("editTeam");
-editTeam.style.display = "none";
+editTeam.style.display = "block";
+
 function copyToClipboard(element) {
   var $temp = $("<input>");
   $("body").append($temp);
