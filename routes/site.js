@@ -486,12 +486,17 @@ module.exports = function (app, passport) {
 
     });
 
+    app.post('/deleteTeam', function(req, res){
+        var idTeam = req.body.idTeam;
+        teamsUtil.deleteTeam(idTeam);
+            res.redirect('/humanResources');
+
+    });
+
     app.post('/editTeam', function(req, res){
-        
         var idTeam = req.body.idTeamEdit;
         var teamiii = idTeam.replace("\'", "");
         var teamiiii = teamiii.replace("\'", "");
-console.log("===============" + idTeam)
         domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
             workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
                 workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {

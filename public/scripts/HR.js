@@ -28,8 +28,7 @@ function addTeamHide() {
 }
 
 function editTeamHide() {
-  var x = document.getElementById("editTeam");
-  x.style.display = "none";
+
 }
 
 function teamsManageHide() {

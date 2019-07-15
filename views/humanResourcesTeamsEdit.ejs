@@ -397,7 +397,12 @@
         </div>
         
         <hr>
-                
+        
+        <form action="deleteTeam" method="POST">
+            <input type="hidden" name="idTeam" value="<%=Team%>">
+            <button type="submit" class="btn btn-danger">Usuń zespół</button>
+        </form>
+
       <form action="editTeams" method="POST">
         <% for(var i=0; i < teams.length; i++) { %>
           <%if (teams[i].IdZespol == Team){%>

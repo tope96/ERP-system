@@ -23,7 +23,17 @@ function getAllJob(idKontoDomenowe){
     })
 }
 
+function deleteJob(idProject){
+    return job.destroy({
+        where:{
+            IdProjekt: idProject
+        }
+    });
+}
+
+
 module.exports = {
     addJob: addJob,
-    getAllJob: getAllJob
+    getAllJob: getAllJob,
+    deleteJob: deleteJob
 }

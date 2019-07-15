@@ -17,6 +17,7 @@ function getAllProjectCategory(zespolDomenowy){
 }
 
 
+
 function addCategory(categoryName, zespolDomenowy){
     return projectCategory.findOne({
         where:{
@@ -69,13 +70,28 @@ function getAllProjects(zespolyDomenowe){
 }
 
 function deleteProject(idProject){
+    
     return projectModel.findOne({
         where:{
             IdProjekt: idProject
         }
     }).then(function(found){
         if(found){
-            found.destroy();
+            return found.destroy();
+        }
+    })
+}
+function deleteProjectForTeam(idTeam){
+    
+    return projectModel.findOne({
+        where:{
+            IdZespol: idTeam
+        }
+    }).then(function(found){
+        if(found){
+            return found.destroy();
+        }else{
+            return false;
         }
     })
 }
@@ -105,5 +121,6 @@ module.exports = {
     addProject: addProject,
     getAllProjects:getAllProjects,
     deleteProject: deleteProject,
-    updateProject: updateProject
+    updateProject: updateProject,
+    deleteProjectForTeam:deleteProjectForTeam
 }
