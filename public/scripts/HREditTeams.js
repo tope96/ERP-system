@@ -1,3 +1,6 @@
+var element = document.getElementById(id);
+element.classList.add("active-bar");
+
 var addCompany = document.getElementById("addCompany");
 addCompany.style.display = "none";
 

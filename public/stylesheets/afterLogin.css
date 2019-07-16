@@ -60,6 +60,7 @@
 
 .border{
     height: auto !important;
+    margin-bottom: 10rem;
 }
 
 .infoPanel{
@@ -231,6 +232,35 @@
     display: none
 }
 
+.icon-bar {
+    width: 10vh;
+    background-color: #555;
+    margin-top: 25vh;
+    /* height: 80vh; */
+}
+
+.icon-bar a {
+    display: block;
+    font-size: 3vh;
+    color: white;
+    text-align: center;
+    padding: 2vh;
+    transition: all 0.3s ease;
+}
+
+.icon-bar a:hover{
+    background-color: #000;
+}
+
+.active-bar{
+    background-color: #364cff;
+}
+
+.container{
+    padding: 2rem;
+    height: 90%;
+}
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;
@@ -245,22 +275,11 @@
     }
 }
 
-@media screen and (max-width: 995px) , screen and (max-height: 800px) {
+@media screen and (max-width: 995px) {
     .list-group-item{
         width: 100% !important;
     }
 
-    .forBigScreens{
-        display:none;
-    }
-
-    .forSmallScreens{
-        display: contents
-    }
-
-    .left-navbar{
-        display: none
-    }
 
     .section-assets{
         margin-top: 2rem;
@@ -300,5 +319,37 @@
         text-align: right
     }
 
+    .icon-bar{
+        width: 100%;
+        background-color: #555;
+        overflow: auto;
+        margin-top: 0rem;
+    }
+
+    .icon-bar a{
+        float:left;
+        text-align: center;
+        width: 16.666666667%;
+        color: white;
+        font-size: 36px;
+        padding: 12px 0;
+        transition: all 0.3s ease
+    }
+
+    .icon-bar a:hover{
+        background-color: #000;
+    }
+
+    .active-bar{
+        background-color: #364cff;
+    }
+
+    .container-bar{
+        padding: 0px;
+        position: fixed;
+        Width: 100%;
+        bottom: 0;
+        z-index: 50;
+    }
 
   }

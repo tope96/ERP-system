@@ -1,3 +1,6 @@
+var element = document.getElementById("hr");
+element.classList.add("active-bar");
+
 var addCompany = document.getElementById("addCompany");
 addCompany.style.display = "none";
 var addTeam = document.getElementById("addTeam");

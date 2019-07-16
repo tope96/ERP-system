@@ -1,3 +1,6 @@
+var element = document.getElementById("production");
+element.classList.add("active-bar");
+
 function addProjectShow() {
     var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
