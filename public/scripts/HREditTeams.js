@@ -1,4 +1,4 @@
-var element = document.getElementById(id);
+var element = document.getElementById("hr");
 element.classList.add("active-bar");
 
 var addCompany = document.getElementById("addCompany");

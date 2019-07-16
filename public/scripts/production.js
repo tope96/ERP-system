@@ -1,6 +1,14 @@
 var element = document.getElementById("production");
 element.classList.add("active-bar");
 
+function hide() {
+  var infoPanel = document.getElementById("infoPanel");
+  var addProject = document.getElementById("addProject");
+  addProject.style.display = "none";
+  infoPanel.style.display = "block";
+}
+
+
 function addProjectShow() {
     var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
@@ -15,6 +23,8 @@ function addProjectShow() {
         addProject.style.display = "none";
     }
   }
+
+  
 
   function addClientShow() {
     var clientPanel = document.getElementById("clientPanel");

@@ -4,7 +4,6 @@ var fixedAssets = models.srodki_trwale;
 function getAssets(id, idTeam){
     return fixedAssets.findAll({
         where:{
-            IdPracownik: id,
             IdZespol: idTeam
         }
     }).then(function(assetsFound){

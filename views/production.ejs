@@ -4,7 +4,7 @@
 
 <div class="col-11">
     <div class="section-assets">
-        <div class="row border">
+        <div class="row border shadow-lg p-3 mb-5 rounded">
                 <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar"><i class="fa fa-caret-square-up"></i></button></div>
                 <div id="itemsBar" class="col-lg-2 collapse show"> 
                   <input type="text" class="form-control search shadow p-3 bg-white rounded" id="search" placeholder="Wyszukaj">
@@ -153,6 +153,7 @@
             <!-- ADDING PROJECT -->
             <div class="col-lg-10">
                 <div id="addProject">
+                  <div class="tab-pane fade show " role="tabpanel" >
                     <div class="row asset-name">
                         <div class="col text-center">
                           <form action="addProject" method="POST">
@@ -207,6 +208,7 @@
                         <button type="submit" class="btn btn-success">Zapisz</button>                        
                       </div>
                     </form>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -324,7 +326,7 @@
 
                     <div class="row">
                       <div class="col text-center">
-                        <button type="button" class="btn btn-danger">Anuluj</button>
+                        <button type="button" onclick="addJobHide()" class="btn btn-danger">Anuluj</button>
                         <button type="submit" class="btn btn-success">Zapisz</button>
                       </div>
                     </div>

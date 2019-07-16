@@ -109,9 +109,7 @@ function updateProject(projectId, name, client, category, dateFrom, dateTo, desc
             KategoriaProjektu: category,
             DataRozpoczecia: dateFrom,
             DataZakonczenia: dateTo,
-        }).then(function(){
-            projectTeams.updateProjectsTeam(projectId, idTeam, idOldTeam);
-        })
+        });
     });
 }
 

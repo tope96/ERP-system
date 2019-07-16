@@ -1,3 +1,15 @@
+body {
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  .bg-dark {
+    background-color: #000000!important;
+}
+
 /* Navbar */
 
 .navbar-brand{
@@ -14,6 +26,11 @@
     font-weight: bold;
 }
 
+.border-profile{
+    height: 60vh;
+    margin-bottom: 10rem;
+    background-color: rgba(255, 255, 255, 0.842);
+}
 
 /* Right panel navbar */
 .left-navbar{
@@ -52,15 +69,18 @@
 }
 
 /* PROFILE */
-.section-profile{
+.section-profile {
     margin-top: 8rem;
     margin-left: 4rem;
     margin-right: 4rem;
+    background-color: rgba(255, 255, 255, 0.842);
+    padding: 3rem;
 }
 
 .border{
     height: auto !important;
     margin-bottom: 10rem;
+    background-color: rgba(255, 255, 255, 0.842);
 }
 
 .infoPanel{
@@ -86,7 +106,7 @@
 }
 
 .list-group{
-    height: 70vh;
+    height: 60vh;
     overflow: auto;
     min-width: 60px;
     z-index: 1
@@ -253,7 +273,7 @@
 }
 
 .active-bar{
-    background-color: #364cff;
+    background-color: #ce7e5a
 }
 
 .container{
