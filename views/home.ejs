@@ -30,12 +30,21 @@
 
         <div class="col-lg-3 widgetColumns">
                 <div class="widget  shadow-lg bg-white p-3 mb-5 rounded">
-                    <div class=" textRow row">
+                    <div class="textRow row">
                         <div class="col text-center">
                            <h3>Priorytety</h3>
                            <hr>
-                           <p>Zadania z wysokim priorytetem, których nie zacząłeś: <%= highPriority %></p>
-                           <p>Zadania ze średnim priorytetem, których nie zacząłeś: <%= mediumPriority %></p>   
+                           <%if(highPriority == 0){ %>
+                                <p>Brak oczekujących zadań z wysokim priorytetem.</p>
+                          <%}else{%>
+                                <p>Zadania z wysokim priorytetem, których nie zacząłeś: <%= highPriority %></p>
+                           <%}%>
+
+                            <%if(mediumPriority == 0){ %>
+                                <p>Brak oczekujących zadań ze średnim priorytetem.</p>
+                            <%}else{%>
+                                <p>Zadania z wysokim priorytetem, których nie zacząłeś: <%= mediumPriority %></p>
+                            <%}%>
                         </div>
                     </div>
                     <div class="row">
@@ -54,7 +63,11 @@
                         <div class="col text-center">
                            <h3>Kalendarz</h3>
                            <hr>
-                           <p>Liczba zadań na dzisiaj: <%= todayJobs %></p>
+                           <%if(todayJobs == 0){ %>
+                             <p>Hurra! Dzisiaj nie ma deadlinów. 😅</p>
+                           <%}else{%>
+                                <p>Liczba zadań na dzisiaj: <%= todayJobs %></p>
+                            <%}%>
                         </div>
                     </div>
                     <div class="row">

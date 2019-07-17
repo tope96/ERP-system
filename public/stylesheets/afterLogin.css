@@ -309,7 +309,6 @@ body {
 }
 
 #maincalendar {
-    
     max-width: 900px;
     margin: 0 auto;margin-top: 3rem;
   }
@@ -362,6 +361,9 @@ body {
         width: 100% !important;
     }
 
+    .widgetRow{
+        margin-top: 5vh;
+    }
 
     .section-assets{
         margin-top: 2rem;
