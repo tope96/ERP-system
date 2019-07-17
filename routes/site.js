@@ -76,6 +76,7 @@ module.exports = function (app, passport) {
     app.get('/settings', isLoggedIn, controller.settings);
     app.get('/humanResources', isLoggedIn, humanResourcesController.humanResources);
     app.get('/production', isLoggedIn, productionController.production);
+    app.get('/kalendarz', isLoggedIn, controller.calendar);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())

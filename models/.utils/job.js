@@ -67,11 +67,23 @@ function editJob(jobId, name, priority, status, description, realizationDate, wo
     });
 }
 
+function getCalendarJob(idKontoDomenowe){
+    return job.findAll({
+        where:{
+            IdKontoDomenowe: idKontoDomenowe
+        },
+        raw: true,
+    }).then(function(jobs){
+        return jobs;
+    })
+}
+
 module.exports = {
     addJob: addJob,
     getAllJob: getAllJob,
     deleteJob: deleteJob,
     getOneJob: getOneJob,
     deleteJobJob: deleteJobJob,
-    editJob: editJob
+    editJob: editJob,
+    getCalendarJob: getCalendarJob
 }

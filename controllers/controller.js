@@ -3,8 +3,7 @@ var exports = module.exports = {}
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
 var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
-var companyUtil = require('../models/.utils/company.js');
-var townUtil = require('../models/.utils/townUtil.js');
+var jobUtil = require('../models/.utils/job.js');
 
 exports.profile = function(req, res){
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function(account){
@@ -133,3 +132,16 @@ exports.settings = function(req, res){
 })
 }
 
+//CALENDAR
+exports.calendar = function (req, res) {
+    workersUtil.getWorkerInfo(req.user.IdPracownik).then(function(user){
+        jobUtil.getCalendarJob(req.user.IdZespol).then(function (jobs) {
+            res.render('calendar', {
+            name: user.Imie,
+            site: "Kalendarz",
+            calendarJobs: jobs
+            });
+
+            
+    })})
+}

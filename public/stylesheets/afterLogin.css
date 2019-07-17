@@ -308,7 +308,10 @@ body {
     color:red;
 }
 
-
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
 @media screen and (max-width: 985px) {
     .list-group-item{
