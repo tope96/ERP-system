@@ -35,6 +35,16 @@ var agreementUtil = require('../models/.utils/agreementsUtil.js');
 var spec = require('../models/.utils/specialization');
 var teamsUtil = require('../models/.utils/teamsUtil.js');
 
+var workersUtil = require('../models/.utils/workerUtil.js');
+var domaneAccount = require('../models/.utils/domaneAccount.js');
+var projectsUtil = require('../models/.utils/projects.js');
+var companyUtil = require('../models/.utils/company.js');
+var clientUtil = require('../models/.utils/clients.js');
+var teamUtil = require('../models/.utils/teamsUtil.js');
+var statusUtil = require('../models/.utils/status.js');
+var priorityUtil = require('../models/.utils/priority.js');
+var jobUtil = require('../models/.utils/job.js');
+
 var uploadsPath = path.join(__dirname, '../contracts');
 
 module.exports = function (app, passport) {
@@ -479,8 +489,9 @@ module.exports = function (app, passport) {
         var status = req.body.status;
         var priority = req.body.priority;
         var worker =req.body.workerJob;
+        var realizationDate = req.body.realizationDate;
 
-        jobUtil.addJob(project, name, description, status, priority, worker, req.user.IdZespol).then(function(){
+        jobUtil.addJob(project, name, description, status, priority, worker, realizationDate, req.user.IdZespol).then(function(){
             res.redirect('/production');
         });
 
@@ -531,6 +542,118 @@ module.exports = function (app, passport) {
             });
         });
 
+    });
+
+
+    app.post('/viewJob', isLoggedIn, function(req, res){
+
+        var idJob = req.body.jobId;
+        var job1 = idJob.replace("\'", "");
+        var job2 = job1.replace("\'", "");
+        console.log("=============================" + job2);
+        domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+            workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                    clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                        projectsUtil.getAllProjectCategory(req.user.IdZespol).then(function (category) {
+                            teamUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                projectsUtil.getAllProjects(req.user.IdZespol).then(function (projects) {
+                                    teamUtil.getAllProjectsTeams().then(function (teamProjects) {
+                                        statusUtil.getAllStatus().then(function (statuses) {
+                                            priorityUtil.getAllPriority().then(function (priority) {
+                                                workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                                                    jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
+                                                        jobUtil.getOneJob(job2).then(function(job){
+                                                        res.render('productionJob', {
+                                                            name: profile.Imie,
+                                                            site: "Zasoby ludzkie",
+                                                            company: company,
+                                                            clients: clients,
+                                                            category: category,
+                                                            teams: teams,
+                                                            projects: projects,
+                                                            teamProjects: teamProjects,
+                                                            statuses: statuses,
+                                                            priority: priority,
+                                                            workers: workers,
+                                                            jobs: jobs,
+                                                            job: job
+                                                        });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    })
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+
+    app.post('/deleteJob', isLoggedIn, function(req, res){
+        var jobId = req.body.jobIdShow;
+
+        jobUtil.deleteJobJob(jobId).then(function(){
+            res.redirect("/production");
+        })
+    });
+
+    app.post('/editJob', isLoggedIn, function(req, res){
+        var name = req.body.jobEditName;
+        var priority = req.body.jobEditPriority;
+        var status = req.body.jobEditStatus;
+        var description = req.body.jobEditDescription;
+        var realizationDate = req.body.jobEditDate;
+        var worker = req.body.jobEditWorker;
+        var jobId = req.body.jobEditId;
+
+        jobUtil.editJob(jobId, name, priority, status, description, realizationDate, worker).then(function(){
+            domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+                workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                    companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                        clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                            projectsUtil.getAllProjectCategory(req.user.IdZespol).then(function (category) {
+                                teamUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                    projectsUtil.getAllProjects(req.user.IdZespol).then(function (projects) {
+                                        teamUtil.getAllProjectsTeams().then(function (teamProjects) {
+                                            statusUtil.getAllStatus().then(function (statuses) {
+                                                priorityUtil.getAllPriority().then(function (priority) {
+                                                    workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                                                        jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
+                                                            jobUtil.getOneJob(jobId).then(function(job){
+                                                            res.render('productionJob', {
+                                                                name: profile.Imie,
+                                                                site: "Zasoby ludzkie",
+                                                                company: company,
+                                                                clients: clients,
+                                                                category: category,
+                                                                teams: teams,
+                                                                projects: projects,
+                                                                teamProjects: teamProjects,
+                                                                statuses: statuses,
+                                                                priority: priority,
+                                                                workers: workers,
+                                                                jobs: jobs,
+                                                                job: job
+                                                            });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        })
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        })
     });
 
 }

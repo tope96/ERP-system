@@ -1,11 +1,26 @@
 var element = document.getElementById("production");
 element.classList.add("active-bar");
+jobShow();
 
 function hide() {
   var infoPanel = document.getElementById("infoPanel");
   var addProject = document.getElementById("addProject");
   addProject.style.display = "none";
   infoPanel.style.display = "block";
+  jobShowHide();
+  jobEditHide();
+}
+
+function jobShow(){
+    var infoPanel = document.getElementById("infoPanel");
+    infoPanel.style.display = "none";
+    var jobShow = document.getElementById("jobShow");
+    addJobHide();
+    addClientHide();
+    editProjectHide();
+    addProjectHide();
+    jobEditHide();
+    jobShow.style.display = "block";
 }
 
 function submitForm(form) {
@@ -14,6 +29,19 @@ function submitForm(form) {
 }
 
 
+function jobEditShow(){
+  var infoPanel = document.getElementById("infoPanel");
+  infoPanel.style.display = "none";
+  var jobEdit = document.getElementById("jobEdit");
+  jobEdit.style.display = "block";
+  addJobHide();
+  addClientHide();
+  editProjectHide();
+  addProjectHide();
+  jobShowHide();
+  console.log('================ <%=job.IdZadanie%>');
+}
+
 function addProjectShow() {
     var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
@@ -21,7 +49,8 @@ function addProjectShow() {
     addJobHide();
     addClientHide();
     editProjectHide();
-
+    jobShowHide();
+    jobEditHide();
     if (addProject.style.display === "none") {
         addProject.style.display = "block";
     } else {
@@ -32,20 +61,17 @@ function addProjectShow() {
   
 
   function addClientShow() {
-    console.log('tutuaj');
     var clientPanel = document.getElementById("clientPanel");
     var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
     editProjectHide();
     addJobHide();
+    jobShowHide();
+    jobEditHide();
     infoPanel.style.display = "none";
     addProject.style.display = "none";
 
-    if (clientPanel.style.display === "none") {
-        clientPanel.style.display = "block";
-    } else {
-        clientPanel.style.display = "none";
-    }
+    clientPanel.style.display = "block";
   }
 
   function addJobShow(idProject) {
@@ -55,7 +81,7 @@ function addProjectShow() {
     editProjectHide();
     addClientHide()
     addProjectHide();
-
+    jobEditHide();
     document.getElementById("projectIdJob").value = idProject;
     
     infoPanel.style.display = "none";
@@ -64,6 +90,15 @@ function addProjectShow() {
   }
 
 
+  function jobEditHide(){
+    var jobEdit = document.getElementById("jobEdit");
+    jobEdit.style.display = "none";
+  }
+
+  function jobShowHide(){
+    var jobShow = document.getElementById("jobShow");
+    jobShow.style.display = "none";
+  }
 
   function addClientHide(){
     var clientPanel = document.getElementById("clientPanel");
@@ -125,3 +160,5 @@ function addProjectShow() {
     x.style.display = "block";
 
   }
+
+  

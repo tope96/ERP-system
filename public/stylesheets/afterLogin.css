@@ -281,6 +281,35 @@ body {
     height: 90%;
 }
 
+.jobInProgress{
+    color: rgb(240, 240, 40);
+    float: right;
+}
+
+.jobFinished{
+    color:green;
+    float: right;
+}
+
+.jobNotStarted{
+    color: red;
+    float:right;
+}
+
+.jobPriorityLow{
+    color: green;
+}
+
+.jobPriorityMedium{
+    color:rgb(240, 240, 40);
+}
+
+.jobPriorityHigh{
+    color:red;
+}
+
+
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;
@@ -294,6 +323,8 @@ body {
         width: 95%;
     }
 }
+
+
 
 @media screen and (max-width: 995px) {
     .list-group-item{

@@ -1,7 +1,7 @@
 var models = require('../../models');
 var job = models.zadania;
 
-function addJob(projectId, name, description, status, priority, worker, idKontoDomenowe){
+function addJob(projectId, name, description, status, priority, worker, realizationDate, idKontoDomenowe){
     return job.create({
         IdPracownik: worker,
         IdProjekt: projectId,
@@ -9,7 +9,8 @@ function addJob(projectId, name, description, status, priority, worker, idKontoD
         Opis: description,
         Status: status,
         Priorytet: priority,
-        IdKontoDomenowe: idKontoDomenowe
+        IdKontoDomenowe: idKontoDomenowe,
+        DataRealizacji: realizationDate
     })
 }
 
@@ -31,9 +32,46 @@ function deleteJob(idProject){
     });
 }
 
+function deleteJobJob(idJob){
+    return job.destroy({
+        where:{
+            IdZadanie: idJob
+        }
+    });
+}
+
+function getOneJob(idJob){
+    return job.findOne({
+        where:{
+            IdZadanie: idJob
+        }
+    }).then(function(job){
+        return job;
+    })
+}
+
+function editJob(jobId, name, priority, status, description, realizationDate, worker){
+    return job.findOne({
+        where:{
+            IdZadanie: jobId
+        }
+    }).then(function(found){
+        return found.update({
+            Nazwa: name,
+            Priorytet: priority,
+            Status: status,
+            Opis: description,
+            DataRealizacji: realizationDate,
+            IdPracownik: worker 
+        });
+    });
+}
 
 module.exports = {
     addJob: addJob,
     getAllJob: getAllJob,
-    deleteJob: deleteJob
+    deleteJob: deleteJob,
+    getOneJob: getOneJob,
+    deleteJobJob: deleteJobJob,
+    editJob: editJob
 }

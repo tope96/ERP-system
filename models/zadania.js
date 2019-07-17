@@ -40,6 +40,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false
     },
+    DataRealizacji: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    },
     Priorytet: {
       type: DataTypes.INTEGER(211),
       allowNull: true
