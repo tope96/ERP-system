@@ -15,7 +15,7 @@ function createCalendar(calendarJSON){
     });
     
 
-var calendarEl = document.getElementById('calendar');            
+var calendarEl = document.getElementById('maincalendar');            
 var calendar = new FullCalendar.Calendar(calendarEl, {
   plugins: [ 'dayGrid' ],
   events: jsonObject

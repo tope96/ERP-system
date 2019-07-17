@@ -1,13 +1,12 @@
 <% include partials/headerLogin %>
 <% include partials/leftNavbar %>
+<!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/calendar.js"></script>
 
-  <div id='calendar'></div>
+  <div id='maincalendar'></div>
   <script>
     var x = '<%-JSON.stringify(calendarJobs)%>';
     createCalendar(x);
 </script>
 
-
-<!-- SCRIPT ENGINE -->
-<script type="text/javascript" src="scripts/calendar.js"></script>
 <% include partials/footerLogin %>
