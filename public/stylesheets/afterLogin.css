@@ -308,10 +308,38 @@ body {
     color:red;
 }
 
-#calendar {
+#maincalendar {
+    
     max-width: 900px;
-    margin: 0 auto;
+    margin: 0 auto;margin-top: 3rem;
   }
+
+.widget{
+    height: 20rem;
+    width: 20rem;
+    transition: transform .2s;
+    /* margin-top: 4rem; */
+  }
+
+  .widget:hover{
+        -ms-transform: scale(1.1); /* IE 9 */
+        -webkit-transform: scale(1.1); /* Safari 3-8 */
+        transform: scale(1.1); 
+      
+  }
+
+.widgetButton{
+    bottom: 0;
+    position: absolute;
+}
+
+.widgetRow{
+    margin-top: 30vh;
+}
+
+.textRow{
+    height: 85%;
+}
 
 @media screen and (max-width: 985px) {
     .list-group-item{

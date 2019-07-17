@@ -1,4 +1,5 @@
 var workersUtil = require('../models/.utils/workerUtil.js');
+var jobUtil = require('../models/.utils/job.js');
 
 var exports = module.exports = {}
 
@@ -14,9 +15,29 @@ exports.signin = function (req, res) {
 
 exports.home = function (req, res) {
     workersUtil.getWorkerInfo(req.user.IdPracownik).then(function(user){
+        jobUtil.countFinished(req.user.IdPracownik).then(function(finishedJobs){
+            jobUtil.countInProgress(req.user.IdPracownik).then(function(jobsInProgress){
+                jobUtil.countNotStarted(req.user.IdPracownik).then(function(jobsNotStarted){
+                    jobUtil.countHighPriority(req.user.IdPracownik).then(function(highPriority){
+                        jobUtil.countMediumPriority(req.user.IdPracownik).then(function(mediumPriority){
+                            jobUtil.countTodayJobs(req.user.IdPracownik).then(function(todayJobs){
+
+
         res.render('home', {
             name: user.Imie,
-            site: "Pulpit"
+            site: "Pulpit",
+            finishedJobs: finishedJobs,
+            jobsInProgress: jobsInProgress,
+            jobsNotStarted: jobsNotStarted,
+            highPriority: highPriority,
+            mediumPriority: mediumPriority,
+            todayJobs: todayJobs
+        })
+        })
+    })
+        });
+        });
+        });
         });
     })
 }

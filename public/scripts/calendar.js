@@ -1,3 +1,7 @@
+var element = document.getElementById("calendar");
+element.classList.add("active-bar");
+
+
 function createCalendar(calendarJSON){
     var jsonObject = JSON.parse(calendarJSON);
     jsonObject.forEach(obj => {

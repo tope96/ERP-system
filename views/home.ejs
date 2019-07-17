@@ -3,10 +3,68 @@
 
 
 <div class="col-lg-11">
-    <div class="row">
+    <div class="row widgetRow">
         <div class="col-lg-2">
-                <div class="widget shadow-lg p-3 mb-5 rounded">
+        </div>
+
+        <div class="col-lg-3 widgetColumns">
+                <div class="widget shadow-lg bg-white p-3 mb-5 rounded">
+                    <div class=" textRow row">
+                        <div class="col text-center">
+                           <h3>Zadania</h3>
+                           <hr>
+                           <p>Liczba zakończonych zadań: <%= finishedJobs %></p>
+                           <p>Liczba rozpoczętych zadań: <%= jobsInProgress %></p>
+                           <p>Liczba zadań oczekujacych: <%=jobsNotStarted%></p>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <form action="production" method="GET">
+                                <button type="submit" class="btn btn-info">Przejdź do projektów</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col-lg-3 widgetColumns">
+                <div class="widget  shadow-lg bg-white p-3 mb-5 rounded">
+                    <div class=" textRow row">
+                        <div class="col text-center">
+                           <h3>Priorytety</h3>
+                           <hr>
+                           <p>Zadania z wysokim priorytetem, których nie zacząłeś: <%= highPriority %></p>
+                           <p>Zadania ze średnim priorytetem, których nie zacząłeś: <%= mediumPriority %></p>   
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <form action="production" method="GET">
+                                <button type="submit" class="btn btn-info">Przejdź do projektów</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col-lg-3 widgetColumns">
+                <div class="widget  shadow-lg bg-white p-3 mb-5 rounded">
+                    <div class="textRow row">
+                        <div class="col text-center">
+                           <h3>Kalendarz</h3>
+                           <hr>
+                           <p>Liczba zadań na dzisiaj: <%= todayJobs %></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <form action="kalendarz" method="GET">
+                                <button type="submit" class="btn btn-info">Przejdź do kalendarza</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 

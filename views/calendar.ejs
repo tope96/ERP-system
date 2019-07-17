@@ -3,7 +3,11 @@
 <!-- SCRIPT ENGINE -->
 <script type="text/javascript" src="scripts/calendar.js"></script>
 
+
+<div class="col-lg-11">
   <div id='maincalendar'></div>
+</div>
+  
   <script>
     var x = '<%-JSON.stringify(calendarJobs)%>';
     createCalendar(x);
