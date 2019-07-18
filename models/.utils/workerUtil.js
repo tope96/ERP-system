@@ -34,7 +34,7 @@ function getWorkerInfo(id) {
 
 
 function editUser(req, res, name, lastName, email, login, id) {
-    var currentUser = req.user.IdKontoDomenowe;
+    var currentUser = req.user.IdPracownik;
     if (name != '') {
         newName(currentUser, name);
     }
@@ -52,7 +52,7 @@ function editUser(req, res, name, lastName, email, login, id) {
     }, 1000);
 }
 
-function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile, newPosition, spec) {
+function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, spec) {
     if (name != '') {
         newName(id, name);
     }
@@ -64,9 +64,6 @@ function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile, 
     }
     if (tel != '') {
         newTelephone(id, tel);
-    }
-    if (contractFile != '') {
-        newContractfile(id, contractFile);
     }
     if (position != '') {
         position.newPosition(id, newPosition);

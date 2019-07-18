@@ -271,11 +271,11 @@ module.exports = function (app, passport) {
         var email = req.body.emailEdit;
         var tel = req.body.telephoneEdit;
         var id = req.body.idEdit;
-        var contractFileName = req.file.filename;
+        //var contractFileName = req.file.filename;
         var position = req.body.positionEdit;
         var spec = req.body.specEdit;
 
-        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, contractFileName, position, spec);
+        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, position, spec);
         setTimeout(function(){
             res.redirect('/humanResources');
         }, 500);
