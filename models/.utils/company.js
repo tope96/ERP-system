@@ -153,26 +153,26 @@ function ifcompanyExists(name, nip){
 
 
 function addCompany(name, nip, address, town, team) {
-    return new Promise((resolve, reject) => { 
+    return new Promise((resolve, reject) => {
         ifcompanyExists(name, nip).then(function (ifExists) {
             if (ifExists) {
                 resolve(false);
             } else {
-               return townUtils.getOrInsertTown(town).then(function(newT){
+                return townUtils.getOrInsertTown(town).then(function (newT) {
                     companyModel.create({
                         Nazwa: name,
                         Nip: nip,
                         IdMiasto: newT,
                         Adres: address,
                         IdZespol: team
-               }).then(function(){
-                resolve(true);
-               })
-            });
+                    }).then(function () {
+                        resolve(true);
+                    })
+                });
             }
         });
-    
-});
+
+    });
 
 }
 

@@ -149,8 +149,8 @@
                           <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
                         <%}%>
                 </select>
-                <input type="text" class="form-control createAccount input" name="login" placeholder="Login">
-                <input type="password" class="form-control createAccount input" name="password" placeholder="Hasło">
+                <input type="text" class="form-control createAccount input" name="login" placeholder="Login" required>
+                <input type="password" class="form-control createAccount input" name="password" placeholder="Hasło" required>
                 
                 <div class="row">
                     <div class="col text-center">

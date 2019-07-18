@@ -15,12 +15,12 @@
             <li class="list-group-item list-group-item-action shadow-sm p-3 mb-2 rounded" onclick="hide()"
               id="list-<%= assets[i].IdSrodkiTrwale %>-list" data-toggle="list"
               href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab" aria-controls="<%= assets[i].IdSrodkiTrwale %>">
-              <b><%= assets[i].Nazwa %></b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; szt.: <%= assets[i].Ilosc %></li>
+              <b><%= assets[i].Nazwa %></b> &nbsp;&nbsp;&nbsp;&nbsp; szt.: <%= assets[i].Ilosc %></li>
             <%}%>       
           </div>
         </ul>
         <div class="row">
-          <div class="col text-center">
+          <div class="col-lg-2 text-center">
               <button type="button" class="btn btn-success buttonUnderList" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj przedmiot</button>
           </div>
         </div>
@@ -101,12 +101,22 @@
         <p>Podaj dane nowego przedmiotu</p>
         <form action="addAsset" method="POST">
         <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Nazwa przedmiotu" required>
-        <input type="text" class="form-control addAssets" id="description" name="description" placeholder="Opis" required>
+        <textarea class="form-control addAssets" rows="10" id="description" name="description" placeholder="Opis"></textarea>
         <input type="text" class="form-control addAssets" id="type" name="type" placeholder="Rodzaj" required>
         <input type="number" class="form-control addAssets" id="price" name="price" placeholder="Wartość netto" required>
+        <div class="row">
+          <div class="col text-center">
+            Data zakupu
+          </div>
+        </div>
         <input type="date" class="form-control addAssets" id="date" name="date" placeholder="Data zakupu" required>
         <input type="number" class="form-control addAssets" id="amount" name="amount" placeholder="Ilość" required>
-        <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner" >
+        <div class="row">
+            <div class="col text-center">
+              Osoba odpowiedzialna:
+            </div>
+          </div>
+        <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner" required>
           <% for(var i=0; i < users.length; i++) { %>
             <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %> <%= users[i].Nazwisko %></option>
           <%}%>

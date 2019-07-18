@@ -43,7 +43,7 @@ exports.home = function (req, res) {
 }
 
 exports.notConfirmedUser = function(req, res){
-    res.render('notConfirmedUser');
+    res.render('NotConfirmedUser');
 }
 exports.notCompleteSingUp = function(req, res){
     res.render('notCompleteSingUp');

@@ -1,6 +1,24 @@
 var element = document.getElementById("hr");
 element.classList.add("active-bar");
 
+$(function () {
+  $('#searchTeam').keyup(function () {
+    console.log("dkkfkfkffkfkfkkf");
+    var current_query = $('#searchTeam').val();
+    if (current_query !== "") {
+      $(".list-group li").hide();
+      $(".list-group li").each(function () {
+        var current_keyword = $(this).text();
+        if (current_keyword.indexOf(current_query) >= 0) {
+          $(this).show();
+        };
+      });
+    } else {
+      $(".list-group li").show();
+    };
+  });
+});
+
 var addCompany = document.getElementById("addCompany");
 addCompany.style.display = "none";
 var addTeam = document.getElementById("addTeam");
@@ -208,38 +226,4 @@ function hideAgreemtnInput2() {
   var input2 = document.getElementById("agreement2");
   input2.style.display = "none";
 }
-
-$(function () {
-  $('#search').keyup(function () {
-    var current_query = $('#search').val();
-    if (current_query !== "") {
-      $(".list-group li").hide();
-      $(".list-group li").each(function () {
-        var current_keyword = $(this).text();
-        if (current_keyword.indexOf(current_query) >= 0) {
-          $(this).show();
-        };
-      });
-    } else {
-      $(".list-group li").show();
-    };
-  });
-});
-
-$(function () {
-  $('#searchTeams').keyup(function () {
-    var current_query = $('#searchTeams').val();
-    if (current_query !== "") {
-      $(".list-group-teams li").hide();
-      $(".list-group-teams li").each(function () {
-        var current_keyword = $(this).text();
-        if (current_keyword.indexOf(current_query) >= 0) {
-          $(this).show();
-        };
-      });
-    } else {
-      $(".list-group-teams li").show();
-    };
-  });
-});
 

@@ -13,6 +13,25 @@ teamsManage.style.display = "none";
 var editTeam = document.getElementById("editTeam");
 editTeam.style.display = "block";
 
+$(function () {
+  $('#searchTeams').keyup(function () {
+    var current_query = $('#searchTeams').val();
+    if (current_query !== "") {
+      $(".list-group-teams li").hide();
+      $(".list-group-teams li").each(function () {
+        var current_keyword = $(this).text();
+        if (current_keyword.indexOf(current_query) >= 0) {
+          $(this).show();
+        };
+      });
+    } else {
+      $(".list-group-teams li").show();
+    };
+  });
+});
+
+
+
 function copyToClipboard(element) {
   var $temp = $("<input>");
   $("body").append($temp);
@@ -232,21 +251,3 @@ $(function () {
     };
   });
 });
-
-$(function () {
-  $('#searchTeams').keyup(function () {
-    var current_query = $('#searchTeams').val();
-    if (current_query !== "") {
-      $(".list-group-teams li").hide();
-      $(".list-group-teams li").each(function () {
-        var current_keyword = $(this).text();
-        if (current_keyword.indexOf(current_query) >= 0) {
-          $(this).show();
-        };
-      });
-    } else {
-      $(".list-group-teams li").show();
-    };
-  });
-});
-

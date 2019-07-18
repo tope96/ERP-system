@@ -15,7 +15,7 @@ exports.humanResources = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
-                companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                companyUtil.getAllCopmany(req.user.IdZespol).then(function (company) {
                     agreementUtil.getAgreeInfo(profile.IdUmowy).then(function (agree) {
                         workersUtil.getAllProgrammers().then(function (programmers) {
                             workersUtil.getAllAnalit().then(function (analit) {

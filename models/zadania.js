@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     Nazwa: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(50),
       allowNull: false
     },
     Opis: {

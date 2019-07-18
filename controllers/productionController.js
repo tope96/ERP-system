@@ -13,7 +13,7 @@ var jobUtil = require('../models/.utils/job.js');
 exports.production = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
-            companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+            companyUtil.getAllCopmany(req.user.IdZespol).then(function (company) {
                 clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
                     projectsUtil.getAllProjectCategory(req.user.IdZespol).then(function (category) {
                         teamUtil.getAllTeams(req.user.IdZespol).then(function (teams) {

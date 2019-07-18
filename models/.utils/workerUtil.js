@@ -49,7 +49,7 @@ function editUser(req, res, name, lastName, email, login, id) {
     }
     setTimeout(function () {
         res.redirect('/profileEdited');
-    }, 500);
+    }, 1000);
 }
 
 function editUserfromHr(req, res, name, lastName, email, tel, id, contractFile, newPosition, spec) {

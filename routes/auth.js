@@ -12,7 +12,7 @@ module.exports = function (app, passport) {
     app.get('/signin', authController.signin);
     app.get('/home', isLoggedIn, authController.home);
     app.get('/logout', authController.logout);
-    app.get('/notConfirmedUSer', authController.notConfirmedUser);
+    app.get('/notConfirmedUser', authController.notConfirmedUser);
     app.get('/notCompleteSingUp', authController.notCompleteSingUp);
     app.get('/companyExists', authController.companyExists);
     app.get('/companyNew', authController.companyNew);
@@ -26,13 +26,13 @@ module.exports = function (app, passport) {
 
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect: '/home',
-        failureRedirect: '/notConfirmedUSer'
+        failureRedirect: '/notConfirmedUser'
     }
     ));
 
     app.post('/signin', passport.authenticate('local-signin', {
         successRedirect: '/home',
-        failureRedirect: '/notConfirmedUSer'
+        failureRedirect: '/notConfirmedUser'
         }
     ));
     

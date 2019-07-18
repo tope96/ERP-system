@@ -445,4 +445,15 @@ body {
         max-width: 100%;
     }
 
+    .section-profile {
+        margin-top: 8rem;
+        margin-left: 0rem;
+        margin-right: 0rem;
+        background-color: rgba(255, 255, 255, 0.842);
+        padding: 3rem;
+    }
+    
+    .cos{
+        height: 40rem;
+    }
   }

@@ -7,7 +7,7 @@
 
       <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar"><i class="fa fa-caret-square-up"></i></button></div>
       <div id="itemsBar" class="col-lg-2 collapse show"> 
-        <input type="text" class="form-control search shadow p-3 bg-white rounded" id="search" placeholder="Wyszukaj">
+        <input type="text" class="form-control search shadow p-3 bg-white rounded" id="searchTeam" placeholder="Wyszukaj">
         <ul class="ul">
           <div class="list-group" id="list-tab" role="tablist">
             <% for(var i=0; i < workers.length; i++) { %>
@@ -42,7 +42,6 @@
                 </div>
               </div>
               <hr>
-
               <div class="row">
                 <div class="col text-center">
                   <form action="deleteHuman" method="POST">
