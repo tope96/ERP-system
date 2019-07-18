@@ -313,12 +313,13 @@ body {
     margin: 0 auto;margin-top: 3rem;
   }
 
-.widget{
+  .widget {
     height: 20rem;
-    width: 20rem;
+    /* width: 17rem; */
     transition: transform .2s;
     /* margin-top: 4rem; */
-  }
+    max-width: 20rem;
+}
 
   .widget:hover{
         -ms-transform: scale(1.1); /* IE 9 */
@@ -434,6 +435,14 @@ body {
         Width: 100%;
         bottom: 0;
         z-index: 50;
+    }
+
+    .widget {
+        height: 20rem;
+        /* width: 17rem; */
+        transition: transform .2s;
+        /* margin-top: 4rem; */
+        max-width: 100%;
     }
 
   }
