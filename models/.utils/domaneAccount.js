@@ -3,22 +3,7 @@ var worker = require('./workerUtil.js');
 var dAccount = models.konta_domenowe;
 var bCrypt = require('bcrypt-nodejs');
 const dotenv = require('dotenv').config();
-
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT,
-    logging: false,
-    pool: {
-      max: process.env.DB_POOLMAX,
-      min: process.env.DB_POOLMIN,
-      idle: process.env.DB_IDLE,
-      acquire: process.env.DB_ACQUIRE,
-      evict: process.env.DB_EVICT,
-      handleDisconnects: process.env.DB_DISC
-      },
-  });
-
+var db = require('../../config/db')
 
 
 function getLogin(id){
@@ -113,8 +98,8 @@ function changePassword(id, newPassword){
 }
 
 function workersWithoutDomaneAccount(IdTeam){
-    return sequelize.query("SELECT Imie, Nazwisko, IdPracownik FROM pracownicy WHERE IdPracownik NOT IN (SELECT IdPracownik FROM konta_domenowe) AND IdZespol = " + IdTeam,
-    {type: sequelize.QueryTypes.SELECT}).then(workersWithoutDomane =>
+    return db.query("SELECT Imie, Nazwisko, IdPracownik FROM pracownicy WHERE IdPracownik NOT IN (SELECT IdPracownik FROM konta_domenowe) AND IdZespol = " + IdTeam,
+    {type: db.QueryTypes.SELECT}).then(workersWithoutDomane =>
      {return workersWithoutDomane}); 
    }
 

@@ -657,4 +657,21 @@ module.exports = function (app, passport) {
         })
     });
 
+
+    app.post('/editClients', isLoggedIn, function (req, res) {
+        var clientId = req.body.clientId;
+
+        domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+            workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                clientUtil.getAllClients(clientId).then(function (clientInfo) {
+                    res.render('editClients', {
+                        name: profile.Imie,
+                        site: "Zasoby ludzkie",
+                        clientInfo: clientInfo
+                    })
+                });
+            });
+        });
+
+    });
 }
