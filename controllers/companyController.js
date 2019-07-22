@@ -10,7 +10,7 @@ var clientUtil = require('../models/.utils/clients.js');
 exports.editCompany = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
-            companyUtil.getCompanyInfo(profile.Firma, req.user.IdZespol).then(function (company) {
+            companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                 townUtil.getTown(company.IdMiasto).then(function (town) {
                     clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
                         res.render('editCompany', {
@@ -36,7 +36,7 @@ exports.editCompany = function (req, res) {
 exports.editCompanyEdition = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
-            companyUtil.getCompanyInfo(profile.Firma, req.user.IdZespol).then(function (company) {
+            companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                 townUtil.getTown(company.IdMiasto).then(function (town) {
                     clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
                         res.render('editCompany', {
@@ -63,7 +63,7 @@ exports.editCompanyAddProfile = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             domaneAccount.workersWithoutDomaneAccount(req.user.IdZespol).then(function (workers) {
-                companyUtil.getCompanyInfo(profile.Firma, req.user.IdZespol).then(function (company) {
+                companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                     townUtil.getTown(company.IdMiasto).then(function (town) {
                         clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
                             res.render('editCompany', {
@@ -92,7 +92,7 @@ exports.editCompanyAddProfileError = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers().then(function (workers) {
-                companyUtil.getCompanyInfo(profile.Firma, req.user.IdZespol).then(function (company) {
+                companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                     townUtil.getTown(company.IdMiasto).then(function (town) {
                         clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
                             res.render('editCompany', {
@@ -172,7 +172,7 @@ exports.editCompanyAddProfileSuccess = function (req, res) {
 exports.editCompanySuccess = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
-            companyUtil.getCompanyInfo(profile.Firma, req.user.IdZespol).then(function (company) {
+            companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                 townUtil.getTown(company.IdMiasto).then(function (town) {
                     clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
                         res.render('editCompany', {

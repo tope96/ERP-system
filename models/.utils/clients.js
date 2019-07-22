@@ -27,12 +27,21 @@ function addClient(company, firstName, lastName, tel, email, zespolDomenow){
     })
 }
 
-
 function getClientInfo(clientId){
-    return db.query("SELECT klienci.ImiePrzedstawiciela, firma.Nazwa, firma.IdFirma FROM klienci INNER JOIN firma ON klienci.Firma = firma.IdFirma WHERE IdKlient=" + 2,
-    {type: db.QueryTypes.SELECT}).then(clientInfo =>
-     {return clientInfo}); 
+    return clientsModel.findOne({
+        where:{
+            IdKlient: clientId
+        }
+    }).then(function(clientInfo){
+        return clientInfo;
+    });
 }
+
+//function getClientInfo(clientId){
+//    return db.query("SELECT klienci.ImiePrzedstawiciela AS imie, firma.Nazwa, firma.IdFirma FROM klienci INNER JOIN firma ON klienci.Firma = firma.IdFirma WHERE IdKlient=" + clientId,
+//    {type: db.QueryTypes.SELECT}).then(clientInfo =>
+//     {return clientInfo}); 
+//}
 
 function getAllClients(zespolDomenowy){
     return db.query("SELECT IdKlient, ImiePrzedstawiciela, NazwiskoPrzedstawiciela, firma.Nazwa as firma FROM klienci INNER JOIN firma ON klienci.Firma = firma.IdFirma WHERE zespolDomenowy = " + zespolDomenowy,
@@ -40,8 +49,17 @@ function getAllClients(zespolDomenowy){
      {return clients}); 
    }
 
+function deleteClient(IdClient){
+    return clientsModel.destroy({
+        where:{
+            IdKlient: IdClient
+        }
+    });
+}
+
 module.exports = {
     addClient: addClient,
     getAllClients: getAllClients,
-    getClientInfo: getClientInfo
+    getClientInfo: getClientInfo,
+    deleteClient: deleteClient    
 }

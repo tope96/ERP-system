@@ -6,10 +6,74 @@
                 <div class="border shadow-lg p-3 mb-5 rounded">                
                     <div class="row asset-name">
                         <div class="col text-center">
-                            <h2><%= clientInfo.Nazwa %> </h2>
+                            <h2><%= companyInfo.Nazwa %> </h2>
                         </div>
                     </div>
+                    <hr>
             
+                    <div class="row">
+                        <div class="col text-center">
+                        <form action="deleteClient" method="POST">
+                            <input type="hidden" value="<%= clientInfo.IdKlient %>" name="clientId">
+                                <button type="button" class="btn btn-light"
+                                onclick="edit()"><i
+                                  class="fa fa-edit" data-toggle="tooltip" data-placement="top"
+                                  title="Edytuj ten przedmiot"></i>
+                              </button>
+                        
+                              <input type="hidden" id="asset" name="asset" value="">
+                              <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
+                        </form>                            
+                        </div>
+
+                    </div>
+                    
+              <div class="row">
+                    <div class="col-lg-12">
+                      <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                        <h3>Przedstawiciel:</h3>
+                        <%= clientInfo.ImiePrzedstawiciela %> <%= clientInfo.NazwiskoPrzedstawiciela %>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                            <h3>Numer kontaktowy:</h3>
+                            <%= clientInfo.NumerKontaktowy %>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                                    <h3>Email kontaktowy:</h3>
+                                    <%= clientInfo.EmailKontaktowy %>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                                <h3>Adres firmy:</h3>
+                                <%= companyInfo.Adres %>, <%= townInfo.Miasto %>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                            <div class="col-lg-12">
+                                <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                                    <h3>NIP firmy:</h3>
+                                    <%= companyInfo.Nip %>
+                                </div>
+                            </div>
+    
+                        </div>
+
                 </div>
         </div>
 </div>

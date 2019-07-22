@@ -555,7 +555,7 @@ module.exports = function (app, passport) {
         domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
             workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
                 companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
-                    clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                    clientUtil.getClientInfo(req.user.IdZespol).then(function (clients) {
                         projectsUtil.getAllProjectCategory(req.user.IdZespol).then(function (category) {
                             teamUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                 projectsUtil.getAllProjects(req.user.IdZespol).then(function (projects) {
@@ -616,7 +616,7 @@ module.exports = function (app, passport) {
             domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
                 workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
                     companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
-                        clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                        clientUtil.getClientInfo(req.user.IdZespol).then(function (clients) {
                             projectsUtil.getAllProjectCategory(req.user.IdZespol).then(function (category) {
                                 teamUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                     projectsUtil.getAllProjects(req.user.IdZespol).then(function (projects) {
@@ -660,18 +660,26 @@ module.exports = function (app, passport) {
 
     app.post('/editClients', isLoggedIn, function (req, res) {
         var clientId = req.body.clientId;
-
-        domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
-            workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
-                clientUtil.getAllClients(clientId).then(function (clientInfo) {
+        clientUtil.getClientInfo(clientId).then(function (clientInfo) {
+            companyUtil.getCompanyInfo(clientInfo.Firma).then(function (companyInfo) {
+                townUtil.getTown(companyInfo.IdMiasto).then(function (townInfo) {
                     res.render('editClients', {
-                        name: profile.Imie,
+                        name: "Tomek",
                         site: "Zasoby ludzkie",
-                        clientInfo: clientInfo
-                    })
+                        clientInfo: clientInfo,
+                        companyInfo: companyInfo,
+                        townInfo: townInfo
+                    });
                 });
             });
         });
+    });
 
+    app.post("/deleteClient", isLoggedIn, function(req, res){
+        var clientId = req.body.clientId;
+
+        clientUtil.deleteClient(clientId).then(function(){
+            res.render('editCompany');
+        });
     });
 }

@@ -4,11 +4,10 @@ var townUtils = require('./townUtil.js');
 var worker = require('./workerUtil.js');
 var domaneAccount = require('./domaneAccount.js');
 
-function getCompanyInfo(IdCompany, idTeam) {
+function getCompanyInfo(IdCompany) {
     return companyModel.findOne({
         where: {
-            IdFirma: IdCompany,
-            IdZespol: idTeam,
+            IdFirma: IdCompany
         }
     }).then(function (company) {
         return company;
