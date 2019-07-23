@@ -176,6 +176,7 @@ function addCompany(name, nip, address, town, team) {
 }
 
 
+
 module.exports = {
     getCompanyInfo: getCompanyInfo,
     editCompany: editCompany,

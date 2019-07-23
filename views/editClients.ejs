@@ -2,39 +2,40 @@
 <% include partials/leftNavbar %>
 
 <div class="col-11">
-        <div class="section-assets">
-                <div class="border shadow-lg p-3 mb-5 rounded">                
-                    <div class="row asset-name">
-                        <div class="col text-center">
-                            <h2><%= companyInfo.Nazwa %> </h2>
-                        </div>
+    <div class="section-assets">
+        <div class="border shadow-lg p-3 mb-5 rounded">
+            <div id="infoPanel">
+                <div class="row asset-name">
+                    <div class="col text-center">
+                        <h2><%= companyInfo.Nazwa %> </h2>
                     </div>
-                    <hr>
-            
-                    <div class="row">
-                        <div class="col text-center">
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col text-center">
                         <form action="deleteClient" method="POST">
                             <input type="hidden" value="<%= clientInfo.IdKlient %>" name="clientId">
-                                <button type="button" class="btn btn-light"
-                                onclick="edit()"><i
-                                  class="fa fa-edit" data-toggle="tooltip" data-placement="top"
-                                  title="Edytuj ten przedmiot"></i>
-                              </button>
-                        
-                              <input type="hidden" id="asset" name="asset" value="">
-                              <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
-                                title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
-                        </form>                            
-                        </div>
+                            <button type="button" class="btn btn-light" onclick="edit('<%= companyInfo.Nazwa %>', '<%= clientInfo.ImiePrzedstawiciela %>', '<%= clientInfo.NazwiskoPrzedstawiciela %>',
+                                '<%= clientInfo.NumerKontaktowy %>', '<%= clientInfo.EmailKontaktowy %>', '<%= companyInfo.Adres %>', '<%= townInfo.Miasto %>',
+                                '<%= companyInfo.Nip %>', '<%= clientInfo.IdKlient %>')"><i class="fa fa-edit" data-toggle="tooltip"
+                                    data-placement="top" title="Edytuj ten przedmiot"></i>
+                            </button>
 
+                            <input type="hidden" id="asset" name="asset" value="">
+                            <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
+                        </form>
                     </div>
-                    
-              <div class="row">
+
+                </div>
+
+                <div class="row">
                     <div class="col-lg-12">
-                      <div class="property shadow-sm p-3 mb-2 bg-white rounded">
-                        <h3>Przedstawiciel:</h3>
-                        <%= clientInfo.ImiePrzedstawiciela %> <%= clientInfo.NazwiskoPrzedstawiciela %>
-                      </div>
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                            <h3>Przedstawiciel:</h3>
+                            <%= clientInfo.ImiePrzedstawiciela %> <%= clientInfo.NazwiskoPrzedstawiciela %>
+                        </div>
                     </div>
                 </div>
 
@@ -47,35 +48,124 @@
                     </div>
 
                     <div class="col-lg-6">
-                            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
-                                    <h3>Email kontaktowy:</h3>
-                                    <%= clientInfo.EmailKontaktowy %>
-                            </div>
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                            <h3>Email kontaktowy:</h3>
+                            <%= clientInfo.EmailKontaktowy %>
                         </div>
+                    </div>
                 </div>
 
                 <div class="row">
-                        <div class="col-lg-12">
-                            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
-                                <h3>Adres firmy:</h3>
-                                <%= companyInfo.Adres %>, <%= townInfo.Miasto %>
-                            </div>
+                    <div class="col-lg-12">
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                            <h3>Adres firmy:</h3>
+                            <%= companyInfo.Adres %>, <%= townInfo.Miasto %>
                         </div>
-
                     </div>
 
-                    <div class="row">
-                            <div class="col-lg-12">
-                                <div class="property shadow-sm p-3 mb-2 bg-white rounded">
-                                    <h3>NIP firmy:</h3>
-                                    <%= companyInfo.Nip %>
-                                </div>
-                            </div>
-    
-                        </div>
-
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                            <h3>NIP firmy:</h3>
+                            <%= companyInfo.Nip %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <button type="button" onclick="hideInfoPanel()" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Wróć</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EDYTOWANIE KLIENTA -->
+            <div id="editPanel">
+                <div class="row asset-name">
+                    <div class="col text-center">
+                        <h2>Edycja klienta </h2>
+                    </div>
+                </div>
+                <hr>
+                <form action="editClient" method="POST">
+                <input type="hidden" id="clientId" name="clientId" value="">
+                <div class="form-group row">
+                    <label for="nameEdit" class="col-sm-2 col-form-label">Nazwa firmy:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit"
+                            placeholder="Nazwa firmy" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="firstNameEdit" class="col-sm-2 col-form-label">Imię przedstawiciela:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control addAssets" id="firstNameEdit" name="firstNameEdit"
+                            placeholder="Imię przedstawiciela" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="lastNameEdit" class="col-sm-2 col-form-label">Nazwisko przedstawiciela:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit"
+                            placeholder="Nazwisko przedstawiciela" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="telEdit" class="col-sm-2 col-form-label">Telefon kontaktowy:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control addAssets" id="telEdit" name="telEdit"
+                            placeholder="Telefon kontaktowy" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="emailEdit" class="col-sm-2 col-form-label">Email kontaktowy:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control addAssets" id="emailEdit" name="emailEdit"
+                            placeholder="Email kontaktowy" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="addressEdit" class="col-sm-2 col-form-label">Adres firmy:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control addAssets" id="addressEdit" name="addressEdit"
+                            placeholder="Adres firmy" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="townEdit" class="col-sm-2 col-form-label">Miasto firmy:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control addAssets" id="townEdit" name="townEdit"
+                            placeholder="Miasto firmy" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="nipEdit" class="col-sm-2 col-form-label">NIP firmy:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control addAssets" id="nipEdit" name="nipEdit"
+                            placeholder="NIP firmy" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="button" onclick="hideEditCompany()" class="btn btn-danger">Anuluj</button>
+                        <button type="submit" class="btn btn-success" ><i class="fas fa-save"></i> Zapisz</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+
+
         </div>
+    </div>
 </div>
 
 <!-- SCRIPT ENGINE -->

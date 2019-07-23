@@ -682,4 +682,23 @@ module.exports = function (app, passport) {
             res.render('editCompany');
         });
     });
+
+    app.post("/editClient", isLoggedIn, function(req, res){
+        var nameCompany = req.body.nameEdit;
+        var firstName = req.body.firstNameEdit;
+        var lastName = req.body.lastNameEdit;
+        var tel = req.body.telEdit;
+        var email = req.body.emailEdit;
+        var address = req.body.addressEdit;
+        var town = req.body.townEdit;
+        var nip = req.body.nipEdit;
+        var clientId = req.body.clientId;
+
+        
+        clientUtil.editClient(clientId, firstName, lastName, tel, email).then(function(idCompany){
+            companyUtil.editCompany(nameCompany, nip, address, town, idCompany, req.user.IdZespol).then(function(){
+                res.redirect('/editCompany');
+            })
+        });
+    });
 }

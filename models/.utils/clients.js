@@ -57,9 +57,27 @@ function deleteClient(IdClient){
     });
 }
 
+function editClient(clientId, firstName, lastName, tel, email){
+    return clientsModel.findOne({
+        where:{
+            IdKlient: clientId
+        }
+    }).then(function(found){
+        return found.update({
+            ImiePrzedstawiciela: firstName,
+            NazwiskoPrzedstawiciela: lastName,
+            NumerKontaktowy: tel, 
+            EmailKontaktowy: email
+        }).then(function(idCompany){
+            return idCompany.Firma;
+        });
+    });
+}
+
 module.exports = {
     addClient: addClient,
     getAllClients: getAllClients,
     getClientInfo: getClientInfo,
-    deleteClient: deleteClient    
+    deleteClient: deleteClient,
+    editClient: editClient
 }
