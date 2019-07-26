@@ -49,7 +49,7 @@
                                   <% if(teamProjects[a].IdProjekt == projects[i].IdProjekt ){ %>
                                     <% for(var b=0; b < teams.length; b++) { %>
                                       <% if(teamProjects[a].IdZespol == teams[b].IdZespol ){ %>
-                                        <button type="button" class="btn btn-light"
+                                        <button type="button" class="btn btn-light actionButtons"
                                         onclick="edit('<%= projects[i].Nazwa %>', '<%= projects[i].Opis %>', '<%= projects[i].DataRozpoczecia %>',
                                         '<%= projects[i].DataZakonczenia %>', '<%= projects[i].IdKlient %>', '<%= projects[i].KategoriaProjektu %>', 
                                         '<%= projects[i].IdProjekt %>', '<%= teams[b].IdZespol %>')"><i
@@ -64,10 +64,10 @@
                         
                               <input type="hidden" id="project" name="project" value="<%= projects[i].IdProjekt %>">
 
-                              <button type="button" onclick="addJobShow('<%= projects[i].IdProjekt %>')" class="btn btn-success" data-toggle="tooltip" data-placement="top"
+                              <button type="button" onclick="addJobShow('<%= projects[i].IdProjekt %>')" class="btn btn-success actionButtons" data-toggle="tooltip" data-placement="top"
                               title="Dodaj zadanie"><i class="fas fa-calendar-plus"></i></button>
 
-                              <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                              <button type="submit" class="btn btn-danger actionButtons" data-toggle="tooltip" data-placement="top"
                                 title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         

@@ -304,8 +304,8 @@
                       <div class="panel-heading">
                         <h4 class="panel-title">
                             <form action="editTeam" method="POST">
-                                <a data-toggle="collapse" href="#collapse<%=i%>"><%= teams[i].Nazwa %> </a>
-                                <button type="submit"><i class="fa fa-edit"></i></button>
+                                <a data-toggle="collapse" href="#collapse<%=i%>" class="unstyledLink"><%= teams[i].Nazwa %> </a>
+                                <button type="submit" class="unstyledButton"><i class="fa fa-edit"></i></button>
                                 <input type="hidden" value="'<%= teams[i].IdZespol %>'" name="idTeamEdit">
                               </form>
                         </h4>

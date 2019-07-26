@@ -44,14 +44,14 @@
                 <div class="col text-center">
               
                   <form action="deleteAsset" method="POST">
-                    <button type="button" class="btn btn-light"
+                    <button type="button" class="btn btn-light actionButtons"
                       onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')"><i
                         class="fa fa-edit" data-toggle="tooltip" data-placement="top"
                         title="Edytuj ten przedmiot"></i>
                     </button>
               
                     <input type="hidden" id="asset" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-                    <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                    <button type="submit" class="btn btn-danger actionButtons" data-toggle="tooltip" data-placement="top"
                       title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
                   </form>
               

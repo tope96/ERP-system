@@ -341,6 +341,20 @@ body {
     height: 85%;
 }
 
+.actionButtons{
+    margin-bottom: 0.5rem;
+}
+
+.unstyledButton {
+    border: none;
+    padding: 0;
+    background: none;
+  }
+
+.unstyledLink{
+    color: black
+}
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;

@@ -52,7 +52,7 @@
                                         onclick="edit('<%= projects[i].Nazwa %>', '<%= projects[i].Opis %>', '<%= projects[i].DataRozpoczecia %>',
                                         '<%= projects[i].DataZakonczenia %>', '<%= projects[i].IdKlient %>', '<%= projects[i].KategoriaProjektu %>', 
                                         '<%= projects[i].IdProjekt %>', '<%= teams[b].IdZespol %>')"><i
-                                        class="fa fa-edit" data-toggle="tooltip" data-placement="top"
+                                        class="fa fa-edit actionButtons" data-toggle="tooltip" data-placement="top"
                                         title="Edytuj ten przedmiot"></i>
                                         </button>
                                       <%}%>
@@ -63,10 +63,10 @@
                         
                               <input type="hidden" id="project" name="project" value="<%= projects[i].IdProjekt %>">
 
-                              <button type="button" onclick="addJobShow('<%= projects[i].IdProjekt %>')" class="btn btn-success" data-toggle="tooltip" data-placement="top"
+                              <button type="button" onclick="addJobShow('<%= projects[i].IdProjekt %>')" class="btn btn-success actionButtons" data-toggle="tooltip" data-placement="top"
                               title="Dodaj zadanie"><i class="fas fa-calendar-plus"></i></button>
 
-                              <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                              <button type="submit" class="btn btn-danger actionButtons" data-toggle="tooltip" data-placement="top"
                                 title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         
@@ -121,7 +121,7 @@
                               <h3>Klient: </h3>
                               <% for(var a=0; a < clients.length; a++) { %>
                               <% if(clients[a].IdKlient == projects[i].IdKlient ){ %>
-                              <%= clients[a].ImiePrzedstawiciela %>
+                              <%= clients[a].ImiePrzedstawiciela %> <%= clients[a].NazwiskoPrzedstawiciela %>
                               <%}%>
                               <%}%>
                             </div>
@@ -268,18 +268,32 @@
 
                                     <input type="hidden" name="jobIdShow" value="<%=job.IdZadanie%>">
 
-                                      <button type="button" class="btn btn-light"
+                                      <button type="button" class="btn btn-light actionButtons"
                                       onclick="jobEditShow()"><i
-                                      class="fa fa-edit" data-toggle="tooltip" data-placement="top"
+                                      class="fa fa-edit " data-toggle="tooltip" data-placement="top"
                                       title="Edytuj to zadanie"></i>
                                       </button>
 
-                                      <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                      <button type="submit" class="btn btn-danger actionButtons" data-toggle="tooltip" data-placement="top"
                                       title="Usuń to zadanie"><i class="fas fa-trash-alt"></i></button>
                                   </form>
 
                                 </div>
                               </div>
+
+                              <div class="row">
+                                <div class="col text-center">
+                                  <form action="jobDone" method="POST">
+                                      <input type="hidden" name="jobIdShow" value="<%=job.IdZadanie%>">
+                                      <%if(job.Status == 2){%>
+                                        <button type="submit" onclick="completeEffect()" id="startConfetti" class="btn btn-success actionButtons" disabled><i class="fas fa-check"></i> Oznacz jako wykonane</button>
+                                      <%}else{%>
+                                    <button type="submit" onclick="completeEffect()" id="startConfetti" class="btn btn-success actionButtons"><i class="fas fa-check"></i> Oznacz jako wykonane</button>
+                                        <%}%>
+                                  </form>
+                                </div>
+                              </div>
+
 
                               <div class="property shadow-sm p-3 mb-2 bg-white rounded">
                                   <h3>Priorytet zadania:</h3>
@@ -653,5 +667,7 @@
 
     <!-- SCRIPT ENGINE -->
 <script type="text/javascript" src="scripts/productionJob.js"></script>
+<script src="scripts/jquery.confetti.js"></script>
+
 
 <% include partials/footerLogin %>

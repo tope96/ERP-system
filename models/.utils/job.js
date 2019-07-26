@@ -164,6 +164,18 @@ function getCalendarJob(idKontoDomenowe){
     })
 }
 
+function jobDone(IdJob){
+    return job.findOne({
+        where:{
+            IdZadanie: IdJob
+        }
+    }).then(function(found){
+        found.update({
+            Status: 2 
+        });
+    });
+}
+
 module.exports = {
     addJob: addJob,
     getAllJob: getAllJob,
@@ -178,5 +190,6 @@ module.exports = {
     countHighPriority: countHighPriority,
     countMediumPriority: countMediumPriority,
     countLowPriority: countLowPriority,
-    countTodayJobs: countTodayJobs
+    countTodayJobs: countTodayJobs,
+    jobDone: jobDone
 }

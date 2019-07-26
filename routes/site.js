@@ -555,7 +555,7 @@ module.exports = function (app, passport) {
         domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
             workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
                 companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
-                    clientUtil.getClientInfo(req.user.IdZespol).then(function (clients) {
+                    clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
                         projectsUtil.getAllProjectCategory(req.user.IdZespol).then(function (category) {
                             teamUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                 projectsUtil.getAllProjects(req.user.IdZespol).then(function (projects) {
@@ -616,7 +616,7 @@ module.exports = function (app, passport) {
             domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
                 workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
                     companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
-                        clientUtil.getClientInfo(req.user.IdZespol).then(function (clients) {
+                        clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
                             projectsUtil.getAllProjectCategory(req.user.IdZespol).then(function (category) {
                                 teamUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                     projectsUtil.getAllProjects(req.user.IdZespol).then(function (projects) {
@@ -698,7 +698,16 @@ module.exports = function (app, passport) {
         clientUtil.editClient(clientId, firstName, lastName, tel, email).then(function(idCompany){
             companyUtil.editCompany(nameCompany, nip, address, town, idCompany, req.user.IdZespol).then(function(){
                 res.redirect('/editCompany');
-            })
+            });
+        });
+    });
+
+    app.post('/jobDone', isLoggedIn, function(req, res){
+        var jobId = req.body.jobIdShow;
+
+
+        jobUtil.jobDone(jobId).then(function(){
+                res.redirect('/production');
         });
     });
 }
