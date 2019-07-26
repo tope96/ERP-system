@@ -707,7 +707,9 @@ module.exports = function (app, passport) {
 
 
         jobUtil.jobDone(jobId).then(function(){
+            setTimeout(function(){
                 res.redirect('/production');
+            }, 2000);
         });
     });
 }
