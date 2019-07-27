@@ -126,19 +126,11 @@ function editTown(idCompany, newTown, idTeam){
     })
 }
 
-function ifcompanyExists(name, nip){
+function ifcompanyExists(name, nip, idZespol){
     return companyModel.findOne({
         where:{
-            $or:[{
-                Nazwa:{
-                    $eq: name
-                }
-            },
-            {
-            Nip:{
-                    $eq: nip
-                }
-            }]
+           Nip: nip,
+           IdZespol: idZespol
         }
     }).then(function(company){
         if(company){
@@ -153,7 +145,7 @@ function ifcompanyExists(name, nip){
 
 function addCompany(name, nip, address, town, team) {
     return new Promise((resolve, reject) => {
-        ifcompanyExists(name, nip).then(function (ifExists) {
+        ifcompanyExists(name, nip, team).then(function (ifExists) {
             if (ifExists) {
                 resolve(false);
             } else {
@@ -175,11 +167,26 @@ function addCompany(name, nip, address, town, team) {
 
 }
 
+function addCompanyReturnId(name, nip, address, town, team){
+    return townUtils.getOrInsertTown(town).then(function (newT) {
+        return companyModel.create({
+            Nazwa: name,
+            Nip: nip,
+            IdMiasto: newT,
+            Adres: address,
+            IdZespol: team
+        }).then(function (created) {
+            return created;
+        });
+    });
+}
+
 
 
 module.exports = {
     getCompanyInfo: getCompanyInfo,
     editCompany: editCompany,
     getAllCopmany: getAllCopmany,
-    addCompany:addCompany
+    addCompany:addCompany,
+    addCompanyReturnId: addCompanyReturnId
 }

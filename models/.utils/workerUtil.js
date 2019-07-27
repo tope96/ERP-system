@@ -6,7 +6,7 @@ var spec = require('./specialization.js');
 var teamsUtil = require('./teamsUtil.js');
 var analit = models.analitycy;
 var programmers = models.programisci;
-
+var db = require('../../config/db')
 
 function getName(id) {
     return pracownik.findOne({
@@ -183,6 +183,32 @@ function addProfile(name, lastName, email, tel, superior, idTeam, contractLink) 
     });
 }
 
+function signUp(name, lastName, email, tel, idTeam, idCompany) {
+    return pracownik.findOne({
+        where: {
+            Email: email,
+            NumerTelefonu: tel
+        }
+    }).then(function (user) {
+        if (user) {
+            return false;
+        } else {
+            return pracownik.create({
+                Imie: name,
+                Nazwisko: lastName,
+                Email: email,
+                NumerTelefonu: tel,
+                IdZespol: idTeam,
+                Firma: idCompany,
+                IdPrzelozony: null,
+                IdUmowy: null
+            }).then(function(created){
+                return created;
+            });
+        }
+    });
+}
+
 function deleteWorker(IdWorker) {
     return pracownik.destroy({
         where: {
@@ -206,6 +232,7 @@ function layOff(IdWorker) {
 }
 
 function addAgreeToHuman(IdWorker, IdAgree) {
+    console.log("TUUUUUUUUUUUUUUTAJ: " + IdWorker + IdAgree);
     var workId = IdWorker.IdPracownik;
     return pracownik.findOne({
         where: {
@@ -219,6 +246,12 @@ function addAgreeToHuman(IdWorker, IdAgree) {
         }
     })
 }
+
+function human(IdWorker, IdAgree){
+    return db.query("UPDATE pracownicy SET IdUmowy = " + IdAgree + " WHERE IdPracownik = " + IdWorker + ";",
+    {type: db.QueryTypes.UPDATE}).then(clients =>
+     {return clients}); 
+   }
 
 function getAllProgrammers() {
     return programmers.findAll({
@@ -247,5 +280,7 @@ module.exports = {
     layOff: layOff,
     addAgreeToHuman: addAgreeToHuman,
     getAllProgrammers: getAllProgrammers,
-    getAllAnalit: getAllAnalit
+    getAllAnalit: getAllAnalit,
+    signUp: signUp,
+    human: human
 }

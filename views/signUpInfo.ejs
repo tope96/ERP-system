@@ -1,0 +1,23 @@
+<% include partials/auth/headerAuth %>
+       
+    <h2>Zarejestruj się</h2>
+        <p>Czy Twoja firma jest już zarejestrowana?</p>
+        <div class="panel signInFormPanel">
+            <form id="createWorker" name="createWorker" method="post" action="createWorker">
+
+                    <input type="text" class="form-control form" name="firstName" placeholder="Imię">
+                    <input type="text" class="form-control form" name="lastName" placeholder="Nazwisko">
+                    <input type="email" class="form-control form" name="email" placeholder="Email">
+                    <input type="tel" class="form-control form" name="tel" placeholder="Telefon">
+
+                    <input type="text" class="form-control form" name="companyName" placeholder="Nazwa firmy">
+                    <input type="number" class="form-control form" name="companyNip" placeholder="NIP">
+                    <input type="text" class="form-control form" name="companyTown" placeholder="Miasto">
+                    <input type="text" class="form-control form" name="companyAddress" placeholder="Adres">
+
+                    <input type="hidden" name="maxId" value="<%= maxId %>">
+                    <button type="submit" class="btn btn-success">Zarejestruj się</button>
+                </form>
+        </div>
+
+<% include partials/auth/footerAuth %>

@@ -1,0 +1,69 @@
+
+<% include partials/auth/headerAuth %>
+<form action="addAgree" method="POST">
+<h2>Jeszcze jedna rzecz...</h2>
+    <p>Podaj dane swojego zatrudnienia.</p>
+
+    <p>Stanowisko: </p>
+    <div class="row">
+        <div class="col text-center">
+    <label class="radio-inline"><input type="radio" value="1" name="position">Programista</label>
+    <label class="radio-inline"><input type="radio" value="0" name="position">Analityk</label>
+    </div>
+    </div>
+    <select class="form-control" placeholder="Firma" name="spec" id="spec">
+      <option selected>Wybierz specjalizację</option>
+      <% for(var i=0; i < spec.length; i++) { %>
+      <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
+      <%}%>
+    </select>
+
+    <p>Data rozpoczęcia zatrudnienia: </p>
+    <input type="date" class="form-control form" name="startDate" placeholder="Data rozpoczęcia">
+    <p>Data końca zatrudnienia: </p>
+    <input type="date" class="form-control form" name="endDate" placeholder="Data rozpoczęcia">
+    <input type="number" class="form-control form" name="lumpSum" placeholder="Stawka ryczałt">
+    <input type="number" class="form-control form" name="hourlyRate" placeholder="Stawka godzinowa">
+   
+    <div class="row">
+      <div class="col text-center">
+        <label class="radio-inline"><input type="radio" name="agreement" value="1" onclick="agreementView()">Umowa o pracę </label>
+        <label class="radio-inline"><input type="radio" name="agreement" value="2" onclick="agreement2View()">Umowa zlecenie </label>
+      </div>
+    </div>
+
+    
+    <!-- Optional inputs -->
+    <div id="agreement"> <!-- umowa o prace is checked-->
+      <input type="number" class="form-control form" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
+    </div>
+    <div id="agreement2"> <!-- umowa zlecenie is checked -->
+      <p>Czy jest studentem?</p>
+      <div class="row">
+          <div class="col text-center">
+      <label class="radio-inline"><input type="radio" value="1" name="ifStudent">Tak</label>
+      <label class="radio-inline"><input type="radio" value="0" name="ifStudent">Nie</label>
+          </div>
+      </div>
+
+      <p>Czy obowiazuje ZUS?</p>
+      <div class="row">
+          <div class="col text-center">
+      <label class="radio-inline"><input type="radio" value="1" name="ifZus">Tak</label>
+      <label class="radio-inline"><input type="radio" value="0" name="ifZus">Nie</label>
+      </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-success">Zapisz</button>
+        </div>
+    </div>
+</form>
+
+
+    <!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/moreInfo.js"></script>
+
+    <% include partials/auth/footerAuth %>

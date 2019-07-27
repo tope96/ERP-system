@@ -1,6 +1,7 @@
 var models = require('../../models');
 var worker = require('./workerUtil.js');
 var dAccount = models.konta_domenowe;
+var teamDom = models.zespolydomenowe;
 var bCrypt = require('bcrypt-nodejs');
 const dotenv = require('dotenv').config();
 var db = require('../../config/db')
@@ -112,6 +113,27 @@ function workersWithoutDomaneAccount(IdTeam){
         });
    }
 
+function createNewDomane(){
+    return teamDom.create({
+
+    }).then(function(created){
+        return created;
+    })
+}
+
+function updateDomaneAccount(idDomaneAccount, idWorker, teamDom){
+    return dAccount.findOne({
+        where:{
+            IdKontoDomenowe: idDomaneAccount
+        }
+    }).then(function(found){
+        return found.update({
+            IdZespol: teamDom,
+            IdPracownik: idWorker
+        });
+    });
+}
+
 module.exports={
     getLogin: getLogin,
     newLogin: newLogin,
@@ -119,5 +141,7 @@ module.exports={
     ifCurrPasswordValid: ifCurrPasswordValid,
     changePassword: changePassword,
     workersWithoutDomaneAccount:workersWithoutDomaneAccount,
-    deleteAccount: deleteAccount
+    deleteAccount: deleteAccount,
+    createNewDomane: createNewDomane,
+    updateDomaneAccount: updateDomaneAccount
 }

@@ -17,7 +17,13 @@ h2{
 }
 
 
+#agreement{
+    display: none;
+}
 
+#agreement2{
+    display: none;
+}
 
 
 /* Sing in form */
