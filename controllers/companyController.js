@@ -6,6 +6,8 @@ var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
 var companyUtil = require('../models/.utils/company.js');
 var townUtil = require('../models/.utils/townUtil.js');
 var clientUtil = require('../models/.utils/clients.js');
+var permissionUtil = require('../models/.utils/permission.js');
+
 
 exports.editCompany = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -13,6 +15,7 @@ exports.editCompany = function (req, res) {
             companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                 townUtil.getTown(company.IdMiasto).then(function (town) {
                     clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                        permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                         res.render('editCompany', {
                             name: profile.Imie,
                             site: "Edytowanie firmy",
@@ -24,7 +27,9 @@ exports.editCompany = function (req, res) {
                             normal: true,
                             companyAlreadyExists: false,
                             editSuccess: false,
-                            clients: clients
+                            clients: clients,
+                            permission: permission,
+                        });
                         });
                     });
                 });
@@ -39,6 +44,7 @@ exports.editCompanyEdition = function (req, res) {
             companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                 townUtil.getTown(company.IdMiasto).then(function (town) {
                     clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                        permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                         res.render('editCompany', {
                             name: profile.Imie,
                             site: "Edytowanie firmy",
@@ -50,8 +56,10 @@ exports.editCompanyEdition = function (req, res) {
                             normal: false,
                             companyAlreadyExists: false,
                             editSuccess: false,
-                            clients: clients
-                        })
+                            clients: clients,
+                            permission: permission
+                        });
+                        });
                     });
                 });
             });
@@ -66,6 +74,7 @@ exports.editCompanyAddProfile = function (req, res) {
                 companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                     townUtil.getTown(company.IdMiasto).then(function (town) {
                         clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                            permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                             res.render('editCompany', {
                                 name: profile.Imie,
                                 site: "Edytowanie firmy",
@@ -78,7 +87,9 @@ exports.editCompanyAddProfile = function (req, res) {
                                 normal: true,
                                 companyAlreadyExists: false,
                                 editSuccess: false,
-                                clients: clients
+                                clients: clients,
+                                permission: permission
+                            });
                             });
                         });
                     });
@@ -95,6 +106,7 @@ exports.editCompanyAddProfileError = function (req, res) {
                 companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                     townUtil.getTown(company.IdMiasto).then(function (town) {
                         clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                            permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                             res.render('editCompany', {
                                 name: profile.Imie,
                                 site: "Edytowanie firmy",
@@ -107,7 +119,9 @@ exports.editCompanyAddProfileError = function (req, res) {
                                 normal: true,
                                 companyAlreadyExists: false,
                                 editSuccess: false,
-                                clients: clients
+                                clients: clients,
+                                permission: permission
+                            });
                             });
                         });
                     });
@@ -123,6 +137,7 @@ exports.editCompanyAddProfileSuccess = function (req, res) {
             companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                 townUtil.getTown(company.IdMiasto).then(function (town) {
                     clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                        permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                         res.render('editCompany', {
                             name: profile.Imie,
                             site: "Edytowanie firmy",
@@ -134,7 +149,9 @@ exports.editCompanyAddProfileSuccess = function (req, res) {
                             normal: true,
                             companyAlreadyExists: false,
                             editSuccess: false,
-                            clients: clients
+                            clients: clients,
+                            permission: permission
+                        });
                         });
                     });
                 });
@@ -149,6 +166,7 @@ exports.editCompanyAddProfileSuccess = function (req, res) {
             companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                 townUtil.getTown(company.IdMiasto).then(function (town) {
                     clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                        permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                         res.render('editCompany', {
                             name: profile.Imie,
                             site: "Edytowanie firmy",
@@ -160,7 +178,9 @@ exports.editCompanyAddProfileSuccess = function (req, res) {
                             normal: true,
                             companyAlreadyExists: false,
                             editSuccess: false,
-                            clients: clients
+                            clients: clients,
+                            permission: permission
+                        });
                         });
                     });
                 });
@@ -175,6 +195,7 @@ exports.editCompanySuccess = function (req, res) {
             companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                 townUtil.getTown(company.IdMiasto).then(function (town) {
                     clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                        permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                         res.render('editCompany', {
                             name: profile.Imie,
                             site: "Edytowanie firmy",
@@ -188,7 +209,9 @@ exports.editCompanySuccess = function (req, res) {
                             editSuccess: false,
                             companyAlreadyExists: false,
                             editSuccess: true,
-                            clients: clients
+                            clients: clients,
+                            permission: permission
+                        });
                         });
                     });
                 });

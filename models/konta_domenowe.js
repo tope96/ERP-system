@@ -33,6 +33,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(150),
       allowNull: false
     },
+    IdUprawnienia: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false
+    },
     IdZespol: {
       type: DataTypes.INTEGER(1),
       allowNull: true

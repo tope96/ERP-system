@@ -9,6 +9,8 @@ var teamUtil = require('../models/.utils/teamsUtil.js');
 var statusUtil = require('../models/.utils/status.js');
 var priorityUtil = require('../models/.utils/priority.js');
 var jobUtil = require('../models/.utils/job.js');
+var permissionUtil = require('../models/.utils/permission.js');
+
 
 exports.production = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -23,6 +25,7 @@ exports.production = function (req, res) {
                                         priorityUtil.getAllPriority().then(function (priority) {
                                             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                                                 jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
+                                                    permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
                                                     res.render('production', {
                                                         name: profile.Imie,
                                                         site: "Zasoby ludzkie",
@@ -35,7 +38,9 @@ exports.production = function (req, res) {
                                                         statuses: statuses,
                                                         priority: priority,
                                                         workers: workers,
-                                                        jobs: jobs 
+                                                        jobs: jobs,
+                                                        permission: permission
+                                                    });
                                                     });
                                                 });
                                             });

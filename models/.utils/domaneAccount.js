@@ -55,7 +55,8 @@ function newAccount(login, password, workerId, idTeam){
                 Login: login,
                 Haslo: generateHash(password),
                 IdPracownik: workerId,
-                IdZespol: idTeam
+                IdZespol: idTeam,
+                IdUprawnienia: 3
             }).then(function(newAcc){
                 if(newAcc){
                     return true;
@@ -134,6 +135,16 @@ function updateDomaneAccount(idDomaneAccount, idWorker, teamDom){
     });
 }
 
+function getDomaneAccounts(idTeam){
+    return dAccount.findAll({
+        where:{
+            IdZespol: idTeam
+        }
+    }).then(function(founds){
+        return founds;
+    });
+}
+
 module.exports={
     getLogin: getLogin,
     newLogin: newLogin,
@@ -143,5 +154,6 @@ module.exports={
     workersWithoutDomaneAccount:workersWithoutDomaneAccount,
     deleteAccount: deleteAccount,
     createNewDomane: createNewDomane,
-    updateDomaneAccount: updateDomaneAccount
+    updateDomaneAccount: updateDomaneAccount,
+    getDomaneAccounts:getDomaneAccounts
 }

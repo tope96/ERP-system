@@ -21,7 +21,7 @@
         </ul>
         <div class="row">
           <div class="col-lg-2 text-center">
-              <button type="button" class="btn btn-success buttonUnderList" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj przedmiot</button>
+              <button type="button" class="btn btn-success buttonUnderList admin-perm" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj przedmiot</button>
           </div>
         </div>
     </div>
@@ -44,14 +44,14 @@
                 <div class="col text-center">
               
                   <form action="deleteAsset" method="POST">
-                    <button type="button" class="btn btn-light actionButtons"
+                    <button type="button" class="btn btn-light actionButtons admin-perm"
                       onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')"><i
                         class="fa fa-edit" data-toggle="tooltip" data-placement="top"
                         title="Edytuj ten przedmiot"></i>
                     </button>
               
                     <input type="hidden" id="asset" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-                    <button type="submit" class="btn btn-danger actionButtons" data-toggle="tooltip" data-placement="top"
+                    <button type="submit" class="btn btn-danger actionButtons admin-perm" data-toggle="tooltip" data-placement="top"
                       title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
                   </form>
               
@@ -79,12 +79,12 @@
           
             <form action="deleteOneAsset" method="POST">
               <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-              <button type="submit" class="btn btn-outline-danger littleButtons" data-toggle="tooltip" data-placement="top"
+              <button type="submit" class="btn btn-outline-danger littleButtons admin-perm" data-toggle="tooltip" data-placement="top"
                 title="Odejmij jedną sztukę"><i class="fa fa-minus"></i></button>
             </form>
             <form action="addOneAsset" method="POST">
               <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-              <button type="submit" class="btn btn-outline-success littleButtons" data-toggle="tooltip" data-placement="top"
+              <button type="submit" class="btn btn-outline-success littleButtons admin-perm" data-toggle="tooltip" data-placement="top"
               title="Dodaj jedną sztukę"><i class="fa fa-plus"></i></button>
             </form>
           </div>

@@ -86,7 +86,8 @@ module.exports = function (passport, user) {
                     var data =
                     {
                         Haslo: userPassword,
-                        Login: req.body.login
+                        Login: req.body.login,
+                        IdUprawnienia: 1
                     };
 
                     User.create(data).then(function (newUser, created) {

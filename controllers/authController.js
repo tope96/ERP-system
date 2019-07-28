@@ -6,6 +6,8 @@ var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccountUtil = require('../models/.utils/domaneAccount.js');
 var companyUtil = require('../models/.utils/company.js');
 var specUtil = require('../models/.utils/specialization.js');
+var permissionUtil = require('../models/.utils/permission.js');
+
 var exports = module.exports = {}
 
 exports.index = function (req, res) {
@@ -28,6 +30,7 @@ exports.home = function (req, res) {
                     jobUtil.countHighPriority(req.user.IdPracownik).then(function (highPriority) {
                         jobUtil.countMediumPriority(req.user.IdPracownik).then(function (mediumPriority) {
                             jobUtil.countTodayJobs(req.user.IdPracownik).then(function (todayJobs) {
+                                permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
                                 res.render('home', {
                                     name: user.Imie,
                                     site: "Pulpit",
@@ -36,7 +39,9 @@ exports.home = function (req, res) {
                                     jobsNotStarted: jobsNotStarted,
                                     highPriority: highPriority,
                                     mediumPriority: mediumPriority,
-                                    todayJobs: todayJobs
+                                    todayJobs: todayJobs,
+                                    permission: permission
+                                });
                                 });
                             });
                         });

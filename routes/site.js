@@ -3,6 +3,8 @@ var controller = require('../controllers/controller.js');
 var companyController = require('../controllers/companyController.js');
 var humanResourcesController = require('../controllers/humanResourcesController.js');
 var productionController = require('../controllers/productionController.js');
+var permissionUtil = require('../models/.utils/permission.js');
+
 
 //Dependencies
 var multer = require('multer');
@@ -175,7 +177,7 @@ module.exports = function (app, passport) {
         var password = req.body.password;
         var worker = req.body.worker;
 
-        domaneAccount.newAccount(login, password, worker, req.res.IdZespol).then(function(ifOk){
+        domaneAccount.newAccount(login, password, worker, req.user.IdZespol).then(function(ifOk){
             if(ifOk){
                 res.redirect('/editCompany');
             }else{
@@ -348,6 +350,7 @@ module.exports = function (app, passport) {
                                         spec.getAllSpec().then(function (specs) {
                                             teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                                 teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                                    permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                                                     res.render('humanResourcesTeamsEdit', {
                                                         name: profile.Imie,
                                                         site: "Zasoby ludzkie",
@@ -359,7 +362,9 @@ module.exports = function (app, passport) {
                                                         spec: specs,
                                                         teams: teams,
                                                         teamsMember: teamsMember,
-                                                        Team: teamiiii
+                                                        Team: teamiiii,
+                                                        permission:permission
+                                                    });
                                                     })
                                                 });
                                             });
@@ -392,6 +397,7 @@ module.exports = function (app, passport) {
                                         spec.getAllSpec().then(function (specs) {
                                             teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                                 teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                                    permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                                                     res.render('humanResourcesTeamsEdit', {
                                                         name: profile.Imie,
                                                         site: "Zasoby ludzkie",
@@ -403,8 +409,10 @@ module.exports = function (app, passport) {
                                                         spec: specs,
                                                         teams: teams,
                                                         teamsMember: teamsMember,
-                                                        Team: teamiiii
-                                                    })
+                                                        Team: teamiiii,
+                                                        permission: permission
+                                                    });
+                                                    });
                                                 });
                                             });
                                         });
@@ -474,9 +482,7 @@ module.exports = function (app, passport) {
         var team = req.body.teamEdit;
         var description = req.body.descriptionEdit;
         var oldTeamId = req.body.oldTeamId;
-        
-        console.log("nowy team: " + team + ", stary team: " + oldTeamId);
-
+    
 
         projectsUtil.updateProject(project, projectName, client, category, dateFrom, dateTo, description, team, oldTeamId).then(function(){
             res.redirect('/production');
@@ -519,6 +525,7 @@ module.exports = function (app, passport) {
                                     spec.getAllSpec().then(function (specs) {
                                         teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                             teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                                permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                                                 res.render('humanResourcesTeamsEdit', {
                                                     name: profile.Imie,
                                                     site: "Zasoby ludzkie",
@@ -530,8 +537,10 @@ module.exports = function (app, passport) {
                                                     spec: specs,
                                                     teams: teams,
                                                     teamsMember: teamsMember,
-                                                    Team: teamiiii
-                                                })
+                                                    Team: teamiiii,
+                                                    permission: permission
+                                                });
+                                                });
                                             });
                                         });
                                     });
@@ -565,6 +574,7 @@ module.exports = function (app, passport) {
                                                 workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                                                     jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                         jobUtil.getOneJob(job2).then(function(job){
+                                                            permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                                                         res.render('productionJob', {
                                                             name: profile.Imie,
                                                             site: "Zasoby ludzkie",
@@ -578,7 +588,9 @@ module.exports = function (app, passport) {
                                                             priority: priority,
                                                             workers: workers,
                                                             jobs: jobs,
-                                                            job: job
+                                                            job: job,
+                                                            permission: permission,
+                                                        });
                                                         });
                                                         });
                                                     });
@@ -626,6 +638,7 @@ module.exports = function (app, passport) {
                                                     workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                                                         jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                             jobUtil.getOneJob(jobId).then(function(job){
+                                                                permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                                                             res.render('productionJob', {
                                                                 name: profile.Imie,
                                                                 site: "Zasoby ludzkie",
@@ -639,7 +652,9 @@ module.exports = function (app, passport) {
                                                                 priority: priority,
                                                                 workers: workers,
                                                                 jobs: jobs,
-                                                                job: job
+                                                                job: job,
+                                                                permission: permission
+                                                            });
                                                             });
                                                             });
                                                         });
@@ -663,12 +678,15 @@ module.exports = function (app, passport) {
         clientUtil.getClientInfo(clientId).then(function (clientInfo) {
             companyUtil.getCompanyInfo(clientInfo.Firma).then(function (companyInfo) {
                 townUtil.getTown(companyInfo.IdMiasto).then(function (townInfo) {
+                    permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                     res.render('editClients', {
                         name: "Tomek",
                         site: "Zasoby ludzkie",
                         clientInfo: clientInfo,
                         companyInfo: companyInfo,
-                        townInfo: townInfo
+                        townInfo: townInfo,
+                        permission: permission
+                    });
                     });
                 });
             });
@@ -711,5 +729,14 @@ module.exports = function (app, passport) {
                 res.redirect('/production');
             }, 2000);
         });
+    });
+
+    app.post('/permissionChange', isLoggedIn, function(req, res){
+        var permission = req.body.perm;
+        var idWorker = req.body.idWorker;
+
+        permissionUtil.changePermission(idWorker, permission).then(function(){
+            res.redirect('/settings')
+        })
     });
 }

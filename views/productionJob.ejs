@@ -20,8 +20,8 @@
                   </ul>
                   <div class="row">
                     <div class="col text-center">
-                        <button type="button" class="btn btn-success buttonUnderList" onclick="addProjectShow()"><i class="fa fa-plus-circle"></i>Dodaj projekt</button>
-                        <button type="button" class="btn btn-success buttonUnderList" onclick="addClientShow()"><i class="fa fa-plus-circle"></i>Dodaj klienta</button>
+                        <button type="button" class="btn btn-success buttonUnderList admin-perm" onclick="addProjectShow()"><i class="fa fa-plus-circle"></i>Dodaj projekt</button>
+                        <button type="button" class="btn btn-success buttonUnderList admin-perm" onclick="addClientShow()"><i class="fa fa-plus-circle"></i>Dodaj klienta</button>
                     </div>
                   </div>
               </div>
@@ -48,7 +48,7 @@
                                   <% if(teamProjects[a].IdProjekt == projects[i].IdProjekt ){ %>
                                     <% for(var b=0; b < teams.length; b++) { %>
                                       <% if(teamProjects[a].IdZespol == teams[b].IdZespol ){ %>
-                                        <button type="button" class="btn btn-light"
+                                        <button type="button" class="btn btn-light actionButtons admin-perm"
                                         onclick="edit('<%= projects[i].Nazwa %>', '<%= projects[i].Opis %>', '<%= projects[i].DataRozpoczecia %>',
                                         '<%= projects[i].DataZakonczenia %>', '<%= projects[i].IdKlient %>', '<%= projects[i].KategoriaProjektu %>', 
                                         '<%= projects[i].IdProjekt %>', '<%= teams[b].IdZespol %>')"><i
@@ -66,7 +66,7 @@
                               <button type="button" onclick="addJobShow('<%= projects[i].IdProjekt %>')" class="btn btn-success actionButtons" data-toggle="tooltip" data-placement="top"
                               title="Dodaj zadanie"><i class="fas fa-calendar-plus"></i></button>
 
-                              <button type="submit" class="btn btn-danger actionButtons" data-toggle="tooltip" data-placement="top"
+                              <button type="submit" class="btn btn-danger actionButtons admin-perm" data-toggle="tooltip" data-placement="top"
                                 title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         

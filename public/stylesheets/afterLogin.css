@@ -113,7 +113,7 @@ body {
 }
 
 .list-group-teams{
-    height: 30rem;
+    height: 15rem;
     /* width: 20rem; */
     overflow: auto;
    
@@ -353,6 +353,18 @@ body {
 
 .unstyledLink{
     color: black
+}
+
+#permissions{
+    display: none;
+}
+
+#perms{
+    display: none;
+}
+
+.listHeight{
+    height: 10rem !important;
 }
 
 @media screen and (max-width: 985px) {

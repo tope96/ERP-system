@@ -14,9 +14,9 @@
             
                 <div class="row">
                     <div class="col text-center">
-                        <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success actionButtons" data-toggle="tooltip"
+                        <a href="/editCompanyAddProfile"><button type="button" class="btn btn-success actionButtons admin-perm" data-toggle="tooltip"
                                 data-placement="top" title="Dodaj konto domenowe"><i class="fa fa-user-plus"></i> </button></a>
-                        <a href="/editCompanyEdition"><button type="button" class="btn btn-light actionButtons" data-toggle="tooltip"
+                        <a href="/editCompanyEdition"><button type="button" class="btn btn-light actionButtons admin-perm" data-toggle="tooltip"
                                 data-placement="top" title="Edytuj firmę"><i class="fa fa-edit"></i></button></a>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                                 <div class="col-lg-12">
                                     <input type="text" id="search" class="form-control search" placeholder="Wyszukaj">
                                     <ul class="ul">
-                                        <div class="list-group" id="list-tab" role="tablist">
+                                        <div class="list-group listHeight" id="list-tab" role="tablist">
                                             <% for(var a=0; a < clients.length; a++) { %>
                                                 <form id="editClients<%= clients[a].IdKlient %>" action="editClients" method="POST">
                                             <li onclick="submitForm('editClients<%= clients[a].IdKlient %>')" class="list-group-item ">

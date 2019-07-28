@@ -8,7 +8,7 @@ var townUtil = require('../models/.utils/townUtil.js');
 var agreementUtil = require('../models/.utils/agreementsUtil.js');
 var spec = require('../models/.utils/specialization');
 var teamsUtil = require('../models/.utils/teamsUtil.js');
-
+var permissionUtil = require('../models/.utils/permission.js');
 
 exports.humanResources = function (req, res) {
 
@@ -22,7 +22,7 @@ exports.humanResources = function (req, res) {
                                 spec.getAllSpec().then(function (specs) {
                                     teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                         teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
-
+                                            permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
                                             res.render('humanResources', {
                                                 name: profile.Imie,
                                                 site: "Zasoby ludzkie",
@@ -33,7 +33,10 @@ exports.humanResources = function (req, res) {
                                                 analit: analit,
                                                 spec: specs,
                                                 teams: teams,
-                                                teamsMember: teamsMember
+                                                teamsMember: teamsMember,
+                                                permission: permission
+                                                
+                                                });
                                             })
                                         });
                                     });

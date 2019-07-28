@@ -20,7 +20,7 @@
         </ul>
         <div class="row">
           <div class="col text-center">
-              <button type="button" class="btn btn-success buttonUnderList" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj pracownika</button>
+              <button type="button" id="hr-perm" class="btn btn-success buttonUnderList hr-perm" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj pracownika</button>
           </div>
         </div>
         <div class="row">
@@ -45,12 +45,12 @@
               <div class="row">
                 <div class="col text-center">
                   <form action="deleteHuman" method="POST">
-                  <button type="button" class="btn btn-light actionButtons"
+                  <button type="button" class="btn btn-light actionButtons hr-perm"
                     onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
                       class="fa fa-edit " data-toggle="tooltip" data-placement="top"
                       title="Edytuj informacje o pracowniku"></i></button>
                     <input type="hidden" name="workerId" value="<%= workers[i].IdPracownik %>">
-                    <button type="submit" class="btn btn-danger actionButtons" data-toggle="tooltip" data-placement="top"
+                    <button type="submit" class="btn btn-danger actionButtons hr-perm" data-toggle="tooltip" data-placement="top"
                     title="Usuń tego pracownika"><i class="fas fa-user-minus"></i></button>
                   </form>
                 </div>
@@ -98,7 +98,7 @@
                     <% } else{ %>
                     <form action="downloadContract" method="POST">
                       <input type="hidden" name="fileName" value="<%= workers[i].PlikUmowy %>">
-                      <button type="submit" class="btn btn-success"><i class="fa fa-file-download"></i> Pobierz umowę
+                      <button type="submit" class="btn btn-success hr-perm"><i class="fa fa-file-download"></i> Pobierz umowę
                       </button>
                     </form>
                     <% } %>
@@ -302,7 +302,7 @@
                         <h4 class="panel-title">
                           <form action="editTeam" method="POST">
                             <a data-toggle="collapse" href="#collapse<%=i%>" class="unstyledLink"><%= teams[i].Nazwa %> </a>
-                            <button type="submit" class="unstyledButton"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="unstyledButton hr-perm"><i class="fa fa-edit"></i></button>
                             <input type="hidden" value="'<%= teams[i].IdZespol %>'" name="idTeamEdit">
                           </form>
                         </h4>
@@ -324,7 +324,7 @@
               </form>
       
               </div>
-              <button type="button" class="btn btn-success" onclick="addTeamView()">Dodaj nowy zespół</button>
+              <button type="button" id="hr-perm" class="btn btn-success hr-perm" onclick="addTeamView()">Dodaj nowy zespół</button>
             </div>
             </div>
             </div>
