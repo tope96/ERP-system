@@ -71,12 +71,14 @@
                 <b>Data zakupu: </b> <%= assets[i].DataZakupu %>
               </div>
 
-            
-          <div class="row ">
+          <div class="row">
+         <div class="col-sm-2">
             <div class="property shadow-sm p-3 mb-2 bg-white rounded">
               <b>Ilość:</b> <%= assets[i].Ilosc %>
-            </div>
-          
+            </div>           
+         </div>
+         <div class="col-sm-10">
+           <div class="row">
             <form action="deleteOneAsset" method="POST">
               <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
               <button type="submit" class="btn btn-outline-danger littleButtons admin-perm" data-toggle="tooltip" data-placement="top"
@@ -86,7 +88,13 @@
               <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
               <button type="submit" class="btn btn-outline-success littleButtons admin-perm" data-toggle="tooltip" data-placement="top"
               title="Dodaj jedną sztukę"><i class="fa fa-plus"></i></button>
-            </form>
+            </form>               
+           </div>
+         
+         </div>
+</div>
+          
+
           </div>
 
           </div>
