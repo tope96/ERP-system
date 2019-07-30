@@ -111,19 +111,26 @@ function deleteFromTeam(toDelete, idTeam){
 }
 
 function addNewMembers(IdTeam, members){
+    return new Promise((resolve, reject) => { 
+        console.log("ARRAY: " + members.length);
     if(Array.isArray(members)){
-        for(var i = 0; i<members; i++){
-            return teamMember.create({
+        for(var i = 0; i<members.length; i++){
+            teamMember.create({
                 IdPracownik: members[i],
                 IdZespol: IdTeam
-            });   
+            });
         }
+                resolve(true);
+
     }else{
         return teamMember.create({
             IdPracownik: members,
             IdZespol: IdTeam
+        }).then(function(){
+            resolve(true);
         });
     }
+});
 }
 
 function teamToProject(idProject, idTeam){
