@@ -439,11 +439,11 @@
                           value="<%=workers[w].IdPracownik %>">
                         <%= workers[w].Imie %> <%= workers[w].Nazwisko %> </b> </li>
                     <input type="hidden" value='<%=Team%>' name="idTeam">
-                  </div>
+                  
                   <%}%>
                     <%}%>
-                  <%}%> 
-                <%}%>
+                  <%}%>   
+                <%}%></div>
                   <input type="hidden" value="<%=Team%>" name="idTeamEdited">
             </div> <button type="submit" class="btn btn-danger"><i class="fas fa-user-minus"></i> Usuń członka
               zespołu</button>
@@ -461,10 +461,17 @@
               <ul class="ul">
                 <form action="addNewMembers" method="POST">
                   <div class="list-group-teams" id="list-tab" role="tablist">
-                    <% for(var i=0; i < workers.length; i++) { %>
-                    <li class="list-group-item "><b><input type="checkbox" name="newMembers"
-                          value="<%=workers[i].IdPracownik %>">
-                        <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
+                    <%loop:for(var i=0; i < workers.length; i++) { %>
+                      <% for(var a=0; a < teamsMember.length; a++) { %>
+                        <%if (teamsMember[a].IdZespol == Team){%>
+                          <%if (teamsMember[a].IdPracownik == workers[i].IdPracownik){%>
+                          <% continue loop;  %>
+                        <% }%>
+                        <% }%>
+                      <%}%>
+                            <li class="list-group-item "><b><input type="checkbox" name="newMembers"
+                                          value="<%=workers[i].IdPracownik %>">
+                                        <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
                     <%}%>
                       <input type="hidden" value='<%=Team%>' name="idTeam">
                   </div>
