@@ -107,6 +107,73 @@
                 </div>
               </div>
 
+              <% for(var a = 0; a < agrees.length; a++){ %>
+                <%if(agrees[a].IdUmowy == workers[i].IdUmowy){ %>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                    <h2> <i class="fas fa-money-bill-wave"></i> Płace:</h2> <br />
+                    <%if(agrees[a].StawkaRyczalt != null){ %>
+                      Stawka ryczałt: <%= agrees[a].StawkaRyczalt %> zł <br />
+                    <% } %>
+                    <%if(agrees[a].StawkaGodzinowa != null){ %>
+                      Stawka godzinowa: <%= agrees[a].StawkaGodzinowa %> zł
+                    <% } %>
+                  </div>
+                </div>
+                  <div class="col-lg-6">
+                    <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                      <h2> <i class="fas fa-calendar-alt"></i> Okres pracy:</h2> <br />
+                      Początek zatrudnienia: <%= agrees[a].DataRozpoczecia %> <br />
+                      Koniec zatrudnienia: <%= agrees[a].DataZakonczenia %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                      <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                          <h2>Warunki zatrudnienia:</h2> <br />
+                          <%if (agrees[a].umowy_b2b != null) {%>
+                            <% for(var b = 0; b < b2b.length; b++){ %>
+                              <%if(agrees[a].umowy_b2b == b2b[b].IdUmowy){ %>
+                                Zatrudnienie na umowę B2B. 
+                                <% for(var c = 0; c < company.length; c++){ %>
+                                  <%if(b2b[b].IdFirma == company[c].IdFirma){ %>
+                                    Firma: <%= company[c].Nazwa %>.
+                                  <% } %> 
+                                <% } %>
+                                <%if(b2b[b].ZakazKonkurencji == 1){ %>
+                                  Zakaz konkurencji.
+                                <% } %>  
+                              <% } %>      
+                            <% } %>
+                          <% }else if(agrees[a].umowy_o_prace != null){ %>
+                              <% for(var b = 0; b < praca.length; b++){ %>
+                                <%if(agrees[a].umowy_o_prace == praca[b].IdUmowy){ %>
+                                  Zatrudnienie na umowę o pracę. Wymiar czasu pracy: <%= praca[b].WymiarCzasuPracy %>
+                                <% } %>                              
+                            <% } %>
+                          <% }else if(agrees[a].umowy_zlecenie != null){ %>
+                            <% for(var b = 0; b < zlecenie.length; b++){ %>
+                              <%if(agrees[a].umowy_zlecenie == zlecenie[b].IdUmowy){ %>
+                                Zatrudnienie na umowę zlecenie.
+                                <%if(zlecenie[b].StatusStudenta == 1){ %>
+                                  Jest studentem.
+                                <% } %>
+                                <%if(zlecenie[b].ZUS == 1){ %>
+                                  Płaci ZUS.
+                                <% } %>
+                              <% } %>                              
+                          <% } %>
+                          <% } %>
+                      </div>
+                    </div>
+                </div>
+
+                <% } %>
+              <% } %>
+
 
             </div>
             <% } %>

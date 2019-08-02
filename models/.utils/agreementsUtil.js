@@ -133,6 +133,7 @@ function addOPraceToAgree(agreeId, oPrace){
         }
     });
 }
+
 function addZlecenieToAgree(agreeId, zlecenie){
     return agreementModel.findOne({
         where:{
@@ -183,6 +184,37 @@ function getAgreeInfo(idAgree){
     })
 }
 
+function getAllAgree(){
+    return agreementModel.findAll({
+    }).then(function(founds){
+        return founds;
+    });
+}
+
+function getB2b(){
+    return agreementB2b.findAll({
+
+    }).then(function(founds){
+        return founds;
+    });
+}
+
+function getOPrace(){
+    return agreementPraca.findAll({
+
+    }).then(function(founds){
+        return founds;
+    });
+}
+
+function getZlecenie(){
+    return agreementZlecenie.findAll({
+
+    }).then(function(founds){
+        return founds;
+    });
+}
+
 module.exports = {
     addAgreement: addAgreement,
     addB2b: addB2b,
@@ -191,5 +223,9 @@ module.exports = {
     addOPraceToAgree: addOPraceToAgree,
     addZlecenie: addZlecenie,
     addZlecenieToAgree: addZlecenieToAgree,
-    getAgreeInfo: getAgreeInfo
+    getAgreeInfo: getAgreeInfo,
+    getAllAgree: getAllAgree,
+    getB2b: getB2b,
+    getOPrace: getOPrace,
+    getZlecenie: getZlecenie
 }

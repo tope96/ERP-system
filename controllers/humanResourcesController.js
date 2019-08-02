@@ -16,28 +16,36 @@ exports.humanResources = function (req, res) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                 companyUtil.getAllCopmany(req.user.IdZespol).then(function (company) {
-                    agreementUtil.getAgreeInfo(profile.IdUmowy).then(function (agree) {
-                        workersUtil.getAllProgrammers().then(function (programmers) {
-                            workersUtil.getAllAnalit().then(function (analit) {
-                                spec.getAllSpec().then(function (specs) {
-                                    teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
-                                        teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
-                                            permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
-                                            res.render('humanResources', {
-                                                name: profile.Imie,
-                                                site: "Zasoby ludzkie",
-                                                workers: workers,
-                                                company: company,
-                                                agree: agree,
-                                                programmers: programmers,
-                                                analit: analit,
-                                                spec: specs,
-                                                teams: teams,
-                                                teamsMember: teamsMember,
-                                                permission: permission
-                                                
+                    workersUtil.getAllProgrammers().then(function (programmers) {
+                        workersUtil.getAllAnalit().then(function (analit) {
+                            spec.getAllSpec().then(function (specs) {
+                                teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                    teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                        permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                                            agreementUtil.getAllAgree().then(function (agrees) {
+                                                agreementUtil.getB2b().then(function (b2b) {
+                                                    agreementUtil.getOPrace().then(function (praca) {
+                                                        agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                            res.render('humanResources', {
+                                                                name: profile.Imie,
+                                                                site: "Zasoby ludzkie",
+                                                                workers: workers,
+                                                                company: company,
+                                                                programmers: programmers,
+                                                                analit: analit,
+                                                                spec: specs,
+                                                                teams: teams,
+                                                                teamsMember: teamsMember,
+                                                                permission: permission,
+                                                                agrees: agrees,
+                                                                b2b: b2b,
+                                                                zlecenie: zlecenie,
+                                                                praca: praca
+                                                            });
+                                                        });
+                                                    });
                                                 });
-                                            })
+                                            });
                                         });
                                     });
                                 });
