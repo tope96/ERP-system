@@ -350,22 +350,35 @@ module.exports = function (app, passport) {
                                         spec.getAllSpec().then(function (specs) {
                                             teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                                 teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
-                                                    permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
-                                                    res.render('humanResourcesTeamsEdit', {
-                                                        name: profile.Imie,
-                                                        site: "Zasoby ludzkie",
-                                                        workers: workers,
-                                                        company: company,
-                                                        agree: agree,
-                                                        programmers: programmers,
-                                                        analit: analit,
-                                                        spec: specs,
-                                                        teams: teams,
-                                                        teamsMember: teamsMember,
-                                                        Team: teamiiii,
-                                                        permission:permission
+                                                    permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                                                        agreementUtil.getAllAgree().then(function (agrees) {
+                                                            agreementUtil.getB2b().then(function (b2b) {
+                                                                agreementUtil.getOPrace().then(function (praca) {
+                                                                    agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                                        res.render('humanResources', {
+                                                                            name: profile.Imie,
+                                                                            site: "Zasoby ludzkie",
+                                                                            workers: workers,
+                                                                            company: company,
+                                                                            agree: agree,
+                                                                            programmers: programmers,
+                                                                            analit: analit,
+                                                                            spec: specs,
+                                                                            teams: teams,
+                                                                            teamsMember: teamsMember,
+                                                                            Team: teamiiii,
+                                                                            permission: permission,
+                                                                            agrees: agrees,
+                                                                            b2b: b2b,
+                                                                            zlecenie: zlecenie,
+                                                                            praca: praca,
+                                                                            edycja: 1
+                                                                        });
+                                                                    });
+                                                                });
+                                                            });
+                                                        });
                                                     });
-                                                    })
                                                 });
                                             });
                                         });
@@ -397,21 +410,34 @@ module.exports = function (app, passport) {
                                         spec.getAllSpec().then(function (specs) {
                                             teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                                 teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
-                                                    permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
-                                                    res.render('humanResourcesTeamsEdit', {
-                                                        name: profile.Imie,
-                                                        site: "Zasoby ludzkie",
-                                                        workers: workers,
-                                                        company: company,
-                                                        agree: agree,
-                                                        programmers: programmers,
-                                                        analit: analit,
-                                                        spec: specs,
-                                                        teams: teams,
-                                                        teamsMember: teamsMember,
-                                                        Team: teamiiii,
-                                                        permission: permission
-                                                    });
+                                                    permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                                                        agreementUtil.getAllAgree().then(function (agrees) {
+                                                            agreementUtil.getB2b().then(function (b2b) {
+                                                                agreementUtil.getOPrace().then(function (praca) {
+                                                                    agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                                        res.render('humanResources', {
+                                                                            name: profile.Imie,
+                                                                            site: "Zasoby ludzkie",
+                                                                            workers: workers,
+                                                                            company: company,
+                                                                            agree: agree,
+                                                                            programmers: programmers,
+                                                                            analit: analit,
+                                                                            spec: specs,
+                                                                            teams: teams,
+                                                                            teamsMember: teamsMember,
+                                                                            Team: teamiiii,
+                                                                            permission: permission,
+                                                                            agrees: agrees,
+                                                                            b2b: b2b,
+                                                                            zlecenie: zlecenie,
+                                                                            praca: praca,
+                                                                            edycja: 1
+                                                                        });
+                                                                    });
+                                                                });
+                                                            });
+                                                        });
                                                     });
                                                 });
                                             });
@@ -511,7 +537,7 @@ module.exports = function (app, passport) {
 
     });
 
-    app.post('/editTeam', function(req, res){
+    app.post('/editTeam', function (req, res) {
         var idTeam = req.body.idTeamEdit;
         var teamiii = idTeam.replace("\'", "");
         var teamiiii = teamiii.replace("\'", "");
@@ -525,21 +551,34 @@ module.exports = function (app, passport) {
                                     spec.getAllSpec().then(function (specs) {
                                         teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
                                             teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
-                                                permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
-                                                res.render('humanResourcesTeamsEdit', {
-                                                    name: profile.Imie,
-                                                    site: "Zasoby ludzkie",
-                                                    workers: workers,
-                                                    company: company,
-                                                    agree: agree,
-                                                    programmers: programmers,
-                                                    analit: analit,
-                                                    spec: specs,
-                                                    teams: teams,
-                                                    teamsMember: teamsMember,
-                                                    Team: teamiiii,
-                                                    permission: permission
-                                                });
+                                                permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                                                    agreementUtil.getAllAgree().then(function (agrees) {
+                                                        agreementUtil.getB2b().then(function (b2b) {
+                                                            agreementUtil.getOPrace().then(function (praca) {
+                                                                agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                                    res.render('humanResources', {
+                                                                        name: profile.Imie,
+                                                                        site: "Zasoby ludzkie",
+                                                                        workers: workers,
+                                                                        company: company,
+                                                                        agree: agree,
+                                                                        programmers: programmers,
+                                                                        analit: analit,
+                                                                        spec: specs,
+                                                                        teams: teams,
+                                                                        teamsMember: teamsMember,
+                                                                        Team: teamiiii,
+                                                                        permission: permission,
+                                                                        agrees: agrees,
+                                                                        b2b: b2b,
+                                                                        zlecenie: zlecenie,
+                                                                        praca: praca,
+                                                                        edycja: 1
+                                                                    });
+                                                                });
+                                                            });
+                                                        });
+                                                    });
                                                 });
                                             });
                                         });

@@ -1,5 +1,28 @@
 var element = document.getElementById("hr");
 element.classList.add("active-bar");
+$(document).ready(function () {
+  if ($('#ifEdit').length) {
+    var editTeam = document.getElementById("editTeam");
+    editTeam.style.display = "block";
+    var addCompany = document.getElementById("addCompany");
+    addCompany.style.display = "none";
+
+    var addTeam = document.getElementById("addTeam");
+    addTeam.style.display = "none";
+
+    var teamsManage = document.getElementById("teamsManage");
+    teamsManage.style.display = "none";
+  }
+
+ 
+});
+
+ function editTeamHide() {
+    if (document.body.contains(editTeam)) {
+    var x = document.getElementById("editTeam");
+    x.style.display = "none";
+    }
+  }
 
 $(function () {
   $('#searchTeam').keyup(function () {
@@ -48,9 +71,6 @@ function addTeamHide() {
   x.style.display = "none";
 }
 
-function editTeamHide() {
-
-}
 
 function teamsManageHide() {
   var x = document.getElementById("teamsManage");
@@ -129,6 +149,7 @@ function teams() {
   y.style.display = "none";
   x.style.display = "none";
   addCompany.style.display = "none";
+
   editTeamHide();
   if (a.style.display === "none") {
     a.style.display = "block";
@@ -169,7 +190,7 @@ function cancel() {
   y.style.display = "block";
 }
 
-function edit(firstName, lastName, email, telephone, id) {
+function edit(firstName, lastName, email, telephone, id, idUmowy) {
   var y = document.getElementById("editPanel");
   y.style.display = "none";
 

@@ -1,0 +1,105 @@
+<div id="editTeam">
+        <div class="row asset-name">
+          <div class="col text-center">
+            <h2>Edycja zespołu</h2>
+            <p>Podaj nowe dane zespołu</p>
+          </div>
+        </div>
+        
+        <hr>
+        
+        <form action="deleteTeam" method="POST">
+          <div class="col text-center">
+            <input type="hidden" name="idTeam" value="<%=Team%>">
+            <button type="submit" class="btn btn-danger actionButtons"><i class="fas fa-trash-alt"></i></button>
+          </div>
+
+        </form>
+
+      <form id="editTeams" action="editTeams" method="POST">
+        <% for(var i=0; i < teams.length; i++) { %>
+          <%if (teams[i].IdZespol == Team){%>
+            <div class="form-group row">
+                <label for="newName" class="col-sm-2 col-form-label">Nazwa zespołu:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control addAssets" name="newName" id="newName" value="<%=teams[i].Nazwa %>">              
+                </div>
+            </div>
+            <input type="hidden" name="idTeam" value="<%=Team%>">
+
+          <% } %>
+        <% } %>
+      
+      </form>
+      
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+            <p>Aktualni członkowie zespołu:</p>
+            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+              <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+      
+              <ul class="ul">
+                <form action="deleteFromTeam" method="POST">
+                  <div class="list-group-teams" id="list-tab" role="tablist">
+                    <% for(var q=0; q < teamsMember.length; q++) { %>
+                    <% for(var w=0; w < workers.length; w++) { %>
+                    <%if (teamsMember[q].IdZespol == Team){%>
+                    <%if (teamsMember[q].IdPracownik == workers[w].IdPracownik){%>
+                    <li class="list-group-item "><b><input type="checkbox" name="toDelete"
+                          value="<%=workers[w].IdPracownik %>">
+                        <%= workers[w].Imie %> <%= workers[w].Nazwisko %> </b> </li>
+                    <input type="hidden" value='<%=Team%>' name="idTeam">
+                  
+                  <%}%>
+                    <%}%>
+                  <%}%>   
+                <%}%></div>
+                  <input type="hidden" value="<%=Team%>" name="idTeamEdited">
+            </div> <button type="submit" class="btn btn-danger"><i class="fas fa-user-minus"></i> Usuń członka
+              zespołu</button>
+            </form>
+            </ul>
+          </div>
+        </div>
+      
+        <div class="col-lg-6">
+          <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+            <p>Dodaj nowych członkow zespołu:</p>
+            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+              <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+      
+              <ul class="ul">
+                <form action="addNewMembers" method="POST">
+                  <div class="list-group-teams" id="list-tab" role="tablist">
+                    <%loop:for(var i=0; i < workers.length; i++) { %>
+                      <% for(var a=0; a < teamsMember.length; a++) { %>
+                        <%if (teamsMember[a].IdZespol == Team){%>
+                          <%if (teamsMember[a].IdPracownik == workers[i].IdPracownik){%>
+                          <% continue loop;  %>
+                        <% }%>
+                        <% }%>
+                      <%}%>
+                            <li class="list-group-item "><b><input type="checkbox" name="newMembers"
+                                          value="<%=workers[i].IdPracownik %>">
+                                        <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
+                    <%}%>
+                      <input type="hidden" value='<%=Team%>' name="idTeam">
+                  </div>
+      
+                  <input type="hidden" value="<%=Team%>" name="idTeamEdited">
+            </div> <button type="submit" class="btn btn-success"><i class="fas fa-user-plus"></i> Dodaj członka
+              zespołu</button>
+            </form>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col text-center">
+              <button type="button" onclick="editTeamHide(); teamsManageView();" class="btn btn-danger">Anuluj</button>
+              <button type="button" onclick="editTeams.submit();" class="btn btn-success"> <i class="fas fa-save"></i> Zapisz</button>
+          </div>
+        </div>
+        </div>

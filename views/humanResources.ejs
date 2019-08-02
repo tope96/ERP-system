@@ -4,6 +4,8 @@
 <div class="col-11">
   <div class="section-assets ">
     <div class="row border shadow-lg p-3 mb-5 rounded">
+        
+      <!-- List od peoples displayes on the left. Required for proper working of site. -->
 
       <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar"><i class="fa fa-caret-square-up"></i></button></div>
       <div id="itemsBar" class="col-lg-2 collapse show"> 
@@ -46,7 +48,7 @@
                 <div class="col text-center">
                   <form action="deleteHuman" method="POST">
                   <button type="button" class="btn btn-light actionButtons hr-perm"
-                    onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>')"><i
+                    onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>', '<%= workers[i].IdUmowy %>')"><i
                       class="fa fa-edit " data-toggle="tooltip" data-placement="top"
                       title="Edytuj informacje o pracowniku"></i></button>
                     <input type="hidden" name="workerId" value="<%= workers[i].IdPracownik %>">
@@ -180,87 +182,88 @@
           </div>
       </div>
 
+      <!-- adding new worker panel-->
       <div id="editPanel">
-        <div class="tab-pane fade show " role="tabpanel">
-          <div class="container">
-
-            <h2>Dodawanie pracownika</h2>
-            <p>Podaj dane nowego pracownika</p>
-            <div class="row">
-              <div class="col-md">
-                <p><b>Dane pracownika</b></p>
-                <form enctype="multipart/form-data" action="addHuman" method="POST">
-                  <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
-                  <input type="text" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko"
-                    required>
-                  <input type="number" class="form-control addAssets" id="telephone" name="telephone"
-                    placeholder="Numer telefonu" required>
-                  <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email"
-                    required>
-                  <select class="form-control addAssets" placeholder="Przełożony" id="superior" name="superior" required>
-                    <% for(var i=0; i < workers.length; i++) { %>
-                    <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %>
-                    </option>
-                    <%}%>
-                  </select>
-                  <p>Stanowisko: </p>
-                  <label class="radio-inline"><input type="radio" value="1" name="position">Programista</label>
-                  <label class="radio-inline"><input type="radio" value="0" name="position">Analityk</label>
-                  <select class="form-control" placeholder="Firma" name="spec" id="spec">
-                      <option selected>Wybierz specjalizację</option>
-                      <% for(var i=0; i < spec.length; i++) { %>
-                        <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
-                      <%}%>
-                  </select>
-              </div> 
-              <div class="col-md">
-                  <p><b>Dane umowy</b></p>
-                  <p>Data rozpoczęcia zatrudnienia: </p>
-                  <input type="date" class="form-control addAssets" name="startDate" placeholder="Data rozpoczęcia">
-                  <p>Data końca zatrudnienia: </p>
-                  <input type="date" class="form-control addAssets" name="endDate" placeholder="Data rozpoczęcia">
-                  <input type="number" class="form-control addAssets" name="lumpSum" placeholder="Stawka ryczałt">
-                  <input type="number" class="form-control addAssets" name="hourlyRate" placeholder="Stawka godzinowa">
-                  <p>Plik umowy:</p>
-                  <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf">
-                  <label class="radio-inline"><input type="radio" name="agreement" value="1" onclick="agreementView()">Umowa o pracę </label>
-                  <label class="radio-inline"><input type="radio" name="agreement" value="2" onclick="agreement2View()">Umowa zlecenie </label>
-                  <label class="radio-inline"><input type="radio" name="agreement" value="3" onclick="agreementB2bView()">Umowa B2B </label>
-                  
-                  <!-- Optional inputs -->
-                  <div id="agreement"> <!-- umowa o prace is checked-->
-                    <input type="number" class="form-control addAssets" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
-                  </div>
-                  <div id="agreement2"> <!-- umowa zlecenie is checked -->
-                    <p>Czy jest studentem?</p>
-                    <label class="radio-inline"><input type="radio" value="1" name="ifStudent">Tak</label>
-                    <label class="radio-inline"><input type="radio" value="0" name="ifStudent">Nie</label>
-
-                    <p>Czy obowiazuje ZUS?</p>
-                    <label class="radio-inline"><input type="radio" value="1" name="ifZus">Tak</label>
-                    <label class="radio-inline"><input type="radio" value="0" name="ifZus">Nie</label>
-                  </div>
-                  <div id="b2b">
-                    <select class="form-control" placeholder="Firma" name="companyB2b" id="companyB2b">
-                        <option selected>Wybierz firmę</option>
-                      <% for(var i=0; i < company.length; i++) { %>
-                        <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
+          <div class="tab-pane fade show " role="tabpanel">
+            <div class="container">
+  
+              <h2>Dodawanie pracownika</h2>
+              <p>Podaj dane nowego pracownika</p>
+              <div class="row">
+                <div class="col-md">
+                  <p><b>Dane pracownika</b></p>
+                  <form enctype="multipart/form-data" action="addHuman" method="POST">
+                    <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
+                    <input type="text" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko"
+                      required>
+                    <input type="number" class="form-control addAssets" id="telephone" name="telephone"
+                      placeholder="Numer telefonu" required>
+                    <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email"
+                      required>
+                    <select class="form-control addAssets" placeholder="Przełożony" id="superior" name="superior" required>
+                      <% for(var i=0; i < workers.length; i++) { %>
+                      <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %>
+                      </option>
                       <%}%>
                     </select>
-                    <button type="button" class="btn btn-warning" onclick="addCompanyView()">Dodaj firmę</button>
-
-                    <p>Czy zakaz konkurencji?</p>
-                    <label class="radio-inline"><input type="radio" value="1" name="ifCompetition">Tak</label>
-                    <label class="radio-inline"><input type="radio" value="0" name="ifCompetition">Nie</label>
-                  </div>
+                    <p>Stanowisko: </p>
+                    <label class="radio-inline"><input type="radio" value="1" name="position">Programista</label>
+                    <label class="radio-inline"><input type="radio" value="0" name="position">Analityk</label>
+                    <select class="form-control" placeholder="Firma" name="spec" id="spec">
+                        <option selected>Wybierz specjalizację</option>
+                        <% for(var i=0; i < spec.length; i++) { %>
+                          <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
+                        <%}%>
+                    </select>
+                </div> 
+                <div class="col-md">
+                    <p><b>Dane umowy</b></p>
+                    <p>Data rozpoczęcia zatrudnienia: </p>
+                    <input type="date" class="form-control addAssets" name="startDate" placeholder="Data rozpoczęcia">
+                    <p>Data końca zatrudnienia: </p>
+                    <input type="date" class="form-control addAssets" name="endDate" placeholder="Data rozpoczęcia">
+                    <input type="number" class="form-control addAssets" name="lumpSum" placeholder="Stawka ryczałt">
+                    <input type="number" class="form-control addAssets" name="hourlyRate" placeholder="Stawka godzinowa">
+                    <p>Plik umowy:</p>
+                    <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf">
+                    <label class="radio-inline"><input type="radio" name="agreement" value="1" onclick="agreementView()">Umowa o pracę </label>
+                    <label class="radio-inline"><input type="radio" name="agreement" value="2" onclick="agreement2View()">Umowa zlecenie </label>
+                    <label class="radio-inline"><input type="radio" name="agreement" value="3" onclick="agreementB2bView()">Umowa B2B </label>
+                    
+                    <!-- Optional inputs -->
+                    <div id="agreement"> <!-- umowa o prace is checked-->
+                      <input type="number" class="form-control addAssets" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
+                    </div>
+                    <div id="agreement2"> <!-- umowa zlecenie is checked -->
+                      <p>Czy jest studentem?</p>
+                      <label class="radio-inline"><input type="radio" value="1" name="ifStudent">Tak</label>
+                      <label class="radio-inline"><input type="radio" value="0" name="ifStudent">Nie</label>
+  
+                      <p>Czy obowiazuje ZUS?</p>
+                      <label class="radio-inline"><input type="radio" value="1" name="ifZus">Tak</label>
+                      <label class="radio-inline"><input type="radio" value="0" name="ifZus">Nie</label>
+                    </div>
+                    <div id="b2b">
+                      <select class="form-control" placeholder="Firma" name="companyB2b" id="companyB2b">
+                          <option selected>Wybierz firmę</option>
+                        <% for(var i=0; i < company.length; i++) { %>
+                          <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
+                        <%}%>
+                      </select>
+                      <button type="button" class="btn btn-warning" onclick="addCompanyView()">Dodaj firmę</button>
+  
+                      <p>Czy zakaz konkurencji?</p>
+                      <label class="radio-inline"><input type="radio" value="1" name="ifCompetition">Tak</label>
+                      <label class="radio-inline"><input type="radio" value="0" name="ifCompetition">Nie</label>
+                    </div>
+                </div>
               </div>
-            </div>
+          </div>
+                    <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+                    <button type="submit" class="btn btn-success">Zapisz</button>
+                  </form>
         </div>
-                  <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
-                  <button type="submit" class="btn btn-success">Zapisz</button>
-                </form>
       </div>
-    </div>
     
     <!-- EDYTOWANIE UZYTKOWNIKA -->
     <div id="edit">
@@ -324,6 +327,9 @@
                </select>
              </div>
           </div>
+
+
+
     
                 <!-- <div class="form-group row">
                     <label for="file-to-upload" class="col-sm-2 col-form-label">Plik z umową:</label>
@@ -333,7 +339,7 @@
                 </div> -->
     
               <input type="hidden" id="idEdit" name="idEdit" value="">
-    
+
               <div class="col text-center">
                 <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
                 <button type="submit" class="btn btn-success">Zapisz</button>
@@ -344,59 +350,59 @@
           </div>
 
           <!-- ZESPOLY -->
-      <div id="teamsManage">
-        <div class="tab-pane fade show " role="tabpanel">
-          <div class="row asset-name">
-            <div class="col text-center">
-              <h2>Zarządzanie zespołami</h2>
-            </div>
-          </div>
-          <hr>
-      
-          <div class="row">
-            <div class="col">
-              <div class=" property shadow p-3 mb-2 bg-white rounded" id="list-tab" role="tablist">
+          <div id="teamsManage">
+              <div class="tab-pane fade show " role="tabpanel">
                 <div class="row asset-name">
                   <div class="col text-center">
-                    <h2>Wszystkie zespoły</h2>
+                    <h2>Zarządzanie zespołami</h2>
                   </div>
                 </div>
-                <div class=" list-group-teams property shadow-sm p-3 mb-5 bg-white rounded">
-                  <% for(var i=0; i < teams.length; i++) { %>
-                  <div class="panel-group">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <form action="editTeam" method="POST">
-                            <a data-toggle="collapse" href="#collapse<%=i%>" class="unstyledLink"><%= teams[i].Nazwa %> </a>
-                            <button type="submit" class="unstyledButton hr-perm"><i class="fa fa-edit"></i></button>
-                            <input type="hidden" value="'<%= teams[i].IdZespol %>'" name="idTeamEdit">
-                          </form>
-                        </h4>
+                <hr>
+            
+                <div class="row">
+                  <div class="col">
+                    <div class=" property shadow p-3 mb-2 bg-white rounded" id="list-tab" role="tablist">
+                      <div class="row asset-name">
+                        <div class="col text-center">
+                          <h2>Wszystkie zespoły</h2>
+                        </div>
                       </div>
-                      <div id="collapse<%=i%>" class="panel-collapse collapse">
-                        <% for(var a=0; a < teamsMember.length; a++) { %>
-                          <% for(var b=0; b < workers.length; b++) { %>
-                            <%if (teamsMember[a].IdZespol == teams[i].IdZespol){%>
-                              <%if (teamsMember[a].IdPracownik == workers[b].IdPracownik){%>
-                                <div class="panel-body"><%= workers[b].Imie %> <%= workers[b].Nazwisko %></div>
+                      <div class=" list-group-teams property shadow-sm p-3 mb-5 bg-white rounded">
+                        <% for(var i=0; i < teams.length; i++) { %>
+                        <div class="panel-group">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <form action="editTeam" method="POST">
+                                  <a data-toggle="collapse" href="#collapse<%=i%>" class="unstyledLink"><%= teams[i].Nazwa %> </a>
+                                  <button type="submit" class="unstyledButton hr-perm"><i class="fa fa-edit"></i></button>
+                                  <input type="hidden" value="'<%= teams[i].IdZespol %>'" name="idTeamEdit">
+                                </form>
+                              </h4>
+                            </div>
+                            <div id="collapse<%=i%>" class="panel-collapse collapse">
+                              <% for(var a=0; a < teamsMember.length; a++) { %>
+                                <% for(var b=0; b < workers.length; b++) { %>
+                                  <%if (teamsMember[a].IdZespol == teams[i].IdZespol){%>
+                                    <%if (teamsMember[a].IdPracownik == workers[b].IdPracownik){%>
+                                      <div class="panel-body"><%= workers[b].Imie %> <%= workers[b].Nazwisko %></div>
+                                    <%}%>
+                                  <%}%>
+                                <%}%> 
                               <%}%>
-                            <%}%>
-                          <%}%> 
-                        <%}%>
-                      </div>
+                            </div>
+                          </div>
+                        </div>
+                        <%}%>     
+                    </form>
+            
                     </div>
+                    <button type="button" id="hr-perm" class="btn btn-success hr-perm" onclick="addTeamView()">Dodaj nowy zespół</button>
                   </div>
-                  <%}%>     
-              </form>
-      
-              </div>
-              <button type="button" id="hr-perm" class="btn btn-success hr-perm" onclick="addTeamView()">Dodaj nowy zespół</button>
-            </div>
-            </div>
-            </div>
-          </div>
-          </div>
+                  </div>
+                  </div>
+                </div>
+                </div>
     
     <!-- DODAWANIE ZESPOLU -->
       <div id="addTeam">
@@ -449,7 +455,13 @@
             </form>
           </div>
         </div>
-      
+
+    
+        <%if(edycja == 1){%>
+          <input type="hidden" id="ifEdit">
+          <% include partials/teamEdit %>
+        <%}%>
+
       <div id="addCompany">
       <div id="myModal" class="modal">
         <div class="modal-content">
