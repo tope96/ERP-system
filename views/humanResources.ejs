@@ -20,6 +20,7 @@
             <%}%>       
           </div>
         </ul>
+        <div class="keepOnBottom">
         <div class="row">
           <div class="col text-center">
               <button type="button" id="hr-perm" class="btn btn-success buttonUnderList hr-perm" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj pracownika</button>
@@ -27,9 +28,9 @@
         </div>
         <div class="row">
           <div class="col text-center">
-              <button type="button" class="btn btn-success buttonUnderList" onclick="teams()"><i class="fas fa-users"></i> Zespoly</button>
+              <button type="button" class="btn btn-success buttonUnderList" onclick="teams()"><i class="fas fa-users"></i> Zespoły</button>
           </div>
-        </div>        
+        </div>   </div>     
     </div>
 <div class="col-lg-10" >
     <div id="infoPanel">
@@ -45,12 +46,13 @@
               </div>
               <hr>
               <div class="row">
-                <div class="col text-center">
+                <div class="col-lg-12 text-center">
+                  <form action="editWorker" method="POST">
+                    <button type="submit" class="btn btn-light actionButtons hr-perm">Edytuj</button>
+                    <input type="hidden" name="IdWorker" value="<%= workers[i].IdPracownik %>">
+                  </form>
                   <form action="deleteHuman" method="POST">
-                  <button type="button" class="btn btn-light actionButtons hr-perm"
-                    onclick="edit('<%= workers[i].Imie %>', '<%= workers[i].Nazwisko %>', '<%= workers[i].Email %>', '<%= workers[i].NumerTelefonu %>', '<%= workers[i].IdPracownik %>', '<%= workers[i].IdUmowy %>')"><i
-                      class="fa fa-edit " data-toggle="tooltip" data-placement="top"
-                      title="Edytuj informacje o pracowniku"></i></button>
+
                     <input type="hidden" name="workerId" value="<%= workers[i].IdPracownik %>">
                     <button type="submit" class="btn btn-danger actionButtons hr-perm" data-toggle="tooltip" data-placement="top"
                     title="Usuń tego pracownika"><i class="fas fa-user-minus"></i></button>
@@ -104,7 +106,6 @@
                       </button>
                     </form>
                     <% } %>
-                    <!-- TODO: informacje o umowie -->
                   </div>
                 </div>
               </div>
@@ -264,90 +265,13 @@
                   </form>
         </div>
       </div>
-    
-    <!-- EDYTOWANIE UZYTKOWNIKA -->
-    <div id="edit">
-      <div class="tab-pane fade show " role="tabpanel">
-        <div class="row asset-name">
-          <div class="col text-center">
-            <h2>Edytowanie pracownika</h2>
-            <p>Podaj nowe dane</p>
-          </div>
-        </div>
-    
-        <form enctype="multipart/form-data" action="editHr" method="POST">
-          <div class="form-group row">
-            <label for="firstNameEdit" class="col-sm-2 col-form-label">Imię:</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control addAssets" id="firstNameEdit" name="firstNameEdit" placeholder="Imię">
-            </div>
-          </div>
-    
-          <div class="form-group row">
-            <label for="lastNameEdit" class="col-sm-2 col-form-label">Nazwisko:</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit"
-                placeholder="Nazwisko">
-            </div>
-          </div>
-    
-          <div class="form-group row">
-            <label for="emailEdit" class="col-sm-2 col-form-label">Email:</label>
-            <div class="col-sm-10">
-              <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit" placeholder="Email">
-            </div>
-          </div>
-    
-          <div class="form-group row">
-            <label for="telephoneEdit" class="col-sm-2 col-form-label">Numer telefonu:</label>
-            <div class="col-sm-10">
-              <input type="number" class="form-control addAssets" id="telephoneEdit" name="telephoneEdit"
-                placeholder="Numer telefonu">
-            </div>
-          </div>
-    
-          <div class="form-group row">
-            <label for="positionEdit" class="col-sm-2 col-form-label">Stanowisko:</label>
-            <div class="col-sm-10">
-              <label class="radio-inline"><input type="radio" value="1" name="positionEdit"
-                  id="positionEdit">Programista</label>
-              <label class="radio-inline"><input type="radio" value="0" name="positionEdit"
-                  id="positionEdit">Analityk</label>
-            </div>
-          </div>
-    
-          <div class="form-group row">
-            <label for="spec" class="col-sm-2 col-form-label">Specjalizacja:</label>
-            <div class="col-sm-10">
-              <select class="form-control" placeholder="Firma" name="specEdit" id="spec">
-                <option selected>Wybierz specjalizację</option>
-                <% for(var i=0; i < spec.length; i++) { %>
-                <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
-                <%}%>
-               </select>
-             </div>
-          </div>
 
-
-
-    
-                <!-- <div class="form-group row">
-                    <label for="file-to-upload" class="col-sm-2 col-form-label">Plik z umową:</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" >          
-                    </div>
-                </div> -->
-    
-              <input type="hidden" id="idEdit" name="idEdit" value="">
-
-              <div class="col text-center">
-                <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
-                <button type="submit" class="btn btn-success">Zapisz</button>
-              </div>
-    
-            </form> 
-            </div>
-          </div>
+      <%if(edycjaPracownika == 1){%>
+        <input type="hidden" id="ifEditWorker">
+        
+        <% include partials/workerEdit %>
+      <%}%>
+      
 
           <!-- ZESPOLY -->
           <div id="teamsManage">

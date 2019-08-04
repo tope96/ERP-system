@@ -268,19 +268,80 @@ module.exports = function (app, passport) {
     });
 
     app.post('/editHr', upload.single('file-to-upload'), isLoggedIn, function(req, res){
+        
         var name = req.body.firstNameEdit;
         var lastName = req.body.lastNameEdit;
         var email = req.body.emailEdit;
         var tel = req.body.telephoneEdit;
         var id = req.body.idEdit;
-        //var contractFileName = req.file.filename;
         var position = req.body.positionEdit;
         var spec = req.body.specEdit;
+        var superior = req.body.superiorEdit;
 
-        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, position, spec);
-        setTimeout(function(){
-            res.redirect('/humanResources');
-        }, 500);
+        var idAgree = req.body.idAgree;
+        var startDate = req.body.startDateEdit;
+        var endDate = req.body.endDateEdit;
+        var lumpSum = req.body.lumpSumEdit;
+        var hourlyRate = req.body.hourlyRateEdit;
+        var agreement = req.body.agreement;
+        var agree = parseInt(agreement);//1 = o prace, 2 = zlecenie, 3 = b2b
+
+        var ifStudent = req.body.ifStudentEdit;
+        var ifZus = req.body.ifZusEdit;
+        var timeOfContract = req.body.timeOfContractEdit;
+        var companyId = req.body.companyB2bEdit;
+        var ifCompetition = req.body.ifCompetitionEdit;
+
+        var contractFileLink = null;
+
+        if(req.file=== 'undefined'){
+            contractFileLink = req.file.filename;
+        }
+        var oldFileName = req.body.fileName;
+
+
+
+        if(contractFileLink == null){
+            contractFileLink = oldFileName;
+        }
+
+        if(spec == -1){
+            spec = null
+        }
+
+        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, position, spec, contractFileLink, superior);
+        agreementUtil.editAgreement(idAgree, startDate, endDate, lumpSum, hourlyRate).then(function(){
+            agreementUtil.deleteOld(idAgree).then(function(){
+                workersUtil.editSpec(id, spec).then(function(){
+
+
+                if(agree == 1){
+                    agreementUtil.addOPrace(timeOfContract).then(function(oPrace){
+                        agreementUtil.addOPraceToAgree(idAgree, oPrace).then(function(){
+                            workersUtil.addAgreeToHuman(id, idAgree);
+                            res.redirect('/humanResources');
+                        })
+                    });
+                }
+                if(agree == 2){
+                    agreementUtil.addZlecenie(ifStudent, ifZus).then(function(zlecenie){
+                        agreementUtil.addZlecenieToAgree(idAgree, zlecenie).then(function(IdAgree){
+                            workersUtil.addAgreeToHuman(id, idAgree);
+                            res.redirect('/humanResources');
+                        })
+                    });
+                }
+                if(agree == 3){
+                    agreementUtil.addB2b(companyId, ifCompetition).then(function(b2bId){
+                        agreementUtil.addB2bToAgree(idAgree, b2bId).then(function(){
+                            workersUtil.addAgreeToHuman(id, idAgree);
+                            res.redirect('/humanResources');
+                        })
+                    });
+                }
+            })
+        })
+    })
     });
 
     app.post('/deleteHuman', isLoggedIn, function(req, res){
@@ -372,7 +433,8 @@ module.exports = function (app, passport) {
                                                                             b2b: b2b,
                                                                             zlecenie: zlecenie,
                                                                             praca: praca,
-                                                                            edycja: 1
+                                                                            edycja: 1,
+                                                                            edycjaPracownika: 0
                                                                         });
                                                                     });
                                                                 });
@@ -432,7 +494,8 @@ module.exports = function (app, passport) {
                                                                             b2b: b2b,
                                                                             zlecenie: zlecenie,
                                                                             praca: praca,
-                                                                            edycja: 1
+                                                                            edycja: 1,
+                                                                            edycjaPracownika: 0
                                                                         });
                                                                     });
                                                                 });
@@ -573,7 +636,8 @@ module.exports = function (app, passport) {
                                                                         b2b: b2b,
                                                                         zlecenie: zlecenie,
                                                                         praca: praca,
-                                                                        edycja: 1
+                                                                        edycja: 1,
+                                                                        edycjaPracownika: 0
                                                                     });
                                                                 });
                                                             });
@@ -599,7 +663,6 @@ module.exports = function (app, passport) {
         var idJob = req.body.jobId;
         var job1 = idJob.replace("\'", "");
         var job2 = job1.replace("\'", "");
-        console.log("=============================" + job2);
         domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
             workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
                 companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
@@ -636,7 +699,7 @@ module.exports = function (app, passport) {
                                                 });
                                             });
                                         });
-                                    })
+                                    });
                                 });
                             });
                         });
@@ -778,4 +841,70 @@ module.exports = function (app, passport) {
             res.redirect('/settings')
         })
     });
+
+    app.post('/editWorker', isLoggedIn, function(req, res){
+        var IdWorker = req.body.IdWorker;
+
+        domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+            workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                workersUtil.getWorkerInfo(IdWorker).then(function (workerInfo) {
+                workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                    companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                            agreementUtil.getAgreeInfo(workerInfo.IdUmowy).then(function (agreeMore) {
+                            agreementUtil.getAllAgreInfo(workerInfo.IdUmowy).then(function (agreeInfo) {
+                            workersUtil.getAllProgrammers().then(function (programmers) {
+                                workersUtil.getAllAnalit().then(function (analit) {
+                                    spec.getAllSpec().then(function (specs) {
+                                        teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                            teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                                permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                                                    agreementUtil.getAllAgree().then(function (agrees) {
+                                                        agreementUtil.getB2b().then(function (b2b) {
+                                                            agreementUtil.getOPrace().then(function (praca) {
+                                                                agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                                    workersUtil.analitOrProgrammer(IdWorker).then(function(analitOrProgram){
+                                                                        workersUtil.getSpec(IdWorker).then(function(currSpec){
+                                                                    res.render('humanResources', {
+                                                                        name: profile.Imie,
+                                                                        site: "Zasoby ludzkie",
+                                                                        workers: workers,
+                                                                        company: company,
+                                                                        programmers: programmers,
+                                                                        analit: analit,
+                                                                        spec: specs,
+                                                                        teams: teams,
+                                                                        teamsMember: teamsMember,
+                                                                        permission: permission,
+                                                                        agrees: agrees,
+                                                                        b2b: b2b,
+                                                                        zlecenie: zlecenie,
+                                                                        praca: praca,
+                                                                        edycja: 0,
+                                                                        edycjaPracownika: 1,
+                                                                        workerInfo: workerInfo,
+                                                                        agreeInfo: agreeInfo,
+                                                                        agreeMore: agreeMore,
+                                                                        analitOrProgram: analitOrProgram,
+                                                                        currSpec: currSpec
+                                                                    })
+                                                                    });
+                                                                    });
+                                                                    });
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+});
 }

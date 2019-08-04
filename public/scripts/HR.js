@@ -14,15 +14,80 @@ $(document).ready(function () {
     teamsManage.style.display = "none";
   }
 
- 
+  if ($('#ifEditWorker').length) {
+    var edit = document.getElementById("edit");
+    edit.style.display = "block";
+
+    var addCompany = document.getElementById("addCompany");
+    addCompany.style.display = "none";
+
+    var addTeam = document.getElementById("addTeam");
+    addTeam.style.display = "none";
+
+    var teamsManage = document.getElementById("teamsManage");
+    teamsManage.style.display = "none";
+    editTeamHide();
+  }
+
+  if ($('#oPrace').is(':checked')) {
+    var editTeam = document.getElementById("agreementEdit");
+    editTeam.style.display = "block";
+
+    var agree2 = document.getElementById("agreement2Edit");
+    agree2.style.display = "none";
+
+    var b2bEdit = document.getElementById("b2bEdit");
+    b2bEdit.style.display = "none";
+  }
+
+  if ($('#b2b1').is(':checked')) {
+    var agree = document.getElementById("agreementEdit");
+    agree.style.display = "none";
+
+    var agree2 = document.getElementById("agreement2Edit");
+    agree2.style.display = "none";
+
+    var b2bEdit = document.getElementById("b2bEdit");
+    b2bEdit.style.display = "block";
+  }
+
+  if ($('#zlecenie').is(':checked')) {
+    var agree = document.getElementById("agreementEdit");
+    agree.style.display = "none";
+
+    var agree2 = document.getElementById("agreement2Edit");
+    agree2.style.display = "block";
+
+    var b2bEdit = document.getElementById("b2bEdit");
+    b2bEdit.style.display = "none";
+  }
+
+
 });
 
  function editTeamHide() {
-    if (document.body.contains(editTeam)) {
-    var x = document.getElementById("editTeam");
-    x.style.display = "none";
-    }
+  var element = document.getElementById("editTeam");
+ 
+  //If it isn't "undefined" and it isn't "null", then it exists.
+  if(typeof(element) != 'undefined' && element != null){
+    element.style.display = "none";
+  } else{
   }
+
+  }
+
+  function editWorkerHide() {
+
+    var element = document.getElementById("ifEditWorker");
+    var x = document.getElementById("edit");
+    //If it isn't "undefined" and it isn't "null", then it exists.
+    if(typeof(element) != 'undefined' && element != null){
+      x.style.display = "none";
+    } else{
+    }
+
+  }
+
 
 $(function () {
   $('#searchTeam').keyup(function () {
@@ -46,8 +111,7 @@ var addCompany = document.getElementById("addCompany");
 addCompany.style.display = "none";
 var addTeam = document.getElementById("addTeam");
 addTeam.style.display = "none";
-var editTeam = document.getElementById("editTeam");
-editTeam.style.display = "none";
+editTeamHide();
 function copyToClipboard(element) {
   var $temp = $("<input>");
   $("body").append($temp);
@@ -102,12 +166,12 @@ function newTeamHide(){
 function addTeamView() {
   var y = document.getElementById("infoPanel");
   var x = document.getElementById("editPanel");
-  var z = document.getElementById("edit");
+
   var a = document.getElementById("teamsManage");
   var b = document.getElementById("addTeam");
   editTeamHide();
+  editWorkerHide();
   a.style.display = "none";
-  z.style.display = "none";
   y.style.display = "none";
   b.style.display = "block";
 }
@@ -115,7 +179,6 @@ function addTeamView() {
 function myFunction() {
   var y = document.getElementById("infoPanel");
   var x = document.getElementById("editPanel");
-  var z = document.getElementById("edit");
   var a = document.getElementById("teamsManage");
   var b = document.getElementById("addTeam");
   var addCompany = document.getElementById("addCompany");
@@ -125,8 +188,8 @@ function myFunction() {
   editTeamHide();
   b.style.display = "none";
   a.style.display = "none";
-  z.style.display = "none";
   y.style.display = "none";
+  editWorkerHide();
   addCompany.style.display = "none";
 
   if (x.style.display === "none") {
@@ -140,14 +203,13 @@ function myFunction() {
 function teams() {
   var y = document.getElementById("infoPanel");
   var x = document.getElementById("editPanel");
-  var z = document.getElementById("edit");
   var a = document.getElementById("teamsManage");
   var b = document.getElementById("addTeam");
   var addCompany = document.getElementById("addCompany");
   b.style.display = "none";
-  z.style.display = "none";
   y.style.display = "none";
   x.style.display = "none";
+  editWorkerHide();
   addCompany.style.display = "none";
 
   editTeamHide();
@@ -160,7 +222,6 @@ function teams() {
 }
 
 function hide() {
-  var edit = document.getElementById("edit");
   var editPanel = document.getElementById("editPanel");
   var infoPanel = document.getElementById("infoPanel");
   var teamManage = document.getElementById("teamsManage");
@@ -169,23 +230,17 @@ function hide() {
   b.style.display = "none";
   editPanel.style.display = "none";
   infoPanel.style.display = "block";
-  edit.style.display = "none";
   teamManage.style.display = "none";
   addCompany.style.display = "none";
+  editWorkerHide();
   editTeamHide();
 }
 
 function cancel() {
-  var z = document.getElementById("edit");
-  z.style.display = "none";
+  editWorkerHide();
   var x = document.getElementById("editPanel");
   x.style.display = "none";
-  document.getElementById("name").value = "";
-  document.getElementById("description").value = "";
-  document.getElementById("type").value = "";
-  document.getElementById("price").value = "";
-  document.getElementById("date").value = "";
-  document.getElementById("owner").value = "";
+  editWorkerHide();
   var y = document.getElementById("infoPanel");
   y.style.display = "block";
 }
@@ -233,6 +288,33 @@ function agreementB2bView() {
   input3.style.display = "block";
 }
 
+function agreementViewEdit(wymiarCzasu) {
+  hideAgreemtnInput2Edit();
+  hideAgreementB2bEdit();
+
+  if(wymiarCzasu != null){
+    document.getElementById("timeOfContractEdit").value = wymiarCzasu;
+  }
+
+  var editTeam = document.getElementById("agreementEdit");
+  editTeam.style.display = "block";
+}
+
+function agreement2ViewEdit() {
+  hideAgreementInputEdit();
+  hideAgreementB2bEdit();
+  var input2 = document.getElementById("agreement2Edit");
+  input2.style.display = "block";
+}
+
+function agreementB2bViewEdit() {
+  hideAgreementInputEdit();
+  hideAgreemtnInput2Edit();
+  var input3 = document.getElementById('b2bEdit');
+  input3.style.display = "block";
+}
+
+
 function hideAgreementB2b() {
   var input3 = document.getElementById('b2b');
   input3.style.display = "none";
@@ -248,3 +330,25 @@ function hideAgreemtnInput2() {
   input2.style.display = "none";
 }
 
+function hideAgreementB2bEdit() {
+  var input3 = document.getElementById('b2bEdit');
+  input3.style.display = "none";
+}
+
+function hideAgreementInputEdit() {
+  var inputs = document.getElementById('agreementEdit');
+  inputs.style.display = "none";
+}
+
+function hideAgreemtnInput2Edit() {
+  var input2 = document.getElementById("agreement2Edit");
+  input2.style.display = "none";
+}
+
+function setvaluePraca(wymiar){
+  document.getElementById("timeOfContractEdit").value = wymiar;
+}
+
+function downloadFileEdit(){
+  document.getElementById("downloadFileEdit").submit();
+}

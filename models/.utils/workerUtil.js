@@ -52,7 +52,7 @@ function editUser(req, res, name, lastName, email, login, id) {
     }, 1000);
 }
 
-function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, spec) {
+function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, spec, file, superior) {
     if (name != '') {
         newName(id, name);
     }
@@ -68,6 +68,18 @@ function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, s
     if (position != '') {
         position.newPosition(id, newPosition);
     }
+
+    return pracownik.findOne({
+        where:{
+            IdPracownik: id
+        }
+    }).then(function(found){
+        found.update({
+            PlikUmowy: file,
+            IdPrzelozony: superior,
+
+        });
+    });
 
 }
 
@@ -232,7 +244,6 @@ function layOff(IdWorker) {
 }
 
 function addAgreeToHuman(IdWorker, IdAgree) {
-    console.log("TUUUUUUUUUUUUUUTAJ: " + IdWorker + IdAgree);
     var workId = IdWorker.IdPracownik;
     return pracownik.findOne({
         where: {
@@ -269,6 +280,66 @@ function getAllAnalit() {
     })
 }
 
+function analitOrProgrammer(IdWorker){
+    return programmers.findOne({
+        where:{
+            IdPracownik: IdWorker
+        }
+    }).then(function(foundProgrammer){
+        if(foundProgrammer){
+            return "programmer";
+        }else{
+            return "analitics";
+        }
+    })
+}
+
+function editSpec(IdWorker, newSpec){
+    return programmers.findOne({
+        where:{
+            IdPracownik: IdWorker
+        }
+    }).then(function(found){
+        if(found){
+                    return found.update({
+            IdSpecjalizacja: newSpec
+        });
+        }else{
+            return analit.findOne({
+                where:{
+                    IdPracownik:IdWorker
+                }
+            }).then(function(foundAnalit){
+                return foundAnalit.update({
+                    IdSpecjalizacja: newSpec
+                });
+            })
+        }
+
+    })
+}
+
+function getSpec(IdWorker){
+    return programmers.findOne({
+        where:{
+            IdPracownik: IdWorker
+        }
+    }).then(function(found){
+        if(found){
+            return found.IdSpecjalizacja;
+        }else{
+            return analit.findOne({
+                where:{
+                    IdPracownik:IdWorker
+                }
+            }).then(function(foundAnalit){
+                return foundAnalit.IdSpecjalizacja;
+            })
+        }
+
+    })
+}
+
 module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
@@ -282,5 +353,8 @@ module.exports = {
     getAllProgrammers: getAllProgrammers,
     getAllAnalit: getAllAnalit,
     signUp: signUp,
-    human: human
+    human: human,
+    analitOrProgrammer: analitOrProgrammer,
+    editSpec: editSpec,
+    getSpec:getSpec
 }

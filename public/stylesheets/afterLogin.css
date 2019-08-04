@@ -367,6 +367,11 @@ body {
     height: 10rem !important;
 }
 
+.keepOnBottom{
+    position: absolute;
+    bottom: 0;
+}
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;

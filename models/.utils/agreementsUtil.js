@@ -150,6 +150,16 @@ function addZlecenieToAgree(agreeId, zlecenie){
     });
 }
 
+function getAllAgreInfo(idAgree){
+    return agreementModel.findOne({
+        where:{
+            IdUmowy: idAgree
+        }
+    }).then(function(agree){
+        return agree;
+    });
+}
+
 function getAgreeInfo(idAgree){
     return agreementModel.findOne({
         where:{
@@ -157,6 +167,7 @@ function getAgreeInfo(idAgree){
         }
     }).then(function(agree){
         if(agree.umowy_b2b != null){
+            console.log("b2b");
             return agreementB2b.findOne({
                 where:{
                     IdUmowy: agree.umowy_b2b
@@ -164,15 +175,22 @@ function getAgreeInfo(idAgree){
             }).then(function(agreeB2b){
                 return agreeB2b;
             });
-        }else if(agree.umowy_o_prace != null){
-            return agreementModel.findOne({
+        }
+        
+        if(agree.umowy_o_prace != null){
+           console.log("O prace " + agree.umowy_o_prace);
+            return agreementPraca.findOne({
                 where:{
                     IdUmowy: agree.umowy_o_prace
                 }
             }).then(function(agreeOPrace){
+                console.log(agreeOPrace.WymiarCzasuPracy);
                 return agreeOPrace;
             });
-        }else if(agree.zlecenie != null){
+        }
+        
+        if(agree.umowy_zlecenie != null){
+            console.log("Zlecenie ");
             return agreementZlecenie.findOne({
                 where:{
                     IdUmowy: agree.umowy_zlecenie
@@ -215,6 +233,35 @@ function getZlecenie(){
     });
 }
 
+function editAgreement(IdAgree, startDate, endDate, ryczalt, hourly){
+    return agreementModel.findOne({
+        where:{
+            IdUmowy: IdAgree
+        }
+    }).then(function(agree){
+        return agree.update({
+            DataRozpoczecia: startDate,
+            DataZakonczenia: endDate,
+            StawkaRyczalt: ryczalt,
+            StawkaGodzinowa: hourly
+        });
+    });
+}
+
+function deleteOld(IdAgree){
+    return agreementModel.findOne({
+        where:{
+            IdUmowy: IdAgree
+        }
+    }).then(function(found){
+        return found.update({
+            umowy_b2b: null,
+            umowy_o_prace: null,
+            umowy_zlecenie: null
+        });
+    });
+}
+
 module.exports = {
     addAgreement: addAgreement,
     addB2b: addB2b,
@@ -227,5 +274,8 @@ module.exports = {
     getAllAgree: getAllAgree,
     getB2b: getB2b,
     getOPrace: getOPrace,
-    getZlecenie: getZlecenie
+    getZlecenie: getZlecenie,
+    getAllAgreInfo:getAllAgreInfo,
+    editAgreement: editAgreement,
+    deleteOld: deleteOld
 }

@@ -41,7 +41,8 @@ exports.humanResources = function (req, res) {
                                                                 b2b: b2b,
                                                                 zlecenie: zlecenie,
                                                                 praca: praca,
-                                                                edycja: 0
+                                                                edycja: 0,
+                                                                edycjaPracownika: 0
                                                             });
                                                         });
                                                     });
