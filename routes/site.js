@@ -3,8 +3,9 @@ var controller = require('../controllers/controller.js');
 var companyController = require('../controllers/companyController.js');
 var humanResourcesController = require('../controllers/humanResourcesController.js');
 var productionController = require('../controllers/productionController.js');
+var proposalController = require('../controllers/proposalController.js');
 var permissionUtil = require('../models/.utils/permission.js');
-
+var proposalUtil = require('../models/.utils/proposal.js');
 
 //Dependencies
 var multer = require('multer');
@@ -79,6 +80,7 @@ module.exports = function (app, passport) {
     app.get('/humanResources', isLoggedIn, humanResourcesController.humanResources);
     app.get('/production', isLoggedIn, productionController.production);
     app.get('/kalendarz', isLoggedIn, controller.calendar);
+    app.get('/writeProposal', isLoggedIn, proposalController.writeProposal);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -216,10 +218,15 @@ module.exports = function (app, passport) {
         var lumpSum = req.body.lumpSum;
         var hourlyRate = req.body.hourlyRate;
         var companyId = req.body.companyB2b;
-        var contractFileLink = req.file.filename;
+        var contractFileLink = null;
         var position = req.body.position; // 0 - analityk, 1 - programista
         var spec = req.body.spec;
 
+        if(req.file === 'undefined'){
+            contractFileLink = null;
+        }else{
+            contractFileLink = req.file.filename;
+        }
         
         workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol, contractFileLink).then(function(user){
             if(position == 1){
@@ -906,5 +913,32 @@ module.exports = function (app, passport) {
             });
         });
     });
+});
+
+app.post('/sendProposal', isLoggedIn, function(req, res){
+    var category = req.body.proposalCategory;
+    var name = req.body.proposalName;
+    var description = req.body.proposalDesc;
+    var argumentation = req.body.proposalArgumentation;
+
+    proposalUtil.addProposal(name, description, argumentation, category, req.user.IdPracownik, req.user.IdZespol).then(function(){
+        res.redirect("/settings");
+    })
+});
+
+app.post('/acceptProposal', isLoggedIn, function(req, res){
+    var idProposal = req.body.proposalIdReceived;
+    console.log("proposal: " + idProposal )
+    proposalUtil.acceptProposal(idProposal).then(function(){
+        res.redirect("/settings");
+    })
+});
+
+app.post('/declineProposal', isLoggedIn, function(req, res){
+    var idProposal = req.body.proposalIdReceivedDec;
+    console.log("proposal dec: " + idProposal )
+    proposalUtil.declineProposal(idProposal).then(function(){
+        res.redirect("/settings");
+    })
 });
 }

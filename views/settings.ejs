@@ -12,28 +12,259 @@
             <hr>
 
 
-<div class="row">
-    <div class="col-lg-12 ">
-        Zarządzaj uprawnieniami
-        <button type="button" onclick="showWorkers()" class="btn btn-success admin-perm">Zarządzaj</button>
-    </div>
-</div>
+            <div class="row">
+                <div class="col-lg-12 ">
+                    Aby zmienić uprawnienia pracowników, kliknij: 
+                    <button type="button" onclick="showWorkers()" class="btn btn-success admin-perm">Zarządzaj uprawnieniami</button>
+                </div>
+            </div>
+<hr>
 
 
+            <!-- WYSŁANE WNIOSKI -->
+            <div class='row normal-perm'>
+                <div class="col-lg-12 text-center">
+                    <% if(sentProposal.length < 1){%>
+                        <!-- Do nothing -->
+                    <% }else{%>
+                    <p>Wysłane wnioski:</p>
+                    <div class="table-responsive maxHeight">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nazwa</th>
+                                <th scope="col">Kategoria</th>
+                                <th scope="col">Data wysłania</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Podgląd</th>
+                              </tr>
+                            </thead>
+                        
+                            <tbody>
+                                
+                                <%for(var i = 0; i<sentProposal.length; i++){%>
+                                        <%for(var a = 0; a<categories.length; a++){%>
+                                            <%if(categories[a].IdKategoriaWniosku == sentProposal[i].KategoriaWniosku){%>
+                                    <tr>
+                                        <td><%= sentProposal[i].Nazwa%></td>
+                                        <td><%= categories[a].Nazwa%></td>
+                                        <td><%= sentProposal[i].DataWyslania%></td>
+                                        <%if(sentProposal[i].Status == 1){%>
+                                            <td><i class="fas fa-check"></i></td>
+                                        <%}else if(sentProposal[i].Status == 2){%>
+                                            <td><i class="fas fa-times"></i></td>
+                                        <%}else if(sentProposal[i].Status == 3) {%>
+                                            <td><i class="fas fa-hourglass-half"></i></td>
+                                        <%}%>
+                                        <td><button type="button" onclick="showProposal('<%= sentProposal[i].Nazwa%>', '<%= sentProposal[i].Opis%>', '<%= sentProposal[i].ArgumentacjaWniosku%>', '<%= categories[a].Nazwa%>', '<%= sentProposal[i].DataWyslania%>');" class="btn btn-success"><i class="fas fa-eye"></i> </button></td>
+                                    </tr>
+                                    
+                                <%}%>
+                                <%}%>
+                                <%}%>
+                                
+                            </tbody>
+                        </table>
+                          <%}%>
+                        </div>
+                </div>            
+            </div>
+            <div class="row normal-perm">
+                    <div class="col-lg-12 text-center">
+                        <form action="writeProposal" method="GET">
+                            <button type='submit' class="btn btn-success normal-perm "><i class="fas fa-plus-circle"></i> Złóż wniosek</button>
+                        </form>
+            
+                    </div>
+                </div>
 
-                  <!-- UPRAWNIENIA -->
-                  <div id="permissions" class="modal">
-                        <div class="modal-content">
-                            <h3>Wybierz użytkownika</h3>
-                            <p>Wybierz użytkownika, któremu chcesz zmienić lub nadać uprawnienia.</p>
-                            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
-                                    <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
-                                    <ul class="ul">
-                                            <div class="list-group-teams" id="list-tab" role="tablist">
-                                                <% for(var i=0; i < workers.length; i++) { %>
-                                                <li onclick="changePerm('<%= workers[i].IdPracownik %>')" class="list-group-item "><b>
-                                                <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
+
+            <!-- OCZEKUJACE WNIOSKI -->
+            <div class='row admin-perm'>
+                    <div class="col-lg-12 text-center">
+                        <% if(sentProposal.length < 1){%>
+                        <% }else{%>
+
+                        <p>Otrzymane wnioski:</p>
+                        <div class="table-responsive maxHeight">
+                            <table class="table">
+                                
+                                    <thead>
+                                      <tr>
+                                            <th scope="col">Nadawca</th>
+                                        <th scope="col">Nazwa</th>
+                                        <th scope="col">Kategoria</th>
+                                        <th scope="col">Data wysłania</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Podgląd</th>
+                                      </tr>
+                                    </thead>
+                                
+                                    <tbody>
+                                    
+                                    <%for(var i = 0; i<received.length; i++){%>
+                                            <%for(var a = 0; a<categories.length; a++){%>
+                                                    <% for(var b=0; b < workers.length; b++) { %>
+                                                <%if(categories[a].IdKategoriaWniosku == received[i].KategoriaWniosku){%>
+                                                    <%if(workers[b].IdPracownik == received[i].IdPracownik){%>
+                                        <tr>
+                                                <td><%= workers[b].Imie %> <%= workers[b].Nazwisko %></th>
+                                            <td><%= received[i].Nazwa%></th>
+                                            <td><%= categories[a].Nazwa%></td>
+                                            <td><%= received[i].DataWyslania%></td>
+                                            <%if(received[i].Status == 1){%>
+                                                <td><i class="fas fa-check"></i></td>
+                                            <%}else if(received[i].Status == 2){%>
+                                                <td><i class="fas fa-times"></i></td>
+                                            <%}else if(received[i].Status == 3) {%>
+                                                <td><i class="fas fa-hourglass-half"></i></td>
                                             <%}%>
+                                            <td><button type="button" onclick="showProposalReceived('<%= received[i].Nazwa%>', '<%= received[i].Opis%>', '<%= received[i].ArgumentacjaWniosku%>', '<%= categories[a].Nazwa%>', '<%= received[i].DataWyslania%>', '<%= workers[b].Imie %> <%= workers[b].Nazwisko %>', '<%= received[i].IdWniosek%> ');" class="btn btn-success"><i class="fas fa-eye"></i> </button></td>
+                                        </tr>
+                                    <%}%>
+                                    <%}%>
+                                    <%}%>
+                                    <%}%>
+                                    <%}%>
+                                </tbody>
+                              </table>
+                              <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- WNIOSEK WYSŁANY -->
+            <div id="proposal" class="modal">
+                    <div class="modal-content">
+                        <h3>Wniosek</h3>
+
+                        <div class="form-group row">
+                                <label for="proposalDate" class="col-sm-2 col-form-label"><p>Data wysłania</p></label>
+                                <div class="col-sm-10">
+                                        <input type="text" class="form-control addAssets" name="proposalDate" id="proposalDate" readonly>
+                                </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label for="proposalCategory" class="col-sm-2 col-form-label"><p>Kategoria</p></label>
+                                <div class="col-sm-10">
+                                        <input type="text" class="form-control addAssets" name="proposalCategory" id="proposalCategory" readonly>
+                                </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label for="proposalName" class="col-sm-2 col-form-label"><p>Nazwa</p></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control addAssets" name="proposalName" id="proposalName" readonly>
+                                </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                                <label for="proposalDescription" class="col-sm-2 col-form-label"><p>Opis</p></label>
+                                <div class="col-sm-10">
+                                        <textarea class="form-control addAssets" rows="10" id="proposalDescription"
+                                        name="proposalDescription" placeholder="Argumentacja" readonly></textarea>
+                                </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label for="proposalArgumentation" class="col-sm-2 col-form-label"><p>Argumentacja</p></label>
+                                <div class="col-sm-10">
+                                        <textarea class="form-control addAssets" rows="10" id="proposalArgumentation"
+                                        name="proposalArgumentation" placeholder="Argumentacja" readonly></textarea>
+                                </div>
+                        </div>
+
+                    <button type="button" class="btn btn-danger" onclick="hideProposal()">Zamknij</button>
+                    </div>
+            </div>
+
+            <!-- WNIOSEK OTRZYMANY -->
+            <div id="proposalReceived" class="modal">
+                    <div class="modal-content">
+                        <h3>Wniosek</h3>
+
+                        <div class="form-group row">
+                                <label for="proposalSenderReceived" class="col-sm-2 col-form-label"><p>Nadawca</p></label>
+                                <div class="col-sm-10">
+                                        <input type="text" class="form-control addAssets" name="proposalSenderReceived" id="proposalSenderReceived" readonly>
+                                </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label for="proposalDateReceived" class="col-sm-2 col-form-label"><p>Data wysłania</p></label>
+                                <div class="col-sm-10">
+                                        <input type="text" class="form-control addAssets" name="proposalDateReceived" id="proposalDateReceived" readonly>
+                                </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label for="proposalCategoryReceived" class="col-sm-2 col-form-label"><p>Kategoria</p></label>
+                                <div class="col-sm-10">
+                                        <input type="text" class="form-control addAssets" name="proposalCategoryReceived" id="proposalCategoryReceived" readonly>
+                                </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label for="proposalNameReceived" class="col-sm-2 col-form-label"><p>Nazwa</p></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control addAssets" name="proposalNameReceived" id="proposalNameReceived" readonly>
+                                </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                                <label for="proposalDescriptionReceived" class="col-sm-2 col-form-label"><p>Opis</p></label>
+                                <div class="col-sm-10">
+                                        <textarea class="form-control addAssets" rows="10" id="proposalDescriptionReceived"
+                                        name="proposalDescriptionReceived" placeholder="Argumentacja" readonly></textarea>
+                                </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label for="proposalArgumentationReceived" class="col-sm-2 col-form-label"><p>Argumentacja</p></label>
+                                <div class="col-sm-10">
+                                        <textarea class="form-control addAssets" rows="10" id="proposalArgumentationReceived"
+                                        name="proposalArgumentationReceived" placeholder="Argumentacja" readonly></textarea>
+                                </div>
+                        </div>
+
+                        <div class="row addAssets">
+                            <div class='col-lg-12 text-center'>
+                                <button type="submit" onclick="acceptProposal()" class="btn btn-success"><i class="fas fa-check"></i> Akceptuj wniosek</button>
+                                <button type="submit" onclick="declineProposal()" class="btn btn-danger"><i class="fas fa-times"></i> Odrzuć wniosek</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <button type="button" class="btn btn-danger" onclick="hideProposal()">Zamknij</button>
+                            </div>
+                        </div>
+
+                        <form id="acceptProposal" action="acceptProposal" method="POST">
+                            <input type="hidden" id="proposalIdReceived" name="proposalIdReceived" value="">
+                        </form>
+                        <form id="declineProposal" action="declineProposal" method="POST">
+                                <input type="hidden" id="proposalIdReceivedDec" name="proposalIdReceivedDec" value="">
+                         </form>
+
+                    </div>
+            </div>
+
+            <!-- UPRAWNIENIA -->
+            <div id="permissions" class="modal">
+                <div class="modal-content">
+                    <h3>Wybierz użytkownika</h3>
+                    <p>Wybierz użytkownika, któremu chcesz zmienić lub nadać uprawnienia.</p>
+                    <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                        <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+                        <ul class="ul">
+                            <div class="list-group-teams" id="list-tab" role="tablist">
+                                <% for(var i=0; i < workers.length; i++) { %>
+                                <li onclick="changePerm('<%= workers[i].IdPracownik %>')" class="list-group-item "><b>
+                                        <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
+                                <%}%>
                                             </div>
                                   </div> 
 

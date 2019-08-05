@@ -1,0 +1,71 @@
+<% include partials/headerLogin %>
+<% include partials/leftNavbar %>
+<!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/proposal.js"></script>
+
+
+<div class="col-lg-11">
+    <div class="section-assets">
+        <div class="border shadow-lg p-3 mb-5 rounded">
+            <div class="row asset-name">
+                <div class="col text-center">
+                    <h2>Składanie wniosku</h2>
+                    <hr>
+                    <p>Wypełnij wniosek, aby go wysłać</p>
+                </div>
+            </div>
+            <form action="sendProposal" method="POST">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="form-group row">
+                            <label for="proposalCategory" class="col-sm-2 col-form-label">Kategoria wniosku</label>
+                            <div class="col-sm-10">
+                                <select class="form-control addAssets" placeholder="Kategoria wniosku"
+                                    id="proposalCategory" name="proposalCategory" required>
+                                    <% for(var i=0; i < proposalCategories.length; i++) { %>
+                                        <option value="<%=proposalCategories[i].IdKategoriaWniosku %>"><%= proposalCategories[i].Nazwa %></option>
+                                      <%}%>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="proposalName" class="col-sm-2 col-form-label">Nazwa wniosku</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control addAssets" id="proposalName" name="proposalName"
+                                    placeholder="Nazwa" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="proposalDesc" class="col-sm-2 col-form-label">Opis</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control addAssets" rows="10" id="proposalDesc" name="proposalDesc"
+                                    placeholder="Opis" maxlength="255" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="proposalArgumentation" class="col-sm-2 col-form-label">Argumentacja</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control addAssets" rows="10" id="proposalArgumentation"
+                                    name="proposalArgumentation" placeholder="Argumentacja" maxlength="255" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-success"><i class="fas fa-paper-plane"></i>
+                                    Wyślij</button>
+                                <button type="button" class="btn btn-danger" onclick="history.back()">Anuluj</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<% include partials/footerLogin %>

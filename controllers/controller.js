@@ -5,6 +5,7 @@ var domaneAccount = require('../models/.utils/domaneAccount.js');
 var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
 var jobUtil = require('../models/.utils/job.js');
 var permissionUtil = require('../models/.utils/permission.js');
+var proposalUtil = require('../models/.utils/proposal.js');
 
 exports.profile = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -144,17 +145,25 @@ exports.settings = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
-                workersUtil.getWorkers(req.user.IdZespol).then(function(workers){
-                    domaneAccount.getDomaneAccounts(req.user.IdZespol).then(function(domanes){
-                    
-                res.render('settings', {
-                    name: profile.Imie,
-                    site: "Ustawienia",
-                    permission: permission,
-                    workers: workers,
-                    domanes: domanes
-                });
-                });
+                workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                    domaneAccount.getDomaneAccounts(req.user.IdZespol).then(function (domanes) {
+                        proposalUtil.getSentProposal(req.user.IdPracownik).then(function (sentProposal) {
+                            proposalUtil.getProposalCategory().then(function (categories) {
+                                proposalUtil.getReceivedProposal(req.user.IdZespol).then(function (received) {
+                                    res.render('settings', {
+                                        name: profile.Imie,
+                                        site: "Ustawienia",
+                                        permission: permission,
+                                        workers: workers,
+                                        domanes: domanes,
+                                        sentProposal: sentProposal,
+                                        categories: categories,
+                                        received: received
+                                    })
+                                })
+                            });
+                        });
+                    });
                 });
             });
         })

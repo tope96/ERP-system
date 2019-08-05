@@ -4,6 +4,7 @@ var dAccount = require('./domaneAccount.js');
 var position = require('./position.js');
 var spec = require('./specialization.js');
 var teamsUtil = require('./teamsUtil.js');
+var proposalUtil = require('./proposal.js');
 var analit = models.analitycy;
 var programmers = models.programisci;
 var db = require('../../config/db')
@@ -234,9 +235,11 @@ function layOff(IdWorker) {
         teamsUtil.deleteFromTeam(IdWorker).then(function () {
             dAccount.deleteAccount(IdWorker).then(function () {
                 position.deleteOne(IdWorker).then(function () {
+                    proposalUtil.deleteProposals(IdWorker).then(function(){
                     deleteWorker(IdWorker).then(function () {
                         resolve(true);
                     });
+                });
                 });
             });
         });

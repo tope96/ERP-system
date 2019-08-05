@@ -372,6 +372,19 @@ body {
     bottom: 0;
 }
 
+.maxHeight{
+    height: 25rem;
+    overflow: auto;
+}
+
+#proposal{
+    display: none;
+}
+
+#proposalReceived{
+    display: none;
+}
+
 @media screen and (max-width: 985px) {
     .list-group-item{
         width: 50vw !important;

@@ -28,11 +28,24 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false
     },
+    DataWyslania: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    ZespolDomenowy: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false
+    },
+    Status: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false
+    },
     KategoriaWniosku: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.INTEGER(11),
       allowNull: true
     }
   }, {
-    tableName: 'wnioski'
+    tableName: 'wnioski',
+    timestamps: false
   });
 };
