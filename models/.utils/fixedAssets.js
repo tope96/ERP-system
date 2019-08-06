@@ -19,7 +19,7 @@ function addAssets(name, description, type, price, date, owner, amount, idTeam){
         Opis: description,
         Rodzaj: type,
         WartoscNetto: price,
-        IdPracownik: 1,
+        IdPracownik: owner,
         Ilosc: amount,
         DataZakupu: date,
         IdZespol: idTeam

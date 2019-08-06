@@ -62,7 +62,11 @@
               
               <div class="property shadow-sm p-3 mb-2 bg-white rounded">
                 <h3>Opis:</h3>
-                <%= assets[i].Opis %>
+                <% if( assets[i].Opis == "" ){ %>
+                  Brak opisu
+                <% }else{ %>
+                  <%= assets[i].Opis %>
+                <%}%>
               </div>
               
               <div class="property shadow-sm p-3 mb-2 bg-white rounded">
@@ -79,7 +83,7 @@
               <b>Ilość:</b> <%= assets[i].Ilosc %>
             </div>           
          </div>
-         <div class="col-sm-10">
+        <div class="col-sm-10">
            <div class="row">
             <form action="deleteOneAsset" method="POST">
               <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
@@ -92,13 +96,20 @@
               title="Dodaj jedną sztukę"><i class="fa fa-plus"></i></button>
             </form>               
            </div>
-</div>
-          
+        </div>
+        </div>
+
+        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+          <b>Osoba odpowiedzialna: </b> 
+          <% for(var a = 0; a<users.length; a++){ %>
+            <% if(users[a].IdPracownik == assets[i].IdPracownik){ %>
+              <%= users[a].Imie %> <%= users[a].Nazwisko %>
+            <% } %>
+          <% } %>
+        </div>
 
           </div>
-
-          </div>
-            <%}%>
+        <%}%>
     </div>
   </div>
 

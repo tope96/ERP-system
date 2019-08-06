@@ -18,7 +18,7 @@
                                 <%= name %>
                             </td>
                             <td>
-                                <input type="text" class="newForm form-control form" name="newName" placeholder="Nowe imię">
+                                <input type="text" onkeypress="return isNumericKey(event)" class="newForm form-control form" name="newName" placeholder="Nowe imię">
                             </td>
                         </tr>
                         <tr>
@@ -27,7 +27,7 @@
                                 <%= lastName %>
                             </td>
                             <td>
-                                <input type="text" class="newForm form-control form" name="newLastName" placeholder="Nowe nazwisko">
+                                <input type="text" class="newForm form-control form" onkeypress="return isNumericKey(event)" name="newLastName" placeholder="Nowe nazwisko">
                             </td>
                         </tr>
                         <tr>
@@ -79,10 +79,16 @@
                 <h3>Zmiana hasła</h3>
                 <p>Podaj stare i nowe hasło</p>
                 <form action="/changePassword" method="POST">
-                    <input type="password" class="form-control createAccount" name="currPassword" placeholder="Aktualne hasło">
-                    <input type="password" class="form-control createAccount" name="newPassword" placeholder="Nowe hasło">
-                    <a href="/profile"><button type="button" class="btn btn-danger">Anuluj</button> </a>
-                    <button type="submit" class="btn btn-success">Zapisz</button>
+                    <input type="password" class="form-control createAccount" name="currPassword" placeholder="Aktualne hasło" required>
+                    <input type="password" class="form-control createAccount" name="newPassword" placeholder="Nowe hasło" required>
+
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <a href="/profile"><button type="button" class="btn btn-danger">Anuluj</button> </a>
+                            <button type="submit" class="btn btn-success">Zapisz</button>                            
+                        </div>
+                    </div>
+
                 </form>  
             </div>
         </div>
@@ -109,4 +115,6 @@
         </div>
     <% } %>
 
+        <!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/profile.js"></script>
 <% include partials/footerLogin %>
