@@ -38,16 +38,16 @@
           <div class="property shadow-sm p-3 mb-2 bg-white rounded">
             <p>Aktualni członkowie zespołu:</p>
             <div class="property shadow-sm p-3 mb-2 bg-white rounded">
-              <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+              <input type="text" class="form-control searchTeams" id="searchTeams1" placeholder="Wyszukaj">
       
               <ul class="ul">
                 <form action="deleteFromTeam" method="POST">
-                  <div class="list-group-teams" id="list-tab" role="tablist">
+                  <div class="list-group-teams searchInDelete" id="list-tab" role="tablist">
                     <% for(var q=0; q < teamsMember.length; q++) { %>
                     <% for(var w=0; w < workers.length; w++) { %>
                     <%if (teamsMember[q].IdZespol == Team){%>
                     <%if (teamsMember[q].IdPracownik == workers[w].IdPracownik){%>
-                    <li class="list-group-item "><b><input type="checkbox" name="toDelete"
+                    <li class="list-group-item "><b><input type="checkbox" class="boxDelete" name="toDelete"
                           value="<%=workers[w].IdPracownik %>">
                         <%= workers[w].Imie %> <%= workers[w].Nazwisko %> </b> </li>
                     <input type="hidden" value='<%=Team%>' name="idTeam">
@@ -57,7 +57,7 @@
                   <%}%>   
                 <%}%></div>
                   <input type="hidden" value="<%=Team%>" name="idTeamEdited">
-            </div> <button type="submit" class="btn btn-danger"><i class="fas fa-user-minus"></i> Usuń członka
+            </div> <button type="submit" id="submitDelete" class="btn btn-danger"><i class="fas fa-user-minus"></i> Usuń członka
               zespołu</button>
             </form>
             </ul>
@@ -68,11 +68,11 @@
           <div class="property shadow-sm p-3 mb-2 bg-white rounded">
             <p>Dodaj nowych członkow zespołu:</p>
             <div class="property shadow-sm p-3 mb-2 bg-white rounded">
-              <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
+              <input type="text" class="form-control searchTeams" id="searchTeams2" placeholder="Wyszukaj">
       
               <ul class="ul">
                 <form action="addNewMembers" method="POST">
-                  <div class="list-group-teams" id="list-tab" role="tablist">
+                  <div class="list-group-teams searchInAdd" id="list-tab" role="tablist">
                     <%loop:for(var i=0; i < workers.length; i++) { %>
                       <% for(var a=0; a < teamsMember.length; a++) { %>
                         <%if (teamsMember[a].IdZespol == Team){%>
@@ -81,7 +81,7 @@
                         <% }%>
                         <% }%>
                       <%}%>
-                            <li class="list-group-item "><b><input type="checkbox" name="newMembers"
+                            <li class="list-group-item "><b><input type="checkbox" class="boxAdd" name="newMembers"
                                           value="<%=workers[i].IdPracownik %>">
                                         <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
                     <%}%>
@@ -89,7 +89,7 @@
                   </div>
       
                   <input type="hidden" value="<%=Team%>" name="idTeamEdited">
-            </div> <button type="submit" class="btn btn-success"><i class="fas fa-user-plus"></i> Dodaj członka
+            </div> <button type="submit" id="submitAdd" class="btn btn-success"><i class="fas fa-user-plus"></i> Dodaj członka
               zespołu</button>
             </form>
             </ul>

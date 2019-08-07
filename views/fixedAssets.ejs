@@ -15,10 +15,16 @@
             <li class="list-group-item list-group-item-action shadow-sm p-3 mb-2 rounded" onclick="hide()"
               id="list-<%= assets[i].IdSrodkiTrwale %>-list" data-toggle="list"
               href="#list-<%= assets[i].IdSrodkiTrwale %>" role="tab" aria-controls="<%= assets[i].IdSrodkiTrwale %>">
-              <b><%= assets[i].Nazwa %></b> &nbsp;&nbsp;&nbsp;&nbsp; szt.: <%= assets[i].Ilosc %></li>
+              <b><%= assets[i].Nazwa %></b> &nbsp;&nbsp;&nbsp;&nbsp; <nobr>szt.: <%= assets[i].Ilosc %></nobr></li>
             <%}%>       
           </div>
         </ul>
+        <div class="row">
+        <div class="sth">
+
+        </div>          
+        </div>
+
         <div class="keepOnBottom">
         <div class="row">
           <div class="col-lg-12 text-center">

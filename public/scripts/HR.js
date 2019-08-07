@@ -1,6 +1,46 @@
 var element = document.getElementById("hr");
 element.classList.add("active-bar");
+
+
+
 $(document).ready(function () {
+
+$(function () {
+  $('#searchTeams1').keyup(function () {
+    console.log("dd")
+    var current_query = $('#searchTeams1').val();
+    if (current_query !== "") {
+      $(".searchInDelete li").hide();
+      $(".searchInDelete li").each(function () {
+        var current_keyword = $(this).text();
+        if (current_keyword.indexOf(current_query) >= 0) {
+          $(this).show();
+        };
+      });
+    } else {
+      $(".searchInDelete li").show();
+    };
+  });
+});
+
+$(function () {
+  $('#searchTeams2').keyup(function () {
+    console.log("dd")
+    var current_query = $('#searchTeams2').val();
+    if (current_query !== "") {
+      $(".searchInAdd li").hide();
+      $(".searchInAdd li").each(function () {
+        var current_keyword = $(this).text();
+        if (current_keyword.indexOf(current_query) >= 0) {
+          $(this).show();
+        };
+      });
+    } else {
+      $(".searchInAdd li").show();
+    };
+  });
+});
+
   if ($('#ifEdit').length) {
     var editTeam = document.getElementById("editTeam");
     editTeam.style.display = "block";
@@ -62,7 +102,18 @@ $(document).ready(function () {
     b2bEdit.style.display = "none";
   }
 
+  //if one of checkbox is checked - anable button
+  $('#submitDelete').attr("disabled",true);
+ 
+   $('.boxDelete').change(function() {
+      $('#submitDelete').attr('disabled', $('.boxDelete:checked').length == 0);
+   });
 
+$('#submitAdd').attr("disabled",true);
+ 
+   $('.boxAdd').change(function() {
+      $('#submitAdd').attr('disabled', $('.boxAdd:checked').length == 0);
+   });
 });
 
  function editTeamHide() {

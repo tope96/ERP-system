@@ -185,6 +185,18 @@ body {
     width: 30%; 
   }
 
+  .modal-content-proposal{
+    background-color: #fefefe;
+    margin: 1% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+  }
+
+  .list{
+
+  }
+
   .createAccount{
       margin-bottom: 1rem;
   }
@@ -368,8 +380,13 @@ body {
 }
 
 .keepOnBottom{
-    position: absolute;
     bottom: 0;
+}
+
+.sth{}
+
+.itemsBar{
+    height: 100%;
 }
 
 .maxHeight{
