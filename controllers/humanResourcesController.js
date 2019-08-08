@@ -9,6 +9,7 @@ var agreementUtil = require('../models/.utils/agreementsUtil.js');
 var spec = require('../models/.utils/specialization');
 var teamsUtil = require('../models/.utils/teamsUtil.js');
 var permissionUtil = require('../models/.utils/permission.js');
+var emailsUtil = require('../models/.utils/emails.js');
 
 exports.humanResources = function (req, res) {
 
@@ -26,6 +27,7 @@ exports.humanResources = function (req, res) {
                                                 agreementUtil.getB2b().then(function (b2b) {
                                                     agreementUtil.getOPrace().then(function (praca) {
                                                         agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
                                                             res.render('humanResources', {
                                                                 name: profile.Imie,
                                                                 site: "Zasoby ludzkie",
@@ -42,7 +44,9 @@ exports.humanResources = function (req, res) {
                                                                 zlecenie: zlecenie,
                                                                 praca: praca,
                                                                 edycja: 0,
-                                                                edycjaPracownika: 0
+                                                                edycjaPracownika: 0,
+                                                                emails: emails
+                                                            });
                                                             });
                                                         });
                                                     });

@@ -102,7 +102,7 @@ exports.editCompanyAddProfile = function (req, res) {
 exports.editCompanyAddProfileError = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
-            workersUtil.getWorkers().then(function (workers) {
+            workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                 companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
                     townUtil.getTown(company.IdMiasto).then(function (town) {
                         clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {

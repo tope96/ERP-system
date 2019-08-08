@@ -17,14 +17,19 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     AdresPocztowy: {
+      type: DataTypes.STRING(30),
+      allowNull: true
+    },
+    ZespolDomenowy: {
       type: DataTypes.INTEGER(11),
       allowNull: true
     },
     AliasPocztowy: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.STRING(30),
       allowNull: false
     }
   }, {
-    tableName: 'konta_pocztowe'
+    tableName: 'konta_pocztowe',
+    timestamps: false
   });
 };

@@ -4,8 +4,10 @@ var companyController = require('../controllers/companyController.js');
 var humanResourcesController = require('../controllers/humanResourcesController.js');
 var productionController = require('../controllers/productionController.js');
 var proposalController = require('../controllers/proposalController.js');
+var emailsController = require('../controllers/emailController.js');
 var permissionUtil = require('../models/.utils/permission.js');
 var proposalUtil = require('../models/.utils/proposal.js');
+var emailsUtil = require('../models/.utils/emails.js');
 
 //Dependencies
 var multer = require('multer');
@@ -81,6 +83,9 @@ module.exports = function (app, passport) {
     app.get('/production', isLoggedIn, productionController.production);
     app.get('/kalendarz', isLoggedIn, controller.calendar);
     app.get('/writeProposal', isLoggedIn, proposalController.writeProposal);
+    app.get('/emails', isLoggedIn, emailsController.newEmail);
+    app.get('/createEmail', isLoggedIn, emailsController.createEmail);
+    app.get('/createEmailFailed', isLoggedIn, emailsController.createEmailFailed);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -871,6 +876,7 @@ module.exports = function (app, passport) {
                                                                 agreementUtil.getZlecenie().then(function (zlecenie) {
                                                                     workersUtil.analitOrProgrammer(IdWorker).then(function(analitOrProgram){
                                                                         workersUtil.getSpec(IdWorker).then(function(currSpec){
+                                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
                                                                     res.render('humanResources', {
                                                                         name: profile.Imie,
                                                                         site: "Zasoby ludzkie",
@@ -892,8 +898,10 @@ module.exports = function (app, passport) {
                                                                         agreeInfo: agreeInfo,
                                                                         agreeMore: agreeMore,
                                                                         analitOrProgram: analitOrProgram,
-                                                                        currSpec: currSpec
-                                                                    })
+                                                                        currSpec: currSpec,
+                                                                        emails: emails
+                                                                    });
+                                                                    });
                                                                     });
                                                                     });
                                                                     });
@@ -936,9 +944,31 @@ app.post('/acceptProposal', isLoggedIn, function(req, res){
 
 app.post('/declineProposal', isLoggedIn, function(req, res){
     var idProposal = req.body.proposalIdReceivedDec;
-    console.log("proposal dec: " + idProposal )
+
     proposalUtil.declineProposal(idProposal).then(function(){
         res.redirect("/settings");
+    })
+});
+
+app.post('/createEmail', isLoggedIn, function(req, res){
+    var address = req.body.address + "@comboBox.com";
+    var alias = req.body.alias  + "@comboBox.com";
+    var idWorker = req.body.worker;
+
+    emailsUtil.createEmail(idWorker, address, alias, req.user.IdZespol).then(function(created){
+        if(created == false){
+            res.redirect('/createEmailFailed');
+        }else{
+            res.redirect('/emails');
+        }
+    });
+});
+
+app.post('/deleteEmail', isLoggedIn, function(req, res){
+    var idEmail = req.body.idEmail;
+
+    emailsUtil.deleteEmail(idEmail).then(function(){
+        res.redirect('/emails');
     })
 });
 }

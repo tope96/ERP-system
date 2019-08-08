@@ -66,6 +66,13 @@
                     <i class="fa fa-at fa-2x contactIcon"></i> Email:<a id="p<%=i%>"><%= workers[i].Email %></a>
                     <i class="far fa-copy copyIcon" onclick="copyToClipboard('#p<%=i%>')" data-toggle="tooltip" data-placement="top"
                       title="Kopiuj adres email"></i>
+                    <%for(var e = 0; e<emails.length; e++){ %>
+                      <% if (emails[e].IdPracownik == workers[i].IdPracownik){ %>
+                        <br />Email domenowy: <a id="o<%=i%>"><%= emails[e].AdresPocztowy %> </a>
+                        <i class="far fa-copy copyIcon" onclick="copyToClipboard('#o<%=i%>')" data-toggle="tooltip" data-placement="top"
+                            title="Kopiuj adres email"></i>
+                      <%}%>
+                    <% } %>
                   </div>
                 </div>
               
