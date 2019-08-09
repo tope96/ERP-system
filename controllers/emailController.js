@@ -9,20 +9,23 @@ exports.newEmail = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
-                emails.getEmails(req.user.IdZespol).then(function(emails){
+                emails.getEmailsGroups(req.user.IdZespol).then(function(emailsGroups){
+                emails.getEmails(req.user.IdZespol).then(function (emails) {
                     workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
-                    res.render('emails', {
-                        name: profile.Imie,
-                        site: "Email",
-                        permission: permission,
-                        emails: emails,
-                        workers: workers
-                    });
-                    });
+                            res.render('emails', {
+                                name: profile.Imie,
+                                site: "Email",
+                                permission: permission,
+                                emails: emails,
+                                workers: workers,
+                                emailsGroups: emailsGroups
+                            });
+                        });
                     });
                 });
             });
         });
+    });
 }
 
 exports.createEmail = function (req, res) {
@@ -59,4 +62,40 @@ exports.createEmailFailed = function (req, res) {
                 });
             });
         });
+}
+
+exports.createEmailGroup = function (req, res) {
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+            permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                emails.getEmails(req.user.IdZespol).then(function (emails) {
+                    res.render('createEmailGroup', {
+                        name: profile.Imie,
+                        site: "Email",
+                        permission: permission,
+                        emails: emails,
+                        failed: 0
+                    });
+                });
+            });
+        });
+    });
+}
+
+exports.createEmailsGroupFailed = function(req, res){
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+            permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                emails.getEmails(req.user.IdZespol).then(function (emails) {
+                    res.render('editEmailGroup', {
+                        name: profile.Imie,
+                        site: "Email",
+                        permission: permission,
+                        emails: emails,
+                        failed: 1
+                    });
+                });
+            });
+        });
+    });
 }

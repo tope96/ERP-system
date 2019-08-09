@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'czlonkowie_grup_mailowych'
+    tableName: 'czlonkowie_grup_mailowych',
+    timestamps: false
   });
 };

@@ -7,8 +7,21 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
-    }
+    },
+    AdresPocztowy: {
+      type: DataTypes.STRING(30),
+      allowNull: true
+    },
+    Opis: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    ZespolDomenowy: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
   }, {
-    tableName: 'grupy_mailowe'
+    tableName: 'grupy_mailowe',
+    timestamps: false
   });
 };

@@ -1,7 +1,7 @@
 <% include partials/headerLogin %>
 <% include partials/leftNavbar %>
 <!-- SCRIPT ENGINE -->
-<script type="text/javascript" src=".js"></script>
+<script type="text/javascript" src="scripts/emails.js"></script>
 
 <div class="col-lg-11">
     <div class="section-assets">
@@ -57,7 +57,6 @@
                 </div>
             </div>
 
-            <!-- OSTRZEZENIE, ZE ADRES EMAIL ISTNIEJE -->
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <form action="createEmail" method="GET">
@@ -66,6 +65,66 @@
                 </div>
             </div>
 
+            <hr>
+
+            <div class='row admin-perm'>
+                <div class="col-lg-12 text-center">
+                    <p>Istniejące grupy mailowe:</p>
+                    <div class="table-responsive maxHeight">
+                        <% if (emailsGroups.length < 1){%>
+                            <p>Brak grup mailowych w systemie.</p>
+                        <% }else{ %>
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th scope="col">Adres email</th>
+                                    <th scope="col">Opis</th>
+                                    <th scope="col">Edytuj</th>
+                                    <th scope="col">Usuń</th>
+                                </tr>
+                            </thead>
+            
+                            <tbody>
+                                <% for(var i = 0; i<emailsGroups.length; i++){ %>
+                                            <tr>
+                                                <td><%= emailsGroups[i].AdresPocztowy %></td>
+                                                <td><%= emailsGroups[i].Opis %></td>
+                                                <td>                                                    
+                                                    <form action="editEmailGroup" method="POST">
+                                                        <input type="hidden" name="idEmailGroup" value="<%= emailsGroups[i].IdGrupaMailowa %>">
+                                                        <button type="submit" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                                    </form>
+                                            </td>
+                                                <td>
+                                                    <form action="deleteEmailGroup" method="POST">
+                                                        <input type="hidden" name="idEmailGroup" value="<%= emailsGroups[i].IdGrupaMailowa %>">
+                                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% } %>
+                            </tbody>
+
+                        </table>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <form action="createEmailGroup" method="GET">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Dodaj nową grupę mailową</button>                        
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                        <button type="submit" onclick="goBack();" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Wróć</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

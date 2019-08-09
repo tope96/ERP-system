@@ -1,0 +1,77 @@
+<% include partials/headerLogin %>
+<% include partials/leftNavbar %>
+<!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/emails.js"></script>
+
+<div class="col-lg-11">
+    <div class="section-assets">
+        <div class="border shadow-lg p-3 mb-5 rounded">
+            <div class="row asset-name">
+                <div class="col text-center">
+                    <h2>Dodaj nową grupę mailową</h2>
+                    <hr>
+                </div>
+            </div>
+            <form action="createEmailsGroup" method="POST">
+            <div class="input-group addAssets">
+                <input type="text" class="form-control address" name="address" placeholder="Nazwa grupy"
+                    aria-label="Nazwa grupy" aria-describedby="basic-addon2" required>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">@comboModule.com</span>
+                </div>
+            </div>
+
+
+            <div class="row addAssets">
+                    <div class="col">
+                      <div class="property shadow-sm p-3 mb-5 bg-white rounded">
+                          <p>Wybierz członków tej grupy</p>
+                        <input type="text" class="form-control searchGroup" id="searchGroup" placeholder="Wyszukaj">
+                          <div class="list-group-group property shadow-sm p-3 mb-5 bg-white rounded">
+                            <ul class="ul">
+                              <div class="list-group-teams searchInAdd" id="list-tab" role="tablist">
+                                <% for(var i=0; i < emails.length; i++) { %>
+                                  <li class="list-group-item "><b><input type="checkbox" name="groupMember"
+                                  value="<%=emails[i].IdKontoPocztowe %>">
+                                  <%= emails[i].AdresPocztowy %> </b> 
+                                  </li>
+                                <%}%>       
+                              </div>
+                            </ul> 
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="row addAssets">
+                    <div class="col-lg-12 text-center">
+                        <textarea class="form-control" rows="10" id="groupDesc" name="groupDesc"
+                            placeholder="Opis grupy" maxlength="255" required></textarea>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class="col-lg-12 text-center">
+                        <button type="button" onclick="goBack()" class='btn btn-danger'>Anuluj</button>
+                        <button type="submit" class='btn btn-success'>Zapisz</button>
+                    </div>
+                </div>
+            </form>
+
+            <%if(failed == 1){%>
+              <div id="" class="modal">
+                  <div class="modal-content">
+                      <h3>Uwaga!</h3>
+                      <p>Taki email juz istnieje w systemie!</p>
+              
+                      <form action="emails" method="GET">
+                          <button type="submit" class="btn btn-danger">Ok</button>
+                      </form>
+                  </div>
+              </div>
+              <% } %>
+        </div>
+    </div>
+</div>
+
+<% include partials/footerLogin %>

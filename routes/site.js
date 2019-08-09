@@ -86,6 +86,8 @@ module.exports = function (app, passport) {
     app.get('/emails', isLoggedIn, emailsController.newEmail);
     app.get('/createEmail', isLoggedIn, emailsController.createEmail);
     app.get('/createEmailFailed', isLoggedIn, emailsController.createEmailFailed);
+    app.get('/createEmailGroup', isLoggedIn, emailsController.createEmailGroup);
+    app.get('/createEmailsGroupFaled', isLoggedIn, emailsController.createEmailsGroupFailed);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -390,7 +392,7 @@ module.exports = function (app, passport) {
     app.post('/addTeam', function(req, res){
         var teamName = req.body.teamName;
         var teamsMember = req.body.teamsMember;
-       console.log(teamsMember);
+
         teamUtil.createTeam(teamName, req.user.IdZespol).then(function(teamId){
             teamUtil.createTeamWithWorkers(teamId, teamsMember);
             res.redirect('/humanResources');
@@ -631,6 +633,7 @@ module.exports = function (app, passport) {
                                                         agreementUtil.getB2b().then(function (b2b) {
                                                             agreementUtil.getOPrace().then(function (praca) {
                                                                 agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                                    emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
                                                                     res.render('humanResources', {
                                                                         name: profile.Imie,
                                                                         site: "Zasoby ludzkie",
@@ -649,7 +652,8 @@ module.exports = function (app, passport) {
                                                                         zlecenie: zlecenie,
                                                                         praca: praca,
                                                                         edycja: 1,
-                                                                        edycjaPracownika: 0
+                                                                        edycjaPracownika: 0,
+                                                                        emails: emails});
                                                                     });
                                                                 });
                                                             });
@@ -971,4 +975,125 @@ app.post('/deleteEmail', isLoggedIn, function(req, res){
         res.redirect('/emails');
     })
 });
+
+app.post('/createEmailsGroup', isLoggedIn, function(req, res){
+    var address = req.body.address + "@comboBox.com";
+    var members = req.body.groupMember;
+    var desc = req.body.groupDesc;
+
+    emailsUtil.createEmailGroup(address, req.user.IdZespol, desc).then(function(idGroup){
+        if(idGroup == false){
+            res.redirect('/createEmailsGroupFaled');
+        }else{
+            emailsUtil.addNewMember(members, idGroup).then(function(){
+                res.redirect('/emails');
+            });
+        }
+    });
+});
+
+app.post('/deleteEmailGroup', isLoggedIn, function(req, res){
+    var idEmailGroup = req.body.idEmailGroup;
+
+    emailsUtil.deleteEmailGroup(idEmailGroup).then(function(){
+        res.redirect('/emails');
+    });
+});
+
+app.post('/editGroup', isLoggedIn, function(req, res){
+    var address = req.body.address + "@comboBox.com";
+    var desc = req.body.groupDesc;
+    var idGroup = req.body.idGroup;
+
+    emailsUtil.editEmailGroup(idGroup, address, desc).then(function(){
+        res.redirect('/emails');
+    });
+})
+
+    app.post('/editEmailGroup', isLoggedIn, function (req, res) {
+        var idEmailGroup = req.body.idEmailGroup;
+
+        domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+            workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                emailsUtil.getOneGroup(idEmailGroup).then(function (emailGroup) {
+                    permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                        emailsUtil.getAllEmailsInGroup(idEmailGroup).then(function (members) {
+                            emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                res.render('editEmailGroup', {
+                                    name: profile.Imie,
+                                    site: "Email",
+                                    permission: permission,
+                                    emailGroup: emailGroup,
+                                    nameOfGroup: (emailGroup.AdresPocztowy).substring(0, (emailGroup.AdresPocztowy).lastIndexOf("@")),
+                                    members: members,
+                                    emails: emails,
+                                    failed: 0
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+
+    app.post('/deleteFromEmailGroup', isLoggedIn, function(req, res){
+        var members = req.body.toDelete;
+        var idGroup = req.body.idGroup;
+
+        emailsUtil.deleteFromGroup(members, idGroup).then(function(){
+            domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+                workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                    emailsUtil.getOneGroup(idGroup).then(function (emailGroup) {
+                        permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                            emailsUtil.getAllEmailsInGroup(idGroup).then(function (members) {
+                                emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                    res.render('editEmailGroup', {
+                                        name: profile.Imie,
+                                        site: "Email",
+                                        permission: permission,
+                                        emailGroup: emailGroup,
+                                        nameOfGroup: (emailGroup.AdresPocztowy).substring(0, (emailGroup.AdresPocztowy).lastIndexOf("@")),
+                                        members: members,
+                                        emails: emails,
+                                        failed: 0
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+        })
+
+        app.post('/addNewMembersEmailGroup', isLoggedIn, function(req, res){
+            var members = req.body.toAdd;
+            var idGroup = req.body.idGroup;
+    
+            emailsUtil.addNewMember(members, idGroup).then(function(){
+                domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+                    workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                        emailsUtil.getOneGroup(idGroup).then(function (emailGroup) {
+                            permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                                emailsUtil.getAllEmailsInGroup(idGroup).then(function (members) {
+                                    emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                        res.render('editEmailGroup', {
+                                            name: profile.Imie,
+                                            site: "Email",
+                                            permission: permission,
+                                            emailGroup: emailGroup,
+                                            nameOfGroup: (emailGroup.AdresPocztowy).substring(0, (emailGroup.AdresPocztowy).lastIndexOf("@")),
+                                            members: members,
+                                            emails: emails,
+                                            failed: 0
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+            })
 }

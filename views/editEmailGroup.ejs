@@ -1,0 +1,114 @@
+<% include partials/headerLogin %>
+<% include partials/leftNavbar %>
+<!-- SCRIPT ENGINE -->
+<script type="text/javascript" src="scripts/emails.js"></script>
+
+<div class="col-lg-11">
+    <div class="section-assets">
+        <div class="border shadow-lg p-3 mb-5 rounded">
+            <div class="row asset-name">
+                <div class="col text-center">
+                    <h2>Edycja grupy mailowej</h2>
+                    <hr>
+                </div>
+            </div>
+            <form id="groupEdit" action="editGroup" method="POST">
+
+                <input type='hidden' name="idGroup" value="<%= emailGroup.IdGrupaMailowa %>">
+
+            <script>
+                var email = "john.doe@email.com";
+                var name   = email.substring(0, email.lastIndexOf("@"));
+                var domain = email.substring(email.lastIndexOf("@") +1);
+            </script>
+
+            <div class="input-group addAssets">
+                <input type="text" class="form-control address" name="address" value="<%= nameOfGroup %>" placeholder="Nazwa grupy" aria-label="Nazwa grupy"
+                    aria-describedby="basic-addon2" required>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">@comboModule.com</span>
+                </div>
+            </div>
+
+            <div class="row addAssets">
+                <div class="col-lg-12 text-center">
+                    <textarea class="form-control" rows="10" id="groupDesc" name="groupDesc" placeholder="Opis grupy"
+                        maxlength="255" required><%= emailGroup.Opis %></textarea>
+                </div>
+            </div>
+        </form>
+            <div class="row">
+                    <div class="col-lg-6">
+                      <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                        <p>Aktualni członkowie zespołu:</p>
+                        <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                          <input type="text" class="form-control searchTeams" id="searchTeams1" placeholder="Wyszukaj">
+                  
+                          <ul class="ul">
+                            <form action="deleteFromEmailGroup" method="POST">
+                              <div class="list-group-teams searchInDelete" id="list-tab" role="tablist">
+                                <% for(var i=0; i < members.length; i++) { %>
+                                <% for(var a = 0; a< emails.length; a++) { %>
+                                    <% if(emails[a].IdKontoPocztowe == members[i].IdKontoPocztowe){%>
+                                <li class="list-group-item "><b><input type="checkbox" class="boxDelete" name="toDelete"
+                                      value="<%=emails[a].IdKontoPocztowe %>">
+                                    <%= emails[a].AdresPocztowy %> </b> </li>
+                                <input type="hidden" value="<%= members[i].IdGrupaMailowa %>" name="idGroup">
+                              <%}%>
+                              <%}%>
+                              <%}%>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="submitDelete" class="btn btn-danger"><i class="fas fa-user-minus"></i> Usuń członka zespołu</button>
+                        </form>
+                        </ul>
+                      </div>
+                    </div>
+                  
+                    <div class="col-lg-6">
+                            <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                              <p>Dodaj nowych członkow zespołu:</p>
+                              <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                                <input type="text" class="form-control searchTeams" id="searchTeams2" placeholder="Wyszukaj">
+                        
+                                <ul class="ul">
+                                  <form action="addNewMembersEmailGroup" method="POST">
+                                    <div class="list-group-teams searchInAdd" id="list-tab" role="tablist">
+                                      <%loop:for(var i=0; i < emails.length; i++) { %>
+                                        <% for(var a=0; a < members.length; a++) { %>
+                                          <%if (members[a].IdGrupaMailowa == emailGroup.IdGrupaMailowa){%>
+                                            <%if (members[a].IdKontoPocztowe == emails[i].IdKontoPocztowe){%>
+                                            <% continue loop;  %>
+                                          <% }%>
+                                          <% }%>
+                                        <%}%>
+                                              <li class="list-group-item "><b><input type="checkbox" class="boxAdd" name="toAdd"
+                                                            value="<%=emails[i].IdKontoPocztowe %>">
+                                                          <%= emails[i].AdresPocztowy %> </b> </li>
+                                                         
+                                      <%}%>
+                                      <input type='hidden' name="idGroup" value="<%= emailGroup.IdGrupaMailowa %>">
+                                    </div>
+                              </div> 
+                              <button type="submit" id="submitAdd" class="btn btn-success"><i class="fas fa-user-plus"></i> Dodaj członka zespołu</button>
+                              </form>
+                              </ul>
+                            </div>
+                          </div>
+                    
+                  </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <form action="emails" method="GET">
+                        <button type="submit" class="btn btn-danger">Anuluj</button>
+                        <button type="button" onclick="groupEdit.submit();" class="btn btn-success">Zapisz</button>                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include partials/footerLogin %>
