@@ -727,7 +727,7 @@ module.exports = function (app, passport) {
                                                     jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                         jobUtil.getOneJob(job2).then(function(job){
                                                             permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
-                                                        res.render('productionJob', {
+                                                        res.render('production', {
                                                             name: profile.Imie,
                                                             site: "Zasoby ludzkie",
                                                             company: company,
@@ -742,6 +742,7 @@ module.exports = function (app, passport) {
                                                             jobs: jobs,
                                                             job: job,
                                                             permission: permission,
+                                                            jobView: 1
                                                         });
                                                         });
                                                         });
@@ -791,7 +792,7 @@ module.exports = function (app, passport) {
                                                         jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                             jobUtil.getOneJob(jobId).then(function(job){
                                                                 permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
-                                                            res.render('productionJob', {
+                                                            res.render('production', {
                                                                 name: profile.Imie,
                                                                 site: "Zasoby ludzkie",
                                                                 company: company,
@@ -805,7 +806,8 @@ module.exports = function (app, passport) {
                                                                 workers: workers,
                                                                 jobs: jobs,
                                                                 job: job,
-                                                                permission: permission
+                                                                permission: permission,
+                                                                jobView: 1
                                                             });
                                                             });
                                                             });

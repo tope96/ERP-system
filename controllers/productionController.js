@@ -39,7 +39,8 @@ exports.production = function (req, res) {
                                                         priority: priority,
                                                         workers: workers,
                                                         jobs: jobs,
-                                                        permission: permission
+                                                        permission: permission,
+                                                        jobView: 0
                                                     });
                                                     });
                                                 });

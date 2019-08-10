@@ -1,3 +1,4 @@
+$(document).ready(function () {
 $(function () {
   $('#search').keyup(function () {
     var current_query = $('#search').val();
@@ -15,14 +16,58 @@ $(function () {
   });
 });
 
+if ($('#ifViewJob').length) {
+
+  var addCompany = document.getElementById("jobEdit");
+  addCompany.style.display = "none";
+}
+});
+
 var element = document.getElementById("production");
 element.classList.add("active-bar");
+
+function editJobHide() {
+  var element = document.getElementById("jobEdit");
+ 
+  //If it isn't "undefined" and it isn't "null", then it exists.
+  if(typeof(element) != 'undefined' && element != null){
+    element.style.display = "none";
+  } else{
+  }
+
+  }
+
+  function jobViewHide() {
+    var element = document.getElementById("jobShow");
+   
+    //If it isn't "undefined" and it isn't "null", then it exists.
+    if(typeof(element) != 'undefined' && element != null){
+      element.style.display = "none";
+    } else{
+    }
+  
+    }
 
 function hide() {
   var infoPanel = document.getElementById("infoPanel");
   var addProject = document.getElementById("addProject");
   addProject.style.display = "none";
   infoPanel.style.display = "block";
+  jobViewHide();
+  jobEditHide();
+  addClientHide();
+}
+
+function jobEditShow(){
+  jobViewHide();
+  var jobEdit = document.getElementById("jobEdit");
+  jobEdit.style.display = "block";
+  addJobHide();
+  addClientHide();
+  editProjectHide();
+  addProjectHide();
+
+  console.log('================ <%=job.IdZadanie%>');
 }
 
 function submitForm(form) {
@@ -30,6 +75,9 @@ function submitForm(form) {
   formObj.submit();
 }
 
+function jobEditHide(){
+  editJobHide();
+}
 
 function addProjectShow() {
     var infoPanel = document.getElementById("infoPanel");
@@ -38,7 +86,8 @@ function addProjectShow() {
     addJobHide();
     addClientHide();
     editProjectHide();
-
+    jobViewHide();
+    editJobHide();
     if (addProject.style.display === "none") {
         addProject.style.display = "block";
     } else {
@@ -49,6 +98,8 @@ function addProjectShow() {
   
 
   function addClientShow() {
+    jobViewHide();
+    editJobHide();
     console.log('tutuaj');
     var clientPanel = document.getElementById("clientPanel");
     var infoPanel = document.getElementById("infoPanel");

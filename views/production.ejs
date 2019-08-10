@@ -407,7 +407,7 @@
                   </form>
               </div>
             </div>
-              </div>
+              
 
 
             <!-- ADDING CLIENT -->
@@ -450,7 +450,11 @@
                 </div>
         
 
-
+                <%if(jobView == 1){%>
+                  <input type="hidden" id="ifViewJob">
+                  
+                  <% include partials/productionJob %>
+                <%}%>
 
 
             <!-- DODAWANIE FIRMY -->

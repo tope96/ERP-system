@@ -113,7 +113,7 @@
                             <label for="companyName" class="col-sm-2 col-form-label">Nazwa firmy:</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="companyName" placeholder="Nowa nazwa" id="companyName"
-                                    value="<%= company.Nazwa %>">
+                                    value="<%= company.Nazwa %>" required>
                             </div>
                         </div>
                         
@@ -121,7 +121,7 @@
                             <label for="companyNip" class="col-sm-2 col-form-label">NIP:</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" name="companyNip" placeholder="Nowy NIP" id="companyNip"
-                                    value="<%= company.Nip %>">
+                                    value="<%= company.Nip %>" required>
                             </div>
                         </div>
                         
@@ -134,8 +134,8 @@
                         <div class="form-group row">
                             <label for="companyTown" class="col-sm-2 col-form-label">Miasto:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="companyTown" placeholder="Nowe miasto" id="copmanyTown"
-                                    value="<%= town.Miasto %>">
+                                <input type="text" onkeypress="return isNumericKey(event)" class="form-control" name="companyTown" placeholder="Nowe miasto" id="copmanyTown"
+                                    value="<%= town.Miasto %>" required>
                             </div>
                         </div>
                         
@@ -143,7 +143,7 @@
                             <label for="companyAddress" class="col-sm-2 col-form-label">Adres:</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="companyAddress" placeholder="Nowy adres" id="companyAddress"
-                                    value="<%= company.Adres %>">
+                                    value="<%= company.Adres %>" required>
                             </div>
                         </div>
                         

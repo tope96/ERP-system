@@ -125,7 +125,7 @@
                 <div class="form-group row">
                     <label for="emailEdit" class="col-sm-2 col-form-label">Email kontaktowy:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control addAssets" id="emailEdit" name="emailEdit"
+                        <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit"
                             placeholder="Email kontaktowy" required>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                 <div class="form-group row">
                     <label for="townEdit" class="col-sm-2 col-form-label">Miasto firmy:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control addAssets" id="townEdit" name="townEdit"
+                        <input type="text" onkeypress="return isNumericKey(event)" class="form-control addAssets" id="townEdit" name="townEdit"
                             placeholder="Miasto firmy" required>
                     </div>
                 </div>
