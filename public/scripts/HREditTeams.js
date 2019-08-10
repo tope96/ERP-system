@@ -28,6 +28,30 @@ $(function () {
       $(".list-group-teams li").show();
     };
   });
+
+  $('#agreementRadio').on('click', function() {
+    $('#timeOfContract').prop('required',true);
+    $('#ifStudent').prop('required',false);
+    $('#ifZus').prop('required',false);
+    $('#companyB2b').prop('required',false);
+    $('#ifCompetition').prop('required',false);
+  });
+
+  $('#agreement2Radio').on('click', function() {
+    $('#timeOfContract').prop('required',false);
+    $('#ifStudent').prop('required',true);
+    $('#ifZus').prop('required',true);
+    $('#companyB2b').prop('required',false);
+    $('#ifCompetition').prop('required',false);
+  });
+
+  $('#b2bRadio').on('click', function() {
+    $('#timeOfContract').prop('required',false);
+    $('#ifStudent').prop('required',false);
+    $('#ifZus').prop('required',false);
+    $('#companyB2b').prop('required',true);
+    $('#ifCompetition').prop('required',true);
+  });
 });
 
 

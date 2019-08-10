@@ -190,7 +190,7 @@
           </div>
       </div>
 
-      <!-- adding new worker panel-->
+      <!-- DODAWANIE NOWEGO PRACOWNIKA -->
       <div id="editPanel">
           <div class="tab-pane fade show " role="tabpanel">
             <div class="container">
@@ -200,60 +200,70 @@
               <div class="row">
                 <div class="col-md">
                   <p><b>Dane pracownika</b></p>
+
                   <form enctype="multipart/form-data" action="addHuman" method="POST">
-                    <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
-                    <input type="text" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko"
-                      required>
-                    <input type="number" class="form-control addAssets" id="telephone" name="telephone"
-                      placeholder="Numer telefonu" required>
-                    <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email"
-                      required>
+                    <input type="text" onkeypress="return isNumericKey(event)" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
+
+                    <input type="text" onkeypress="return isNumericKey(event)" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko" required>
+                    
+                    <input type="number" class="form-control addAssets" id="telephone" name="telephone" placeholder="Numer telefonu" required>
+
+                    <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email" required>
+
                     <select class="form-control addAssets" placeholder="Przełożony" id="superior" name="superior" required>
-                      <% for(var i=0; i < workers.length; i++) { %>
-                      <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %>
-                      </option>
-                      <%}%>
+                          <option value="" selected disabled>Wybierz przełożonego</option>
+                        <% for(var i=0; i < workers.length; i++) { %>
+                          <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
+                        <%}%>
                     </select>
+                    
                     <p>Stanowisko: </p>
-                    <label class="radio-inline"><input type="radio" value="1" name="position">Programista</label>
+                    <label class="radio-inline"><input type="radio" value="1" name="position" checked>Programista</label>
                     <label class="radio-inline"><input type="radio" value="0" name="position">Analityk</label>
-                    <select class="form-control" placeholder="Firma" name="spec" id="spec">
-                        <option selected>Wybierz specjalizację</option>
+                    <select class="form-control addAssets" placeholder="Firma" name="spec" id="spec" required>
+                        <option value="" selected disabled>Wybierz specjalizację</option>
                         <% for(var i=0; i < spec.length; i++) { %>
                           <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
                         <%}%>
                     </select>
+
                 </div> 
                 <div class="col-md">
                     <p><b>Dane umowy</b></p>
                     <p>Data rozpoczęcia zatrudnienia: </p>
-                    <input type="date" class="form-control addAssets" name="startDate" placeholder="Data rozpoczęcia">
+                      <input type="date" class="form-control addAssets" name="startDate" placeholder="Data rozpoczęcia" required>
+
                     <p>Data końca zatrudnienia: </p>
-                    <input type="date" class="form-control addAssets" name="endDate" placeholder="Data rozpoczęcia">
-                    <input type="number" class="form-control addAssets" name="lumpSum" placeholder="Stawka ryczałt">
-                    <input type="number" class="form-control addAssets" name="hourlyRate" placeholder="Stawka godzinowa">
+                      <input type="date" class="form-control addAssets" name="endDate" placeholder="Data rozpoczęcia" required>
+
+                    <input type="number" class="form-control addAssets" name="lumpSum" placeholder="Stawka ryczałt" required>
+
+                    <input type="number" class="form-control addAssets" name="hourlyRate" placeholder="Stawka godzinowa" required>
+
                     <p>Plik umowy:</p>
-                    <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf">
-                    <label class="radio-inline"><input type="radio" name="agreement" value="1" onclick="agreementView()">Umowa o pracę </label>
-                    <label class="radio-inline"><input type="radio" name="agreement" value="2" onclick="agreement2View()">Umowa zlecenie </label>
-                    <label class="radio-inline"><input type="radio" name="agreement" value="3" onclick="agreementB2bView()">Umowa B2B </label>
+                    <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" required>
+
+                    <label class="radio-inline"><input type="radio" id="agreementRadio" name="agreement" value="1" onclick="agreementView()">Umowa o pracę </label>
+                    <label class="radio-inline"><input type="radio" id="agreement2Radio" name="agreement" value="2" onclick="agreement2View()">Umowa zlecenie </label>
+                    <label class="radio-inline"><input type="radio" id="b2bRadio" name="agreement" value="3" onclick="agreementB2bView()">Umowa B2B </label>
                     
-                    <!-- Optional inputs -->
                     <div id="agreement"> <!-- umowa o prace is checked-->
                       <input type="number" class="form-control addAssets" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
                     </div>
+
                     <div id="agreement2"> <!-- umowa zlecenie is checked -->
                       <p>Czy jest studentem?</p>
-                      <label class="radio-inline"><input type="radio" value="1" name="ifStudent">Tak</label>
-                      <label class="radio-inline"><input type="radio" value="0" name="ifStudent">Nie</label>
+                      <label class="radio-inline"><input type="radio" value="1" id="ifStudent" name="ifStudent" checked>Tak</label>
+                      <label class="radio-inline"><input type="radio" value="0" id="ifStudent" name="ifStudent">Nie</label>
   
                       <p>Czy obowiazuje ZUS?</p>
-                      <label class="radio-inline"><input type="radio" value="1" name="ifZus">Tak</label>
-                      <label class="radio-inline"><input type="radio" value="0" name="ifZus">Nie</label>
+                      <label class="radio-inline"><input type="radio" value="1" name="ifZus" id='ifZus' checked>Tak</label>
+                      <label class="radio-inline"><input type="radio" value="0" id='ifZus' name="ifZus">Nie</label>
                     </div>
+
                     <div id="b2b">
                       <select class="form-control" placeholder="Firma" name="companyB2b" id="companyB2b">
-                          <option selected>Wybierz firmę</option>
+                          <option value="" selected disabled>Wybierz firmę</option>
                         <% for(var i=0; i < company.length; i++) { %>
                           <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
                         <%}%>
@@ -261,14 +271,14 @@
                       <button type="button" class="btn btn-warning" onclick="addCompanyView()">Dodaj firmę</button>
   
                       <p>Czy zakaz konkurencji?</p>
-                      <label class="radio-inline"><input type="radio" value="1" name="ifCompetition">Tak</label>
-                      <label class="radio-inline"><input type="radio" value="0" name="ifCompetition">Nie</label>
+                      <label class="radio-inline"><input type="radio" value="1" name="ifCompetition" id="ifCompetition">Tak</label>
+                      <label class="radio-inline"><input type="radio" value="0" name="ifCompetition" id="ifCompetition">Nie</label>
                     </div>
                 </div>
               </div>
           </div>
                     <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
-                    <button type="submit" class="btn btn-success">Zapisz</button>
+                    <button type="submit" id="submitButton" class="btn btn-success">Zapisz</button>
                   </form>
         </div>
       </div>
@@ -350,7 +360,7 @@
               <div class="form-group row">
                 <label for="teamName" class="col-sm-2 col-form-label">Nazwa zespołu:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control addAssets" id="teamName" name="teamName" placeholder="Nazwa zespołu">
+                  <input type="text" class="form-control addAssets" id="teamName" name="teamName" placeholder="Nazwa zespołu"required>
                 </div>
               </div>
 
@@ -359,8 +369,8 @@
           <div class="row">
             <div class="col">
               <div class="property shadow-sm p-3 mb-5 bg-white rounded">
-                <input type="text" class="form-control searchTeams" id="searchTeams" placeholder="Wyszukaj">
-                  <div class="list-group-teams property shadow-sm p-3 mb-5 bg-white rounded">
+                <input type="text" class="form-control searchTeamsAdd" id="searchTeamsAdd" placeholder="Wyszukaj">
+                  <div class="list-group-teams toCreate property shadow-sm p-3 mb-5 bg-white rounded">
                     <ul class="ul">
                       <div class="list-group-teams" id="list-tab" role="tablist">
                         <% for(var i=0; i < workers.length; i++) { %>
@@ -393,6 +403,20 @@
           <% include partials/teamEdit %>
         <%}%>
 
+
+        <%if(failed != 0){%>
+          <div id="" class="modal">
+              <div class="modal-content">
+                  <h3>Uwaga!</h3>
+                  <%= failed %>
+          
+                  <form action="humanResources" method="GET">
+                      <button type="submit" class="btn btn-danger">Ok</button>
+                  </form>
+              </div>
+          </div>
+          <% } %>
+
       <div id="addCompany">
       <div id="myModal" class="modal">
         <div class="modal-content">
@@ -400,14 +424,17 @@
             <p>Podaj informacje niezbędne do dodania nowej firmy</p>
             
             <form action="addCompany" method="POST">
-              <input type="text" class="form-control addAssets" id="nameCompany" name="nameCompany" placeholder="Nazwa">
-              <input type="number" class="form-control addAssets" id="nipCompany" name="nipCompany" placeholder="NIP">
-              <input type="text" class="form-control addAssets" id="addressCompany" name="addressCompany" placeholder="Adres">
-              <input type="text" class="form-control addAssets" id="townCompany" name="townCompany" placeholder="Miasto">
+              <input type="text" class="form-control addAssets" id="nameCompany" name="nameCompany" placeholder="Nazwa" required>
+              <input type="number" class="form-control addAssets" id="nipCompany" name="nipCompany" placeholder="NIP" required>
+              <input type="text" class="form-control addAssets" id="addressCompany" name="addressCompany" placeholder="Adres" required>
+              <input type="text" class="form-control addAssets" id="townCompany" name="townCompany" placeholder="Miasto" required>
               
+              <input type="hidden" name="ifHr" value="1">
               <div class="row">
-                <button type="button" class="btn btn-danger" onclick="addCompanyHide()">Anuluj</button>
-                <button type="submit" class="btn btn-success">Zapisz</button>
+                <div class="col-lg-12 text-center">
+                    <button type="button" class="btn btn-danger" onclick="addCompanyHide()">Anuluj</button>
+                    <button type="submit" class="btn btn-success">Zapisz</button>
+                </div>
               </div>
               
             </form>

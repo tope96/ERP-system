@@ -40,7 +40,7 @@ element.classList.add("active-bar");
     y.style.display = "block";
   }
 
-  function edit(nazwa, opis, rodzaj, WartoscNetto, DataZakupu, IdSrodkiTrwale) {
+  function edit(nazwa, opis, rodzaj, WartoscNetto, DataZakupu, IdSrodkiTrwale, owner) {
     var y = document.getElementById("editPanel");
     y.style.display = "none";
 
@@ -53,6 +53,7 @@ element.classList.add("active-bar");
     document.getElementById("priceEdit").value = WartoscNetto;
     document.getElementById("dateEdit").value = DataZakupu;
     document.getElementById("idEdit").value = IdSrodkiTrwale;
+    document.getElementById("ownerEdit").value = owner;
 
     var x = document.getElementById("edit");
     x.style.display = "block";

@@ -5,7 +5,32 @@ element.classList.add("active-bar");
 
 $(document).ready(function () {
 
+  $(function () {
+    var $inputs = $('input[name=lumpSum],input[name=hourlyRate]');
+    $inputs.on('input', function () {
+        // Set the required property of the other input to false if this input is not empty.
+        $inputs.not(this).prop('required', !$(this).val().length);
+    });
+  });
+
 $(function () {
+
+  $('#searchTeamsAdd').keyup(function () {
+    console.log("dd")
+    var current_query = $('#searchTeamsAdd').val();
+    if (current_query !== "") {
+      $(".toCreate li").hide();
+      $(".toCreate li").each(function () {
+        var current_keyword = $(this).text();
+        if (current_keyword.indexOf(current_query) >= 0) {
+          $(this).show();
+        };
+      });
+    } else {
+      $(".toCreate li").show();
+    };
+  });
+
   $('#searchTeams1').keyup(function () {
     console.log("dd")
     var current_query = $('#searchTeams1').val();
@@ -114,6 +139,31 @@ $('#submitAdd').attr("disabled",true);
    $('.boxAdd').change(function() {
       $('#submitAdd').attr('disabled', $('.boxAdd:checked').length == 0);
    });
+
+
+  $('#agreementRadio').on('click', function() {
+    $('#timeOfContract').prop('required',true);
+    $('#ifStudent').prop('required',false);
+    $('#ifZus').prop('required',false);
+    $('#companyB2b').prop('required',false);
+    $('#ifCompetition').prop('required',false);
+  });
+
+  $('#agreement2Radio').on('click', function() {
+    $('#timeOfContract').prop('required',false);
+    $('#ifStudent').prop('required',true);
+    $('#ifZus').prop('required',true);
+    $('#companyB2b').prop('required',false);
+    $('#ifCompetition').prop('required',false);
+  });
+
+  $('#b2bRadio').on('click', function() {
+    $('#timeOfContract').prop('required',false);
+    $('#ifStudent').prop('required',false);
+    $('#ifZus').prop('required',false);
+    $('#companyB2b').prop('required',true);
+    $('#ifCompetition').prop('required',true);
+  });
 });
 
  function editTeamHide() {

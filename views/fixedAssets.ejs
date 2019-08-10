@@ -19,18 +19,14 @@
             <%}%>       
           </div>
         </ul>
-        <div class="row">
-        <div class="sth">
-
-        </div>          
-        </div>
 
         <div class="keepOnBottom">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-              <button type="button" class="btn btn-success buttonUnderList admin-perm" onclick="myFunction()"><i class="fa fa-plus-circle"></i> Dodaj przedmiot</button>
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <button type="button" class="btn btn-success buttonUnderList admin-perm" onclick="myFunction()"><i
+                  class="fa fa-plus-circle"></i> Dodaj przedmiot</button>
+            </div>
           </div>
-        </div>
         </div>
     </div>
     <div class="col-lg-10" >
@@ -53,7 +49,7 @@
               
                   <form action="deleteAsset" method="POST">
                     <button type="button" class="btn btn-light actionButtons admin-perm"
-                      onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>')"><i
+                      onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>', '<%= assets[i].IdPracownik %>')"><i
                         class="fa fa-edit" data-toggle="tooltip" data-placement="top"
                         title="Edytuj ten przedmiot"></i>
                     </button>
@@ -75,6 +71,10 @@
                 <%}%>
               </div>
               
+              <div class="property shadow-sm p-3 mb-2 bg-white rounded">
+                  <b>Rodzaj: </b> <%= assets[i].Rodzaj %>
+              </div>
+
               <div class="property shadow-sm p-3 mb-2 bg-white rounded">
                   <b>Wartosc netto: </b> <%= assets[i].WartoscNetto %> zł
               </div>
@@ -121,36 +121,59 @@
 
   <!-- DODAWANIE PRZEDMIOTU -->
   <div id="editPanel">
-      <div class="tab-pane fade show " role="tabpanel" >
-        <h2>Dodawanie przedmiotu</h2>
-        <p>Podaj dane nowego przedmiotu</p>
-        <form action="addAsset" method="POST">
+    <div class="tab-pane fade show " role="tabpanel">
+      <h2>Dodawanie przedmiotu</h2>
+      <p>Podaj dane nowego przedmiotu</p>
+
+      <form action="addAsset" method="POST">
         <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Nazwa przedmiotu" required>
+
         <textarea class="form-control addAssets" rows="10" id="description" name="description" placeholder="Opis"></textarea>
+
         <input type="text" class="form-control addAssets" id="type" name="type" placeholder="Rodzaj" required>
-        <input type="number" class="form-control addAssets" id="price" name="price" placeholder="Wartość netto" required>
+
+        <div class="input-group addAssets">
+            <input type="number" class="form-control addAssets" id="price" name="price" placeholder="Wartość netto" aria-label="Nazwa użytkownika"
+                aria-describedby="basic-addon2" required>
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">zł</span>
+            </div>
+        </div>
+
         <div class="row">
           <div class="col text-center">
             Data zakupu
           </div>
         </div>
+
         <input type="date" class="form-control addAssets" id="date" name="date" placeholder="Data zakupu" required>
-        <input type="number" class="form-control addAssets" id="amount" name="amount" placeholder="Ilość" required>
-        <div class="row">
-            <div class="col text-center">
-              Osoba odpowiedzialna:
+
+        <div class="input-group addAssets">
+            <input type="number" class="form-control addAssets" id="amount" name="amount" placeholder="Ilość" aria-label="Nazwa użytkownika"
+                aria-describedby="basic-addon2" required>
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">sztuk</span>
             </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-center">
+            Osoba odpowiedzialna:
           </div>
+        </div>
+
         <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner" required>
+            <option value="" selected disabled>Wybierz pracownika</option>
           <% for(var i=0; i < users.length; i++) { %>
-            <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %> <%= users[i].Nazwisko %></option>
+          <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %> <%= users[i].Nazwisko %></option>
           <%}%>
         </select>
-        <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
-      <button type="submit" class="btn btn-success">Zapisz</button>
-      </form>
-      </div>
+
+          <button type="button" onclick="cancel()" class="btn btn-danger">Anuluj</button>
+          <button type="submit" class="btn btn-success">Zapisz</button>
+        </form>
     </div>
+  </div>
     
 
     <!-- EDYTOWANIE PRZEDMIOTU -->
@@ -200,7 +223,18 @@
                   </div>
               </div>
 
-      
+              <div class="form-group row">
+                  <label for="dateEdit" class="col-sm-2 col-form-label">Osoba odpowiedzialna:</label>
+                  <div class="col-sm-10">
+                      <select class="form-control addAssets" placeholder="Właściciel" id="ownerEdit" name="ownerEdit" required>
+                          <option value="" selected disabled>Wybierz pracownika</option>
+                        <% for(var i=0; i < users.length; i++) { %>
+                        <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %> <%= users[i].Nazwisko %></option>
+                        <%}%>
+                      </select>
+                  </div>
+              </div>
+
 
           <input type="hidden" id="idEdit" name="idEdit" value="">
 

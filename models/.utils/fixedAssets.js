@@ -35,7 +35,7 @@ function deleteAsset(id, idTeam){
     });
 }
 
-function editAsset(name, description, type, price, date, id, idTeam){
+function editAsset(name, description, type, price, date, id, owner, idTeam){
     return fixedAssets.findOne({
         where:{
             IdSrodkiTrwale: id
@@ -47,7 +47,8 @@ function editAsset(name, description, type, price, date, id, idTeam){
             WartoscNetto: price,
             DataZakupu: date,
             Nazwa: name,
-            IdZespol: idTeam
+            IdZespol: idTeam,
+            IdPracownik: owner
         });
     })
 }

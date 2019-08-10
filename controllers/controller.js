@@ -2,7 +2,6 @@ var models = require("../models");
 var exports = module.exports = {}
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
-var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
 var jobUtil = require('../models/.utils/job.js');
 var permissionUtil = require('../models/.utils/permission.js');
 var proposalUtil = require('../models/.utils/proposal.js');
@@ -121,23 +120,6 @@ exports.changePasswordError = function (req, res) {
     })
 }
 
-exports.fixedAssets = function (req, res) {
-    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
-        fixedAssetsUtil.getAssets(account.IdPracownik, req.user.IdZespol).then(function (assets) {
-            workersUtil.getWorkers(req.user.IdZespol).then(function (users) {
-                permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
-                    res.render('fixedAssets', {
-                        name: account.Imie,
-                        site: "Środki trwałe",
-                        assets: assets,
-                        users: users,
-                        permission: permission
-                    });
-                });
-            });
-        });
-    });
-}
 
 exports.alreadyExists = function (req, res) {
     res.render('alreadyExists');

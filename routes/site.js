@@ -5,6 +5,8 @@ var humanResourcesController = require('../controllers/humanResourcesController.
 var productionController = require('../controllers/productionController.js');
 var proposalController = require('../controllers/proposalController.js');
 var emailsController = require('../controllers/emailController.js');
+var fixedAssetsController = require('../controllers/fixedAssetsController.js');
+
 var permissionUtil = require('../models/.utils/permission.js');
 var proposalUtil = require('../models/.utils/proposal.js');
 var emailsUtil = require('../models/.utils/emails.js');
@@ -68,10 +70,11 @@ module.exports = function (app, passport) {
     app.get('/profile', isLoggedIn, controller.profile);
     app.get('/profileEdited', isLoggedIn, controller.profile);
     app.get('/alreadyExists', isLoggedIn, controller.alreadyExists);
-    app.get('/fixedAssets', isLoggedIn, controller.fixedAssets);
+    app.get('/fixedAssets', isLoggedIn, fixedAssetsController.fixedAssets);
     app.get('/editCompany', isLoggedIn, companyController.editCompany);
     app.get('/editCompanyAddProfile', isLoggedIn, companyController.editCompanyAddProfile);
     app.get('/editCompanyAddProfileError', isLoggedIn, companyController.editCompanyAddProfileError);
+    app.get('/')
     app.get('/editCompanyAddProfileSuccess', isLoggedIn, companyController.editCompanyAddProfileSuccess);
     app.get('/changePassword', isLoggedIn, controller.changePassword);
     app.get('/passwordChanged', isLoggedIn, controller.passwordChanged);
@@ -89,6 +92,8 @@ module.exports = function (app, passport) {
     app.get('/createEmailGroup', isLoggedIn, emailsController.createEmailGroup);
     app.get('/createEmailsGroupFaled', isLoggedIn, emailsController.createEmailsGroupFailed);
     app.get('/noPermission', controller.noPermission);
+    app.get('/humanResourcesAddFailed', humanResourcesController.humanResourcesAddFailed);
+    app.get('/humanResourcesAddCompanyFailed', isLoggedIn, humanResourcesController.humanResourcesAddCompanyFailed);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -185,8 +190,9 @@ module.exports = function (app, passport) {
         var price = req.body.priceEdit;
         var date = req.body.dateEdit;
         var id = req.body.idEdit;
+        var owner = req.body.ownerEdit
 
-        fixedAssets.editAsset(name, description, type, price, date, id, req.user.IdZespol).then(function(){
+        fixedAssets.editAsset(name, description, type, price, date, id, owner, req.user.IdZespol).then(function(){
             setTimeout(function(){
                 resp.redirect('/fixedAssets');
             }, 500); 
@@ -257,7 +263,7 @@ module.exports = function (app, passport) {
                 positionUtil.addAnalit(user.IdPracownik, spec);
             }
             if(user == false){
-                res.redirect('/editCompanyAddProfileError');
+                res.redirect('/humanResourcesAddFailed');
             }else{
                 agreementUtil.addAgreement(startDate, endDate, lumpSum, hourlyRate).then(function(agreeId){
                     if(agreeId == false){
@@ -383,16 +389,25 @@ module.exports = function (app, passport) {
     });
 
     app.post('/addCompany', isLoggedIn, function(req, res){
+        var hr = req.body.ifHr;
         var name = req.body.nameCompany;
         var nip = req.body.nipCompany;
         var address = req.body.addressCompany;
         var town = req.body.townCompany;
 
+        if(hr == 1){
+            
+        }
+
         companyUtil.addCompany(name, nip, address, town, req.user.IdZespol).then(function(ifOk){
             if(ifOk){
-                res.redirect('/humanResources');
+                if(hr == 1){
+                    res.redirect('/humanResources');
+                }
             }else{
-                console.log("nieeeeee"); //TODO: make something
+                if(hr == 1){
+                    res.redirect('/humanResourcesAddCompanyFailed');
+                }
             }
         });
     });
@@ -463,7 +478,8 @@ module.exports = function (app, passport) {
                                                                             zlecenie: zlecenie,
                                                                             praca: praca,
                                                                             edycja: 1,
-                                                                            edycjaPracownika: 0
+                                                                            edycjaPracownika: 0,
+                                                                            failed: 0
                                                                         });
                                                                     });
                                                                 });
@@ -524,7 +540,8 @@ module.exports = function (app, passport) {
                                                                             zlecenie: zlecenie,
                                                                             praca: praca,
                                                                             edycja: 1,
-                                                                            edycjaPracownika: 0
+                                                                            edycjaPracownika: 0,
+                                                                            failed: 0
                                                                         });
                                                                     });
                                                                 });
@@ -668,7 +685,9 @@ module.exports = function (app, passport) {
                                                                         praca: praca,
                                                                         edycja: 1,
                                                                         edycjaPracownika: 0,
-                                                                        emails: emails});
+                                                                        emails: emails,
+                                                                        failed: 0
+                                                                        });
                                                                     });
                                                                 });
                                                             });
@@ -923,7 +942,8 @@ module.exports = function (app, passport) {
                                                                         agreeMore: agreeMore,
                                                                         analitOrProgram: analitOrProgram,
                                                                         currSpec: currSpec,
-                                                                        emails: emails
+                                                                        emails: emails,
+                                                                        failed: 0
                                                                     });
                                                                     });
                                                                     });

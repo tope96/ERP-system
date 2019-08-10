@@ -174,8 +174,20 @@ function getWorkers(idTeam) {
 function addProfile(name, lastName, email, tel, superior, idTeam, contractLink) {
     return pracownik.findOne({
         where: {
-            Email: email,
-            NumerTelefonu: tel
+            $or: [
+                {
+                    Email:
+                    {
+                        $eq: email
+                    }
+                },
+                {
+                    NumerTelefonu:
+                    {
+                        $eq: tel
+                    }
+                }
+            ]
         }
     }).then(function (user) {
         if (user) {
