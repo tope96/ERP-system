@@ -83,16 +83,31 @@ module.exports = function (app, passport) {
     app.get('/production', isLoggedIn, productionController.production);
     app.get('/kalendarz', isLoggedIn, controller.calendar);
     app.get('/writeProposal', isLoggedIn, proposalController.writeProposal);
-    app.get('/emails', isLoggedIn, emailsController.newEmail);
+    app.get('/emails', isLoggedIn, isAdmin, emailsController.newEmail);
     app.get('/createEmail', isLoggedIn, emailsController.createEmail);
     app.get('/createEmailFailed', isLoggedIn, emailsController.createEmailFailed);
     app.get('/createEmailGroup', isLoggedIn, emailsController.createEmailGroup);
     app.get('/createEmailsGroupFaled', isLoggedIn, emailsController.createEmailsGroupFailed);
+    app.get('/noPermission', controller.noPermission);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
             return next();
         res.redirect('/signin');
+    }
+
+    function isAdmin(req, res, next){
+        if(req.user.IdUprawnienia == 1){
+            return next();
+        }
+        res.redirect('/noPermission');
+    }
+
+    function isHR(req, res, next){
+        if(req.user.IdUprawnienia == 1 || req.user.IdUprawnienia == 2){
+            return next();
+        }
+        res.redirect('/noPermission');
     }
 
     //PROFILE
@@ -121,7 +136,7 @@ module.exports = function (app, passport) {
     });
 
     //FIXED ASSETS
-    app.post('/addAsset', isLoggedIn, function(req, res){
+    app.post('/addAsset', isLoggedIn, isAdmin, function(req, res){
         var name = req.body.name;
         var description = req.body.description;
         var type = req.body.type;
@@ -136,7 +151,7 @@ module.exports = function (app, passport) {
         }, 500);
     });
 
-    app.post('/deleteAsset', isLoggedIn, function(req, resp){
+    app.post('/deleteAsset', isLoggedIn, isAdmin, function(req, resp){
         var idAsset = req.body.asset;
         fixedAssets.deleteAsset(idAsset, req.user.IdZespol).then(function(){
             setTimeout(function(){
@@ -145,7 +160,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/deleteOneAsset', isLoggedIn, function(req, resp){
+    app.post('/deleteOneAsset', isAdmin, isLoggedIn, function(req, resp){
         var idAsset = req.body.asset;
         fixedAssets.deleteOneasset(idAsset, req.user.IdZespol).then(function(){
             setTimeout(function(){
@@ -154,7 +169,7 @@ module.exports = function (app, passport) {
         })
     });
 
-    app.post('/addOneAsset', isLoggedIn, function(req, resp){
+    app.post('/addOneAsset', isLoggedIn, isAdmin, function(req, resp){
         var idAsset = req.body.asset;
         fixedAssets.addOneAsset(idAsset, req.user.IdZespol).then(function(){
             setTimeout(function(){
@@ -163,7 +178,7 @@ module.exports = function (app, passport) {
         })
     })
 
-    app.post('/editAsset', isLoggedIn, function(req, resp){
+    app.post('/editAsset', isLoggedIn, isAdmin, function(req, resp){
         var name = req.body.nameEdit;
         var description = req.body.descriptionEdit;
         var type = req.body.typeEdit;
@@ -180,7 +195,7 @@ module.exports = function (app, passport) {
 
     //COMPANY EDIT
 
-    app.post('/addProfile', isLoggedIn, function(req, res){
+    app.post('/addProfile', isLoggedIn, isAdmin, function(req, res){
        
         var login = req.body.login;
         var password = req.body.password;
@@ -195,7 +210,7 @@ module.exports = function (app, passport) {
         })
     });
 
-    app.post('/companyEdition', isLoggedIn, function(req, res){
+    app.post('/companyEdition', isLoggedIn, isAdmin, function(req, res){
         var name = req.body.companyName;
         var nip = req.body.companyNip;
         var town = req.body.companyTown;
@@ -209,7 +224,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/addHuman', upload.single('file-to-upload'), isLoggedIn, function(req, res){
+    app.post('/addHuman', upload.single('file-to-upload'), isLoggedIn, isAdmin, function(req, res){
         var name = req.body.name;
         var lastName = req.body.lastName;
         var email = req.body.email;
@@ -529,7 +544,7 @@ module.exports = function (app, passport) {
         })
     });
 
-    app.post('/addClient', function(req, res){
+    app.post('/addClient', isLoggedIn, isAdmin, function(req, res){
         var firstName = req.body.firstName;
         var lastName = req.body.lastName;
         var email = req.body.email;
@@ -541,7 +556,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/addCategory', function(req, res){
+    app.post('/addCategory', isLoggedIn, isAdmin, function(req, res){
         var categoryName = req.body.nameCategory;
 
         projectsUtil.addCategory(categoryName, req.user.IdZespol).then(function(){
@@ -549,7 +564,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/addProject', function(req, res){
+    app.post('/addProject', isLoggedIn, isAdmin, function(req, res){
         var projectName = req.body.projectName;
         var client = req.body.client;
         var category = req.body.category;
@@ -565,7 +580,7 @@ module.exports = function (app, passport) {
         })
     });
 
-    app.post('/deleteProject', function(req, res){
+    app.post('/deleteProject', isLoggedIn, isAdmin, function(req, res){
         var project = req.body.project;
 
         teamUtil.deleteProjectsTeam(project).then(function(){
@@ -575,7 +590,7 @@ module.exports = function (app, passport) {
         })
     });
 
-    app.post('/editProject', function(req, res){
+    app.post('/editProject', isLoggedIn, isAdmin, function(req, res){
         var project = req.body.projectIdEdit;
         var projectName = req.body.nameEdit;
         var client = req.body.clientEdit;
@@ -592,7 +607,7 @@ module.exports = function (app, passport) {
         })
     });
 
-    app.post('/addingJob', function(req, res){
+    app.post('/addingJob', isLoggedIn, function(req, res){
         var project = req.body.projectIdJob;
         var name = req.body.nameJob;
         var description = req.body.descriptionJob;
@@ -607,14 +622,14 @@ module.exports = function (app, passport) {
 
     });
 
-    app.post('/deleteTeam', function(req, res){
+    app.post('/deleteTeam', isLoggedIn, isHR, function(req, res){
         var idTeam = req.body.idTeam;
         teamsUtil.deleteTeam(idTeam);
             res.redirect('/humanResources');
 
     });
 
-    app.post('/editTeam', function (req, res) {
+    app.post('/editTeam', isLoggedIn, isHR, function (req, res) {
         var idTeam = req.body.idTeamEdit;
         var teamiii = idTeam.replace("\'", "");
         var teamiiii = teamiii.replace("\'", "");
@@ -791,7 +806,7 @@ module.exports = function (app, passport) {
     });
 
 
-    app.post('/editClients', isLoggedIn, function (req, res) {
+    app.post('/editClients', isLoggedIn, isAdmin, function (req, res) {
         var clientId = req.body.clientId;
         clientUtil.getClientInfo(clientId).then(function (clientInfo) {
             companyUtil.getCompanyInfo(clientInfo.Firma).then(function (companyInfo) {
@@ -811,7 +826,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post("/deleteClient", isLoggedIn, function(req, res){
+    app.post("/deleteClient", isLoggedIn, isAdmin, function(req, res){
         var clientId = req.body.clientId;
 
         clientUtil.deleteClient(clientId).then(function(){
@@ -819,7 +834,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post("/editClient", isLoggedIn, function(req, res){
+    app.post("/editClient", isLoggedIn, isAdmin, function(req, res){
         var nameCompany = req.body.nameEdit;
         var firstName = req.body.firstNameEdit;
         var lastName = req.body.lastNameEdit;
@@ -849,16 +864,21 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/permissionChange', isLoggedIn, function(req, res){
+    app.post('/permissionChange', isLoggedIn, isAdmin, function(req, res){
         var permission = req.body.perm;
         var idWorker = req.body.idWorker;
 
-        permissionUtil.changePermission(idWorker, permission).then(function(){
-            res.redirect('/settings')
+        permissionUtil.changePermission(idWorker, permission).then(function(changed){
+            if(!changed){
+                res.redirect('/settingsPermFailed')
+            }else{
+                res.redirect('/settings')               
+            }
+
         })
     });
 
-    app.post('/editWorker', isLoggedIn, function(req, res){
+    app.post('/editWorker', isLoggedIn, isHR, function(req, res){
         var IdWorker = req.body.IdWorker;
 
         domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -938,7 +958,7 @@ app.post('/sendProposal', isLoggedIn, function(req, res){
     })
 });
 
-app.post('/acceptProposal', isLoggedIn, function(req, res){
+app.post('/acceptProposal', isLoggedIn, isHR, function(req, res){
     var idProposal = req.body.proposalIdReceived;
     console.log("proposal: " + idProposal )
     proposalUtil.acceptProposal(idProposal).then(function(){
@@ -946,7 +966,7 @@ app.post('/acceptProposal', isLoggedIn, function(req, res){
     })
 });
 
-app.post('/declineProposal', isLoggedIn, function(req, res){
+app.post('/declineProposal', isLoggedIn, isHR, function(req, res){
     var idProposal = req.body.proposalIdReceivedDec;
 
     proposalUtil.declineProposal(idProposal).then(function(){
@@ -954,7 +974,7 @@ app.post('/declineProposal', isLoggedIn, function(req, res){
     })
 });
 
-app.post('/createEmail', isLoggedIn, function(req, res){
+app.post('/createEmail', isLoggedIn, isAdmin, function(req, res){
     var address = req.body.address + "@comboBox.com";
     var alias = req.body.alias  + "@comboBox.com";
     var idWorker = req.body.worker;
@@ -968,7 +988,7 @@ app.post('/createEmail', isLoggedIn, function(req, res){
     });
 });
 
-app.post('/deleteEmail', isLoggedIn, function(req, res){
+app.post('/deleteEmail', isLoggedIn, isAdmin, function(req, res){
     var idEmail = req.body.idEmail;
 
     emailsUtil.deleteEmail(idEmail).then(function(){
@@ -976,7 +996,7 @@ app.post('/deleteEmail', isLoggedIn, function(req, res){
     })
 });
 
-app.post('/createEmailsGroup', isLoggedIn, function(req, res){
+app.post('/createEmailsGroup', isLoggedIn, isAdmin, function(req, res){
     var address = req.body.address + "@comboBox.com";
     var members = req.body.groupMember;
     var desc = req.body.groupDesc;
@@ -992,7 +1012,7 @@ app.post('/createEmailsGroup', isLoggedIn, function(req, res){
     });
 });
 
-app.post('/deleteEmailGroup', isLoggedIn, function(req, res){
+app.post('/deleteEmailGroup', isLoggedIn, isAdmin, function(req, res){
     var idEmailGroup = req.body.idEmailGroup;
 
     emailsUtil.deleteEmailGroup(idEmailGroup).then(function(){
@@ -1000,7 +1020,7 @@ app.post('/deleteEmailGroup', isLoggedIn, function(req, res){
     });
 });
 
-app.post('/editGroup', isLoggedIn, function(req, res){
+app.post('/editGroup', isLoggedIn, isAdmin, function(req, res){
     var address = req.body.address + "@comboBox.com";
     var desc = req.body.groupDesc;
     var idGroup = req.body.idGroup;
@@ -1010,7 +1030,7 @@ app.post('/editGroup', isLoggedIn, function(req, res){
     });
 })
 
-    app.post('/editEmailGroup', isLoggedIn, function (req, res) {
+    app.post('/editEmailGroup', isLoggedIn, isAdmin, function (req, res) {
         var idEmailGroup = req.body.idEmailGroup;
 
         domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -1037,7 +1057,7 @@ app.post('/editGroup', isLoggedIn, function(req, res){
         });
     });
 
-    app.post('/deleteFromEmailGroup', isLoggedIn, function(req, res){
+    app.post('/deleteFromEmailGroup', isLoggedIn, isAdmin, function(req, res){
         var members = req.body.toDelete;
         var idGroup = req.body.idGroup;
 
@@ -1067,7 +1087,7 @@ app.post('/editGroup', isLoggedIn, function(req, res){
         });
         })
 
-        app.post('/addNewMembersEmailGroup', isLoggedIn, function(req, res){
+        app.post('/addNewMembersEmailGroup', isLoggedIn, isAdmin, function(req, res){
             var members = req.body.toAdd;
             var idGroup = req.body.idGroup;
     

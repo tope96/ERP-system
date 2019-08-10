@@ -28,17 +28,17 @@
                     </form>
                 </div>
             </div>
-
             <hr>
 
             <!-- WYSŁANE WNIOSKI -->
-            <div class='row normal-perm'>
+            <div class='normal-perm'>
+            <div class='row'>
                 <div class="col-lg-12 text-center">
                     <% if(sentProposal.length < 1){%>
                         <!-- Do nothing -->
                     <% }else{%>
                     <p>Wysłane wnioski:</p>
-                    <div class="table-responsive maxHeight">
+                    <div class="table-responsive maxHeight normal-perm">
                         <table class="table">
                             <thead>
                               <tr>
@@ -74,25 +74,27 @@
                                 <%}%>
 
                             </tbody>
-                        </table>
+                        </table></div>
                           <%}%>
-                        </div>
+                    
                 </div>
             </div>
+        </div>
             <div class="row normal-perm">
-                    <div class="col-lg-12 text-center">
-                        <form action="writeProposal" method="GET">
-                            <button type='submit' class="btn btn-success normal-perm "><i class="fas fa-plus-circle"></i> Złóż wniosek</button>
-                        </form>
-
-                    </div>
+                <div class="col-lg-12 text-center">
+                    <form action="writeProposal" method="GET">
+                        <button type='submit' class="btn btn-success normal-perm "><i class="fas fa-plus-circle"></i> Złóż
+                            wniosek</button>
+                    </form>
                 </div>
+            </div>
 
 
             <!-- OCZEKUJACE WNIOSKI -->
-            <div class='row admin-perm'>
+            <div class="admin-perm">
+            <div class='row '>
                     <div class="col-lg-12 text-center">
-                        <% if(sentProposal.length < 1){%>
+                        <% if(received.length < 1){%>
                         <% }else{%>
 
                         <p>Otrzymane wnioski:</p>
@@ -138,8 +140,8 @@
                                     <%}%>
                                 </tbody>
                               </table>
-                              <%}%>
                             </div>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -272,15 +274,18 @@
                         <ul class="ul">
                             <div class="list-group-teams" id="list-tab" role="tablist">
                                 <% for(var i=0; i < workers.length; i++) { %>
-                                <li onclick="changePerm('<%= workers[i].IdPracownik %>')" class="list-group-item "><b>
-                                        <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
+                                    <%for(var a = 0; a<domanes.length; a++){ %>
+                                        <%if(workers[i].IdPracownik == domanes[a].IdPracownik){%>
+                                            <li onclick="changePerm('<%= workers[i].IdPracownik %>')" class="list-group-item "><b>
+                                            <%= workers[i].Imie %> <%= workers[i].Nazwisko %> </b> </li>
+                                        <%}%>
+                                    <%}%>
                                 <%}%>
-                                            </div>
-                                  </div> 
-
-                                  <button type="button" class="btn btn-danger" onclick="hideWorkers()">Anuluj</button>
-                        </div>
-                    </div>
+                            </div>
+                    </div> 
+                    <button type="button" class="btn btn-danger" onclick="hideWorkers()">Anuluj</button>
+                </div>
+            </div>
 
                     <div id="perms" class="modal">
                             <div class="modal-content">
@@ -308,6 +313,7 @@
                             </form>
                             </div>
                         </div>
+                    
         </div>
     </div>
 </div>

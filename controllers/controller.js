@@ -7,6 +7,10 @@ var jobUtil = require('../models/.utils/job.js');
 var permissionUtil = require('../models/.utils/permission.js');
 var proposalUtil = require('../models/.utils/proposal.js');
 
+exports.noPermission = function(req, res){
+    res.render("noPermission.ejs");
+}
+
 exports.profile = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
@@ -158,7 +162,8 @@ exports.settings = function (req, res) {
                                         domanes: domanes,
                                         sentProposal: sentProposal,
                                         categories: categories,
-                                        received: received
+                                        received: received,
+                                        permissionFailed: 0
                                     })
                                 })
                             });
@@ -169,6 +174,7 @@ exports.settings = function (req, res) {
         })
     })
 }
+
 
 //CALENDAR
 exports.calendar = function (req, res) {

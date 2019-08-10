@@ -18,9 +18,13 @@ function changePermission(idWorker, idPerm){
             IdPracownik: idWorker
         }
     }).then(function(found){
-        return found.update({
-            IdUprawnienia: idPerm
-        });
+        if(found){
+            return found.update({
+                IdUprawnienia: idPerm
+            });
+        }else{
+            return false;
+        }
     });
 }
 

@@ -419,6 +419,13 @@ body {
 
 
 @media screen and (max-width: 995px) {
+
+    .addAssets{
+        margin: 0 auto;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
     .list-group-item{
         width: 100% !important;
     }
