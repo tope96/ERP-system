@@ -10,7 +10,12 @@
               <div class="tab-pane fade show " role="tabpanel">
                   <div class="row">
                     <div class="col-md">
-                      <p><b>Dane pracownika</b></p>
+                      <div class="row">
+                        <div class="col-lg-12 text-center">
+                          <p><b>Dane pracownika</b></p>
+                        </div>
+                      </div>
+                      
                       <form enctype="multipart/form-data" action="editHr" method="POST">
                       <input type="hidden" name="idEdit" value="<%=workerInfo.IdPracownik %>">
                       <input type="hidden" name="idAgree" value="<%=agreeInfo.IdUmowy %>">
@@ -29,17 +34,22 @@
                           <%}%>
                           <%}%>
                         </select>
-                        <p>Stanowisko: </p>
-                        <%if(analitOrProgram == "programmer"){%>
-                          <label class="radio-inline"><input type="radio" value="1" name="positionEdit" checked>Programista</label>
-                          <label class="radio-inline"><input type="radio" value="0" name="positionEdit">Analityk</label>
-                        <% }else{ %>
-                          <label class="radio-inline"><input type="radio" value="0" name="positionEdit">Programista</label>
-                          <label class="radio-inline"><input type="radio" value="1" name="positionEdit" checked>Analityk</label>
-                        <% } %>
+                        <div class="row">
+                          <div class="col-lg-12 text-center">
+                            <p>Stanowisko: </p>
+                            <%if(analitOrProgram == "programmer"){%>
+                              <label class="radio-inline"><input type="radio" value="1" name="positionEdit" checked>Programista</label>
+                              <label class="radio-inline"><input type="radio" value="0" name="positionEdit">Analityk</label>
+                            <% }else{ %>
+                              <label class="radio-inline"><input type="radio" value="0" name="positionEdit">Programista</label>
+                              <label class="radio-inline"><input type="radio" value="1" name="positionEdit" checked>Analityk</label>
+                            <% } %>                            
+                          </div>
+                        </div>
+
                         
-                        <select class="form-control" placeholder="Firma" name="specEdit" id="specEdit">
-                            <option selected value="-1">Wybierz specjalizację</option>
+                        <select class="form-control addAssets" placeholder="Firma" name="specEdit" id="specEdit" required>
+                            <option value="" selected disabled>Wybierz specjalizację</option>
                             <% for(var i=0; i < spec.length; i++) { %>
                               <% if(currSpec == spec[i].IdSpecjalizacja){%>
                                 <option value="<%=spec[i].IdSpecjalizacja %>" selected><%=spec[i].Nazwa %></option>
@@ -50,11 +60,16 @@
                         </select>
                     </div> 
                     <div class="col-md">
-                        <p><b>Dane umowy</b></p>
+                      <div class="row">
+                        <div class="col-lg-12 text-center">
+                          <p><b>Dane umowy</b></p>
+                        </div>
+                      </div>
+                        
                         <p>Data rozpoczęcia zatrudnienia: </p>
-                        <input type="date" class="form-control addAssets" name="startDateEdit" value="<%=agreeInfo.DataRozpoczecia %>" placeholder="Data rozpoczęcia">
+                        <input type="date" class="form-control addAssets" name="startDateEdit" value="<%=agreeInfo.DataRozpoczecia %>" placeholder="Data rozpoczęcia" required>
                         <p>Data końca zatrudnienia: </p>
-                        <input type="date" class="form-control addAssets" name="endDateEdit" value="<%=agreeInfo.DataZakonczenia %>" placeholder="Data rozpoczęcia">
+                        <input type="date" class="form-control addAssets" name="endDateEdit" value="<%=agreeInfo.DataZakonczenia %>" placeholder="Data rozpoczęcia" required>
                         <input type="number" class="form-control addAssets" name="lumpSumEdit" value="<%=agreeInfo.StawkaRyczalt %>" placeholder="Stawka ryczałt">
                         <input type="number" class="form-control addAssets" name="hourlyRateEdit" value="<%=agreeInfo.StawkaGodzinowa %>" placeholder="Stawka godzinowa">
                         
@@ -67,6 +82,8 @@
                               <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf">
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="col-lg-12 text-center">
                         <%if(agreeInfo.umowy_b2b != null){ %>
                           <input type="hidden" id="concur" value='<%= agreeMore.ZakazKonkurencji %>'>
                           <input type="hidden" id="company" value='<%= agreeMore.IdFirma %>'>
@@ -82,15 +99,15 @@
                             $('#companyB2bEdit').val(y);
                             }); </script>
 
-                          <label class="radio-inline"><input type="radio" name="agreement" id="oPrace" value="1" onclick="agreementViewEdit('<%= agreeMore.WymiarCzasuPracy %>')" >Umowa o pracę </label>
-                          <label class="radio-inline"><input type="radio" name="agreement" id="zlecenie" value="2" onclick="agreement2ViewEdit()" >Umowa zlecenie </label>
-                          <label class="radio-inline"><input type="radio" name="agreement" id="b2b1" value="3" onclick="agreementB2bViewEdit()" checked>Umowa B2B </label>
+                          <label class="radio-inline"><input type="radio" name="agreement" id="oPrace" value="1" onclick="agreementViewEdit('<%= agreeMore.WymiarCzasuPracy %>')" id="agreementRadioEdit">Umowa o pracę </label>
+                          <label class="radio-inline"><input type="radio" name="agreement" id="zlecenie" value="2" onclick="agreement2ViewEdit()" id="agreement2RadioEdit" >Umowa zlecenie </label>
+                          <label class="radio-inline"><input type="radio" name="agreement" id="b2b1" value="3" onclick="agreementB2bViewEdit()" id="b2bRadioEdit" checked>Umowa B2B </label>
                         <% }else if(agreeInfo.umowy_o_prace != null){ %>
                           <input type="hidden" id="wymiar" value='<%= agreeMore.WymiarCzasuPracy %>'>
                           <script>$(document).ready(function () {var x = document.getElementById("wymiar").value; document.getElementById("timeOfContractEdit").value =x }); </script>
                           <label class="radio-inline"><input type="radio" name="agreement" id="oPrace" value="1" onclick="agreementViewEdit('<%= agreeMore.WymiarCzasuPracy %>')" checked>Umowa o pracę </label>
-                          <label class="radio-inline"><input type="radio" name="agreement" id="zlecenie" value="2" onclick="agreement2ViewEdit()" >Umowa zlecenie </label>
-                          <label class="radio-inline"><input type="radio" name="agreement" id="b2b1" value="3" onclick="agreementB2bViewEdit()">Umowa B2B </label>
+                          <label class="radio-inline"><input type="radio" name="agreement" id="zlecenie" value="2" onclick="agreement2ViewEdit()" id="agreement2RadioEdit">Umowa zlecenie </label>
+                          <label class="radio-inline"><input type="radio" name="agreement" id="b2b1" value="3" onclick="agreementB2bViewEdit()" id="b2bRadioEdit">Umowa B2B </label>
                         <% }else if(agreeInfo.umowy_zlecenie != null){ %>
                           <input type="hidden" id="toStudent" value='<%= agreeMore.StatusStudenta %>'>
                           <input type="hidden" id="toZus" value='<%= agreeMore.ZUS %>'>
@@ -109,34 +126,35 @@
                               document.getElementById("nonZus").checked = true;
                             }
                               }); </script>
-                          <label class="radio-inline"><input type="radio" name="agreement" id="oPrace" value="1" onclick="agreementViewEdit('<%= agreeMore.WymiarCzasuPracy %>')" >Umowa o pracę </label>
-                          <label class="radio-inline"><input type="radio" name="agreement" id="zlecenie" value="2" onclick="agreement2ViewEdit()" checked>Umowa zlecenie </label>
-                          <label class="radio-inline"><input type="radio" name="agreement" id="b2b1" value="3" onclick="agreementB2bViewEdit()">Umowa B2B </label>
+                          <label class="radio-inline"><input type="radio" name="agreement" id="oPrace" value="1" onclick="agreementViewEdit('<%= agreeMore.WymiarCzasuPracy %>')" id="agreementRadioEdit" >Umowa o pracę </label>
+                          <label class="radio-inline"><input type="radio" name="agreement" id="zlecenie" value="2" onclick="agreement2ViewEdit()" id="agreement2RadioEdit" checked>Umowa zlecenie </label>
+                          <label class="radio-inline"><input type="radio" name="agreement" id="b2b1" value="3" onclick="agreementB2bViewEdit()" id="b2bRadioEdit">Umowa B2B </label>
                         <% } %>
-
+                      </div>
+                    </div>
                         <!-- Optional inputs -->
                         <div id="agreementEdit"> <!-- umowa o prace is checked-->
-                          <input type="number" class="form-control addAssets" id="timeOfContractEdit" placeholder="Wymiar czasu" name="timeOfContractEdit">
+                          <input type="number" class="form-control addAssets" id="timeOfContractEdit" placeholder="Wymiar czasu" id="timeOfContractEdit" name="timeOfContractEdit">
                         </div>
-                        <div id="agreement2Edit"> <!-- umowa zlecenie is checked -->
+                        <div id="agreement2Edit" class="text-center"> <!-- umowa zlecenie is checked -->
                           <p>Czy jest studentem?</p>
-                          <label class="radio-inline"><input type="radio" value="1" id="Student" name="ifStudentEdit">Tak</label>
+                          <label class="radio-inline"><input type="radio" value="1" id="Student" name="ifStudentEdit" id="ifStudentEdit">Tak</label>
                           <label class="radio-inline"><input type="radio" value="0" id="nonStudent" name="ifStudentEdit">Nie</label>
       
                           <p>Czy obowiazuje ZUS?</p>
-                          <label class="radio-inline"><input type="radio" value="1" id="zus" name="ifStudentEdit">Tak</label>
+                          <label class="radio-inline"><input type="radio" value="1" id="zus" name="ifZusEdit" id="ifZusEdit">Tak</label>
                           <label class="radio-inline"><input type="radio" value="0" id="nonZus" name="ifZusEdit">Nie</label>
                         </div>
-                        <div id="b2bEdit">
-                          <select class="form-control" placeholder="Firma" name="companyB2bEdit" id="companyB2bEdit">
+                        <div id="b2bEdit" class="text-center">
+                          <select class="form-control" placeholder="Firma" name="companyB2bEdit" id="companyB2bEdit" id="companyB2bEdit">
                             <% for(var i=0; i < company.length; i++) { %>
                               <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
                             <%}%>
                           </select>
-                          <button type="button" class="btn btn-warning" onclick="addCompanyView()">Dodaj firmę</button>
+                          <button type="button" class="btn btn-warning" onclick="addCompanyView()"><i class="fas fa-plus"></i> Dodaj firmę</button>
       
                           <p>Czy zakaz konkurencji?</p>
-                          <label class="radio-inline"><input type="radio" value="1" id="1" name="ifCompetitionEdit">Tak</label>
+                          <label class="radio-inline"><input type="radio" value="1" id="1" name="ifCompetitionEdit" id="ifCompetitionEdit">Tak</label>
                           <label class="radio-inline"><input type="radio" value="0" id="2" name="ifCompetitionEdit">Nie</label>
                         </div>
                     </div>

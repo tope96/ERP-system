@@ -13,6 +13,14 @@ $(document).ready(function () {
     });
   });
 
+  $(function () {
+    var $inputs = $('input[name=lumpSumEdit],input[name=hourlyRateEdit]');
+    $inputs.on('input', function () {
+        // Set the required property of the other input to false if this input is not empty.
+        $inputs.not(this).prop('required', !$(this).val().length);
+    });
+  });
+
 $(function () {
 
   $('#searchTeamsAdd').keyup(function () {
@@ -164,6 +172,30 @@ $('#submitAdd').attr("disabled",true);
     $('#companyB2b').prop('required',true);
     $('#ifCompetition').prop('required',true);
   });
+
+  $('#agreementRadioEdit').on('click', function() {
+    $('#timeOfContractEdit').prop('required',true);
+    $('#ifStudentEdit').prop('required',false);
+    $('#ifZusEdit').prop('required',false);
+    $('#companyB2bEdit').prop('required',false);
+    $('#ifCompetitionEdit').prop('required',false);
+  });
+
+  $('#agreement2RadioEdit').on('click', function() {
+    $('#timeOfContractEdit').prop('required',false);
+    $('#ifStudentEdit').prop('required',true);
+    $('#ifZusEdit').prop('required',true);
+    $('#companyB2bEdit').prop('required',false);
+    $('#ifCompetitionEdit').prop('required',false);
+  });
+
+  $('#b2bRadioEdit').on('click', function() {
+    $('#timeOfContractEdit').prop('required',false);
+    $('#ifStudentEdit').prop('required',false);
+    $('#ifZusEdit').prop('required',false);
+    $('#companyB2bEdit').prop('required',true);
+    $('#ifCompetitionEdit').prop('required',true);
+  });
 });
 
  function editTeamHide() {
@@ -176,6 +208,8 @@ $('#submitAdd').attr("disabled",true);
   }
 
   }
+
+
 
   function editWorkerHide() {
 
