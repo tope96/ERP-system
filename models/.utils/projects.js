@@ -1,8 +1,8 @@
 var models = require('../../models');
 var projectCategory = models.kategoria_projektu;
 var projectModel = models.projekty;
-var projectTeams = require('./teamsUtil.js');
-
+var teams = require('./teamsUtil');
+var projectTeams = models.zespoly_projektowe;
 
 function getAllProjectCategory(zespolDomenowy){
     return projectCategory.findAll({
@@ -26,7 +26,7 @@ function addCategory(categoryName, zespolDomenowy){
         }
     }).then(function(found){
         if(found){
-            console.log("tu nie");
+            return false;
         }else{
             return projectCategory.create({
                 IdZespolDomenowy: zespolDomenowy,
@@ -44,7 +44,7 @@ function addProject(name, client, category, dateFrom, dateTo, description, zespo
         }
     }).then(function(found){
         if(found){
-            //TODO: co jesli istniej?
+            return false;
         }else{
             return projectModel.create({
                 Nazwa: name,
@@ -56,7 +56,7 @@ function addProject(name, client, category, dateFrom, dateTo, description, zespo
                 IdKlient: client
             }).then(function(created){
                 return created.IdProjekt;
-            })
+            });
         }
     });
 }
@@ -79,7 +79,7 @@ function deleteProject(idProject){
         if(found){
             return found.destroy();
         }
-    })
+    });
 }
 function deleteProjectForTeam(idTeam){
     
@@ -93,7 +93,7 @@ function deleteProjectForTeam(idTeam){
         }else{
             return false;
         }
-    })
+    });
 }
 
 function updateProject(projectId, name, client, category, dateFrom, dateTo, description, idTeam, idOldTeam){
@@ -108,10 +108,37 @@ function updateProject(projectId, name, client, category, dateFrom, dateTo, desc
             IdKlient: client,
             KategoriaProjektu: category,
             DataRozpoczecia: dateFrom,
-            DataZakonczenia: dateTo,
+            DataZakonczenia: dateTo
+        }).then(function(){
+            return projectTeams.destroy({
+                where:{
+                    IdProjekt: projectId,
+                    IdZespol: idOldTeam      
+                }
+            }).then(function(){
+                return projectTeams.create({
+                    IdProjekt: projectId,
+                    IdZespol: idTeam   
+                });
         });
     });
+    });
 }
+
+function ifClientHasProject(idClient){
+    return projectModel.findOne({
+        where:{
+            IdKlient: idClient
+        }
+    }).then(function(found){
+        if(found){
+            return false;
+        }else{
+            return true;
+        }
+    });
+}
+
 
 module.exports = {
     getAllProjectCategory: getAllProjectCategory,
@@ -120,5 +147,6 @@ module.exports = {
     getAllProjects:getAllProjects,
     deleteProject: deleteProject,
     updateProject: updateProject,
-    deleteProjectForTeam:deleteProjectForTeam
+    deleteProjectForTeam:deleteProjectForTeam,
+    ifClientHasProject: ifClientHasProject
 }

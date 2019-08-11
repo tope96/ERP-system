@@ -94,6 +94,13 @@ module.exports = function (app, passport) {
     app.get('/noPermission', controller.noPermission);
     app.get('/humanResourcesAddFailed', humanResourcesController.humanResourcesAddFailed);
     app.get('/humanResourcesAddCompanyFailed', isLoggedIn, humanResourcesController.humanResourcesAddCompanyFailed);
+    app.get('/productionAddCompanyFailed', isLoggedIn, productionController.productionAddCompanyFailed);
+    app.get('/productionAddCategoryFailed', isLoggedIn, productionController.productionAddCategoryFailed);
+    app.get('/addProjectFailed', isLoggedIn, productionController.addProjectFailed);
+    app.get('/failedDeleteClient', isLoggedIn, companyController.failedDeleteClient);
+    app.get('/deleteHumanFailed', isLoggedIn, humanResourcesController.deleteHumanFailed);
+    app.get('/emailsDeleteFailed', isLoggedIn, emailsController.emailsDeleteFailed);
+    app.get('/deleteHumanFailedSuperior', isLoggedIn, humanResourcesController.deleteHumanFailedSuperior);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -379,17 +386,29 @@ module.exports = function (app, passport) {
     })
     });
 
-    app.post('/deleteHuman', isLoggedIn, function(req, res){
+    app.post('/deleteHuman', isLoggedIn, function (req, res) {
         var workerId = req.body.workerId;
 
-        workersUtil.layOff(workerId).then(function(){
-            res.redirect('/humanResources');
-        })
-
+        jobUtil.ifWorkerHasJob(workerId).then(function (ok) {
+            if (ok) {
+                workersUtil.ifIsSuperior(workerId).then(function (superior) {
+                    if (superior) {
+                        res.redirect('/deleteHumanFailedSuperior')
+                    } else {
+                        workersUtil.layOff(workerId).then(function () {
+                            res.redirect('/humanResources');
+                        });
+                    }
+                });
+            } else {
+                res.redirect('/deleteHumanFailed');
+            }
+        });
     });
 
     app.post('/addCompany', isLoggedIn, function(req, res){
         var hr = req.body.ifHr;
+        var production = req.body.ifProduction;
         var name = req.body.nameCompany;
         var nip = req.body.nipCompany;
         var address = req.body.addressCompany;
@@ -403,10 +422,14 @@ module.exports = function (app, passport) {
             if(ifOk){
                 if(hr == 1){
                     res.redirect('/humanResources');
+                }else if(production == 1){
+                    res.redirect('/production')
                 }
             }else{
                 if(hr == 1){
                     res.redirect('/humanResourcesAddCompanyFailed');
+                }else if(production == 1){
+                    res.redirect('/productionAddCompanyFailed')
                 }
             }
         });
@@ -568,16 +591,26 @@ module.exports = function (app, passport) {
         var tel = req.body.tel;
         var company = req.body.company;
 
-        clientsUtil.addClient(company,firstName,lastName,tel,email,req.user.IdZespol).then(function(){
-            res.redirect('/production');
+        clientsUtil.addClient(company,firstName,lastName,tel,email,req.user.IdZespol).then(function(ok){
+            if(!ok){
+                res.redirect('/addClientFailed');
+            }else{
+                res.redirect('/production');
+            }
+
         });
     });
 
     app.post('/addCategory', isLoggedIn, isAdmin, function(req, res){
         var categoryName = req.body.nameCategory;
 
-        projectsUtil.addCategory(categoryName, req.user.IdZespol).then(function(){
-            res.redirect('/production');
+        projectsUtil.addCategory(categoryName, req.user.IdZespol).then(function(ok){
+            if(!ok){
+                res.redirect('/productionAddCategoryFailed');
+            }else{
+                res.redirect('/production');                
+            }
+
         });
     });
 
@@ -591,10 +624,14 @@ module.exports = function (app, passport) {
         var description = req.body.description;
 
         projectsUtil.addProject(projectName, client, category, dateFrom, dateTo, description, req.user.IdZespol).then(function(idProject){
-            teamUtil.teamToProject(idProject, team).then(function(){
-                res.redirect('/production');            
-            })
-        })
+            if(!idProject){
+                res.redirect('/addProjectFailed');
+            }else{
+                teamUtil.teamToProject(idProject, team).then(function(){
+                    res.redirect('/production');            
+                })                
+            }
+        });
     });
 
     app.post('/deleteProject', isLoggedIn, isAdmin, function(req, res){
@@ -620,7 +657,8 @@ module.exports = function (app, passport) {
     
 
         projectsUtil.updateProject(project, projectName, client, category, dateFrom, dateTo, description, team, oldTeamId).then(function(){
-            res.redirect('/production');
+                            res.redirect('/production');
+
         })
     });
 
@@ -742,7 +780,11 @@ module.exports = function (app, passport) {
                                                             jobs: jobs,
                                                             job: job,
                                                             permission: permission,
-                                                            jobView: 1
+                                                            jobView: 1,
+                                                            addCompanyFailed: 0,
+                                                            addCategoryFailed: 0,
+                                                            addProjectFailed: 0,
+                                                            addClientFailed: 0
                                                         });
                                                         });
                                                         });
@@ -807,7 +849,11 @@ module.exports = function (app, passport) {
                                                                 jobs: jobs,
                                                                 job: job,
                                                                 permission: permission,
-                                                                jobView: 1
+                                                                jobView: 1,
+                                                                addCompanyFailed: 0,
+                                                                addCategoryFailed: 0,
+                                                                addProjectFailed: 0,
+                                                                addClientFailed: 0
                                                             });
                                                             });
                                                             });
@@ -850,9 +896,16 @@ module.exports = function (app, passport) {
     app.post("/deleteClient", isLoggedIn, isAdmin, function(req, res){
         var clientId = req.body.clientId;
 
-        clientUtil.deleteClient(clientId).then(function(){
-            res.render('editCompany');
-        });
+        projectsUtil.ifClientHasProject(clientId).then(function(ok){
+            if(ok){
+                clientUtil.deleteClient(clientId).then(function(){
+                    res.redirect('/editCompany')
+                });                
+            }else{
+                res.redirect('/failedDeleteClient');
+            }
+        })
+
     });
 
     app.post("/editClient", isLoggedIn, isAdmin, function(req, res){
@@ -1013,9 +1066,16 @@ app.post('/createEmail', isLoggedIn, isAdmin, function(req, res){
 app.post('/deleteEmail', isLoggedIn, isAdmin, function(req, res){
     var idEmail = req.body.idEmail;
 
-    emailsUtil.deleteEmail(idEmail).then(function(){
-        res.redirect('/emails');
+    emailsUtil.ifGroupHasMail(idEmail).then(function(ok){
+        if(ok){
+            emailsUtil.deleteEmail(idEmail).then(function(){
+                res.redirect('/emails');
+            })            
+        }else{
+            return res.redirect('/emailsDeleteFailed');
+        }
     })
+
 });
 
 app.post('/createEmailsGroup', isLoggedIn, isAdmin, function(req, res){

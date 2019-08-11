@@ -6,12 +6,21 @@ var agreementZlecenie = models.umowy_zlecenie;
 var pracownik = models.pracownicy;
 
 function addAgreement(startDate, endDate, lumpSum, hourlyRate) {
+    console.log("godzinowa: " + hourlyRate);
+    console.log(typeof (hourlyRate))
+
+    if(hourlyRate == "" || hourlyRate ==null){
+        hourlyRate = null
+    }
+
+    if(lumpSum == "" || lumpSum ==null){
+        lumpSum = null
+    }
+
     return agreementModel.findOne({
         where: {
             DataRozpoczecia: startDate,
-            DataZakonczenia: endDate,
-            StawkaRyczalt: lumpSum,
-            StawkaGodzinowa: hourlyRate
+            DataZakonczenia: endDate
         }
     }).then(function (agreement) {
         if(agreement){

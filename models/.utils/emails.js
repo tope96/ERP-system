@@ -201,6 +201,20 @@ function getAllEmailsInGroup(IdEmailGroup){
     })
 }
 
+function ifGroupHasMail(idEmail){
+    return groupMembersModel.findOne({
+        where:{
+            IdKontoPocztowe: idEmail
+        }
+    }).then(function(found){
+        if(found){
+            return false;
+        }else{
+            return true;
+        }
+    })
+}
+
 module.exports = {
     createEmail: createEmail,
     getEmails: getEmails,
@@ -215,5 +229,6 @@ module.exports = {
     addNewMember: addNewMember,
     getOneGroup: getOneGroup,
     deleteFromGroup: deleteFromGroup,
-    getAllEmailsInGroup: getAllEmailsInGroup
+    getAllEmailsInGroup: getAllEmailsInGroup,
+    ifGroupHasMail: ifGroupHasMail
 }

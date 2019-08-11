@@ -28,46 +28,52 @@ element.classList.add("active-bar");
 
 function editJobHide() {
   var element = document.getElementById("jobEdit");
- 
   //If it isn't "undefined" and it isn't "null", then it exists.
-  if(typeof(element) != 'undefined' && element != null){
+  if (typeof (element) != 'undefined' && element != null) {
     element.style.display = "none";
-  } else{
+  } else {
   }
-
-  }
-
-  function jobViewHide() {
-    var element = document.getElementById("jobShow");
-   
-    //If it isn't "undefined" and it isn't "null", then it exists.
-    if(typeof(element) != 'undefined' && element != null){
-      element.style.display = "none";
-    } else{
-    }
-  
-    }
-
-function hide() {
-  var infoPanel = document.getElementById("infoPanel");
-  var addProject = document.getElementById("addProject");
-  addProject.style.display = "none";
-  infoPanel.style.display = "block";
-  jobViewHide();
-  jobEditHide();
-  addClientHide();
 }
 
-function jobEditShow(){
+function jobViewHide() {
+  var element = document.getElementById("jobShow");
+  //If it isn't "undefined" and it isn't "null", then it exists.
+  if (typeof (element) != 'undefined' && element != null) {
+    element.style.display = "none";
+  } else {
+  }
+}
+
+function showProjectInfo() {
   jobViewHide();
-  var jobEdit = document.getElementById("jobEdit");
-  jobEdit.style.display = "block";
+  addProjectHide();
+  editJobHide();
+  addClientHide();
+  
+  var infoPanel = document.getElementById("editProject");
+  infoPanel.style.display = "none";
+  var infoPanel = document.getElementById("infoPanel");
+  infoPanel.style.display = "block";
+}
+
+function showJob(){
+  var jobPanel = document.getElementById("jobShow");
+  jobPanel.style.display = "block";
+}
+
+function jobEditHideShowJob(){
+  editJobHide();
+  showJob();
+}
+
+function jobEditShow() {
   addJobHide();
   addClientHide();
   editProjectHide();
   addProjectHide();
-
-  console.log('================ <%=job.IdZadanie%>');
+  jobViewHide();
+  var jobEdit = document.getElementById("jobEdit");
+  jobEdit.style.display = "block";
 }
 
 function submitForm(form) {
@@ -75,24 +81,26 @@ function submitForm(form) {
   formObj.submit();
 }
 
-function jobEditHide(){
-  editJobHide();
+function hieProjectInfoPanel(){
+  var infoPanel = document.getElementById("infoPanel");
+  infoPanel.style.display = "none";
 }
 
 function addProjectShow() {
-    var infoPanel = document.getElementById("infoPanel");
-    var addProject = document.getElementById("addProject");
-    infoPanel.style.display = "none";
-    addJobHide();
-    addClientHide();
-    editProjectHide();
-    jobViewHide();
-    editJobHide();
-    if (addProject.style.display === "none") {
-        addProject.style.display = "block";
-    } else {
-        addProject.style.display = "none";
-    }
+  jobViewHide();
+  editJobHide();
+  var addProjectPanel = document.getElementById("addProject");
+  var clientPanel = document.getElementById("clientPanel");
+  editProjectHide();
+  addJobHide();
+  hieProjectInfoPanel();
+  clientPanel.style.display = "none";
+
+  if (addProjectPanel.style.display === "none") {
+    addProjectPanel.style.display = "block";
+  } else {
+    addProjectPanel.style.display = "none";
+  }
   }
 
   
@@ -100,13 +108,11 @@ function addProjectShow() {
   function addClientShow() {
     jobViewHide();
     editJobHide();
-    console.log('tutuaj');
     var clientPanel = document.getElementById("clientPanel");
-    var infoPanel = document.getElementById("infoPanel");
     var addProject = document.getElementById("addProject");
     editProjectHide();
     addJobHide();
-    infoPanel.style.display = "none";
+    hieProjectInfoPanel();
     addProject.style.display = "none";
 
     if (clientPanel.style.display === "none") {
@@ -118,15 +124,13 @@ function addProjectShow() {
 
   function addJobShow(idProject) {
     var addJob = document.getElementById("addJob");
-    var infoPanel = document.getElementById("infoPanel");
-
     editProjectHide();
     addClientHide()
     addProjectHide();
+    hieProjectInfoPanel();
 
     document.getElementById("projectIdJob").value = idProject;
-    
-    infoPanel.style.display = "none";
+
     addJob.style.display = "block";
 
   }
@@ -166,11 +170,13 @@ function addProjectShow() {
   function editProjectHide() {
     var x = document.getElementById("editProject");
     x.style.display = "none";
+    showProjectInfo();
   }
 
   function addJobHide(){
     var x = document.getElementById("addJob");
     x.style.display = "none"; 
+    showProjectInfo();
   }
 
   function edit(name, description, dateFrom, dateTo, client, category, id, team) {
@@ -192,4 +198,18 @@ function addProjectShow() {
     var x = document.getElementById("editProject");
     x.style.display = "block";
 
+  }
+
+  function completeEffect() {
+    var a = new Audio("../sounds/complete.mp3");
+    a.play();
+  }
+  
+  var mp = 150
+  
+  var particleColors = {
+    colorOptions: ["DodgerBlue", "OliveDrab", "Gold", "pink", "SlateBlue", "lightblue", "Violet", "PaleGreen", "SteelBlue", "SandyBrown", "Chocolate", "Crimson"],
+    colorIndex: 0,
+    colorIncrementer: 0,
+    colorThreshold: 10
   }

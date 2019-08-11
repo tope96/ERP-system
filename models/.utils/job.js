@@ -176,6 +176,20 @@ function jobDone(IdJob){
     });
 }
 
+function ifWorkerHasJob(idWorker){
+    return job.findOne({
+        where:{
+            IdPracownik: idWorker
+        }
+    }).then(function(found){
+        if(found){
+            return false;
+        }else{
+            return true;
+        }
+    })
+}
+
 module.exports = {
     addJob: addJob,
     getAllJob: getAllJob,
@@ -191,5 +205,6 @@ module.exports = {
     countMediumPriority: countMediumPriority,
     countLowPriority: countLowPriority,
     countTodayJobs: countTodayJobs,
-    jobDone: jobDone
+    jobDone: jobDone,
+    ifWorkerHasJob: ifWorkerHasJob
 }

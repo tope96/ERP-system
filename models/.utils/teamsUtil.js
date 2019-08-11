@@ -160,13 +160,17 @@ function deleteProjectsTeam(idProject){
 }
 
 function updateProjectsTeam(idProject, idTeam, oldIdTeam){
+    console.log("old: " + oldIdTeam);
+    console.log("new: " + idTeam);
+    console.log("project: " + idProject);
     return projectTeams.findOne({
         where:{
-            IdProjekt: idProject            
+            IdProjekt: idProject,
+            IdZespol: oldIdTeam      
         }
     }).then(function(found){
         return found.update({
-            IdZespol: oldIdTeam
+            IdZespol: idTeam
         })
     })
 }

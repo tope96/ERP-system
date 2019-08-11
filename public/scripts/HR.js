@@ -77,6 +77,7 @@ $(function () {
   if ($('#ifEdit').length) {
     var editTeam = document.getElementById("editTeam");
     editTeam.style.display = "block";
+
     var addCompany = document.getElementById("addCompany");
     addCompany.style.display = "none";
 
@@ -88,8 +89,7 @@ $(function () {
   }
 
   if ($('#ifEditWorker').length) {
-    var edit = document.getElementById("edit");
-    edit.style.display = "block";
+  
 
     var addCompany = document.getElementById("addCompany");
     addCompany.style.display = "none";
@@ -100,6 +100,8 @@ $(function () {
     var teamsManage = document.getElementById("teamsManage");
     teamsManage.style.display = "none";
     editTeamHide();
+    var edit = document.getElementById("edit");
+    edit.style.display = "block";
   }
 
   if ($('#oPrace').is(':checked')) {
@@ -198,30 +200,28 @@ $('#submitAdd').attr("disabled",true);
   });
 });
 
- function editTeamHide() {
+function editTeamHide() {
   var element = document.getElementById("editTeam");
- 
+
   //If it isn't "undefined" and it isn't "null", then it exists.
-  if(typeof(element) != 'undefined' && element != null){
+  if (typeof (element) != 'undefined' && element != null) {
     element.style.display = "none";
-  } else{
+  } else {
   }
 
+}
+
+function editWorkerHide() {
+
+  var element = document.getElementById("ifEditWorker");
+  var x = document.getElementById("edit");
+  //If it isn't "undefined" and it isn't "null", then it exists.
+  if (typeof (element) != 'undefined' && element != null) {
+    x.style.display = "none";
+  } else {
   }
 
-
-
-  function editWorkerHide() {
-
-    var element = document.getElementById("ifEditWorker");
-    var x = document.getElementById("edit");
-    //If it isn't "undefined" and it isn't "null", then it exists.
-    if(typeof(element) != 'undefined' && element != null){
-      x.style.display = "none";
-    } else{
-    }
-
-  }
+}
 
 
 $(function () {
@@ -242,11 +242,20 @@ $(function () {
   });
 });
 
-var addCompany = document.getElementById("addCompany");
-addCompany.style.display = "none";
-var addTeam = document.getElementById("addTeam");
-addTeam.style.display = "none";
+addCompanyHide()
+addTeamHide();
 editTeamHide();
+
+function showWorkerInfoPanel(){
+  var z = document.getElementById("infoPanel");
+  z.style.display = "block";
+}
+
+function hideWorkerInfoPanel(){
+  var z = document.getElementById("infoPanel");
+  z.style.display = "none";
+}
+
 function copyToClipboard(element) {
   var $temp = $("<input>");
   $("body").append($temp);
@@ -281,11 +290,15 @@ function teamsManageView() {
   x.style.display = "block";
 }
 
+function hideEditPanel(){
+  var x = document.getElementById("editPanel");
+  x.style.display = "none";
+}
+
 function editTeamView(teamId) {
   var x = document.getElementById("editTeam");
   x.style.display = "inline";
   teamsManageHide();
-  dupa = 3;
 }
 
 function newTeamview(){
@@ -299,33 +312,26 @@ function newTeamHide(){
 }
 
 function addTeamView() {
-  var y = document.getElementById("infoPanel");
-  var x = document.getElementById("editPanel");
-
-  var a = document.getElementById("teamsManage");
   var b = document.getElementById("addTeam");
   editTeamHide();
   editWorkerHide();
-  a.style.display = "none";
-  y.style.display = "none";
+  hideWorkerInfoPanel();
+  teamsManageHide();
   b.style.display = "block";
 }
 
 function myFunction() {
-  var y = document.getElementById("infoPanel");
   var x = document.getElementById("editPanel");
-  var a = document.getElementById("teamsManage");
-  var b = document.getElementById("addTeam");
-  var addCompany = document.getElementById("addCompany");
   hideAgreementB2b();
   hideAgreementInput();
   hideAgreemtnInput2();
   editTeamHide();
-  b.style.display = "none";
-  a.style.display = "none";
-  y.style.display = "none";
+  hideWorkerInfoPanel();
   editWorkerHide();
-  addCompany.style.display = "none";
+  teamsManageHide();
+  addCompanyHide();
+  addTeamHide();
+
 
   if (x.style.display === "none") {
     x.style.display = "block";
@@ -336,18 +342,14 @@ function myFunction() {
 }
 
 function teams() {
-  var y = document.getElementById("infoPanel");
-  var x = document.getElementById("editPanel");
   var a = document.getElementById("teamsManage");
-  var b = document.getElementById("addTeam");
-  var addCompany = document.getElementById("addCompany");
-  b.style.display = "none";
-  y.style.display = "none";
-  x.style.display = "none";
+  hideEditPanel();
+  addCompanyHide()
+  hideWorkerInfoPanel();
   editWorkerHide();
-  addCompany.style.display = "none";
-
   editTeamHide();
+  addTeamHide();
+
   if (a.style.display === "none") {
     a.style.display = "block";
   } else {
@@ -357,35 +359,25 @@ function teams() {
 }
 
 function hide() {
-  var editPanel = document.getElementById("editPanel");
-  var infoPanel = document.getElementById("infoPanel");
-  var teamManage = document.getElementById("teamsManage");
-  var addCompany = document.getElementById("addCompany");
-  var b = document.getElementById("addTeam");
-  b.style.display = "none";
-  editPanel.style.display = "none";
-  infoPanel.style.display = "block";
-  teamManage.style.display = "none";
-  addCompany.style.display = "none";
+  hideEditPanel();
+  addCompanyHide()
+  addTeamHide();
+  teamsManageHide();
+  showWorkerInfoPanel();
   editWorkerHide();
   editTeamHide();
 }
 
 function cancel() {
+  showWorkerInfoPanel();
   editWorkerHide();
-  var x = document.getElementById("editPanel");
-  x.style.display = "none";
-  editWorkerHide();
-  var y = document.getElementById("infoPanel");
-  y.style.display = "block";
+  hideEditPanel();
+ 
 }
 
 function edit(firstName, lastName, email, telephone, id, idUmowy) {
-  var y = document.getElementById("editPanel");
-  y.style.display = "none";
-
-  var z = document.getElementById("infoPanel");
-  z.style.display = "none";
+  hideEditPanel();
+  hideWorkerInfoPanel();
 
   var agreementInput = document.getElementById("agreement");
   agreementInput.style.display = "none";

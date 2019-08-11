@@ -13,7 +13,7 @@ function addClient(company, firstName, lastName, tel, email, zespolDomenow){
         }
     }).then(function(found){
         if(found){
-            //TODO
+            return false;
         }else{
             return clientsModel.create({
                 zespolDomenowy: zespolDomenow,
@@ -24,7 +24,7 @@ function addClient(company, firstName, lastName, tel, email, zespolDomenow){
                 EmailKontaktowy: email
             });
         }
-    })
+    });
 }
 
 function getClientInfo(clientId){
@@ -36,12 +36,6 @@ function getClientInfo(clientId){
         return clientInfo;
     });
 }
-
-//function getClientInfo(clientId){
-//    return db.query("SELECT klienci.ImiePrzedstawiciela AS imie, firma.Nazwa, firma.IdFirma FROM klienci INNER JOIN firma ON klienci.Firma = firma.IdFirma WHERE IdKlient=" + clientId,
-//    {type: db.QueryTypes.SELECT}).then(clientInfo =>
-//     {return clientInfo}); 
-//}
 
 function getAllClients(zespolDomenowy){
     return db.query("SELECT IdKlient, ImiePrzedstawiciela, NazwiskoPrzedstawiciela, firma.Nazwa as firma FROM klienci INNER JOIN firma ON klienci.Firma = firma.IdFirma WHERE zespolDomenowy = " + zespolDomenowy,

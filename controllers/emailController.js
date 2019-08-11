@@ -18,7 +18,8 @@ exports.newEmail = function (req, res) {
                                 permission: permission,
                                 emails: emails,
                                 workers: workers,
-                                emailsGroups: emailsGroups
+                                emailsGroups: emailsGroups,
+                                failed: 0
                             });
                         });
                     });
@@ -93,6 +94,30 @@ exports.createEmailsGroupFailed = function(req, res){
                         permission: permission,
                         emails: emails,
                         failed: 1
+                    });
+                });
+            });
+        });
+    });
+}
+
+exports.emailsDeleteFailed = function (req, res) {
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+            permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                emails.getEmailsGroups(req.user.IdZespol).then(function(emailsGroups){
+                emails.getEmails(req.user.IdZespol).then(function (emails) {
+                    workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                            res.render('emails', {
+                                name: profile.Imie,
+                                site: "Email",
+                                permission: permission,
+                                emails: emails,
+                                workers: workers,
+                                emailsGroups: emailsGroups,
+                                failed: "Usuwanie adresu email nie powiodło się, ponieważ ten adres email znajduje się nadal w grupie mailowej. Usuń go z grupy i spróbuj ponownie."
+                            });
+                        });
                     });
                 });
             });

@@ -29,6 +29,7 @@ exports.editCompany = function (req, res) {
                             editSuccess: false,
                             clients: clients,
                             permission: permission,
+                            failedDeleteClient: 0
                         });
                         });
                     });
@@ -57,7 +58,8 @@ exports.editCompanyEdition = function (req, res) {
                             companyAlreadyExists: false,
                             editSuccess: false,
                             clients: clients,
-                            permission: permission
+                            permission: permission,
+                            failedDeleteClient: 0
                         });
                         });
                     });
@@ -88,7 +90,8 @@ exports.editCompanyAddProfile = function (req, res) {
                                 companyAlreadyExists: false,
                                 editSuccess: false,
                                 clients: clients,
-                                permission: permission
+                                permission: permission,
+                                failedDeleteClient: 0
                             });
                             });
                         });
@@ -120,7 +123,8 @@ exports.editCompanyAddProfileError = function (req, res) {
                                 companyAlreadyExists: false,
                                 editSuccess: false,
                                 clients: clients,
-                                permission: permission
+                                permission: permission,
+                                failedDeleteClient: 0
                             });
                             });
                         });
@@ -150,7 +154,8 @@ exports.editCompanyAddProfileSuccess = function (req, res) {
                             companyAlreadyExists: false,
                             editSuccess: false,
                             clients: clients,
-                            permission: permission
+                            permission: permission,
+                            failedDeleteClient: 0
                         });
                         });
                     });
@@ -179,7 +184,8 @@ exports.editCompanyAddProfileSuccess = function (req, res) {
                             companyAlreadyExists: false,
                             editSuccess: false,
                             clients: clients,
-                            permission: permission
+                            permission: permission,
+                            failedDeleteClient: 0
                         });
                         });
                     });
@@ -210,7 +216,40 @@ exports.editCompanySuccess = function (req, res) {
                             companyAlreadyExists: false,
                             editSuccess: true,
                             clients: clients,
-                            permission: permission
+                            permission: permission,
+                            failedDeleteClient: 0
+                        });
+                        });
+                    });
+                });
+            });
+        });
+    });
+}
+
+exports.failedDeleteClient = function (req, res) {
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+            companyUtil.getCompanyInfo(profile.Firma).then(function (company) {
+                townUtil.getTown(company.IdMiasto).then(function (town) {
+                    clientUtil.getAllClients(req.user.IdZespol).then(function (clients) {
+                        permissionUtil.getPermission(req.user.IdPracownik).then(function(permission){
+                        res.render('editCompany', {
+                            name: profile.Imie,
+                            site: "Edytowanie firmy",
+                            add: false,
+                            userAlreadyExists: false,
+                            addSuccess: false,
+                            company: company,
+                            town: town,
+                            normal: true,
+                            companyAlreadyExists: false,
+                            editSuccess: false,
+                            companyAlreadyExists: false,
+                            editSuccess: true,
+                            clients: clients,
+                            permission: permission,
+                            failedDeleteClient: "Nie mozesz usunąć klienta, który jest dodany do projektu. Zmień klienta w projekcie lub usuń projekt."
                         });
                         });
                     });

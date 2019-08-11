@@ -357,6 +357,20 @@ function getSpec(IdWorker){
     })
 }
 
+function ifIsSuperior(idWorker){
+    return pracownik.findOne({
+        where:{
+            IdPrzelozony: idWorker
+        }
+    }).then(function(found){
+        if(found){
+            return true;
+        }else{
+            return false;
+        }
+    })
+}
+
 module.exports = {
     getName: getName,
     getWorkerInfo: getWorkerInfo,
@@ -373,5 +387,6 @@ module.exports = {
     human: human,
     analitOrProgrammer: analitOrProgrammer,
     editSpec: editSpec,
-    getSpec:getSpec
+    getSpec: getSpec,
+    ifIsSuperior: ifIsSuperior
 }

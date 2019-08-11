@@ -120,9 +120,24 @@
 
             <div class="row">
                 <div class="col-lg-12 text-center">
-                        <button type="submit" onclick="goBack();" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Wróć</button>
+                    <form action="settings" method="GET">
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Wróć</button>
+                    </form>
                 </div>
             </div>
+
+            <%if(failed != 0){%>
+                <div id="" class="modal">
+                    <div class="modal-content">
+                        <h3>Uwaga!</h3>
+                        <%= failed %>
+                
+                        <form action="emails" method="GET">
+                            <button type="submit" class="btn btn-danger">Ok</button>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
         </div>
     </div>
 </div>
