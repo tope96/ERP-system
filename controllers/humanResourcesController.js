@@ -1,10 +1,6 @@
-var models = require("../models");
-var exports = module.exports = {}
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
-var fixedAssetsUtil = require('../models/.utils/fixedAssets.js');
 var companyUtil = require('../models/.utils/company.js');
-var townUtil = require('../models/.utils/townUtil.js');
 var agreementUtil = require('../models/.utils/agreementsUtil.js');
 var spec = require('../models/.utils/specialization');
 var teamsUtil = require('../models/.utils/teamsUtil.js');
@@ -12,7 +8,6 @@ var permissionUtil = require('../models/.utils/permission.js');
 var emailsUtil = require('../models/.utils/emails.js');
 
 exports.humanResources = function (req, res) {
-
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
@@ -63,11 +58,9 @@ exports.humanResources = function (req, res) {
             });
         });
     });
-    agreementUtil.getAgreeInfo(0);
 }
 
 exports.humanResourcesAddFailed = function (req, res) {
-
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
         workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
@@ -118,7 +111,6 @@ exports.humanResourcesAddFailed = function (req, res) {
             });
         });
     });
-    agreementUtil.getAgreeInfo(0);
 }
 
 exports.humanResourcesAddCompanyFailed = function (req, res) {
@@ -173,7 +165,6 @@ exports.humanResourcesAddCompanyFailed = function (req, res) {
             });
         });
     });
-    agreementUtil.getAgreeInfo(0);
 }
 
 exports.deleteHumanFailed = function (req, res) {
@@ -228,7 +219,6 @@ exports.deleteHumanFailed = function (req, res) {
             });
         });
     });
-    agreementUtil.getAgreeInfo(0);
 }
 
 exports.deleteHumanFailedSuperior = function (req, res) {
@@ -283,5 +273,57 @@ exports.deleteHumanFailedSuperior = function (req, res) {
             });
         });
     });
-    agreementUtil.getAgreeInfo(0);
-}
+};
+
+exports.deleteHumanFailedAsset = function (req, res) {
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+            workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                companyUtil.getAllCopmany(req.user.IdZespol).then(function (company) {
+                    workersUtil.getAllProgrammers().then(function (programmers) {
+                        workersUtil.getAllAnalit().then(function (analit) {
+                            spec.getAllSpec().then(function (specs) {
+                                teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                    teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                        permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                                            agreementUtil.getAllAgree().then(function (agrees) {
+                                                agreementUtil.getB2b().then(function (b2b) {
+                                                    agreementUtil.getOPrace().then(function (praca) {
+                                                        agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
+                                                            res.render('humanResources', {
+                                                                name: profile.Imie,
+                                                                site: "Zasoby ludzkie",
+                                                                workers: workers,
+                                                                company: company,
+                                                                programmers: programmers,
+                                                                analit: analit,
+                                                                spec: specs,
+                                                                teams: teams,
+                                                                teamsMember: teamsMember,
+                                                                permission: permission,
+                                                                agrees: agrees,
+                                                                b2b: b2b,
+                                                                zlecenie: zlecenie,
+                                                                praca: praca,
+                                                                edycja: 0,
+                                                                edycjaPracownika: 0,
+                                                                emails: emails,
+                                                                failed: "Usuwanie pracownika nie powiodło się, ponieważ pracownik jest osobą odpowiedzialną za środek trwały. Zmień osobę odpowiedzialną i spróbuj ponownie."
+                                                            });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+};

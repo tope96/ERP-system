@@ -82,11 +82,27 @@ function addOneAsset(id, idTeam){
     });
 }
 
+function ifWorkerHasAsset(idWorker){
+    return fixedAssets.findOne({
+        where:{
+            IdPracownik: idWorker
+        }
+    }).then(function(found){
+        if(found){
+            console.log("TUTAJ FIXED ASSETS");
+            return true;
+        }else{
+            return false;
+        }
+    });
+}
+
 module.exports = {
     getAssets: getAssets,
     addAsset: addAssets,
     deleteAsset: deleteAsset,
-    editAsset, editAsset,
+    editAsset: editAsset,
     deleteOneasset: deleteOneasset,
-    addOneAsset:addOneAsset
+    addOneAsset:addOneAsset,
+    ifWorkerHasAsset: ifWorkerHasAsset
 }

@@ -364,11 +364,12 @@ function ifIsSuperior(idWorker){
         }
     }).then(function(found){
         if(found){
+            console.log("TUTAJ: " + found.IdZadanie);
             return true;
         }else{
             return false;
         }
-    })
+    });
 }
 
 module.exports = {

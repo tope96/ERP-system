@@ -177,15 +177,17 @@ function jobDone(IdJob){
 }
 
 function ifWorkerHasJob(idWorker){
+    console.log("ID WORKER: " + idWorker)
     return job.findOne({
         where:{
             IdPracownik: idWorker
         }
     }).then(function(found){
         if(found){
-            return false;
-        }else{
+            console.log("TUTAJ JOB " + found.IdZadanie)
             return true;
+        }else{
+            return false;
         }
     })
 }

@@ -101,6 +101,7 @@ module.exports = function (app, passport) {
     app.get('/deleteHumanFailed', isLoggedIn, humanResourcesController.deleteHumanFailed);
     app.get('/emailsDeleteFailed', isLoggedIn, emailsController.emailsDeleteFailed);
     app.get('/deleteHumanFailedSuperior', isLoggedIn, humanResourcesController.deleteHumanFailedSuperior);
+    app.get('/deleteHumanFailedAsset', isLoggedIn, humanResourcesController.deleteHumanFailedAsset);
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
@@ -388,19 +389,30 @@ module.exports = function (app, passport) {
 
     app.post('/deleteHuman', isLoggedIn, function (req, res) {
         var workerId = req.body.workerId;
-
+        console.log("ID WORKER SITE: " + workerId);
         jobUtil.ifWorkerHasJob(workerId).then(function (ok) {
-            if (ok) {
+            if (!ok) {
                 workersUtil.ifIsSuperior(workerId).then(function (superior) {
                     if (superior) {
-                        res.redirect('/deleteHumanFailedSuperior')
+                        console.log("jest superior");
+                        res.redirect('/deleteHumanFailedSuperior');
                     } else {
-                        workersUtil.layOff(workerId).then(function () {
-                            res.redirect('/humanResources');
+                        console.log("jest asset");
+                        fixedAssetsUtil.ifWorkerHasAsset(workerId).then(function (hasAsset){
+                            if(hasAsset){
+                                res.redirect('/deleteHumanFailedAsset');
+                            }else{
+                                console.log("wszystko ok");
+                                workersUtil.layOff(workerId).then(function () {
+                                    res.redirect('/humanResources');
+                                });
+                            }
                         });
                     }
                 });
             } else {
+
+
                 res.redirect('/deleteHumanFailed');
             }
         });
@@ -483,6 +495,7 @@ module.exports = function (app, passport) {
                                                             agreementUtil.getB2b().then(function (b2b) {
                                                                 agreementUtil.getOPrace().then(function (praca) {
                                                                     agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                                        emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
                                                                         res.render('humanResources', {
                                                                             name: profile.Imie,
                                                                             site: "Zasoby ludzkie",
@@ -502,7 +515,10 @@ module.exports = function (app, passport) {
                                                                             praca: praca,
                                                                             edycja: 1,
                                                                             edycjaPracownika: 0,
-                                                                            failed: 0
+                                                                            failed: 0,
+                                                                            emails: emails
+                                                                        });
+
                                                                         });
                                                                     });
                                                                 });
@@ -545,6 +561,7 @@ module.exports = function (app, passport) {
                                                             agreementUtil.getB2b().then(function (b2b) {
                                                                 agreementUtil.getOPrace().then(function (praca) {
                                                                     agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                                        emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
                                                                         res.render('humanResources', {
                                                                             name: profile.Imie,
                                                                             site: "Zasoby ludzkie",
@@ -564,7 +581,9 @@ module.exports = function (app, passport) {
                                                                             praca: praca,
                                                                             edycja: 1,
                                                                             edycjaPracownika: 0,
-                                                                            failed: 0
+                                                                            failed: 0,
+                                                                            emails: emails
+                                                                        });
                                                                         });
                                                                     });
                                                                 });
@@ -634,14 +653,16 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/deleteProject', isLoggedIn, isAdmin, function(req, res){
+    app.post('/deleteProject', isLoggedIn, isAdmin, function (req, res) {
         var project = req.body.project;
 
-        teamUtil.deleteProjectsTeam(project).then(function(){
-            projectsUtil.deleteProject(project).then(function(){
-                res.redirect('/production');
-            })
-        })
+        teamUtil.deleteProjectsTeam(project).then(function () {
+            jobUtil.deleteJob(project).then(function () {
+                projectsUtil.deleteProject(project).then(function () {
+                    res.redirect('/production');
+                });
+            });
+        });
     });
 
     app.post('/editProject', isLoggedIn, isAdmin, function(req, res){

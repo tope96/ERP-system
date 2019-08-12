@@ -119,6 +119,13 @@ body {
    
 }
 
+
+.list-group-job{
+    height: 33rem;
+    overflow: auto;
+   
+}
+
 .addAssets{
     margin: 0 auto;
     width: 90%;
@@ -493,9 +500,6 @@ body {
         background-color: #000;
     }
 
-    .active-bar{
-        background-color: #364cff;
-    }
 
     .container-bar{
         padding: 0px;
@@ -523,5 +527,13 @@ body {
     
     .cos{
         height: 40rem;
+    }
+
+    #footer{
+        bottom: 50rem;
+        height: 30rem;
+        position: initial;
+        margin-top: 40rem;
+        z-index: -50;
     }
   }

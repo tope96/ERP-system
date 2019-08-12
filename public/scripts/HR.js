@@ -200,6 +200,16 @@ $('#submitAdd').attr("disabled",true);
   });
 });
 
+function submitDeleteWorker(id) {
+  document.getElementById("submitDeleteWorkerId").value = id;
+  document.getElementById("submitDeleteWorker").submit();
+}
+
+function submitEditWorker(id) {
+  document.getElementById("submitEditWorker").value = id;
+  document.getElementById("submitEditWorker").submit();
+}
+
 function editTeamHide() {
   var element = document.getElementById("editTeam");
 

@@ -47,16 +47,17 @@
               <hr>
               <div class="row">
                 <div class="col-lg-12 text-center">
-                  <form action="editWorker" method="POST">
-                    <button type="submit" class="btn btn-light actionButtons hr-perm">Edytuj</button>
-                    <input type="hidden" name="IdWorker" value="<%= workers[i].IdPracownik %>">
+                  <form id="submitEditWorker" action="editWorker" method="POST">
+                    <input type="hidden" id="submitEditWorkerId" name="IdWorker" value="<%= workers[i].IdPracownik %>">
                   </form>
-                  <form action="deleteHuman" method="POST">
+                  <form id="submitDeleteWorker" action="deleteHuman" method="POST">
+                    <input type="hidden" id="submitDeleteWorkerId" name="workerId" value="<%= workers[i].IdPracownik %>">
+                  </form>
 
-                    <input type="hidden" name="workerId" value="<%= workers[i].IdPracownik %>">
-                    <button type="submit" class="btn btn-danger actionButtons hr-perm" data-toggle="tooltip" data-placement="top"
+                  <button type="submit" onclick="submitEditWorker('<%= workers[i].IdPracownik %>')" data-toggle="tooltip" data-placement="top"
+                  title="Edytuj tego pracownika" class="btn btn-light actionButtons hr-perm"><i class="fas fa-edit"></i></button>
+                  <button type="submit" onclick="submitDeleteWorker('<%= workers[i].IdPracownik %>')" class="btn btn-danger actionButtons hr-perm" data-toggle="tooltip" data-placement="top"
                     title="Usuń tego pracownika"><i class="fas fa-user-minus"></i></button>
-                  </form>
                 </div>
               </div>
 
@@ -93,13 +94,21 @@
                     Pracownik zatrudniony jako 
                     <% for(var a=0; a < programmers.length; a++) { %>
                       <%if (programmers[a].IdPracownik == workers[i].IdPracownik && programmers[a].IdSpecjalizacja != null) {%>
-                        programista, specjalizacja: <%= programmers[a].IdSpecjalizacja %>
-                      <% } %>
+                        <% for(var c=0; c<spec.length; c++){ %>
+                            <%if (spec[c].IdSpecjalizacja == programmers[a].IdSpecjalizacja){ %>
+                              programista, specjalizacja:  <%= spec[c].Nazwa %>
+                            <% } %>
+                        <% } %>
+                       <% } %>
                     <% } %>
-                    
+
                     <% for(var b=0; b < analit.length; b++) { %>
                       <%if (analit[b].IdPracownik == workers[i].IdPracownik && analit[b].IdSpecjalizacja != null) {%>
-                        analityk, specjalizacja: <%= analit[b].IdSpecjalizacja %>
+                        <% for(var c=0; c<spec.length; c++){ %>
+                          <%if (spec[c].IdSpecjalizacja == analit[b].IdSpecjalizacja){ %>
+                            analityk, specjalizacja: <%= spec[c].Nazwa %>                          
+                          <% } %>
+                        <% } %>
                       <% } %>
                     <% } %>
                     

@@ -70,7 +70,6 @@ function getAllProjects(zespolyDomenowe){
 }
 
 function deleteProject(idProject){
-    
     return projectModel.findOne({
         where:{
             IdProjekt: idProject
