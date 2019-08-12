@@ -15,7 +15,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'specjalizacja',
         key: 'IdSpecjalizacja'
       }
-    }
+    },
+    Jezyki: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
   }, {
     tableName: 'programisci',
     timestamps: false

@@ -47,11 +47,11 @@
               <hr>
               <div class="row">
                 <div class="col-lg-12 text-center">
-                  <form id="submitEditWorker" action="editWorker" method="POST">
-                    <input type="hidden" id="submitEditWorkerId" name="IdWorker" value="<%= workers[i].IdPracownik %>">
+                  <form id="submitEditWorker<%= workers[i].IdPracownik %>" action="editWorker" method="POST">
+                    <input type="hidden" id="submitEditWorkerId<%= workers[i].IdPracownik %>" name="IdWorker" value="<%= workers[i].IdPracownik %>">
                   </form>
-                  <form id="submitDeleteWorker" action="deleteHuman" method="POST">
-                    <input type="hidden" id="submitDeleteWorkerId" name="workerId" value="<%= workers[i].IdPracownik %>">
+                  <form id="submitDeleteWorker<%= workers[i].IdPracownik %>" action="deleteHuman" method="POST">
+                    <input type="hidden" id="submitDeleteWorkerId<%= workers[i].IdPracownik %>" name="workerId" value="<%= workers[i].IdPracownik %>">
                   </form>
 
                   <button type="submit" onclick="submitEditWorker('<%= workers[i].IdPracownik %>')" data-toggle="tooltip" data-placement="top"
@@ -96,7 +96,8 @@
                       <%if (programmers[a].IdPracownik == workers[i].IdPracownik && programmers[a].IdSpecjalizacja != null) {%>
                         <% for(var c=0; c<spec.length; c++){ %>
                             <%if (spec[c].IdSpecjalizacja == programmers[a].IdSpecjalizacja){ %>
-                              programista, specjalizacja:  <%= spec[c].Nazwa %>
+                              programista, specjalizacja:  <%= spec[c].Nazwa %> <br />
+                              Języki programowania: <%= programmers[a].Jezyki %>
                             <% } %>
                         <% } %>
                        <% } %>
@@ -106,7 +107,8 @@
                       <%if (analit[b].IdPracownik == workers[i].IdPracownik && analit[b].IdSpecjalizacja != null) {%>
                         <% for(var c=0; c<spec.length; c++){ %>
                           <%if (spec[c].IdSpecjalizacja == analit[b].IdSpecjalizacja){ %>
-                            analityk, specjalizacja: <%= spec[c].Nazwa %>                          
+                            analityk, specjalizacja: <%= spec[c].Nazwa %>
+                            Najważniejsze certyfikaty: <%= analit[b].Certyfikaty %>                   
                           <% } %>
                         <% } %>
                       <% } %>
@@ -227,8 +229,12 @@
                     </select>
                     
                     <p>Stanowisko: </p>
-                    <label class="radio-inline"><input type="radio" value="1" name="position" checked>Programista</label>
-                    <label class="radio-inline"><input type="radio" value="0" name="position">Analityk</label>
+                    <label class="radio-inline"><input type="radio" id="programmer" value="1" name="position" checked>Programista</label>
+                    <label class="radio-inline"><input type="radio" id="analitic" value="0" name="position">Analityk</label>
+
+                    <input type="text" id="languages" name="languages" class="form-control addAssets" placeholder="Wpisz języki programowania, oddzielone przecinkiem">
+                    <input type="text" id="certs" name="certs" class="form-control addAssets" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem">
+
                     <select class="form-control addAssets" placeholder="Firma" name="spec" id="spec" required>
                         <option value="" selected disabled>Wybierz specjalizację</option>
                         <% for(var i=0; i < spec.length; i++) { %>

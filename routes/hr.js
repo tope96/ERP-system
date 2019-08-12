@@ -75,6 +75,8 @@ module.exports = function (app, passport) {
         var contractFileLink = null;
         var position = req.body.position; // 0 - analityk, 1 - programista
         var spec = req.body.spec;
+        var languages = req.body.languages;
+        var certs = req.body.certs;
 
         if (req.file === 'undefined') {
             contractFileLink = null;
@@ -84,9 +86,9 @@ module.exports = function (app, passport) {
 
         workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol, contractFileLink).then(function (user) {
             if (position == 1) {
-                positionUtil.addProgram(user.IdPracownik, spec);
+                positionUtil.addProgram(user.IdPracownik, spec, languages);
             } else {
-                positionUtil.addAnalit(user.IdPracownik, spec);
+                positionUtil.addAnalit(user.IdPracownik, spec, certs);
             }
             if (user == false) {
                 res.redirect('/humanResourcesAddFailed');
@@ -149,6 +151,8 @@ module.exports = function (app, passport) {
         var ifCompetition = req.body.ifCompetitionEdit;
 
         var contractFileLink = null;
+        var lang = req.body.languagesEdit;
+        var certs = req.body.certsEdit;
 
         if (req.file === 'undefined') {
             contractFileLink = req.file.filename;
@@ -163,7 +167,7 @@ module.exports = function (app, passport) {
             spec = null;
         }
 
-        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, position, spec, contractFileLink, superior);
+        workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, position, spec, contractFileLink, superior, lang, certs);
         agreementUtil.editAgreement(idAgree, startDate, endDate, lumpSum, hourlyRate).then(function () {
             agreementUtil.deleteOld(idAgree).then(function () {
                 workersUtil.editSpec(id, spec).then(function () {
@@ -224,7 +228,6 @@ module.exports = function (app, passport) {
 
     app.post('/editWorker', isLoggedIn, isHR, function (req, res) {
         var IdWorker = req.body.IdWorker;
-
         domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
             workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
                 workersUtil.getWorkerInfo(IdWorker).then(function (workerInfo) {

@@ -53,7 +53,7 @@ function editUser(req, res, name, lastName, email, login, id) {
     }, 1000);
 }
 
-function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, spec, file, superior) {
+function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, spec, file, superior, lang, certs) {
     if (name != '') {
         newName(id, name);
     }
@@ -67,7 +67,7 @@ function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, s
         newTelephone(id, tel);
     }
     if (position != '') {
-        position.newPosition(id, newPosition);
+        position.newPosition(id, newPosition, lang, certs);
     }
 
     return pracownik.findOne({

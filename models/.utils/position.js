@@ -2,21 +2,23 @@ var models = require('../../models');
 var programm = models.programisci;
 var analit = models.analitycy;
 
-function addProgram(idWorker, idSpec){
+function addProgram(idWorker, idSpec, languages){
     return programm.create({
         IdPracownik: idWorker,
-        IdSpecjalizacja: idSpec
+        IdSpecjalizacja: idSpec,
+        Jezyki: languages
     });
 }
 
-function addAnalit(idWorker, idSpec){
+function addAnalit(idWorker, idSpec, certs){
     return analit.create({
         IdPracownik: idWorker,
-        IdSpecjalizacja: idSpec
+        IdSpecjalizacja: idSpec,
+        Certyfikaty: certs
     });
 }
 
-function newPosition(idWorker, newPosition){
+function newPosition(idWorker, newPosition, lang, certs){
     return analit.findOne({
         where:{
             IdPracownik: idWorker
@@ -28,7 +30,7 @@ function newPosition(idWorker, newPosition){
                     IdPracownik: idWorker
                 }
             }).then(function(){
-                addProgram(idWorker, foundAnalit.IdSpecjalizacja);
+                addProgram(idWorker, foundAnalit.IdSpecjalizacja, lang);
             });
         }else{
             return programm.findOne({
@@ -41,7 +43,7 @@ function newPosition(idWorker, newPosition){
                         IdPracownik: idWorker
                     }
                 }).then(function(){
-                    addAnalit(idWorker, programmer.IdSpecjalizacja);
+                    addAnalit(idWorker, programmer.IdSpecjalizacja, certs);
                 })
             })
         }

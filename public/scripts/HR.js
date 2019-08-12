@@ -150,6 +150,31 @@ $('#submitAdd').attr("disabled",true);
       $('#submitAdd').attr('disabled', $('.boxAdd:checked').length == 0);
    });
 
+$('#programmer').on('click', function() {
+  $('#languages').show();
+  $('#certs').hide();
+  $('#languages').prop('required',true);
+});
+
+$('#analitic').on('click', function() {
+  $('#languages').hide();
+  $('#certs').show();
+  $('#certs').prop('required',true);
+});
+
+$('#programmerEdit').on('click', function() {
+  $('#languagesEdit').show();
+  $('#certsEdit').hide();
+  $('#languagesEdit').prop('required',true);
+  $('#certsEdit').prop('required',false);
+});
+
+$('#analiticEdit').on('click', function() {
+  $('#languagesEdit').hide();
+  $('#certsEdit').show();
+  $('#certsEdit').prop('required',true);
+  $('#languagesEdit').prop('required',false);
+});
 
   $('#agreementRadio').on('click', function() {
     $('#timeOfContract').prop('required',true);
@@ -201,13 +226,13 @@ $('#submitAdd').attr("disabled",true);
 });
 
 function submitDeleteWorker(id) {
-  document.getElementById("submitDeleteWorkerId").value = id;
-  document.getElementById("submitDeleteWorker").submit();
+  document.getElementById("submitDeleteWorkerId"+ id).value = id;
+  document.getElementById("submitDeleteWorker" + id).submit();
 }
 
 function submitEditWorker(id) {
-  document.getElementById("submitEditWorker").value = id;
-  document.getElementById("submitEditWorker").submit();
+  document.getElementById("submitEditWorkerId"+ id).value = id;
+  document.getElementById("submitEditWorker" + id).submit();
 }
 
 function editTeamHide() {

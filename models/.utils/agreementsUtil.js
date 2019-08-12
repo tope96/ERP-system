@@ -233,6 +233,13 @@ function getZlecenie() {
 }
 
 function editAgreement(IdAgree, startDate, endDate, ryczalt, hourly) {
+    if (ryczalt == "" || ryczalt == null) {
+        ryczalt = null;
+    }
+
+    if (hourly == "" || hourly == null) {
+        hourly = null;
+    }
     return agreementModel.findOne({
         where: {
             IdUmowy: IdAgree

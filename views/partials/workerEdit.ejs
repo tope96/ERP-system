@@ -38,11 +38,33 @@
                           <div class="col-lg-12 text-center">
                             <p>Stanowisko: </p>
                             <%if(analitOrProgram == "programmer"){%>
-                              <label class="radio-inline"><input type="radio" value="1" name="positionEdit" checked>Programista</label>
-                              <label class="radio-inline"><input type="radio" value="0" name="positionEdit">Analityk</label>
+                              <label class="radio-inline"><input type="radio" id="programmerEdit" value="1" name="positionEdit" checked>Programista</label>
+                              <label class="radio-inline"><input type="radio" id="analiticEdit" value="0" name="positionEdit">Analityk</label>
+                              <% for(var a=0; a < programmers.length; a++) { %>
+                                <%if (programmers[a].IdPracownik == workerInfo.IdPracownik && programmers[a].IdSpecjalizacja != null) {%>
+                                  <% for(var c=0; c<spec.length; c++){ %>
+                                      <%if (spec[c].IdSpecjalizacja == programmers[a].IdSpecjalizacja){ %>
+                                        <input type="text" id="languagesEdit" name="languagesEdit" class="form-control addAssets" value="<%= programmers[a].Jezyki %>" placeholder="Wpisz języki programowania, oddzielone przecinkiem" required>
+                                      <% } %>
+                                  <% } %>
+                                 <% } %>
+                              <% } %>
+                              
+                              <input type="text" id="certsEdit" name="certsEdit" class="form-control addAssets" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem" style="display: none">
                             <% }else{ %>
-                              <label class="radio-inline"><input type="radio" value="0" name="positionEdit">Programista</label>
-                              <label class="radio-inline"><input type="radio" value="1" name="positionEdit" checked>Analityk</label>
+                              <label class="radio-inline"><input type="radio" value="0" id="programmerEdit" name="positionEdit">Programista</label>
+                              <label class="radio-inline"><input type="radio" value="1" id="analiticEdit" name="positionEdit" checked>Analityk</label>
+                              <% for(var b=0; b < analit.length; b++) { %>
+                                <%if (analit[b].IdPracownik == workerInfo.IdPracownik && analit[b].IdSpecjalizacja != null) {%>
+                                  <% for(var c=0; c<spec.length; c++){ %>
+                                    <%if (spec[c].IdSpecjalizacja == analit[b].IdSpecjalizacja){ %>
+                                        <input type="text" id="certsEdit" name="certsEdit" class="form-control addAssets" value="<%= analit[b].Certyfikaty %>" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem" required>
+                                      <% } %>
+                                  <% } %>
+                                 <% } %>
+                              <% } %>
+                              <input type="text" id="languagesEdit" name="languagesEdit" class="form-control addAssets" placeholder="Wpisz języki programowania, oddzielone przecinkiem" style="display: none">
+                              
                             <% } %>                            
                           </div>
                         </div>
