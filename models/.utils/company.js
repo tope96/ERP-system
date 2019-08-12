@@ -24,13 +24,33 @@ function getAllCopmany(idTeam){
     })
 }
 
+function editCompanyNew(newName, newNip, newAddress, newTown, idCompany, idTeam){
+    return companyModel.findOne({
+        where:{
+           IdFirma: idCompany
+        }
+    }).then(function(company){
+        if(company){
+            companyModel.update({
+                Nazwa: newName,
+                Nip: newNip,
+                IdMiasto: newTown,
+                Adres: newAddress
+            })
+        }
+    });
+}
+
+
 function editCompany(newName, newNip, newAddress, newTown, idCompany, idTeam) {
     return new Promise((resolve, reject) => { 
     if (newName != '' || newNip != '') {
         ifcompanyExists(newName, newNip, idTeam).then(function (ifExists) {
             if (ifExists == false) {
+                console.log("false");
                 resolve(false);
             } else {
+                console.log("ok")
                 if (newName != '') {
                     editName(idCompany, newName, idTeam);
                 }
@@ -45,7 +65,7 @@ function editCompany(newName, newNip, newAddress, newTown, idCompany, idTeam) {
                 }
                 setTimeout(function(){
                     resolve(true);
-                }, 500);
+                }, 1000);
             }
         });
     } else {
@@ -188,5 +208,6 @@ module.exports = {
     editCompany: editCompany,
     getAllCopmany: getAllCopmany,
     addCompany:addCompany,
-    addCompanyReturnId: addCompanyReturnId
+    addCompanyReturnId: addCompanyReturnId,
+    editCompanyNew: editCompanyNew
 }

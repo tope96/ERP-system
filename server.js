@@ -20,6 +20,15 @@ var models = require("./models");
 
 var authRoute = require('./routes/auth.js')(app, passport);
 var siteRoute = require('./routes/site.js')(app, passport);
+var hrRoute = require('./routes/hr.js')(app, passport);
+var fixedAssetsRoute = require('./routes/fixedAssets.js')(app, passport);
+var companyRoute = require('./routes/company.js')(app, passport);
+var productionRoute = require('./routes/production.js')(app, passport);
+var emailsRoute = require('./routes/emails.js')(app, passport);
+var profileRoute = require('./routes/profile.js')(app, passport);
+var proposalsRoute = require('./routes/proposals.js')(app, passport);
+var clientsRoute = require('./routes/clients.js')(app, passport);
+var permissionRoute = require('./routes/permission.js')(app, passport);
 
 app.get('/', authController.signin);
 

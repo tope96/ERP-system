@@ -200,10 +200,6 @@ body {
     width: 40%;
   }
 
-  .list{
-
-  }
-
   .createAccount{
       margin-bottom: 1rem;
   }
@@ -536,4 +532,13 @@ body {
         margin-top: 40rem;
         z-index: -50;
     }
+
+    .modal-content-proposal{
+        background-color: #fefefe;
+        margin: 1% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 98%;
+        margin-bottom: 10rem;
+      }
   }

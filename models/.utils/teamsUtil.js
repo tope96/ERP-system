@@ -105,14 +105,14 @@ function changeTeamName(idTeam, newName, idKontoDomenowe){
 function deleteFromTeam(toDelete, idTeam){
     return teamMember.destroy({
         where:{
-            IdPracownik: toDelete
+            IdPracownik: toDelete,
+            IdZespol: idTeam
         }
     });
 }
 
 function addNewMembers(IdTeam, members){
     return new Promise((resolve, reject) => { 
-        console.log("ARRAY: " + members.length);
     if(Array.isArray(members)){
         for(var i = 0; i<members.length; i++){
             teamMember.create({
