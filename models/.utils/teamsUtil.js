@@ -4,20 +4,20 @@ var teamMember = models.czlonkowie_zespolow;
 var projectTeams = models.zespoly_projektowe;
 var project = require('./projects.js');
 
-function createTeam(teamName, idTeamDom){
+function createTeam(teamName, idTeamDom) {
     return teams.findOne({
-        where:{
+        where: {
             Nazwa: teamName
         }
-    }).then(function(team){
-        if(team){
-            //TODO: show error - team exists
-        }else{
+    }).then(function (team) {
+        if (team) {
+
+        } else {
             return teams.create({
                 Nazwa: teamName,
                 zespolyDomenowe: idTeamDom
-            }).then(function(createdTeam){
-                if(createdTeam){
+            }).then(function (createdTeam) {
+                if (createdTeam) {
                     return createdTeam.IdZespol;
                 }
             })
@@ -25,75 +25,73 @@ function createTeam(teamName, idTeamDom){
     });
 }
 
-function deleteTeam(teamId){
-    project.deleteProjectForTeam(teamId).then(function(){
-            return teamMember.destroy({
-                where:{
+function deleteTeam(teamId) {
+    project.deleteProjectForTeam(teamId).then(function () {
+        return teamMember.destroy({
+            where: {
+                IdZespol: teamId
+            }
+        }).then(function () {
+            return teams.destroy({
+                where: {
                     IdZespol: teamId
                 }
-            }).then(function(){
-                return teams.destroy({
-                    where:{
-                        IdZespol: teamId
-                    }
-                }).then(function(){
-                    return true;
-                })
+            }).then(function () {
+                return true;
             });
-        
-    })
-    
+        });
+    });
 }
 
-function createTeamWithWorkers(teamId, workers){
-    if(Array.isArray(workers)){
-        for(var i =0; i<workers.length; i++){
+function createTeamWithWorkers(teamId, workers) {
+    if (Array.isArray(workers)) {
+        for (var i = 0; i < workers.length; i++) {
             teamMember.create({
                 IdPracownik: workers[i],
                 IdZespol: teamId
             });
         }
-    }else{
+    } else {
         teamMember.create({
             IdPracownik: workers,
             IdZespol: teamId
         });
     }
-} 
+}
 
-function getAllTeams(idTeamDom){
+function getAllTeams(idTeamDom) {
     return teams.findAll({
-        where:{
+        where: {
             zespolyDomenowe: idTeamDom
         }
-    }).then(function(teams){
+    }).then(function (teams) {
         return teams;
     });
 }
 
-function getAllTeamsMembers(){
+function getAllTeamsMembers() {
     return teamMember.findAll({
 
-    }).then(function(teamsMember){
+    }).then(function (teamsMember) {
         return teamsMember;
     });
 }
 
-function changeTeamName(idTeam, newName, idKontoDomenowe){
+function changeTeamName(idTeam, newName, idKontoDomenowe) {
     return teams.findAll({
-        where:{
+        where: {
             Nazwa: newName,
             zespolyDomenowe: idKontoDomenowe
         }
-    }).then(function(foundTeam){
-        if(foundTeam == null){
+    }).then(function (foundTeam) {
+        if (foundTeam == null) {
             console.log('tutaj');
-        }else{
+        } else {
             return teams.findOne({
-                where:{
+                where: {
                     IdZespol: idTeam
                 }
-            }).then(function(team){
+            }).then(function (team) {
                 return team.update({
                     Nazwa: newName
                 });
@@ -102,77 +100,77 @@ function changeTeamName(idTeam, newName, idKontoDomenowe){
     });
 }
 
-function deleteFromTeam(toDelete, idTeam){
+function deleteFromTeam(toDelete, idTeam) {
     return teamMember.destroy({
-        where:{
+        where: {
             IdPracownik: toDelete,
             IdZespol: idTeam
         }
     });
 }
 
-function addNewMembers(IdTeam, members){
-    return new Promise((resolve, reject) => { 
-    if(Array.isArray(members)){
-        for(var i = 0; i<members.length; i++){
-            teamMember.create({
-                IdPracownik: members[i],
+function addNewMembers(IdTeam, members) {
+    return new Promise((resolve, reject) => {
+        if (Array.isArray(members)) {
+            for (var i = 0; i < members.length; i++) {
+                teamMember.create({
+                    IdPracownik: members[i],
+                    IdZespol: IdTeam
+                });
+            }
+            resolve(true);
+
+        } else {
+            return teamMember.create({
+                IdPracownik: members,
                 IdZespol: IdTeam
+            }).then(function () {
+                resolve(true);
             });
         }
-                resolve(true);
-
-    }else{
-        return teamMember.create({
-            IdPracownik: members,
-            IdZespol: IdTeam
-        }).then(function(){
-            resolve(true);
-        });
-    }
-});
+    });
 }
 
-function teamToProject(idProject, idTeam){
+function teamToProject(idProject, idTeam) {
     return projectTeams.create({
         IdProjekt: idProject,
         IdZespol: idTeam
     })
 }
 
-function getAllProjectsTeams(){
+function getAllProjectsTeams() {
     return projectTeams.findAll({
-        where:{
+        where: {
 
         }
-    }).then(function(projects){
+    }).then(function (projects) {
         return projects;
-    })
+    });
 }
 
-function deleteProjectsTeam(idProject){
-    
+function deleteProjectsTeam(idProject) {
+
     return projectTeams.destroy({
-        where:{
+        where: {
             IdProjekt: idProject
         }
-    })
+    });
 }
 
-function updateProjectsTeam(idProject, idTeam, oldIdTeam){
+function updateProjectsTeam(idProject, idTeam, oldIdTeam) {
     console.log("old: " + oldIdTeam);
     console.log("new: " + idTeam);
     console.log("project: " + idProject);
     return projectTeams.findOne({
-        where:{
+        where: {
             IdProjekt: idProject,
-            IdZespol: oldIdTeam      
+            IdZespol: oldIdTeam
         }
-    }).then(function(found){
+    }).then(function (found) {
         return found.update({
             IdZespol: idTeam
-        })
-    })
+        });
+    });
 }
 
 
@@ -180,10 +178,10 @@ module.exports = {
     createTeam: createTeam,
     createTeamWithWorkers: createTeamWithWorkers,
     getAllTeams: getAllTeams,
-    getAllTeamsMembers:getAllTeamsMembers,
+    getAllTeamsMembers: getAllTeamsMembers,
     changeTeamName: changeTeamName,
     deleteFromTeam: deleteFromTeam,
-    addNewMembers:addNewMembers,
+    addNewMembers: addNewMembers,
     teamToProject: teamToProject,
     getAllProjectsTeams: getAllProjectsTeams,
     deleteProjectsTeam: deleteProjectsTeam,

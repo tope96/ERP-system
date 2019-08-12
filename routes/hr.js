@@ -16,7 +16,7 @@ var permissionUtil = require('../models/.utils/permission.js');
 var emailsUtil = require('../models/.utils/emails.js');
 
 module.exports = function (app, passport) {
-    
+
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, 'contracts/');
@@ -26,7 +26,7 @@ module.exports = function (app, passport) {
         }
     });
 
-    var upload = multer({storage: storage});
+    var upload = multer({ storage: storage });
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
@@ -55,9 +55,6 @@ module.exports = function (app, passport) {
     app.get('/deleteHumanFailed', isLoggedIn, humanResourcesController.deleteHumanFailed);
     app.get('/deleteHumanFailedSuperior', isLoggedIn, humanResourcesController.deleteHumanFailedSuperior);
     app.get('/deleteHumanFailedAsset', isLoggedIn, humanResourcesController.deleteHumanFailedAsset);
-
-    
-
 
     app.post('/addHuman', upload.single('file-to-upload'), isLoggedIn, isAdmin, function (req, res) {
         var name = req.body.name;
@@ -225,7 +222,7 @@ module.exports = function (app, passport) {
         });
     });
 
-app.post('/editWorker', isLoggedIn, isHR, function (req, res) {
+    app.post('/editWorker', isLoggedIn, isHR, function (req, res) {
         var IdWorker = req.body.IdWorker;
 
         domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -303,30 +300,30 @@ app.post('/editWorker', isLoggedIn, isHR, function (req, res) {
         res.download(file);
     });
 
-    app.post('/addTeam', function(req, res){
+    app.post('/addTeam', function (req, res) {
         var teamName = req.body.teamName;
         var teamsMember = req.body.teamsMember;
 
-        teamsUtil.createTeam(teamName, req.user.IdZespol).then(function(teamId){
+        teamsUtil.createTeam(teamName, req.user.IdZespol).then(function (teamId) {
             teamsUtil.createTeamWithWorkers(teamId, teamsMember);
             res.redirect('/humanResources');
         });
     });
 
-    app.post('/editTeams', function(req, res){
+    app.post('/editTeams', function (req, res) {
         var newName = req.body.newName;
         var idTeam = req.body.idTeam;
 
-        teamsUtil.changeTeamName(idTeam, newName, req.user.IdZespol).then(function(){
+        teamsUtil.changeTeamName(idTeam, newName, req.user.IdZespol).then(function () {
             res.redirect('/humanResources');
         })
     });
 
-    app.post('/deleteFromTeam', function(req, res){
+    app.post('/deleteFromTeam', function (req, res) {
         var toDelete = req.body.toDelete;
         var idTeam = req.body.idTeam;
         var idTeamEdited = req.body.idTeamEdited;
-        teamsUtil.deleteFromTeam(toDelete, idTeam).then(function(){
+        teamsUtil.deleteFromTeam(toDelete, idTeam).then(function () {
             var teamiii = idTeamEdited.replace("\'", "");
             var teamiiii = teamiii.replace("\'", "");
             domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -344,29 +341,29 @@ app.post('/editWorker', isLoggedIn, isHR, function (req, res) {
                                                             agreementUtil.getB2b().then(function (b2b) {
                                                                 agreementUtil.getOPrace().then(function (praca) {
                                                                     agreementUtil.getZlecenie().then(function (zlecenie) {
-                                                                        emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
-                                                                        res.render('humanResources', {
-                                                                            name: profile.Imie,
-                                                                            site: "Zasoby ludzkie",
-                                                                            workers: workers,
-                                                                            company: company,
-                                                                            agree: agree,
-                                                                            programmers: programmers,
-                                                                            analit: analit,
-                                                                            spec: specs,
-                                                                            teams: teams,
-                                                                            teamsMember: teamsMember,
-                                                                            Team: teamiiii,
-                                                                            permission: permission,
-                                                                            agrees: agrees,
-                                                                            b2b: b2b,
-                                                                            zlecenie: zlecenie,
-                                                                            praca: praca,
-                                                                            edycja: 1,
-                                                                            edycjaPracownika: 0,
-                                                                            failed: 0,
-                                                                            emails: emails
-                                                                        });
+                                                                        emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                            res.render('humanResources', {
+                                                                                name: profile.Imie,
+                                                                                site: "Zasoby ludzkie",
+                                                                                workers: workers,
+                                                                                company: company,
+                                                                                agree: agree,
+                                                                                programmers: programmers,
+                                                                                analit: analit,
+                                                                                spec: specs,
+                                                                                teams: teams,
+                                                                                teamsMember: teamsMember,
+                                                                                Team: teamiiii,
+                                                                                permission: permission,
+                                                                                agrees: agrees,
+                                                                                b2b: b2b,
+                                                                                zlecenie: zlecenie,
+                                                                                praca: praca,
+                                                                                edycja: 1,
+                                                                                edycjaPracownika: 0,
+                                                                                failed: 0,
+                                                                                emails: emails
+                                                                            });
 
                                                                         });
                                                                     });
@@ -387,12 +384,12 @@ app.post('/editWorker', isLoggedIn, isHR, function (req, res) {
         })
     });
 
-    app.post('/addNewMembers', function(req, res){
+    app.post('/addNewMembers', function (req, res) {
         var members = req.body.newMembers;
         var idTeam = req.body.idTeam;
         var idTeamEdited = req.body.idTeamEdited;
 
-        teamsUtil.addNewMembers(idTeam, members).then(function(){
+        teamsUtil.addNewMembers(idTeam, members).then(function () {
             var teamiii = idTeamEdited.replace("\'", "");
             var teamiiii = teamiii.replace("\'", "");
             domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -410,29 +407,29 @@ app.post('/editWorker', isLoggedIn, isHR, function (req, res) {
                                                             agreementUtil.getB2b().then(function (b2b) {
                                                                 agreementUtil.getOPrace().then(function (praca) {
                                                                     agreementUtil.getZlecenie().then(function (zlecenie) {
-                                                                        emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
-                                                                        res.render('humanResources', {
-                                                                            name: profile.Imie,
-                                                                            site: "Zasoby ludzkie",
-                                                                            workers: workers,
-                                                                            company: company,
-                                                                            agree: agree,
-                                                                            programmers: programmers,
-                                                                            analit: analit,
-                                                                            spec: specs,
-                                                                            teams: teams,
-                                                                            teamsMember: teamsMember,
-                                                                            Team: teamiiii,
-                                                                            permission: permission,
-                                                                            agrees: agrees,
-                                                                            b2b: b2b,
-                                                                            zlecenie: zlecenie,
-                                                                            praca: praca,
-                                                                            edycja: 1,
-                                                                            edycjaPracownika: 0,
-                                                                            failed: 0,
-                                                                            emails: emails
-                                                                        });
+                                                                        emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                            res.render('humanResources', {
+                                                                                name: profile.Imie,
+                                                                                site: "Zasoby ludzkie",
+                                                                                workers: workers,
+                                                                                company: company,
+                                                                                agree: agree,
+                                                                                programmers: programmers,
+                                                                                analit: analit,
+                                                                                spec: specs,
+                                                                                teams: teams,
+                                                                                teamsMember: teamsMember,
+                                                                                Team: teamiiii,
+                                                                                permission: permission,
+                                                                                agrees: agrees,
+                                                                                b2b: b2b,
+                                                                                zlecenie: zlecenie,
+                                                                                praca: praca,
+                                                                                edycja: 1,
+                                                                                edycjaPracownika: 0,
+                                                                                failed: 0,
+                                                                                emails: emails
+                                                                            });
                                                                         });
                                                                     });
                                                                 });
@@ -451,5 +448,4 @@ app.post('/editWorker', isLoggedIn, isHR, function (req, res) {
             });
         });
     });
-
 };

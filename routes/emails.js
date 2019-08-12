@@ -2,7 +2,6 @@
 var emailsController = require('../controllers/emailController.js');
 
 //Dependencies
-var multer = require('multer');
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
 var permissionUtil = require('../models/.utils/permission.js');
@@ -10,20 +9,21 @@ var emailsUtil = require('../models/.utils/emails.js');
 
 module.exports = function (app, passport) {
     function isLoggedIn(req, res, next) {
-        if (req.isAuthenticated())
+        if (req.isAuthenticated()) {
             return next();
+        }
         res.redirect('/signin');
     }
 
-    function isAdmin(req, res, next){
-        if(req.user.IdUprawnienia == 1){
+    function isAdmin(req, res, next) {
+        if (req.user.IdUprawnienia == 1) {
             return next();
         }
         res.redirect('/noPermission');
     }
 
-    function isHR(req, res, next){
-        if(req.user.IdUprawnienia == 1 || req.user.IdUprawnienia == 2){
+    function isHR(req, res, next) {
+        if (req.user.IdUprawnienia == 1 || req.user.IdUprawnienia == 2) {
             return next();
         }
         res.redirect('/noPermission');

@@ -35,7 +35,6 @@ module.exports = function (app, passport) {
     app.get('/editCompany', isLoggedIn, companyController.editCompany);
     app.get('/editCompanyAddProfile', isLoggedIn, companyController.editCompanyAddProfile);
     app.get('/editCompanyAddProfileError', isLoggedIn, companyController.editCompanyAddProfileError);
-    app.get('/')
     app.get('/editCompanyAddProfileSuccess', isLoggedIn, companyController.editCompanyAddProfileSuccess);
     app.get('/editCompanyEdition', isLoggedIn, companyController.editCompanyEdition);
     app.get('/editCompanySuccess', isLoggedIn, companyController.editCompanySuccess);

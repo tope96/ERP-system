@@ -1,5 +1,3 @@
-var models = require("../models");
-var exports = module.exports = {}
 var workersUtil = require('../models/.utils/workerUtil.js');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
 var projectsUtil = require('../models/.utils/projects.js');
@@ -26,32 +24,32 @@ exports.production = function (req, res) {
                                             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                                                 jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                     permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
-                                                    res.render('production', {
-                                                        name: profile.Imie,
-                                                        site: "Zasoby ludzkie",
-                                                        company: company,
-                                                        clients: clients,
-                                                        category: category,
-                                                        teams: teams,
-                                                        projects: projects,
-                                                        teamProjects: teamProjects,
-                                                        statuses: statuses,
-                                                        priority: priority,
-                                                        workers: workers,
-                                                        jobs: jobs,
-                                                        permission: permission,
-                                                        jobView: 0,
-                                                        addCompanyFailed: 0,
-                                                        addCategoryFailed: 0,
-                                                        addProjectFailed: 0,
-                                                        addClientFailed: 0
-                                                    });
+                                                        res.render('production', {
+                                                            name: profile.Imie,
+                                                            site: "Zasoby ludzkie",
+                                                            company: company,
+                                                            clients: clients,
+                                                            category: category,
+                                                            teams: teams,
+                                                            projects: projects,
+                                                            teamProjects: teamProjects,
+                                                            statuses: statuses,
+                                                            priority: priority,
+                                                            workers: workers,
+                                                            jobs: jobs,
+                                                            permission: permission,
+                                                            jobView: 0,
+                                                            addCompanyFailed: 0,
+                                                            addCategoryFailed: 0,
+                                                            addProjectFailed: 0,
+                                                            addClientFailed: 0
+                                                        });
                                                     });
                                                 });
                                             });
                                         });
                                     });
-                                })
+                                });
                             });
                         });
                     });
@@ -75,32 +73,32 @@ exports.productionAddCompanyFailed = function (req, res) {
                                             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                                                 jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                     permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
-                                                    res.render('production', {
-                                                        name: profile.Imie,
-                                                        site: "Zasoby ludzkie",
-                                                        company: company,
-                                                        clients: clients,
-                                                        category: category,
-                                                        teams: teams,
-                                                        projects: projects,
-                                                        teamProjects: teamProjects,
-                                                        statuses: statuses,
-                                                        priority: priority,
-                                                        workers: workers,
-                                                        jobs: jobs,
-                                                        permission: permission,
-                                                        jobView: 0,
-                                                        addCompanyFailed: "Dodawanie firmy się nie powiodło. Taka firma już istnieje w bazie.",
-                                                        addCategoryFailed:0,
-                                                        addProjectFailed: 0,
-                                                        addClientFailed: 0
-                                                    });
+                                                        res.render('production', {
+                                                            name: profile.Imie,
+                                                            site: "Zasoby ludzkie",
+                                                            company: company,
+                                                            clients: clients,
+                                                            category: category,
+                                                            teams: teams,
+                                                            projects: projects,
+                                                            teamProjects: teamProjects,
+                                                            statuses: statuses,
+                                                            priority: priority,
+                                                            workers: workers,
+                                                            jobs: jobs,
+                                                            permission: permission,
+                                                            jobView: 0,
+                                                            addCompanyFailed: "Dodawanie firmy się nie powiodło. Taka firma już istnieje w bazie.",
+                                                            addCategoryFailed: 0,
+                                                            addProjectFailed: 0,
+                                                            addClientFailed: 0
+                                                        });
                                                     });
                                                 });
                                             });
                                         });
                                     });
-                                })
+                                });
                             });
                         });
                     });
@@ -124,32 +122,32 @@ exports.productionAddCategoryFailed = function (req, res) {
                                             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                                                 jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                     permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
-                                                    res.render('production', {
-                                                        name: profile.Imie,
-                                                        site: "Zasoby ludzkie",
-                                                        company: company,
-                                                        clients: clients,
-                                                        category: category,
-                                                        teams: teams,
-                                                        projects: projects,
-                                                        teamProjects: teamProjects,
-                                                        statuses: statuses,
-                                                        priority: priority,
-                                                        workers: workers,
-                                                        jobs: jobs,
-                                                        permission: permission,
-                                                        jobView: 0,
-                                                        addCompanyFailed: 0,
-                                                        addCategoryFailed: "Dodawanie kategorii nie powiodło się, ponieważ w bazie znajduje się już taka kategoria. Podaj inną nazwę.",
-                                                        addProjectFailed: 0,
-                                                        addClientFailed: 0
-                                                    });
+                                                        res.render('production', {
+                                                            name: profile.Imie,
+                                                            site: "Zasoby ludzkie",
+                                                            company: company,
+                                                            clients: clients,
+                                                            category: category,
+                                                            teams: teams,
+                                                            projects: projects,
+                                                            teamProjects: teamProjects,
+                                                            statuses: statuses,
+                                                            priority: priority,
+                                                            workers: workers,
+                                                            jobs: jobs,
+                                                            permission: permission,
+                                                            jobView: 0,
+                                                            addCompanyFailed: 0,
+                                                            addCategoryFailed: "Dodawanie kategorii nie powiodło się, ponieważ w bazie znajduje się już taka kategoria. Podaj inną nazwę.",
+                                                            addProjectFailed: 0,
+                                                            addClientFailed: 0
+                                                        });
                                                     });
                                                 });
                                             });
                                         });
                                     });
-                                })
+                                });
                             });
                         });
                     });
@@ -173,26 +171,26 @@ exports.addProjectFailed = function (req, res) {
                                             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                                                 jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                     permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
-                                                    res.render('production', {
-                                                        name: profile.Imie,
-                                                        site: "Zasoby ludzkie",
-                                                        company: company,
-                                                        clients: clients,
-                                                        category: category,
-                                                        teams: teams,
-                                                        projects: projects,
-                                                        teamProjects: teamProjects,
-                                                        statuses: statuses,
-                                                        priority: priority,
-                                                        workers: workers,
-                                                        jobs: jobs,
-                                                        permission: permission,
-                                                        jobView: 0,
-                                                        addCompanyFailed: 0,
-                                                        addCategoryFailed: 0,
-                                                        addProjectFailed: "Dodawanie projektu nie powiodło się, ponieważ istnieje już projekt o takiej nazwie. Podaj inną nazwę.",
-                                                        addClientFailed: 0
-                                                    });
+                                                        res.render('production', {
+                                                            name: profile.Imie,
+                                                            site: "Zasoby ludzkie",
+                                                            company: company,
+                                                            clients: clients,
+                                                            category: category,
+                                                            teams: teams,
+                                                            projects: projects,
+                                                            teamProjects: teamProjects,
+                                                            statuses: statuses,
+                                                            priority: priority,
+                                                            workers: workers,
+                                                            jobs: jobs,
+                                                            permission: permission,
+                                                            jobView: 0,
+                                                            addCompanyFailed: 0,
+                                                            addCategoryFailed: 0,
+                                                            addProjectFailed: "Dodawanie projektu nie powiodło się, ponieważ istnieje już projekt o takiej nazwie. Podaj inną nazwę.",
+                                                            addClientFailed: 0
+                                                        });
                                                     });
                                                 });
                                             });
@@ -222,26 +220,26 @@ exports.addClientFailed = function (req, res) {
                                             workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
                                                 jobUtil.getAllJob(req.user.IdZespol).then(function (jobs) {
                                                     permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
-                                                    res.render('production', {
-                                                        name: profile.Imie,
-                                                        site: "Zasoby ludzkie",
-                                                        company: company,
-                                                        clients: clients,
-                                                        category: category,
-                                                        teams: teams,
-                                                        projects: projects,
-                                                        teamProjects: teamProjects,
-                                                        statuses: statuses,
-                                                        priority: priority,
-                                                        workers: workers,
-                                                        jobs: jobs,
-                                                        permission: permission,
-                                                        jobView: 0,
-                                                        addCompanyFailed: 0,
-                                                        addCategoryFailed: 0,
-                                                        addProjectFailed: 0,
-                                                        addClientFailed: "Dodawanie klienta nie powiodło się, ponieważ istnieje już klient o takich danych. Podaj inne dane."
-                                                    });
+                                                        res.render('production', {
+                                                            name: profile.Imie,
+                                                            site: "Zasoby ludzkie",
+                                                            company: company,
+                                                            clients: clients,
+                                                            category: category,
+                                                            teams: teams,
+                                                            projects: projects,
+                                                            teamProjects: teamProjects,
+                                                            statuses: statuses,
+                                                            priority: priority,
+                                                            workers: workers,
+                                                            jobs: jobs,
+                                                            permission: permission,
+                                                            jobView: 0,
+                                                            addCompanyFailed: 0,
+                                                            addCategoryFailed: 0,
+                                                            addProjectFailed: 0,
+                                                            addClientFailed: "Dodawanie klienta nie powiodło się, ponieważ istnieje już klient o takich danych. Podaj inne dane."
+                                                        });
                                                     });
                                                 });
                                             });

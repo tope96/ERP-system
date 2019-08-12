@@ -1,24 +1,24 @@
-
 var controller = require('../controllers/controller.js');
 var proposalUtil = require('../models/.utils/proposal.js');
 
 module.exports = function (app, passport) {
 
     function isLoggedIn(req, res, next) {
-        if (req.isAuthenticated())
+        if (req.isAuthenticated()) {
             return next();
+        }
         res.redirect('/signin');
     }
 
-    function isAdmin(req, res, next){
-        if(req.user.IdUprawnienia == 1){
+    function isAdmin(req, res, next) {
+        if (req.user.IdUprawnienia == 1) {
             return next();
         }
         res.redirect('/noPermission');
     }
 
-    function isHR(req, res, next){
-        if(req.user.IdUprawnienia == 1 || req.user.IdUprawnienia == 2){
+    function isHR(req, res, next) {
+        if (req.user.IdUprawnienia == 1 || req.user.IdUprawnienia == 2) {
             return next();
         }
         res.redirect('/noPermission');

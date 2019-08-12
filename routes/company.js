@@ -2,13 +2,10 @@
 var companyController = require('../controllers/companyController.js');
 
 //Dependencies
-var multer = require('multer');
 var domaneAccount = require('../models/.utils/domaneAccount.js');
 var companyUtil = require('../models/.utils/company.js');
-var domaneAccount = require('../models/.utils/domaneAccount.js');
-var companyUtil = require('../models/.utils/company.js');
-var domaneAccount = require('../models/.utils/domaneAccount.js');
-var companyUtil = require('../models/.utils/company.js');
+
+
 
 module.exports = function (app, passport) {
 
@@ -18,15 +15,15 @@ module.exports = function (app, passport) {
         res.redirect('/signin');
     }
 
-    function isAdmin(req, res, next){
-        if(req.user.IdUprawnienia == 1){
+    function isAdmin(req, res, next) {
+        if (req.user.IdUprawnienia == 1) {
             return next();
         }
         res.redirect('/noPermission');
     }
 
-    function isHR(req, res, next){
-        if(req.user.IdUprawnienia == 1 || req.user.IdUprawnienia == 2){
+    function isHR(req, res, next) {
+        if (req.user.IdUprawnienia == 1 || req.user.IdUprawnienia == 2) {
             return next();
         }
         res.redirect('/noPermission');
@@ -39,7 +36,7 @@ module.exports = function (app, passport) {
     app.get('/editCompanyEdition', isLoggedIn, companyController.editCompanyEdition);
     app.get('/editCompanySuccess', isLoggedIn, companyController.editCompanySuccess);
     app.get('/failedDeleteClient', isLoggedIn, companyController.failedDeleteClient);
-    
+
     app.post('/addProfile', isLoggedIn, isAdmin, function (req, res) {
         var login = req.body.login;
         var password = req.body.password;
@@ -49,7 +46,6 @@ module.exports = function (app, passport) {
             if (ifOk) {
                 res.redirect('/editCompany');
             } else {
-
             }
         });
     });
@@ -62,7 +58,7 @@ module.exports = function (app, passport) {
         var id = req.body.companyId;
 
         companyUtil.editCompany(name, nip, address, town, id, req.user.IdZespol).then(function () {
-                res.redirect('/editCompany');
+            res.redirect('/editCompany');
         });
     });
 

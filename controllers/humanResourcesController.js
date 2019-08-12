@@ -22,27 +22,27 @@ exports.humanResources = function (req, res) {
                                                 agreementUtil.getB2b().then(function (b2b) {
                                                     agreementUtil.getOPrace().then(function (praca) {
                                                         agreementUtil.getZlecenie().then(function (zlecenie) {
-                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
-                                                            res.render('humanResources', {
-                                                                name: profile.Imie,
-                                                                site: "Zasoby ludzkie",
-                                                                workers: workers,
-                                                                company: company,
-                                                                programmers: programmers,
-                                                                analit: analit,
-                                                                spec: specs,
-                                                                teams: teams,
-                                                                teamsMember: teamsMember,
-                                                                permission: permission,
-                                                                agrees: agrees,
-                                                                b2b: b2b,
-                                                                zlecenie: zlecenie,
-                                                                praca: praca,
-                                                                edycja: 0,
-                                                                edycjaPracownika: 0,
-                                                                emails: emails,
-                                                                failed: 0
-                                                            });
+                                                            emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                res.render('humanResources', {
+                                                                    name: profile.Imie,
+                                                                    site: "Zasoby ludzkie",
+                                                                    workers: workers,
+                                                                    company: company,
+                                                                    programmers: programmers,
+                                                                    analit: analit,
+                                                                    spec: specs,
+                                                                    teams: teams,
+                                                                    teamsMember: teamsMember,
+                                                                    permission: permission,
+                                                                    agrees: agrees,
+                                                                    b2b: b2b,
+                                                                    zlecenie: zlecenie,
+                                                                    praca: praca,
+                                                                    edycja: 0,
+                                                                    edycjaPracownika: 0,
+                                                                    emails: emails,
+                                                                    failed: 0
+                                                                });
                                                             });
                                                         });
                                                     });
@@ -58,7 +58,7 @@ exports.humanResources = function (req, res) {
             });
         });
     });
-}
+};
 
 exports.humanResourcesAddFailed = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -75,27 +75,27 @@ exports.humanResourcesAddFailed = function (req, res) {
                                                 agreementUtil.getB2b().then(function (b2b) {
                                                     agreementUtil.getOPrace().then(function (praca) {
                                                         agreementUtil.getZlecenie().then(function (zlecenie) {
-                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
-                                                            res.render('humanResources', {
-                                                                name: profile.Imie,
-                                                                site: "Zasoby ludzkie",
-                                                                workers: workers,
-                                                                company: company,
-                                                                programmers: programmers,
-                                                                analit: analit,
-                                                                spec: specs,
-                                                                teams: teams,
-                                                                teamsMember: teamsMember,
-                                                                permission: permission,
-                                                                agrees: agrees,
-                                                                b2b: b2b,
-                                                                zlecenie: zlecenie,
-                                                                praca: praca,
-                                                                edycja: 0,
-                                                                edycjaPracownika: 0,
-                                                                emails: emails,
-                                                                failed: "Dodawanie pracownika się nie powiodło. Pracownik z takim adresem email lub numerem telefonu juz istnieje."
-                                                            });
+                                                            emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                res.render('humanResources', {
+                                                                    name: profile.Imie,
+                                                                    site: "Zasoby ludzkie",
+                                                                    workers: workers,
+                                                                    company: company,
+                                                                    programmers: programmers,
+                                                                    analit: analit,
+                                                                    spec: specs,
+                                                                    teams: teams,
+                                                                    teamsMember: teamsMember,
+                                                                    permission: permission,
+                                                                    agrees: agrees,
+                                                                    b2b: b2b,
+                                                                    zlecenie: zlecenie,
+                                                                    praca: praca,
+                                                                    edycja: 0,
+                                                                    edycjaPracownika: 0,
+                                                                    emails: emails,
+                                                                    failed: "Dodawanie pracownika się nie powiodło. Pracownik z takim adresem email lub numerem telefonu juz istnieje."
+                                                                });
                                                             });
                                                         });
                                                     });
@@ -111,7 +111,7 @@ exports.humanResourcesAddFailed = function (req, res) {
             });
         });
     });
-}
+};
 
 exports.humanResourcesAddCompanyFailed = function (req, res) {
 
@@ -129,27 +129,27 @@ exports.humanResourcesAddCompanyFailed = function (req, res) {
                                                 agreementUtil.getB2b().then(function (b2b) {
                                                     agreementUtil.getOPrace().then(function (praca) {
                                                         agreementUtil.getZlecenie().then(function (zlecenie) {
-                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
-                                                            res.render('humanResources', {
-                                                                name: profile.Imie,
-                                                                site: "Zasoby ludzkie",
-                                                                workers: workers,
-                                                                company: company,
-                                                                programmers: programmers,
-                                                                analit: analit,
-                                                                spec: specs,
-                                                                teams: teams,
-                                                                teamsMember: teamsMember,
-                                                                permission: permission,
-                                                                agrees: agrees,
-                                                                b2b: b2b,
-                                                                zlecenie: zlecenie,
-                                                                praca: praca,
-                                                                edycja: 0,
-                                                                edycjaPracownika: 0,
-                                                                emails: emails,
-                                                                failed: "Dodawanie firmy się nie powiodło. Taka firma już istnieje w bazie."
-                                                            });
+                                                            emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                res.render('humanResources', {
+                                                                    name: profile.Imie,
+                                                                    site: "Zasoby ludzkie",
+                                                                    workers: workers,
+                                                                    company: company,
+                                                                    programmers: programmers,
+                                                                    analit: analit,
+                                                                    spec: specs,
+                                                                    teams: teams,
+                                                                    teamsMember: teamsMember,
+                                                                    permission: permission,
+                                                                    agrees: agrees,
+                                                                    b2b: b2b,
+                                                                    zlecenie: zlecenie,
+                                                                    praca: praca,
+                                                                    edycja: 0,
+                                                                    edycjaPracownika: 0,
+                                                                    emails: emails,
+                                                                    failed: "Dodawanie firmy się nie powiodło. Taka firma już istnieje w bazie."
+                                                                });
                                                             });
                                                         });
                                                     });
@@ -165,7 +165,7 @@ exports.humanResourcesAddCompanyFailed = function (req, res) {
             });
         });
     });
-}
+};
 
 exports.deleteHumanFailed = function (req, res) {
 
@@ -183,27 +183,27 @@ exports.deleteHumanFailed = function (req, res) {
                                                 agreementUtil.getB2b().then(function (b2b) {
                                                     agreementUtil.getOPrace().then(function (praca) {
                                                         agreementUtil.getZlecenie().then(function (zlecenie) {
-                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
-                                                            res.render('humanResources', {
-                                                                name: profile.Imie,
-                                                                site: "Zasoby ludzkie",
-                                                                workers: workers,
-                                                                company: company,
-                                                                programmers: programmers,
-                                                                analit: analit,
-                                                                spec: specs,
-                                                                teams: teams,
-                                                                teamsMember: teamsMember,
-                                                                permission: permission,
-                                                                agrees: agrees,
-                                                                b2b: b2b,
-                                                                zlecenie: zlecenie,
-                                                                praca: praca,
-                                                                edycja: 0,
-                                                                edycjaPracownika: 0,
-                                                                emails: emails,
-                                                                failed: "Usuwanie pracownika nie powiodło się, ponieważ pracownik ma przypisane zadanie. Usuań zadanie lub zmień w nim pracownika."
-                                                            });
+                                                            emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                res.render('humanResources', {
+                                                                    name: profile.Imie,
+                                                                    site: "Zasoby ludzkie",
+                                                                    workers: workers,
+                                                                    company: company,
+                                                                    programmers: programmers,
+                                                                    analit: analit,
+                                                                    spec: specs,
+                                                                    teams: teams,
+                                                                    teamsMember: teamsMember,
+                                                                    permission: permission,
+                                                                    agrees: agrees,
+                                                                    b2b: b2b,
+                                                                    zlecenie: zlecenie,
+                                                                    praca: praca,
+                                                                    edycja: 0,
+                                                                    edycjaPracownika: 0,
+                                                                    emails: emails,
+                                                                    failed: "Usuwanie pracownika nie powiodło się, ponieważ pracownik ma przypisane zadanie. Usuań zadanie lub zmień w nim pracownika."
+                                                                });
                                                             });
                                                         });
                                                     });
@@ -219,7 +219,7 @@ exports.deleteHumanFailed = function (req, res) {
             });
         });
     });
-}
+};
 
 exports.deleteHumanFailedSuperior = function (req, res) {
 
@@ -237,27 +237,27 @@ exports.deleteHumanFailedSuperior = function (req, res) {
                                                 agreementUtil.getB2b().then(function (b2b) {
                                                     agreementUtil.getOPrace().then(function (praca) {
                                                         agreementUtil.getZlecenie().then(function (zlecenie) {
-                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
-                                                            res.render('humanResources', {
-                                                                name: profile.Imie,
-                                                                site: "Zasoby ludzkie",
-                                                                workers: workers,
-                                                                company: company,
-                                                                programmers: programmers,
-                                                                analit: analit,
-                                                                spec: specs,
-                                                                teams: teams,
-                                                                teamsMember: teamsMember,
-                                                                permission: permission,
-                                                                agrees: agrees,
-                                                                b2b: b2b,
-                                                                zlecenie: zlecenie,
-                                                                praca: praca,
-                                                                edycja: 0,
-                                                                edycjaPracownika: 0,
-                                                                emails: emails,
-                                                                failed: "Usuwanie pracownika nie powiodło się, ponieważ pracownik ma nadal funkcję przełozonego. Usuń go z tej roli i spróuj ponownie"
-                                                            });
+                                                            emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                res.render('humanResources', {
+                                                                    name: profile.Imie,
+                                                                    site: "Zasoby ludzkie",
+                                                                    workers: workers,
+                                                                    company: company,
+                                                                    programmers: programmers,
+                                                                    analit: analit,
+                                                                    spec: specs,
+                                                                    teams: teams,
+                                                                    teamsMember: teamsMember,
+                                                                    permission: permission,
+                                                                    agrees: agrees,
+                                                                    b2b: b2b,
+                                                                    zlecenie: zlecenie,
+                                                                    praca: praca,
+                                                                    edycja: 0,
+                                                                    edycjaPracownika: 0,
+                                                                    emails: emails,
+                                                                    failed: "Usuwanie pracownika nie powiodło się, ponieważ pracownik ma nadal funkcję przełozonego. Usuń go z tej roli i spróuj ponownie"
+                                                                });
                                                             });
                                                         });
                                                     });
@@ -290,27 +290,27 @@ exports.deleteHumanFailedAsset = function (req, res) {
                                                 agreementUtil.getB2b().then(function (b2b) {
                                                     agreementUtil.getOPrace().then(function (praca) {
                                                         agreementUtil.getZlecenie().then(function (zlecenie) {
-                                                            emailsUtil.getEmails(req.user.IdZespol).then(function(emails){
-                                                            res.render('humanResources', {
-                                                                name: profile.Imie,
-                                                                site: "Zasoby ludzkie",
-                                                                workers: workers,
-                                                                company: company,
-                                                                programmers: programmers,
-                                                                analit: analit,
-                                                                spec: specs,
-                                                                teams: teams,
-                                                                teamsMember: teamsMember,
-                                                                permission: permission,
-                                                                agrees: agrees,
-                                                                b2b: b2b,
-                                                                zlecenie: zlecenie,
-                                                                praca: praca,
-                                                                edycja: 0,
-                                                                edycjaPracownika: 0,
-                                                                emails: emails,
-                                                                failed: "Usuwanie pracownika nie powiodło się, ponieważ pracownik jest osobą odpowiedzialną za środek trwały. Zmień osobę odpowiedzialną i spróbuj ponownie."
-                                                            });
+                                                            emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                res.render('humanResources', {
+                                                                    name: profile.Imie,
+                                                                    site: "Zasoby ludzkie",
+                                                                    workers: workers,
+                                                                    company: company,
+                                                                    programmers: programmers,
+                                                                    analit: analit,
+                                                                    spec: specs,
+                                                                    teams: teams,
+                                                                    teamsMember: teamsMember,
+                                                                    permission: permission,
+                                                                    agrees: agrees,
+                                                                    b2b: b2b,
+                                                                    zlecenie: zlecenie,
+                                                                    praca: praca,
+                                                                    edycja: 0,
+                                                                    edycjaPracownika: 0,
+                                                                    emails: emails,
+                                                                    failed: "Usuwanie pracownika nie powiodło się, ponieważ pracownik jest osobą odpowiedzialną za środek trwały. Zmień osobę odpowiedzialną i spróbuj ponownie."
+                                                                });
                                                             });
                                                         });
                                                     });

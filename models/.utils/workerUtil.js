@@ -30,7 +30,7 @@ function getWorkerInfo(id) {
         if (pracownikFound) {
             return pracownikFound;
         }
-    })
+    });
 }
 
 
@@ -71,10 +71,10 @@ function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, s
     }
 
     return pracownik.findOne({
-        where:{
+        where: {
             IdPracownik: id
         }
-    }).then(function(found){
+    }).then(function (found) {
         found.update({
             PlikUmowy: file,
             IdPrzelozony: superior,
@@ -108,21 +108,6 @@ function newLastName(currUser, newLastName) {
         if (user) {
             return user.update({
                 Nazwisko: newLastName
-            });
-        }
-    }
-    );
-}
-
-function newContractfile(currUser, newContractFile) {
-    return pracownik.findOne({
-        where: {
-            IdPracownik: currUser
-        }
-    }).then(function (user) {
-        if (user) {
-            return user.update({
-                PlikUmowy: newContractFile
             });
         }
     }
@@ -168,7 +153,7 @@ function getWorkers(idTeam) {
         if (user) {
             return user;
         }
-    })
+    });
 }
 
 function addProfile(name, lastName, email, tel, superior, idTeam, contractLink) {
@@ -227,7 +212,7 @@ function signUp(name, lastName, email, tel, idTeam, idCompany) {
                 Firma: idCompany,
                 IdPrzelozony: null,
                 IdUmowy: null
-            }).then(function(created){
+            }).then(function (created) {
                 return created;
             });
         }
@@ -275,18 +260,17 @@ function addAgreeToHuman(IdWorker, IdAgree) {
     })
 }
 
-function human(IdWorker, IdAgree){
+function human(IdWorker, IdAgree) {
     return db.query("UPDATE pracownicy SET IdUmowy = " + IdAgree + " WHERE IdPracownik = " + IdWorker + ";",
-    {type: db.QueryTypes.UPDATE}).then(clients =>
-     {return clients}); 
-   }
+        { type: db.QueryTypes.UPDATE }).then(clients => { return clients });
+}
 
 function getAllProgrammers() {
     return programmers.findAll({
 
     }).then(function (programm) {
         return programm;
-    })
+    });
 }
 
 function getAllAnalit() {
@@ -294,79 +278,77 @@ function getAllAnalit() {
 
     }).then(function (analit1) {
         return analit1;
-    })
+    });
 }
 
-function analitOrProgrammer(IdWorker){
+function analitOrProgrammer(IdWorker) {
     return programmers.findOne({
-        where:{
+        where: {
             IdPracownik: IdWorker
         }
-    }).then(function(foundProgrammer){
-        if(foundProgrammer){
+    }).then(function (foundProgrammer) {
+        if (foundProgrammer) {
             return "programmer";
-        }else{
+        } else {
             return "analitics";
         }
-    })
+    });
 }
 
-function editSpec(IdWorker, newSpec){
+function editSpec(IdWorker, newSpec) {
     return programmers.findOne({
-        where:{
+        where: {
             IdPracownik: IdWorker
         }
-    }).then(function(found){
-        if(found){
-                    return found.update({
-            IdSpecjalizacja: newSpec
-        });
-        }else{
+    }).then(function (found) {
+        if (found) {
+            return found.update({
+                IdSpecjalizacja: newSpec
+            });
+        } else {
             return analit.findOne({
-                where:{
-                    IdPracownik:IdWorker
+                where: {
+                    IdPracownik: IdWorker
                 }
-            }).then(function(foundAnalit){
+            }).then(function (foundAnalit) {
                 return foundAnalit.update({
                     IdSpecjalizacja: newSpec
                 });
-            })
+            });
         }
-
-    })
+    });
 }
 
-function getSpec(IdWorker){
+function getSpec(IdWorker) {
     return programmers.findOne({
-        where:{
+        where: {
             IdPracownik: IdWorker
         }
-    }).then(function(found){
-        if(found){
+    }).then(function (found) {
+        if (found) {
             return found.IdSpecjalizacja;
-        }else{
+        } else {
             return analit.findOne({
-                where:{
-                    IdPracownik:IdWorker
+                where: {
+                    IdPracownik: IdWorker
                 }
-            }).then(function(foundAnalit){
+            }).then(function (foundAnalit) {
                 return foundAnalit.IdSpecjalizacja;
-            })
+            });
         }
-
-    })
+    });
 }
 
-function ifIsSuperior(idWorker){
+function ifIsSuperior(idWorker) {
     return pracownik.findOne({
-        where:{
+        where: {
             IdPrzelozony: idWorker
         }
-    }).then(function(found){
-        if(found){
+    }).then(function (found) {
+        if (found) {
             console.log("TUTAJ: " + found.IdZadanie);
             return true;
-        }else{
+        } else {
             return false;
         }
     });
