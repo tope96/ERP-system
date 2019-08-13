@@ -25,7 +25,8 @@ exports.profile = function (req, res) {
                     changePassword: false,
                     passwordChanged: false,
                     wrongCurrentPassword: false,
-                    permission: permission
+                    permission: permission,
+                    failed: 0
                 });
             });
         })
@@ -47,7 +48,8 @@ exports.profileEdited = function (req, res) {
                     changePassword: false,
                     passwordChanged: false,
                     wrongCurrentPassword: false,
-                    permission: permission
+                    permission: permission,
+                    failed: 0
                 });
             });
         })
@@ -69,7 +71,8 @@ exports.changePassword = function (req, res) {
                     changePassword: true,
                     passwordChanged: false,
                     wrongCurrentPassword: false,
-                    permission: permission
+                    permission: permission,
+                    failed: 0
                 });
             });
         })
@@ -91,12 +94,36 @@ exports.passwordChanged = function (req, res) {
                     changePassword: false,
                     passwordChanged: true,
                     wrongCurrentPassword: false,
-                    permission: permission
+                    permission: permission,
+                    failed: 0
                 });
             });
-        })
-    })
-}
+        });
+    });
+};
+
+exports.changeFailed = function (req, res) {
+    domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+        workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+            permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                res.render('profile', {
+                    name: profile.Imie,
+                    lastName: profile.Nazwisko,
+                    login: account.Login,
+                    email: profile.Email,
+                    company: profile.Firma,
+                    site: "Profil",
+                    ifOk: true,
+                    changePassword: false,
+                    passwordChanged: true,
+                    wrongCurrentPassword: false,
+                    permission: permission,
+                    failed: "Zmiana danych nie powiodła się, ponieważ w bazie istnieje już użytkownik o takich danych. Podaj inne dane."
+                });
+            });
+        });
+    });
+};
 
 exports.changePasswordError = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
@@ -113,7 +140,8 @@ exports.changePasswordError = function (req, res) {
                     changePassword: false,
                     passwordChanged: false,
                     wrongCurrentPassword: true,
-                    permission: permission
+                    permission: permission,
+                    failed: 0
                 });
             });
         })

@@ -22,14 +22,25 @@ function getLogin(id){
 function newLogin(currUser, newLogin) {
     return dAccount.findOne({
         where: {
-            IdPracownik: currUser
+            Login: newLogin
         }
     }).then(function (user) {
         if (user) {
-            return user.update({
-                Login: newLogin
+            return true;
+        }else{
+            return dAccount.findOne({
+                where:{
+                    IdPracownik: currUser
+                }
+            }).then(function(found){
+                if(found){
+                    return found.update({
+                        Login: newLogin
+                    }).then(function(){
+                        return false;
+                    })
+                }
             });
-
         }
     }
     );

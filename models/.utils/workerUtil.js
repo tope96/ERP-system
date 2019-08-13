@@ -34,19 +34,15 @@ function getWorkerInfo(id) {
 }
 
 
-function editUser(req, res, name, lastName, email, login, id) {
-    var currentUser = req.user.IdPracownik;
+function editUser(name, lastName, email, id, req, res) {
     if (name != '') {
-        newName(currentUser, name);
+        newName(id, name);
     }
     if (lastName != '') {
-        newLastName(currentUser, lastName);
+        newLastName(id, lastName);
     }
     if (email != '') {
-        newEmail(currentUser, email);
-    }
-    if (login != '') {
-        dAccount.newLogin(currentUser, login);
+        newEmail( id, email);
     }
     setTimeout(function () {
         res.redirect('/profileEdited');

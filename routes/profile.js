@@ -34,14 +34,28 @@ module.exports = function (app, passport) {
     app.get('/changePassword', isLoggedIn, controller.changePassword);
     app.get('/passwordChanged', isLoggedIn, controller.passwordChanged);
     app.get('/changePasswordError', isLoggedIn, controller.changePasswordError);
+    app.get('/changeFailed', isLoggedIn, controller.changeFailed);
 
     app.post('/editUser', isLoggedIn, function(req, res){
         var name = req.body.newName;
         var lastName = req.body.newLastName;
         var email = req.body.newEmail;
         var login = req.body.newLogin;
+        var idWorker = req.user.IdPracownik;
 
-        workersUtil.editUser(req, res, name, lastName, email, login);
+        if(login == ''){
+            workersUtil.editUser(name, lastName, email, idWorker, req, res);
+        }else{
+        domaneAccount.newLogin(idWorker, login).then(function(ok){
+            if(ok){
+                res.redirect('/changeFailed');
+            }else{
+                workersUtil.editUser(name, lastName, email, idWorker, req, res);
+            }
+        });            
+        }
+
+        
     });
 
     app.post('/changePassword', isLoggedIn, function (req, res) {
