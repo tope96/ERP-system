@@ -1,4 +1,5 @@
 var controller = require('../controllers/controller.js');
+var proposalController = require('../controllers/proposalController');
 var proposalUtil = require('../models/.utils/proposal.js');
 
 module.exports = function (app, passport) {
@@ -25,6 +26,7 @@ module.exports = function (app, passport) {
     }
 
     app.get('/settings', isLoggedIn, controller.settings);
+    app.get('/writeProposal', isLoggedIn, proposalController.writeProposal);
 
     app.post('/sendProposal', isLoggedIn, function (req, res) {
         var category = req.body.proposalCategory;

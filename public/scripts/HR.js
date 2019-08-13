@@ -153,6 +153,7 @@ $('#submitAdd').attr("disabled",true);
 $('#programmer').on('click', function() {
   $('#languages').show();
   $('#certs').hide();
+  $('#certs').prop('required',false);
   $('#languages').prop('required',true);
 });
 
@@ -160,6 +161,7 @@ $('#analitic').on('click', function() {
   $('#languages').hide();
   $('#certs').show();
   $('#certs').prop('required',true);
+  $('#languages').prop('required',false);
 });
 
 $('#programmerEdit').on('click', function() {
