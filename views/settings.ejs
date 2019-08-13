@@ -1,4 +1,4 @@
-<% include partials/headerLogin %>
+<% include partials/header %>
 <% include partials/leftNavbar %>
 
 <div class="col-11">
@@ -154,28 +154,28 @@
                         <div class="form-group row">
                                 <label for="proposalDate" class="col-sm-2 col-form-label"><p>Data wysłania</p></label>
                                 <div class="col-sm-10">
-                                        <input type="text" class="form-control addAssets" name="proposalDate" id="proposalDate" readonly>
+                                        <input type="text" class="form-control formItem" name="proposalDate" id="proposalDate" readonly>
                                 </div>
                         </div>
 
                         <div class="form-group row">
                                 <label for="proposalCategory" class="col-sm-2 col-form-label"><p>Kategoria</p></label>
                                 <div class="col-sm-10">
-                                        <input type="text" class="form-control addAssets" name="proposalCategory" id="proposalCategory" readonly>
+                                        <input type="text" class="form-control formItem" name="proposalCategory" id="proposalCategory" readonly>
                                 </div>
                         </div>
 
                         <div class="form-group row">
                                 <label for="proposalName" class="col-sm-2 col-form-label"><p>Nazwa</p></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control addAssets" name="proposalName" id="proposalName" readonly>
+                                    <input type="text" class="form-control formItem" name="proposalName" id="proposalName" readonly>
                                 </div>
                         </div>
 
                         <div class="form-group row">
                                 <label for="proposalDescription" class="col-sm-2 col-form-label"><p>Opis</p></label>
                                 <div class="col-sm-10">
-                                        <textarea class="form-control addAssets" rows="10" id="proposalDescription"
+                                        <textarea class="form-control formItem" rows="10" id="proposalDescription"
                                         name="proposalDescription" placeholder="Argumentacja" readonly></textarea>
                                 </div>
                         </div>
@@ -183,7 +183,7 @@
                         <div class="form-group row">
                                 <label for="proposalArgumentation" class="col-sm-2 col-form-label"><p>Argumentacja</p></label>
                                 <div class="col-sm-10">
-                                        <textarea class="form-control addAssets" rows="10" id="proposalArgumentation"
+                                        <textarea class="form-control formItem" rows="10" id="proposalArgumentation"
                                         name="proposalArgumentation" placeholder="Argumentacja" readonly></textarea>
                                 </div>
                         </div>
@@ -200,35 +200,35 @@
                         <div class="form-group row">
                                 <label for="proposalSenderReceived" class="col-sm-2 col-form-label"><p>Nadawca</p></label>
                                 <div class="col-sm-10">
-                                        <input type="text" class="form-control addAssets" name="proposalSenderReceived" id="proposalSenderReceived" readonly>
+                                        <input type="text" class="form-control formItem" name="proposalSenderReceived" id="proposalSenderReceived" readonly>
                                 </div>
                         </div>
 
                         <div class="form-group row">
                                 <label for="proposalDateReceived" class="col-sm-2 col-form-label"><p>Data wysłania</p></label>
                                 <div class="col-sm-10">
-                                        <input type="text" class="form-control addAssets" name="proposalDateReceived" id="proposalDateReceived" readonly>
+                                        <input type="text" class="form-control formItem" name="proposalDateReceived" id="proposalDateReceived" readonly>
                                 </div>
                         </div>
 
                         <div class="form-group row">
                                 <label for="proposalCategoryReceived" class="col-sm-2 col-form-label"><p>Kategoria</p></label>
                                 <div class="col-sm-10">
-                                        <input type="text" class="form-control addAssets" name="proposalCategoryReceived" id="proposalCategoryReceived" readonly>
+                                        <input type="text" class="form-control formItem" name="proposalCategoryReceived" id="proposalCategoryReceived" readonly>
                                 </div>
                         </div>
 
                         <div class="form-group row">
                                 <label for="proposalNameReceived" class="col-sm-2 col-form-label"><p>Nazwa</p></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control addAssets" name="proposalNameReceived" id="proposalNameReceived" readonly>
+                                    <input type="text" class="form-control formItem" name="proposalNameReceived" id="proposalNameReceived" readonly>
                                 </div>
                         </div>
                         
                         <div class="form-group row">
                                 <label for="proposalDescriptionReceived" class="col-sm-2 col-form-label"><p>Opis</p></label>
                                 <div class="col-sm-10">
-                                        <textarea class="form-control addAssets" rows="10" id="proposalDescriptionReceived"
+                                        <textarea class="form-control formItem" rows="10" id="proposalDescriptionReceived"
                                         name="proposalDescriptionReceived" placeholder="Argumentacja" readonly></textarea>
                                 </div>
                         </div>
@@ -236,12 +236,12 @@
                         <div class="form-group row">
                                 <label for="proposalArgumentationReceived" class="col-sm-2 col-form-label"><p>Argumentacja</p></label>
                                 <div class="col-sm-10">
-                                        <textarea class="form-control addAssets" rows="10" id="proposalArgumentationReceived"
+                                        <textarea class="form-control formItem" rows="10" id="proposalArgumentationReceived"
                                         name="proposalArgumentationReceived" placeholder="Argumentacja" readonly></textarea>
                                 </div>
                         </div>
 
-                        <div class="row addAssets">
+                        <div class="row formItem">
                             <div class='col-lg-12 text-center'>
                                 <button type="submit" onclick="acceptProposal()" class="btn btn-success"><i class="fas fa-check"></i> Akceptuj wniosek</button>
                                 <button type="submit" onclick="declineProposal()" class="btn btn-danger"><i class="fas fa-times"></i> Odrzuć wniosek</button>
@@ -320,4 +320,4 @@
 
 <!-- SCRIPT ENGINE -->
 <script type="text/javascript" src="scripts/settings.js"></script>
-<% include partials/footerLogin %>
+<% include partials/footer %>

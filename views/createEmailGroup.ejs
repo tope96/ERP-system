@@ -1,4 +1,4 @@
-<% include partials/headerLogin %>
+<% include partials/header %>
 <% include partials/leftNavbar %>
 <!-- SCRIPT ENGINE -->
 <script type="text/javascript" src="scripts/emails.js"></script>
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <form action="createEmailsGroup" method="POST">
-            <div class="input-group addAssets">
+            <div class="input-group formItem">
                 <input type="text" class="form-control address" name="address" placeholder="Nazwa grupy"
                     aria-label="Nazwa grupy" aria-describedby="basic-addon2" required>
                 <div class="input-group-append">
@@ -22,7 +22,7 @@
             </div>
 
 
-            <div class="row addAssets">
+            <div class="row formItem">
                     <div class="col">
                       <div class="property shadow-sm p-3 mb-5 bg-white rounded">
                           <p>Wybierz członków tej grupy</p>
@@ -43,7 +43,7 @@
                     </div>
                   </div>
 
-                <div class="row addAssets">
+                <div class="row formItem">
                     <div class="col-lg-12 text-center">
                         <textarea class="form-control" rows="10" id="groupDesc" name="groupDesc"
                             placeholder="Opis grupy" maxlength="255" required></textarea>
@@ -74,4 +74,4 @@
     </div>
 </div>
 
-<% include partials/footerLogin %>
+<% include partials/footer %>

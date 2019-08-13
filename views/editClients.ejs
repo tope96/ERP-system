@@ -1,4 +1,4 @@
-<% include partials/headerLogin %>
+<% include partials/header %>
 <% include partials/leftNavbar %>
 
 <div class="col-11">
@@ -93,7 +93,7 @@
                 <div class="form-group row">
                     <label for="nameEdit" class="col-sm-2 col-form-label">Nazwa firmy:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit"
+                        <input type="text" class="form-control formItem" id="nameEdit" name="nameEdit"
                             placeholder="Nazwa firmy" required>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                 <div class="form-group row">
                     <label for="firstNameEdit" class="col-sm-2 col-form-label">Imię przedstawiciela:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control addAssets" id="firstNameEdit" name="firstNameEdit"
+                        <input type="text" class="form-control formItem" id="firstNameEdit" name="firstNameEdit"
                             placeholder="Imię przedstawiciela" required>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                 <div class="form-group row">
                     <label for="lastNameEdit" class="col-sm-2 col-form-label">Nazwisko przedstawiciela:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit"
+                        <input type="text" class="form-control formItem" id="lastNameEdit" name="lastNameEdit"
                             placeholder="Nazwisko przedstawiciela" required>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                 <div class="form-group row">
                     <label for="telEdit" class="col-sm-2 col-form-label">Telefon kontaktowy:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control addAssets" id="telEdit" name="telEdit"
+                        <input type="text" class="form-control formItem" id="telEdit" name="telEdit"
                             placeholder="Telefon kontaktowy" required>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                 <div class="form-group row">
                     <label for="emailEdit" class="col-sm-2 col-form-label">Email kontaktowy:</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit"
+                        <input type="email" class="form-control formItem" id="emailEdit" name="emailEdit"
                             placeholder="Email kontaktowy" required>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                 <div class="form-group row">
                     <label for="addressEdit" class="col-sm-2 col-form-label">Adres firmy:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control addAssets" id="addressEdit" name="addressEdit"
+                        <input type="text" class="form-control formItem" id="addressEdit" name="addressEdit"
                             placeholder="Adres firmy" required>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                 <div class="form-group row">
                     <label for="townEdit" class="col-sm-2 col-form-label">Miasto firmy:</label>
                     <div class="col-sm-10">
-                        <input type="text" onkeypress="return isNumericKey(event)" class="form-control addAssets" id="townEdit" name="townEdit"
+                        <input type="text" onkeypress="return isNumericKey(event)" class="form-control formItem" id="townEdit" name="townEdit"
                             placeholder="Miasto firmy" required>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                 <div class="form-group row">
                     <label for="nipEdit" class="col-sm-2 col-form-label">NIP firmy:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control addAssets" id="nipEdit" name="nipEdit"
+                        <input type="text" class="form-control formItem" id="nipEdit" name="nipEdit"
                             placeholder="NIP firmy" required>
                     </div>
                 </div>
@@ -171,4 +171,4 @@
 <!-- SCRIPT ENGINE -->
 <script type="text/javascript" src="scripts/editClients.js"></script>
 
-<% include partials/footerLogin %>
+<% include partials/footer %>

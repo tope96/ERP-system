@@ -1,4 +1,4 @@
-<% include partials/headerLogin %>
+<% include partials/header %>
 <% include partials/leftNavbar %>
 <!-- SCRIPT ENGINE -->
 <script type="text/javascript" src="scripts/emails.js"></script>
@@ -14,7 +14,7 @@
             </div>
 
             <form action="createEmail" method="POST">
-                <div class="input-group addAssets">
+                <div class="input-group formItem">
                     <input type="text" class="form-control address" name="address" placeholder="Nazwa użytkownika" aria-label="Nazwa użytkownika"
                         aria-describedby="basic-addon2" required>
                     <div class="input-group-append">
@@ -22,14 +22,14 @@
                     </div>
                 </div>
             
-                <div class="input-group addAssets">
+                <div class="input-group formItem">
                     <input type="text" class="form-control alias" name="alias" placeholder="Alias" aria-label="Alias" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon2">@comboModule.com</span>
                     </div>
                 </div>
             
-                <select class="form-control selectWorker input addAssets" placeholder="Pracownik" id="worker" name="worker"
+                <select class="form-control selectWorker input formItem" placeholder="Pracownik" id="worker" name="worker"
                     required>
                     <option value="" selected disabled>Wybierz pracownika</option>
                     <% for (var i = 0; i<workers.length; i++){ %>
@@ -64,4 +64,4 @@
 
 </div>
 
-<% include partials/footerLogin %>
+<% include partials/footer %>

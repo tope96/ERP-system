@@ -1,4 +1,4 @@
-<% include partials/headerLogin %>
+<% include partials/header %>
 <% include partials/leftNavbar %>
 
 <div class="col-11">
@@ -7,7 +7,7 @@
         
       <!-- List od peoples displayes on the left. Required for proper working of site. -->
 
-      <div class="collapse-button"><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar"><i class="fa fa-caret-square-up"></i></button></div>
+      <div class="collapse-button" ><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#itemsBar"><i class="fa fa-caret-square-up"></i></button></div>
       <div id="itemsBar" class="col-lg-2 collapse show"> 
         <input type="text" class="form-control search shadow p-3 bg-white rounded" id="searchTeam" placeholder="Wyszukaj">
         <ul class="ul">
@@ -213,15 +213,15 @@
                   <p><b>Dane pracownika</b></p>
 
                   <form enctype="multipart/form-data" action="addHuman" method="POST">
-                    <input type="text" onkeypress="return isNumericKey(event)" class="form-control addAssets" id="name" name="name" placeholder="Imię" required>
+                    <input type="text" onkeypress="return isNumericKey(event)" class="form-control formItem" id="name" name="name" placeholder="Imię" required>
 
-                    <input type="text" onkeypress="return isNumericKey(event)" class="form-control addAssets" id="lastName" name="lastName" placeholder="Nazwisko" required>
+                    <input type="text" onkeypress="return isNumericKey(event)" class="form-control formItem" id="lastName" name="lastName" placeholder="Nazwisko" required>
                     
-                    <input type="number" class="form-control addAssets" id="telephone" name="telephone" placeholder="Numer telefonu" required>
+                    <input type="number" class="form-control formItem" id="telephone" name="telephone" placeholder="Numer telefonu" required>
 
-                    <input type="email" class="form-control addAssets" id="email" name="email" placeholder="Email" required>
+                    <input type="email" class="form-control formItem" id="email" name="email" placeholder="Email" required>
 
-                    <select class="form-control addAssets" placeholder="Przełożony" id="superior" name="superior" required>
+                    <select class="form-control formItem" placeholder="Przełożony" id="superior" name="superior" required>
                           <option value="" selected disabled>Wybierz przełożonego</option>
                         <% for(var i=0; i < workers.length; i++) { %>
                           <option value="<%=workers[i].IdPracownik %>"><%= workers[i].Imie %> <%= workers[i].Nazwisko %></option>
@@ -232,10 +232,10 @@
                     <label class="radio-inline"><input type="radio" id="programmer" value="1" name="position" checked>Programista</label>
                     <label class="radio-inline"><input type="radio" id="analitic" value="0" name="position">Analityk</label>
 
-                    <input type="text" id="languages" name="languages" class="form-control addAssets" placeholder="Wpisz języki programowania, oddzielone przecinkiem">
-                    <input type="text" id="certs" name="certs" class="form-control addAssets" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem">
+                    <input type="text" id="languages" name="languages" class="form-control formItem" placeholder="Wpisz języki programowania, oddzielone przecinkiem">
+                    <input type="text" id="certs" name="certs" class="form-control formItem" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem">
 
-                    <select class="form-control addAssets" placeholder="Firma" name="spec" id="spec" required>
+                    <select class="form-control formItem" placeholder="Firma" name="spec" id="spec" required>
                         <option value="" selected disabled>Wybierz specjalizację</option>
                         <% for(var i=0; i < spec.length; i++) { %>
                           <option value="<%=spec[i].IdSpecjalizacja %>"><%=spec[i].Nazwa %></option>
@@ -246,24 +246,24 @@
                 <div class="col-md">
                     <p><b>Dane umowy</b></p>
                     <p>Data rozpoczęcia zatrudnienia: </p>
-                      <input type="date" class="form-control addAssets" name="startDate" placeholder="Data rozpoczęcia" required>
+                      <input type="date" class="form-control formItem" name="startDate" placeholder="Data rozpoczęcia" required>
 
                     <p>Data końca zatrudnienia: </p>
-                      <input type="date" class="form-control addAssets" name="endDate" placeholder="Data rozpoczęcia" required>
+                      <input type="date" class="form-control formItem" name="endDate" placeholder="Data rozpoczęcia" required>
 
-                    <input type="number" class="form-control addAssets" name="lumpSum" placeholder="Stawka ryczałt" required>
+                    <input type="number" class="form-control formItem" name="lumpSum" placeholder="Stawka ryczałt" required>
 
-                    <input type="number" class="form-control addAssets" name="hourlyRate" placeholder="Stawka godzinowa" required>
+                    <input type="number" class="form-control formItem" name="hourlyRate" placeholder="Stawka godzinowa" required>
 
                     <p>Plik umowy:</p>
-                    <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" required>
+                    <input type="file" class="form-control formItem" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" required>
 
                     <label class="radio-inline"><input type="radio" id="agreementRadio" name="agreement" value="1" onclick="agreementView()">Umowa o pracę </label>
                     <label class="radio-inline"><input type="radio" id="agreement2Radio" name="agreement" value="2" onclick="agreement2View()">Umowa zlecenie </label>
                     <label class="radio-inline"><input type="radio" id="b2bRadio" name="agreement" value="3" onclick="agreementB2bView()">Umowa B2B </label>
                     
                     <div id="agreement"> <!-- umowa o prace is checked-->
-                      <input type="number" class="form-control addAssets" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
+                      <input type="number" class="form-control formItem" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
                     </div>
 
                     <div id="agreement2"> <!-- umowa zlecenie is checked -->
@@ -375,7 +375,7 @@
               <div class="form-group row">
                 <label for="teamName" class="col-sm-2 col-form-label">Nazwa zespołu:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control addAssets" id="teamName" name="teamName" placeholder="Nazwa zespołu"required>
+                  <input type="text" class="form-control formItem" id="teamName" name="teamName" placeholder="Nazwa zespołu"required>
                 </div>
               </div>
 
@@ -439,10 +439,10 @@
             <p>Podaj informacje niezbędne do dodania nowej firmy</p>
             
             <form action="addCompany" method="POST">
-              <input type="text" class="form-control addAssets" id="nameCompany" name="nameCompany" placeholder="Nazwa" required>
-              <input type="number" class="form-control addAssets" id="nipCompany" name="nipCompany" placeholder="NIP" required>
-              <input type="text" class="form-control addAssets" id="addressCompany" name="addressCompany" placeholder="Adres" required>
-              <input type="text" class="form-control addAssets" id="townCompany" name="townCompany" placeholder="Miasto" required>
+              <input type="text" class="form-control formItem" id="nameCompany" name="nameCompany" placeholder="Nazwa" required>
+              <input type="number" class="form-control formItem" id="nipCompany" name="nipCompany" placeholder="NIP" required>
+              <input type="text" class="form-control formItem" id="addressCompany" name="addressCompany" placeholder="Adres" required>
+              <input type="text" class="form-control formItem" id="townCompany" name="townCompany" placeholder="Miasto" required>
               
               <input type="hidden" name="ifHr" value="1">
               <div class="row">
@@ -465,4 +465,4 @@
 <!-- SCRIPT ENGINE -->
 <script type="text/javascript" src="scripts/HR.js"></script>
 
-<% include partials/footerLogin %>
+<% include partials/footer %>

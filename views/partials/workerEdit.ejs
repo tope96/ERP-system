@@ -19,11 +19,11 @@
                       <form enctype="multipart/form-data" action="editHr" method="POST">
                       <input type="hidden" name="idEdit" value="<%=workerInfo.IdPracownik %>">
                       <input type="hidden" name="idAgree" value="<%=agreeInfo.IdUmowy %>">
-                        <input type="text" class="form-control addAssets" id="firstNameEdit" name="firstNameEdit" value="<%=workerInfo.Imie %>" placeholder="Imię" required>
-                        <input type="text" class="form-control addAssets" id="lastNameEdit" name="lastNameEdit" value="<%=workerInfo.Nazwisko %>" placeholder="Nazwisko" required>
-                        <input type="number" class="form-control addAssets" id="telephoneEdit" name="telephoneEdit" value="<%=workerInfo.NumerTelefonu %>" placeholder="Numer telefonu" required>
-                        <input type="email" class="form-control addAssets" id="emailEdit" name="emailEdit" value="<%=workerInfo.Email %>" placeholder="Email" required>
-                        <select class="form-control addAssets" placeholder="Przełożony" id="superior" name="superiorEdit" required>
+                        <input type="text" class="form-control formItem" id="firstNameEdit" name="firstNameEdit" value="<%=workerInfo.Imie %>" placeholder="Imię" required>
+                        <input type="text" class="form-control formItem" id="lastNameEdit" name="lastNameEdit" value="<%=workerInfo.Nazwisko %>" placeholder="Nazwisko" required>
+                        <input type="number" class="form-control formItem" id="telephoneEdit" name="telephoneEdit" value="<%=workerInfo.NumerTelefonu %>" placeholder="Numer telefonu" required>
+                        <input type="email" class="form-control formItem" id="emailEdit" name="emailEdit" value="<%=workerInfo.Email %>" placeholder="Email" required>
+                        <select class="form-control formItem" placeholder="Przełożony" id="superior" name="superiorEdit" required>
                             <option value="0">Brak przełożonego</option>
                           <% for(var i=0; i < workers.length; i++) { %>
                             <% if(workerInfo.IdPrzelozony == workers[i].IdPracownik){%>
@@ -44,13 +44,13 @@
                                 <%if (programmers[a].IdPracownik == workerInfo.IdPracownik && programmers[a].IdSpecjalizacja != null) {%>
                                   <% for(var c=0; c<spec.length; c++){ %>
                                       <%if (spec[c].IdSpecjalizacja == programmers[a].IdSpecjalizacja){ %>
-                                        <input type="text" id="languagesEdit" name="languagesEdit" class="form-control addAssets" value="<%= programmers[a].Jezyki %>" placeholder="Wpisz języki programowania, oddzielone przecinkiem" required>
+                                        <input type="text" id="languagesEdit" name="languagesEdit" class="form-control formItem" value="<%= programmers[a].Jezyki %>" placeholder="Wpisz języki programowania, oddzielone przecinkiem" required>
                                       <% } %>
                                   <% } %>
                                  <% } %>
                               <% } %>
                               
-                              <input type="text" id="certsEdit" name="certsEdit" class="form-control addAssets" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem" style="display: none">
+                              <input type="text" id="certsEdit" name="certsEdit" class="form-control formItem" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem" style="display: none">
                             <% }else{ %>
                               <label class="radio-inline"><input type="radio" value="0" id="programmerEdit" name="positionEdit">Programista</label>
                               <label class="radio-inline"><input type="radio" value="1" id="analiticEdit" name="positionEdit" checked>Analityk</label>
@@ -58,19 +58,19 @@
                                 <%if (analit[b].IdPracownik == workerInfo.IdPracownik && analit[b].IdSpecjalizacja != null) {%>
                                   <% for(var c=0; c<spec.length; c++){ %>
                                     <%if (spec[c].IdSpecjalizacja == analit[b].IdSpecjalizacja){ %>
-                                        <input type="text" id="certsEdit" name="certsEdit" class="form-control addAssets" value="<%= analit[b].Certyfikaty %>" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem" required>
+                                        <input type="text" id="certsEdit" name="certsEdit" class="form-control formItem" value="<%= analit[b].Certyfikaty %>" placeholder="Wpisz najważniejsze certyfikaty, oddzielone przecinkiem" required>
                                       <% } %>
                                   <% } %>
                                  <% } %>
                               <% } %>
-                              <input type="text" id="languagesEdit" name="languagesEdit" class="form-control addAssets" placeholder="Wpisz języki programowania, oddzielone przecinkiem" style="display: none">
+                              <input type="text" id="languagesEdit" name="languagesEdit" class="form-control formItem" placeholder="Wpisz języki programowania, oddzielone przecinkiem" style="display: none">
                               
                             <% } %>                            
                           </div>
                         </div>
 
                         
-                        <select class="form-control addAssets" placeholder="Firma" name="specEdit" id="specEdit" required>
+                        <select class="form-control formItem" placeholder="Firma" name="specEdit" id="specEdit" required>
                             <option value="" selected disabled>Wybierz specjalizację</option>
                             <% for(var i=0; i < spec.length; i++) { %>
                               <% if(currSpec == spec[i].IdSpecjalizacja){%>
@@ -89,11 +89,11 @@
                       </div>
                         
                         <p>Data rozpoczęcia zatrudnienia: </p>
-                        <input type="date" class="form-control addAssets" name="startDateEdit" value="<%=agreeInfo.DataRozpoczecia %>" placeholder="Data rozpoczęcia" required>
+                        <input type="date" class="form-control formItem" name="startDateEdit" value="<%=agreeInfo.DataRozpoczecia %>" placeholder="Data rozpoczęcia" required>
                         <p>Data końca zatrudnienia: </p>
-                        <input type="date" class="form-control addAssets" name="endDateEdit" value="<%=agreeInfo.DataZakonczenia %>" placeholder="Data rozpoczęcia" required>
-                        <input type="number" class="form-control addAssets" name="lumpSumEdit" value="<%=agreeInfo.StawkaRyczalt %>" placeholder="Stawka ryczałt">
-                        <input type="number" class="form-control addAssets" name="hourlyRateEdit" value="<%=agreeInfo.StawkaGodzinowa %>" placeholder="Stawka godzinowa">
+                        <input type="date" class="form-control formItem" name="endDateEdit" value="<%=agreeInfo.DataZakonczenia %>" placeholder="Data rozpoczęcia" required>
+                        <input type="number" class="form-control formItem" name="lumpSumEdit" value="<%=agreeInfo.StawkaRyczalt %>" placeholder="Stawka ryczałt">
+                        <input type="number" class="form-control formItem" name="hourlyRateEdit" value="<%=agreeInfo.StawkaGodzinowa %>" placeholder="Stawka godzinowa">
                         
                         <div class="row">
                           <div class='col-lg-4'><p>Plik umowy:</p>
@@ -101,7 +101,7 @@
                             </button>
                           </div>
                           <div class="col-lg-8"><p>Nowy plik umowy:</p>
-                              <input type="file" class="form-control addAssets" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf">
+                              <input type="file" class="form-control formItem" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf">
                           </div>
                         </div>
                         <div class="row">
@@ -156,7 +156,7 @@
                     </div>
                         <!-- Optional inputs -->
                         <div id="agreementEdit"> <!-- umowa o prace is checked-->
-                          <input type="number" class="form-control addAssets" id="timeOfContractEdit" placeholder="Wymiar czasu" id="timeOfContractEdit" name="timeOfContractEdit">
+                          <input type="number" class="form-control formItem" id="timeOfContractEdit" placeholder="Wymiar czasu" id="timeOfContractEdit" name="timeOfContractEdit">
                         </div>
                         <div id="agreement2Edit" class="text-center"> <!-- umowa zlecenie is checked -->
                           <p>Czy jest studentem?</p>

@@ -1,4 +1,4 @@
-<% include partials/headerLogin %>
+<% include partials/header %>
 <% include partials/leftNavbar %>
 
 
@@ -126,14 +126,14 @@
       <p>Podaj dane nowego przedmiotu</p>
 
       <form action="addAsset" method="POST">
-        <input type="text" class="form-control addAssets" id="name" name="name" placeholder="Nazwa przedmiotu" required>
+        <input type="text" class="form-control formItem" id="name" name="name" placeholder="Nazwa przedmiotu" required>
 
-        <textarea class="form-control addAssets" rows="10" id="description" name="description" placeholder="Opis"></textarea>
+        <textarea class="form-control formItem" rows="10" id="description" name="description" placeholder="Opis"></textarea>
 
-        <input type="text" class="form-control addAssets" id="type" name="type" placeholder="Rodzaj" required>
+        <input type="text" class="form-control formItem" id="type" name="type" placeholder="Rodzaj" required>
 
-        <div class="input-group addAssets">
-            <input type="number" class="form-control addAssets" id="price" name="price" placeholder="Wartość netto" aria-label="Nazwa użytkownika"
+        <div class="input-group formItem">
+            <input type="number" class="form-control formItem" id="price" name="price" placeholder="Wartość netto" aria-label="Nazwa użytkownika"
                 aria-describedby="basic-addon2" required>
             <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">zł</span>
@@ -146,10 +146,10 @@
           </div>
         </div>
 
-        <input type="date" class="form-control addAssets" id="date" name="date" placeholder="Data zakupu" required>
+        <input type="date" class="form-control formItem" id="date" name="date" placeholder="Data zakupu" required>
 
-        <div class="input-group addAssets">
-            <input type="number" class="form-control addAssets" id="amount" name="amount" placeholder="Ilość" aria-label="Nazwa użytkownika"
+        <div class="input-group formItem">
+            <input type="number" class="form-control formItem" id="amount" name="amount" placeholder="Ilość" aria-label="Nazwa użytkownika"
                 aria-describedby="basic-addon2" required>
             <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">sztuk</span>
@@ -162,7 +162,7 @@
           </div>
         </div>
 
-        <select class="form-control addAssets" placeholder="Właściciel" id="owner" name="owner" required>
+        <select class="form-control formItem" placeholder="Właściciel" id="owner" name="owner" required>
             <option value="" selected disabled>Wybierz pracownika</option>
           <% for(var i=0; i < users.length; i++) { %>
           <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %> <%= users[i].Nazwisko %></option>
@@ -191,42 +191,42 @@
               <div class="form-group row">
                   <label for="nameEdit" class="col-sm-2 col-form-label">Nazwa przedmiotu:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control addAssets" id="nameEdit" name="nameEdit" placeholder="Nazwa przedmiotu" required>
+                    <input type="text" class="form-control formItem" id="nameEdit" name="nameEdit" placeholder="Nazwa przedmiotu" required>
                   </div>
               </div>
 
               <div class="form-group row">
                   <label for="descriptionEdit" class="col-sm-2 col-form-label">Opis:</label>
                   <div class="col-sm-10">
-                    <textarea class="form-control addAssets" rows="10" id="descriptionEdit" name="descriptionEdit" placeholder="Opis"></textarea>
+                    <textarea class="form-control formItem" rows="10" id="descriptionEdit" name="descriptionEdit" placeholder="Opis"></textarea>
                   </div>
               </div>
 
               <div class="form-group row">
                   <label for="typeEdit" class="col-sm-2 col-form-label">Rodzaj:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control addAssets" id="typeEdit" name="typeEdit" placeholder="Rodzaj" required>
+                    <input type="text" class="form-control formItem" id="typeEdit" name="typeEdit" placeholder="Rodzaj" required>
                   </div>
               </div>
 
               <div class="form-group row">
                   <label for="priceEdit" class="col-sm-2 col-form-label">Wartość netto:</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control addAssets" id="priceEdit" name="priceEdit" placeholder="Wartość netto" required>
+                    <input type="number" class="form-control formItem" id="priceEdit" name="priceEdit" placeholder="Wartość netto" required>
                   </div>
               </div>
 
               <div class="form-group row">
                   <label for="dateEdit" class="col-sm-2 col-form-label">Data zakupu:</label>
                   <div class="col-sm-10">
-                    <input type="date" class="form-control addAssets" id="dateEdit" name="dateEdit" placeholder="Data zakupu" required>
+                    <input type="date" class="form-control formItem" id="dateEdit" name="dateEdit" placeholder="Data zakupu" required>
                   </div>
               </div>
 
               <div class="form-group row">
                   <label for="dateEdit" class="col-sm-2 col-form-label">Osoba odpowiedzialna:</label>
                   <div class="col-sm-10">
-                      <select class="form-control addAssets" placeholder="Właściciel" id="ownerEdit" name="ownerEdit" required>
+                      <select class="form-control formItem" placeholder="Właściciel" id="ownerEdit" name="ownerEdit" required>
                           <option value="" selected disabled>Wybierz pracownika</option>
                         <% for(var i=0; i < users.length; i++) { %>
                         <option value="<%=users[i].IdPracownik %>"><%= users[i].Imie %> <%= users[i].Nazwisko %></option>
@@ -255,4 +255,4 @@
 
 <!-- SCRIPT ENGINE -->
 <script type="text/javascript" src="scripts/fixedAssets.js"></script>
-<% include partials/footerLogin %>
+<% include partials/footer %>
