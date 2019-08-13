@@ -135,7 +135,7 @@ module.exports = function (app, passport) {
         var position = req.body.positionEdit;
         var spec = req.body.specEdit;
         var superior = req.body.superiorEdit;
-
+        console.log("SUPERIOR: " + position);
         var idAgree = req.body.idAgree;
         var startDate = req.body.startDateEdit;
         var endDate = req.body.endDateEdit;

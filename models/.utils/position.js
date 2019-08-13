@@ -18,7 +18,7 @@ function addAnalit(idWorker, idSpec, certs){
     });
 }
 
-function newPosition(idWorker, newPosition, lang, certs){
+function newPosition(idWorker, newPosition, lang, certs, spec){
     return analit.findOne({
         where:{
             IdPracownik: idWorker
@@ -30,7 +30,11 @@ function newPosition(idWorker, newPosition, lang, certs){
                     IdPracownik: idWorker
                 }
             }).then(function(){
-                addProgram(idWorker, foundAnalit.IdSpecjalizacja, lang);
+                if(newPosition == 0){
+                    addProgram(idWorker, spec, lang);
+                }else{
+                    addAnalit(idWorker, spec, certs);
+                }
             });
         }else{
             return programm.findOne({
@@ -43,7 +47,11 @@ function newPosition(idWorker, newPosition, lang, certs){
                         IdPracownik: idWorker
                     }
                 }).then(function(){
-                    addAnalit(idWorker, programmer.IdSpecjalizacja, certs);
+                    if(newPosition == 0){
+                        addProgram(idWorker, spec, lang);
+                    }else{
+                        addAnalit(idWorker, spec, certs);
+                    }
                 })
             })
         }

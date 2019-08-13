@@ -67,7 +67,7 @@ function editUserfromHr(req, res, name, lastName, email, tel, id, newPosition, s
         newTelephone(id, tel);
     }
     if (position != '') {
-        position.newPosition(id, newPosition, lang, certs);
+        position.newPosition(id, newPosition, lang, certs, spec);
     }
 
     return pracownik.findOne({
