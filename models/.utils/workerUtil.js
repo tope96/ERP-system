@@ -229,7 +229,7 @@ function deleteWorker(IdWorker) {
 
 function layOff(IdWorker) {
     return new Promise((resolve, reject) => {
-        teamsUtil.deleteFromTeam(IdWorker).then(function () {
+        teamsUtil.deleteFromAllTeams(IdWorker).then(function () {
             dAccount.deleteAccount(IdWorker).then(function () {
                 position.deleteOne(IdWorker).then(function () {
                     proposalUtil.deleteProposals(IdWorker).then(function () {

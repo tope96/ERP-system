@@ -135,7 +135,7 @@ function teamToProject(idProject, idTeam) {
     return projectTeams.create({
         IdProjekt: idProject,
         IdZespol: idTeam
-    })
+    });
 }
 
 function getAllProjectsTeams() {
@@ -158,9 +158,6 @@ function deleteProjectsTeam(idProject) {
 }
 
 function updateProjectsTeam(idProject, idTeam, oldIdTeam) {
-    console.log("old: " + oldIdTeam);
-    console.log("new: " + idTeam);
-    console.log("project: " + idProject);
     return projectTeams.findOne({
         where: {
             IdProjekt: idProject,
@@ -170,6 +167,14 @@ function updateProjectsTeam(idProject, idTeam, oldIdTeam) {
         return found.update({
             IdZespol: idTeam
         });
+    });
+}
+
+function deleteFromAllTeams(idWorker){
+    return teamMember.destroy({
+        where:{
+            IdPracownik:idWorker
+        }
     });
 }
 
@@ -186,5 +191,6 @@ module.exports = {
     getAllProjectsTeams: getAllProjectsTeams,
     deleteProjectsTeam: deleteProjectsTeam,
     updateProjectsTeam: updateProjectsTeam,
-    deleteTeam: deleteTeam
+    deleteTeam: deleteTeam,
+    deleteFromAllTeams: deleteFromAllTeams
 }
