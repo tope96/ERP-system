@@ -1,15 +1,15 @@
 var models = require('../../models');
 var priority = models.priorytet;
 
-function getAllPriority(){
+function getAllPriority() {
     return priority.findAll({
 
-    }).then(function(priority){
+    }).then(function (priority) {
         return priority;
-    })
+    });
 }
 
 
 module.exports = {
     getAllPriority: getAllPriority
-}
+};

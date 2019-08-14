@@ -8,15 +8,14 @@ var yyyy = today.getFullYear();
 
 today = mm + '/' + dd + '/' + yyyy;
 
-function getProposalCategory(){
+function getProposalCategory() {
     return proposalCategoryModel.findAll({
-
-    }).then(function(founds){
+    }).then(function (founds) {
         return founds;
-    })
+    });
 }
 
-function addProposal(name, description, argumentation, category, idWorker, idTeam){
+function addProposal(name, description, argumentation, category, idWorker, idTeam) {
     return proposalModel.create({
         IdPracownik: idWorker,
         Nazwa: name,
@@ -26,67 +25,67 @@ function addProposal(name, description, argumentation, category, idWorker, idTea
         DataWyslania: today,
         ZespolDomenowy: idTeam,
         Status: 3
-    })
+    });
 }
 
-function getSentProposal(idWorker){
+function getSentProposal(idWorker) {
     return proposalModel.findAll({
-        where:{
+        where: {
             IdPracownik: idWorker
         }
-    }).then(function(founds){
+    }).then(function (founds) {
         return founds;
-    })
+    });
 }
 
-function getReceivedProposal(IdTeam){
+function getReceivedProposal(IdTeam) {
     return proposalModel.findAll({
-        where:{
+        where: {
             ZespolDomenowy: IdTeam
         }
-    }).then(function(founds){
+    }).then(function (founds) {
         return founds;
-    })
+    });
 }
 
-function declineProposal(IdProposal){
+function declineProposal(IdProposal) {
     return proposalModel.findOne({
-        where:{
+        where: {
             IdWniosek: IdProposal
         }
-    }).then(function(found){
+    }).then(function (found) {
         return found.update({
             Status: 2
-        })
-    })
+        });
+    });
 }
 
-function acceptProposal(IdProposal){
+function acceptProposal(IdProposal) {
     return proposalModel.findOne({
-        where:{
+        where: {
             IdWniosek: IdProposal
         }
-    }).then(function(found){
+    }).then(function (found) {
         return found.update({
             Status: 1
-        })
-    })
+        });
+    });
 }
 
-function deleteProposals(idWorker){
+function deleteProposals(idWorker) {
     return proposalModel.destroy({
-        where:{
+        where: {
             IdPracownik: idWorker
         }
-    })
+    });
 }
 
-module.exports ={
+module.exports = {
     getProposalCategory: getProposalCategory,
     addProposal: addProposal,
-    getSentProposal:getSentProposal,
+    getSentProposal: getSentProposal,
     getReceivedProposal: getReceivedProposal,
     declineProposal: declineProposal,
     acceptProposal: acceptProposal,
     deleteProposals: deleteProposals
-}
+};

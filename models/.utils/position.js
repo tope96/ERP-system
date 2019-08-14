@@ -2,7 +2,7 @@ var models = require('../../models');
 var programm = models.programisci;
 var analit = models.analitycy;
 
-function addProgram(idWorker, idSpec, languages){
+function addProgram(idWorker, idSpec, languages) {
     return programm.create({
         IdPracownik: idWorker,
         IdSpecjalizacja: idSpec,
@@ -10,7 +10,7 @@ function addProgram(idWorker, idSpec, languages){
     });
 }
 
-function addAnalit(idWorker, idSpec, certs){
+function addAnalit(idWorker, idSpec, certs) {
     return analit.create({
         IdPracownik: idWorker,
         IdSpecjalizacja: idSpec,
@@ -18,67 +18,67 @@ function addAnalit(idWorker, idSpec, certs){
     });
 }
 
-function newPosition(idWorker, newPosition, lang, certs, spec){
+function newPosition(idWorker, newPosition, lang, certs, spec) {
     return analit.findOne({
-        where:{
+        where: {
             IdPracownik: idWorker
         }
-    }).then(function(foundAnalit){
-        if(foundAnalit){
+    }).then(function (foundAnalit) {
+        if (foundAnalit) {
             return foundAnalit.destroy({
-                where:{
+                where: {
                     IdPracownik: idWorker
                 }
-            }).then(function(){
-                if(newPosition == 0){
+            }).then(function () {
+                if (newPosition == 0) {
                     addProgram(idWorker, spec, lang);
-                }else{
+                } else {
                     addAnalit(idWorker, spec, certs);
                 }
             });
-        }else{
+        } else {
             return programm.findOne({
-                where:{
+                where: {
                     IdPracownik: idWorker
                 }
-            }).then(function(programmer){
+            }).then(function (programmer) {
                 return programmer.destroy({
-                    where:{
+                    where: {
                         IdPracownik: idWorker
                     }
-                }).then(function(){
-                    if(newPosition == 0){
+                }).then(function () {
+                    if (newPosition == 0) {
                         addProgram(idWorker, spec, lang);
-                    }else{
+                    } else {
                         addAnalit(idWorker, spec, certs);
                     }
-                })
-            })
+                });
+            });
         }
-    })
+    });
 }
 
 
-function deleteOne(idWorker){
+function deleteOne(idWorker) {
     return analit.findOne({
-        where:{
+        where: {
             IdPracownik: idWorker
         }
-    }).then(function(foundAnalit){
-        if(foundAnalit){
+    }).then(function (foundAnalit) {
+        if (foundAnalit) {
             return analit.destroy({
-                where:{
+                where: {
                     IdPracownik: idWorker
                 }
             })
-        }else{
+        } else {
             return programm.destroy({
-                where:{
+                where: {
                     IdPracownik: idWorker
                 }
-            })
+            });
         }
-    })
+    });
 }
 
 module.exports = {
@@ -86,4 +86,4 @@ module.exports = {
     addAnalit: addAnalit,
     deleteOne: deleteOne,
     newPosition: newPosition
-}
+};

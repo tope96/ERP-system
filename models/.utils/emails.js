@@ -32,59 +32,57 @@ function createEmail(idWorker, address, alias, idTeam) {
                         }
                     });
                 }
-            })
-
+            });
         }
     });
 }
 
-function getEmails(idTeam){
+function getEmails(idTeam) {
     return emailsModel.findAll({
-        where:{
+        where: {
             ZespolDomenowy: idTeam
         }
-    }).then(function(founds){
+    }).then(function (founds) {
         return founds;
     });
 }
 
-function deleteEmail(idEmail){
+function deleteEmail(idEmail) {
     return emailsModel.destroy({
-        where:{
+        where: {
             IdKontoPocztowe: idEmail
         }
     });
 }
 
-function deleteEmailFired(IdWorker){
+function deleteEmailFired(IdWorker) {
     return emailsModel.destroy({
-        where:{
+        where: {
             IdPracownik: IdWorker
         }
     });
 }
 
-function emailsAlreadyAdd(IdEmailGroup){
+function emailsAlreadyAdd(IdEmailGroup) {
     return groupMembersModel.findAll({
-        where:{
+        where: {
             IdGrupaMailowa: IdEmailGroup
         }
-    }).then(function(founds){
+    }).then(function (founds) {
         return founds;
-    })
+    });
 }
 
-function addMembersGroupEmails(members, idGroup){
-    
-    if(Array.isArray(members)){
+function addMembersGroupEmails(members, idGroup) {
+    if (Array.isArray(members)) {
         console.log("CZY ARRAY: " + Array.isArray(members))
-        for(var i =0; i<members.length; i++){
+        for (var i = 0; i < members.length; i++) {
             return groupMembersModel.create({
                 IdGrupaMailowa: idGroup,
                 IdKontoPocztowe: members[i]
             });
         }
-    }else{
+    } else {
         return groupMembersModel.create({
             IdGrupaMailowa: idGroup,
             IdKontoPocztowe: members
@@ -92,56 +90,56 @@ function addMembersGroupEmails(members, idGroup){
     }
 }
 
-function createEmailGroup(address, idTeam, description){
+function createEmailGroup(address, idTeam, description) {
     return emailsGroupsModel.findOne({
-        where:{
+        where: {
             AdresPocztowy: address
         }
-    }).then(function(found){
-        if(found){
+    }).then(function (found) {
+        if (found) {
             return false;
-        }else{
+        } else {
             return emailsGroupsModel.create({
                 AdresPocztowy: address,
                 ZespolDomenowy: idTeam,
                 Opis: description
-            }).then(function(created){
+            }).then(function (created) {
                 return created.IdGrupaMailowa;
             });
         }
     });
 }
 
-function getEmailsGroups(idTeam){
+function getEmailsGroups(idTeam) {
     return emailsGroupsModel.findAll({
-        where:{
+        where: {
             ZespolDomenowy: idTeam
         }
-    }).then(function(founds){
+    }).then(function (founds) {
         return founds;
-    })
+    });
 }
 
-function deleteEmailGroup(idEmailGroup){
+function deleteEmailGroup(idEmailGroup) {
     return groupMembersModel.destroy({
-        where:{
+        where: {
             IdGrupaMailowa: idEmailGroup
         }
-    }).then(function(){
+    }).then(function () {
         return emailsGroupsModel.destroy({
-            where:{
+            where: {
                 IdGrupaMailowa: idEmailGroup
             }
         });
     });
 }
 
-function editEmailGroup(idEmailGroup, address, desc){
+function editEmailGroup(idEmailGroup, address, desc) {
     return emailsGroupsModel.findOne({
-        where:{
+        where: {
             IdGrupaMailowa: idEmailGroup
         }
-    }).then(function(found){
+    }).then(function (found) {
         return found.update({
             AdresPocztowy: address,
             Opis: desc
@@ -149,70 +147,69 @@ function editEmailGroup(idEmailGroup, address, desc){
     });
 }
 
-function addNewMember(members, idEmailGroup){
+function addNewMember(members, idEmailGroup) {
     return new Promise((resolve, reject) => {
-        if(Array.isArray(members)){
+        if (Array.isArray(members)) {
             console.log("tutaj!!!!! " + members.length)
-            for(var i = 0; i<members.length; i++){
+            for (var i = 0; i < members.length; i++) {
                 groupMembersModel.create({
                     IdKontoPocztowe: members[i],
                     IdGrupaMailowa: idEmailGroup
                 });
             }
-                    resolve(true);
-    
-        }else{
+            resolve(true);
+        } else {
             return groupMembersModel.create({
                 IdKontoPocztowe: members,
                 IdGrupaMailowa: idEmailGroup
-            }).then(function(){
+            }).then(function () {
                 resolve(true);
             });
         }
     });
 }
 
-function deleteFromGroup(toDelete, idTeam){
+function deleteFromGroup(toDelete, idTeam) {
     return groupMembersModel.destroy({
-        where:{
+        where: {
             IdGrupaMailowa: idTeam,
             IdKontoPocztowe: toDelete
         }
     });
 }
 
-function getOneGroup(idEmailGroup){
+function getOneGroup(idEmailGroup) {
     return emailsGroupsModel.findOne({
-        where:{
+        where: {
             IdGrupaMailowa: idEmailGroup
         }
-    }).then(function(found){
+    }).then(function (found) {
         return found;
-    })
+    });
 }
 
-function getAllEmailsInGroup(IdEmailGroup){
+function getAllEmailsInGroup(IdEmailGroup) {
     return groupMembersModel.findAll({
-        where:{
+        where: {
             IdGrupaMailowa: IdEmailGroup
         }
-    }).then(function(founds){
+    }).then(function (founds) {
         return founds;
-    })
+    });
 }
 
-function ifGroupHasMail(idEmail){
+function ifGroupHasMail(idEmail) {
     return groupMembersModel.findOne({
-        where:{
+        where: {
             IdKontoPocztowe: idEmail
         }
-    }).then(function(found){
-        if(found){
+    }).then(function (found) {
+        if (found) {
             return false;
-        }else{
+        } else {
             return true;
         }
-    })
+    });
 }
 
 module.exports = {
@@ -231,4 +228,4 @@ module.exports = {
     deleteFromGroup: deleteFromGroup,
     getAllEmailsInGroup: getAllEmailsInGroup,
     ifGroupHasMail: ifGroupHasMail
-}
+};

@@ -1,13 +1,13 @@
 var models = require('../../models');
-var pracownik = models.pracownicy;
 var dAccount = require('./domaneAccount.js');
 var position = require('./position.js');
 var teamsUtil = require('./teamsUtil.js');
 var proposalUtil = require('./proposal.js');
 var emailUtil = require('./emails.js');
+var db = require('../../config/db');
 var analit = models.analitycy;
 var programmers = models.programisci;
-var db = require('../../config/db')
+var pracownik = models.pracownicy;
 
 function getName(id) {
     return pracownik.findOne({
@@ -42,7 +42,7 @@ function editUser(name, lastName, email, id, req, res) {
         newLastName(id, lastName);
     }
     if (email != '') {
-        newEmail( id, email);
+        newEmail(id, email);
     }
     setTimeout(function () {
         res.redirect('/profileEdited');
@@ -253,7 +253,7 @@ function addAgreeToHuman(IdWorker, IdAgree) {
                 IdUmowy: IdAgree
             });
         }
-    })
+    });
 }
 
 function human(IdWorker, IdAgree) {
@@ -368,4 +368,4 @@ module.exports = {
     editSpec: editSpec,
     getSpec: getSpec,
     ifIsSuperior: ifIsSuperior
-}
+};
