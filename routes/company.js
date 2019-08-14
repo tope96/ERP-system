@@ -57,7 +57,7 @@ module.exports = function (app, passport) {
         var address = req.body.companyAddress;
         var id = req.body.companyId;
 
-        companyUtil.editCompany(name, nip, address, town, id, req.user.IdZespol).then(function () {
+        companyUtil.editCompanyNew(name, nip, address, town, id, req.user.IdZespol).then(function () {
             res.redirect('/editCompany');
         });
     });

@@ -24,17 +24,29 @@ function getAllCopmany(idTeam) {
 
 function editCompanyNew(newName, newNip, newAddress, newTown, idCompany, idTeam) {
     return companyModel.findOne({
-        where: {
-            IdFirma: idCompany
+        where:{
+            Nazwa: newName,
+            IdZespol: idTeam
         }
-    }).then(function (company) {
-        if (company) {
-            companyModel.update({
-                Nazwa: newName,
-                Nip: newNip,
-                IdMiasto: newTown,
-                Adres: newAddress
-            });
+    }).then(function (found) {
+        if (found) {
+            return false;
+        } else {
+            return companyModel.findOne({
+                where:{
+                    IdFirma: idCompany
+                }
+            }).then(function (company) {
+                if (company) {
+                    company.update({
+                        Nazwa: newName,
+                        Nip: newNip,
+                        Adres: newAddress
+                    });
+                }
+            }).then(function(company){
+                editTown(idCompany, newTown, idTeam);
+            })
         }
     });
 }
@@ -45,10 +57,8 @@ function editCompany(newName, newNip, newAddress, newTown, idCompany, idTeam) {
         if (newName != '' || newNip != '') {
             ifcompanyExists(newName, newNip, idTeam).then(function (ifExists) {
                 if (ifExists == false) {
-                    console.log("false");
                     resolve(false);
                 } else {
-                    console.log("ok")
                     if (newName != '') {
                         editName(idCompany, newName, idTeam);
                     }
@@ -63,7 +73,7 @@ function editCompany(newName, newNip, newAddress, newTown, idCompany, idTeam) {
                     }
                     setTimeout(function () {
                         resolve(true);
-                    }, 1000);
+                    }, 2000);
                 }
             });
         } else {
