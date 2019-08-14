@@ -1,19 +1,17 @@
 var models = require('../../models');
 var worker = require('./workerUtil.js');
+var bCrypt = require('bcrypt-nodejs');
+var db = require('../../config/db');
 var dAccount = models.konta_domenowe;
 var teamDom = models.zespolydomenowe;
-var bCrypt = require('bcrypt-nodejs');
-const dotenv = require('dotenv').config();
-var db = require('../../config/db')
 
-
-function getLogin(id){
+function getLogin(id) {
     return dAccount.findOne({
-        where:{
+        where: {
             IdKontoDomenowe: id
         }
-    }).then(function(accountFound){
-        if(accountFound){
+    }).then(function (accountFound) {
+        if (accountFound) {
             return accountFound;
         }
     });
@@ -27,18 +25,18 @@ function newLogin(currUser, newLogin) {
     }).then(function (user) {
         if (user) {
             return true;
-        }else{
+        } else {
             return dAccount.findOne({
-                where:{
+                where: {
                     IdPracownik: currUser
                 }
-            }).then(function(found){
-                if(found){
+            }).then(function (found) {
+                if (found) {
                     return found.update({
                         Login: newLogin
-                    }).then(function(){
+                    }).then(function () {
                         return false;
-                    })
+                    });
                 }
             });
         }
@@ -46,99 +44,97 @@ function newLogin(currUser, newLogin) {
     );
 }
 
-function newAccount(login, password, workerId, idTeam){
+function newAccount(login, password, workerId, idTeam) {
     var generateHash = function (password) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
     };
 
     return dAccount.findOne({
-        where:{
-            Login: login, 
+        where: {
+            Login: login,
             Haslo: generateHash(password),
             IdPracownik: workerId,
             IdZespol: idTeam
         }
-    }).then(function(account){
-        if(account){
-            //TODO: komunikat, jesli juz istnieje
-        }else{
+    }).then(function (account) {
+        if (account) {
+
+        } else {
             return dAccount.create({
                 Login: login,
                 Haslo: generateHash(password),
                 IdPracownik: workerId,
                 IdZespol: idTeam,
                 IdUprawnienia: 3
-            }).then(function(newAcc){
-                if(newAcc){
+            }).then(function (newAcc) {
+                if (newAcc) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
-            })
+            });
         }
-    })
-
+    });
 }
 
-function ifCurrPasswordValid(id, currPassword){
+function ifCurrPasswordValid(id, currPassword) {
     var isValidPassword = function (userpass, password) {
         return bCrypt.compareSync(password, userpass);
     }
 
     return dAccount.findOne({
-        where:{
+        where: {
             IdKontoDomenowe: id
         }
-    }).then(function(user){
+    }).then(function (user) {
         return isValidPassword(user.Haslo, currPassword)
-    })
+    });
 }
 
-function changePassword(id, newPassword){
+function changePassword(id, newPassword) {
     var generateHash = function (password) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
     };
 
     return dAccount.findOne({
-        where:{
+        where: {
             IdKontoDomenowe: id
         }
-    }).then(function(user){
+    }).then(function (user) {
         return user.update({
             Haslo: generateHash(newPassword)
         });
     });
 }
 
-function workersWithoutDomaneAccount(IdTeam){
+function workersWithoutDomaneAccount(IdTeam) {
     return db.query("SELECT Imie, Nazwisko, IdPracownik FROM pracownicy WHERE IdPracownik NOT IN (SELECT IdPracownik FROM konta_domenowe) AND IdZespol = " + IdTeam,
-    {type: db.QueryTypes.SELECT}).then(workersWithoutDomane =>
-     {return workersWithoutDomane}); 
-   }
-
-   function deleteAccount(IdWorker){
-        
-    return dAccount.destroy({
-            where:{
-                IdPracownik: IdWorker
-            }
-        });
-   }
-
-function createNewDomane(){
-    return teamDom.create({
-
-    }).then(function(created){
-        return created;
-    })
+        { type: db.QueryTypes.SELECT }).then(workersWithoutDomane => { return workersWithoutDomane });
 }
 
-function updateDomaneAccount(idDomaneAccount, idWorker, teamDom){
+function deleteAccount(IdWorker) {
+
+    return dAccount.destroy({
+        where: {
+            IdPracownik: IdWorker
+        }
+    });
+}
+
+function createNewDomane() {
+    return teamDom.create({
+
+    }).then(function (created) {
+        return created;
+    });
+}
+
+function updateDomaneAccount(idDomaneAccount, idWorker, teamDom) {
     return dAccount.findOne({
-        where:{
+        where: {
             IdKontoDomenowe: idDomaneAccount
         }
-    }).then(function(found){
+    }).then(function (found) {
         return found.update({
             IdZespol: teamDom,
             IdPracownik: idWorker
@@ -146,25 +142,25 @@ function updateDomaneAccount(idDomaneAccount, idWorker, teamDom){
     });
 }
 
-function getDomaneAccounts(idTeam){
+function getDomaneAccounts(idTeam) {
     return dAccount.findAll({
-        where:{
+        where: {
             IdZespol: idTeam
         }
-    }).then(function(founds){
+    }).then(function (founds) {
         return founds;
     });
 }
 
-module.exports={
+module.exports = {
     getLogin: getLogin,
     newLogin: newLogin,
     newAccount: newAccount,
     ifCurrPasswordValid: ifCurrPasswordValid,
     changePassword: changePassword,
-    workersWithoutDomaneAccount:workersWithoutDomaneAccount,
+    workersWithoutDomaneAccount: workersWithoutDomaneAccount,
     deleteAccount: deleteAccount,
     createNewDomane: createNewDomane,
     updateDomaneAccount: updateDomaneAccount,
-    getDomaneAccounts:getDomaneAccounts
-}
+    getDomaneAccounts: getDomaneAccounts
+};

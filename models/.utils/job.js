@@ -8,7 +8,7 @@ var yyyy = today.getFullYear();
 
 today = yyyy + '/' + mm + '/' + dd;
 
-function addJob(projectId, name, description, status, priority, worker, realizationDate, idKontoDomenowe){
+function addJob(projectId, name, description, status, priority, worker, realizationDate, idKontoDomenowe) {
     return job.create({
         IdPracownik: worker,
         IdProjekt: projectId,
@@ -18,178 +18,176 @@ function addJob(projectId, name, description, status, priority, worker, realizat
         Priorytet: priority,
         IdKontoDomenowe: idKontoDomenowe,
         DataRealizacji: realizationDate
-    })
+    });
 }
 
-function getAllJob(idKontoDomenowe){
+function getAllJob(idKontoDomenowe) {
     return job.findAll({
-        where:{
+        where: {
             IdKontoDomenowe: idKontoDomenowe
         }
-    }).then(function(jobs){
+    }).then(function (jobs) {
         return jobs;
-    })
+    });
 }
 
-function deleteJob(idProject){
+function deleteJob(idProject) {
     return job.destroy({
-        where:{
+        where: {
             IdProjekt: idProject
         }
     });
 }
 
-function deleteJobJob(idJob){
+function deleteJobJob(idJob) {
     return job.destroy({
-        where:{
+        where: {
             IdZadanie: idJob
         }
     });
 }
 
-function getOneJob(idJob){
+function getOneJob(idJob) {
     return job.findOne({
-        where:{
+        where: {
             IdZadanie: idJob
         }
-    }).then(function(job){
+    }).then(function (job) {
         return job;
-    })
+    });
 }
 
-function editJob(jobId, name, priority, status, description, realizationDate, worker){
+function editJob(jobId, name, priority, status, description, realizationDate, worker) {
     return job.findOne({
-        where:{
+        where: {
             IdZadanie: jobId
         }
-    }).then(function(found){
+    }).then(function (found) {
         return found.update({
             Nazwa: name,
             Priorytet: priority,
             Status: status,
             Opis: description,
             DataRealizacji: realizationDate,
-            IdPracownik: worker 
+            IdPracownik: worker
         });
     });
 }
 
-function countFinished(workerId){
+function countFinished(workerId) {
     return job.findAndCountAll({
-        where:{
+        where: {
             IdPracownik: workerId,
             Status: 2
         }
-    }).then(function(job){
+    }).then(function (job) {
         return job.count;
     });
 }
 
-function countInProgress(workerId){
+function countInProgress(workerId) {
     return job.findAndCountAll({
-        where:{
+        where: {
             IdPracownik: workerId,
             Status: 1
         }
-    }).then(function(job){
+    }).then(function (job) {
         return job.count;
     });
 }
 
-function countNotStarted(workerId){
+function countNotStarted(workerId) {
     return job.findAndCountAll({
-        where:{
+        where: {
             IdPracownik: workerId,
             Status: 3
         }
-    }).then(function(job){
+    }).then(function (job) {
         return job.count;
     });
 }
 
-function countLowPriority(workerId){
+function countLowPriority(workerId) {
     return job.findAndCountAll({
-        where:{
+        where: {
             IdPracownik: workerId,
             Priorytet: 1
         }
-    }).then(function(job){
+    }).then(function (job) {
         return job.count;
     });
 }
 
-function countMediumPriority(workerId){
+function countMediumPriority(workerId) {
     return job.findAndCountAll({
-        where:{
+        where: {
             IdPracownik: workerId,
             Priorytet: 2,
             Status: 3
         }
-    }).then(function(job){
+    }).then(function (job) {
         return job.count;
     });
 }
 
-function countHighPriority(workerId){
+function countHighPriority(workerId) {
     return job.findAndCountAll({
-        where:{
+        where: {
             IdPracownik: workerId,
             Priorytet: 3,
             Status: 3
         }
-    }).then(function(job){
+    }).then(function (job) {
         return job.count;
     });
 }
 
-function countTodayJobs(workerId){
+function countTodayJobs(workerId) {
     return job.findAndCountAll({
-        where:{
+        where: {
             IdPracownik: workerId,
             DataRealizacji: today
         }
-    }).then(function(job){
+    }).then(function (job) {
         return job.count;
     });
 }
 
-function getCalendarJob(idKontoDomenowe){
+function getCalendarJob(idKontoDomenowe) {
     return job.findAll({
-        where:{
+        where: {
             IdKontoDomenowe: idKontoDomenowe
         },
         raw: true,
-    }).then(function(jobs){
-        return jobs
-    })
+    }).then(function (jobs) {
+        return jobs;
+    });
 }
 
-function jobDone(IdJob){
+function jobDone(IdJob) {
     return job.findOne({
-        where:{
+        where: {
             IdZadanie: IdJob
         }
-    }).then(function(found){
+    }).then(function (found) {
         found.update({
-            Status: 2 
+            Status: 2
         });
     });
 }
 
-function ifWorkerHasJob(idWorker){
-    console.log("ID WORKER: " + idWorker)
+function ifWorkerHasJob(idWorker) {
     return job.findOne({
-        where:{
+        where: {
             IdPracownik: idWorker
         }
-    }).then(function(found){
-        if(found){
-            console.log("TUTAJ JOB " + found.IdZadanie)
+    }).then(function (found) {
+        if (found) {
             return true;
-        }else{
+        } else {
             return false;
         }
-    })
+    });
 }
 
 module.exports = {
@@ -209,4 +207,4 @@ module.exports = {
     countTodayJobs: countTodayJobs,
     jobDone: jobDone,
     ifWorkerHasJob: ifWorkerHasJob
-}
+};

@@ -1,20 +1,20 @@
 var models = require('../../models');
+var db = require('../../config/db');
 var clientsModel = models.klienci;
-var db = require('../../config/db')
 
-function addClient(company, firstName, lastName, tel, email, zespolDomenow){
+function addClient(company, firstName, lastName, tel, email, zespolDomenow) {
     return clientsModel.findOne({
-        where:{
+        where: {
             zespolDomenowy: zespolDomenow,
             Firma: company,
             ImiePrzedstawiciela: firstName,
             NazwiskoPrzedstawiciela: lastName,
-            NumerKontaktowy: tel 
+            NumerKontaktowy: tel
         }
-    }).then(function(found){
-        if(found){
+    }).then(function (found) {
+        if (found) {
             return false;
-        }else{
+        } else {
             return clientsModel.create({
                 zespolDomenowy: zespolDomenow,
                 Firma: company,
@@ -27,42 +27,41 @@ function addClient(company, firstName, lastName, tel, email, zespolDomenow){
     });
 }
 
-function getClientInfo(clientId){
+function getClientInfo(clientId) {
     return clientsModel.findOne({
-        where:{
+        where: {
             IdKlient: clientId
         }
-    }).then(function(clientInfo){
+    }).then(function (clientInfo) {
         return clientInfo;
     });
 }
 
-function getAllClients(zespolDomenowy){
+function getAllClients(zespolDomenowy) {
     return db.query("SELECT IdKlient, ImiePrzedstawiciela, NazwiskoPrzedstawiciela, firma.Nazwa as firma FROM klienci INNER JOIN firma ON klienci.Firma = firma.IdFirma WHERE zespolDomenowy = " + zespolDomenowy,
-    {type: db.QueryTypes.SELECT}).then(clients =>
-     {return clients}); 
-   }
+        { type: db.QueryTypes.SELECT }).then(clients => { return clients; });
+}
 
-function deleteClient(IdClient){
+function deleteClient(IdClient) {
     return clientsModel.destroy({
-        where:{
+        where: {
             IdKlient: IdClient
         }
     });
 }
 
-function editClient(clientId, firstName, lastName, tel, email){
+function editClient(clientId, firstName, lastName, tel, email) {
     return clientsModel.findOne({
-        where:{
+        where: {
             IdKlient: clientId
         }
-    }).then(function(found){
+    }).then(function (found) {
         return found.update({
             ImiePrzedstawiciela: firstName,
             NazwiskoPrzedstawiciela: lastName,
-            NumerKontaktowy: tel, 
+            NumerKontaktowy: tel,
             EmailKontaktowy: email
-        }).then(function(idCompany){
+        }).then(function (idCompany) {
             return idCompany.Firma;
         });
     });
@@ -74,4 +73,4 @@ module.exports = {
     getClientInfo: getClientInfo,
     deleteClient: deleteClient,
     editClient: editClient
-}
+};
