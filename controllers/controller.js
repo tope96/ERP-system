@@ -149,11 +149,6 @@ exports.changePasswordError = function (req, res) {
 }
 
 
-exports.alreadyExists = function (req, res) {
-    res.render('alreadyExists');
-}
-
-
 //SETTINGS
 exports.settings = function (req, res) {
     domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {

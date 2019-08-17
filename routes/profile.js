@@ -30,7 +30,6 @@ module.exports = function (app, passport) {
 
     app.get('/profile', isLoggedIn, controller.profile);
     app.get('/profileEdited', isLoggedIn, controller.profile);
-    app.get('/alreadyExists', isLoggedIn, controller.alreadyExists);
     app.get('/changePassword', isLoggedIn, controller.changePassword);
     app.get('/passwordChanged', isLoggedIn, controller.passwordChanged);
     app.get('/changePasswordError', isLoggedIn, controller.changePasswordError);
