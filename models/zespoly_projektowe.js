@@ -1,9 +1,9 @@
 /* jshint indent: 2 */
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('zespoly_projektowe', {
     IdProjekt: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       references: {
@@ -12,16 +12,16 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     IdZespol: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       references: {
         model: 'zespoly',
         key: 'IdZespol'
       }
-    },
+    }
   }, {
-      tableName: 'zespoly_projektowe',
-      timestamps: false
-    });
+    tableName: 'zespoly_projektowe',
+    timestamps: false
+  });
 };

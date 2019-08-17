@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('zespoly', {
     IdZespol: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
@@ -12,13 +12,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(25),
       allowNull: false
     },
-    zespolyDomenowe: {
-      type: DataTypes.INTEGER(6),
-      allowNull: false
-    },
     ZrealizowanychZlecen: {
-      type: DataTypes.INTEGER(6),
+      type: DataTypes.INTEGER(10),
       allowNull: true
+    },
+    zespolyDomenowe: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      references: {
+        model: 'zespolydomenowe',
+        key: 'IdZespolyDomenowe'
+      }
     }
   }, {
     tableName: 'zespoly',

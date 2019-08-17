@@ -26,16 +26,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     Firma: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.INTEGER(10),
       allowNull: true,
-      defaultValue: 'NULL'
+      references: {
+        model: 'firma',
+        key: 'IdFirma'
+      }
     },
     Email: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(25),
       allowNull: false
     },
     NumerTelefonu: {
-      type: DataTypes.INTEGER(6),
+      type: DataTypes.INTEGER(10),
       allowNull: true
     },
     IdUmowy: {
@@ -47,13 +50,18 @@ module.exports = function(sequelize, DataTypes) {
         key: 'IdUmowy'
       }
     },
+    IdZespol: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      references: {
+        model: 'zespolydomenowe',
+        key: 'IdZespolyDomenowe'
+      }
+    },
     PlikUmowy: {
       type: DataTypes.STRING(150),
-      allowNull: true
-    },
-    IdZespol: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 'NULL'
     }
   }, {
     tableName: 'pracownicy',

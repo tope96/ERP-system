@@ -153,7 +153,7 @@ module.exports = function (app, passport) {
         var lang = req.body.languagesEdit;
         var certs = req.body.certsEdit;
 
-        if (req.file !== 'undefined') {
+        if (req.file != null) {
             contractFileLink = req.file.filename;
         }
         var oldFileName = req.body.fileName;

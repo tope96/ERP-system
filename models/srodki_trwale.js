@@ -3,13 +3,13 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('srodki_trwale', {
     IdSrodkiTrwale: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     IdPracownik: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       defaultValue: '0',
       references: {
@@ -23,27 +23,33 @@ module.exports = function(sequelize, DataTypes) {
     },
     Opis: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 'NULL'
     },
     Rodzaj: {
       type: DataTypes.STRING(25),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 'NULL'
     },
     WartoscNetto: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false
-    },
-    Ilosc: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true
     },
     DataZakupu: {
       type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    Ilosc: {
+      type: DataTypes.INTEGER(10),
       allowNull: true
     },
     IdZespol: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      references: {
+        model: 'zespolydomenowe',
+        key: 'IdZespolyDomenowe'
+      }
     }
   }, {
     tableName: 'srodki_trwale',

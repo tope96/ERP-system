@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('uzytkownik', {
     IdUzytkownik: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
@@ -18,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     Firma: {
       type: DataTypes.STRING(25),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 'NULL'
     },
     Login: {
       type: DataTypes.STRING(25),

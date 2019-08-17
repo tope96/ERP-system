@@ -3,14 +3,15 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('miasto', {
     IdMiasto: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     Miasto: {
       type: DataTypes.STRING(50),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 'NULL'
     }
   }, {
     tableName: 'miasto',

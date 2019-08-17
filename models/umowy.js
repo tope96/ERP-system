@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('umowy', {
     IdUmowy: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
@@ -20,21 +20,33 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.FLOAT,
       allowNull: true
     },
-    umowy_b2b: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true
-    },
-    umowy_o_prace: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true
-    },
-    umowy_zlecenie: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true
-    },
     StawkaGodzinowa: {
       type: DataTypes.FLOAT,
       allowNull: true
+    },
+    umowy_b2b: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      references: {
+        model: 'umowy_b2b',
+        key: 'IdUmowy'
+      }
+    },
+    umowy_o_prace: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      references: {
+        model: 'umowy_o_prace',
+        key: 'IdUmowy'
+      }
+    },
+    umowy_zlecenie: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      references: {
+        model: 'umowy_zlecenie',
+        key: 'IdUmowy'
+      }
     }
   }, {
     tableName: 'umowy',

@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('grupy_mailowe', {
     IdGrupaMailowa: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
@@ -18,8 +18,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     ZespolDomenowy: {
       type: DataTypes.INTEGER(11),
-      allowNull: true
-    },
+      allowNull: true,
+      references: {
+        model: 'zespolydomenowe',
+        key: 'IdZespolyDomenowe'
+      }
+    }
   }, {
     tableName: 'grupy_mailowe',
     timestamps: false

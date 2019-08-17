@@ -3,13 +3,13 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('wnioski', {
     IdWniosek: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     IdPracownik: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       references: {
         model: 'pracownicy',
@@ -22,27 +22,41 @@ module.exports = function(sequelize, DataTypes) {
     },
     Opis: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 'NULL'
     },
     ArgumentacjaWniosku: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
+    KategoriaWniosku: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      references: {
+        model: 'kategoria_wniosku',
+        key: 'IdKategoriaWniosku'
+      }
+    },
     DataWyslania: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: true
     },
     ZespolDomenowy: {
       type: DataTypes.INTEGER(11),
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'zespolydomenowe',
+        key: 'IdZespolyDomenowe'
+      }
     },
     Status: {
       type: DataTypes.INTEGER(11),
-      allowNull: false
-    },
-    KategoriaWniosku: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true
+      allowNull: false,
+      defaultValue: '3',
+      references: {
+        model: 'status_wniosku',
+        key: 'IdStatusWniosku'
+      }
     }
   }, {
     tableName: 'wnioski',

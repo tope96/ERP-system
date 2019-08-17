@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('firma', {
     IdFirma: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
@@ -14,10 +14,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     Nip: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true,
+      defaultValue: 'NULL'
     },
     IdMiasto: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: true,
       references: {
         model: 'miasto',
@@ -26,14 +27,19 @@ module.exports = function(sequelize, DataTypes) {
     },
     Adres: {
       type: DataTypes.STRING(50),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 'NULL'
     },
     IdZespol: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      references: {
+        model: 'zespolydomenowe',
+        key: 'IdZespolyDomenowe'
+      }
     }
   }, {
     tableName: 'firma',
-    timestamps:false
+    timestamps: false
   });
 };

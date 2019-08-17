@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('czlonkowie_grup_mailowych', {
     IdGrupaMailowa: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       references: {
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     IdKontoPocztowe: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       references: {

@@ -3,13 +3,13 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('analitycy', {
     IdPracownik: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     IdSpecjalizacja: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: true,
       references: {
         model: 'specjalizacja',
@@ -18,8 +18,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     Certyfikaty: {
       type: DataTypes.STRING(255),
-      allowNull: false
-    },
+      allowNull: true
+    }
   }, {
     tableName: 'analitycy',
     timestamps: false

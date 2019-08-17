@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('czlonkowie_zespolow', {
     IdPracownik: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       references: {
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     IdZespol: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       references: {
@@ -22,6 +22,6 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'czlonkowie_zespolow',
-    timestamps:false
+    timestamps: false
   });
 };
