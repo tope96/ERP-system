@@ -60,7 +60,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/editClients', isLoggedIn, isAdmin, function (req, res) {
+    app.post('/editClients', isLoggedIn, isHR, function (req, res) {
         var clientId = req.body.clientId;
         clientUtil.getClientInfo(clientId).then(function (clientInfo) {
             companyUtil.getCompanyInfo(clientInfo.Firma).then(function (companyInfo) {
@@ -80,7 +80,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post("/deleteClient", isLoggedIn, isAdmin, function (req, res) {
+    app.post("/deleteClient", isLoggedIn, isHR, function (req, res) {
         var clientId = req.body.clientId;
 
         projectsUtil.ifClientHasProject(clientId).then(function (ok) {
@@ -94,7 +94,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post("/editClient", isLoggedIn, isAdmin, function (req, res) {
+    app.post("/editClient", isLoggedIn, isHR, function (req, res) {
         var nameCompany = req.body.nameEdit;
         var firstName = req.body.firstNameEdit;
         var lastName = req.body.lastNameEdit;

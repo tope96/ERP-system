@@ -30,13 +30,13 @@
  
     "production": {
  
-        "username": "",
+        "username": "app",
  
-        "password": null,
+        "password": "production01",
  
-        "database": "",
+        "database": "inz",
  
-        "host": "127.0.0.1",
+        "host": "213.92.206.242",
  
         "dialect": "mysql"
  

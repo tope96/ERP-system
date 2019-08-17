@@ -16,14 +16,14 @@
                     <div class="col text-center">
                         <form action="deleteClient" method="POST">
                             <input type="hidden" value="<%= clientInfo.IdKlient %>" name="clientId">
-                            <button type="button" class="btn btn-light admin-perm actionButtons" onclick="edit('<%= companyInfo.Nazwa %>', '<%= clientInfo.ImiePrzedstawiciela %>', '<%= clientInfo.NazwiskoPrzedstawiciela %>',
+                            <button type="button" class="btn btn-light hr-perm actionButtons" onclick="edit('<%= companyInfo.Nazwa %>', '<%= clientInfo.ImiePrzedstawiciela %>', '<%= clientInfo.NazwiskoPrzedstawiciela %>',
                                 '<%= clientInfo.NumerKontaktowy %>', '<%= clientInfo.EmailKontaktowy %>', '<%= companyInfo.Adres %>', '<%= townInfo.Miasto %>',
                                 '<%= companyInfo.Nip %>', '<%= clientInfo.IdKlient %>')"><i class="fa fa-edit" data-toggle="tooltip"
                                     data-placement="top" title="Edytuj ten przedmiot"></i>
                             </button>
 
                             <input type="hidden" id="asset" name="asset" value="">
-                            <button type="submit" class="btn btn-danger admin-perm actionButtons" data-toggle="tooltip" data-placement="top"
+                            <button type="submit" class="btn btn-danger hr-perm actionButtons" data-toggle="tooltip" data-placement="top"
                                 title="Usuń klienta"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </div>

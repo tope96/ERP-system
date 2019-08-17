@@ -23,7 +23,7 @@
         <div class="keepOnBottom">
           <div class="row">
             <div class="col-lg-12 text-center">
-              <button type="button" class="btn btn-success buttonUnderList admin-perm" onclick="myFunction()"><i
+              <button type="button" class="btn btn-success buttonUnderList hr-perm" onclick="myFunction()"><i
                   class="fa fa-plus-circle"></i> Dodaj przedmiot</button>
             </div>
           </div>
@@ -48,14 +48,14 @@
                 <div class="col text-center">
               
                   <form action="deleteAsset" method="POST">
-                    <button type="button" class="btn btn-light actionButtons admin-perm"
+                    <button type="button" class="btn btn-light actionButtons hr-perm"
                       onclick="edit('<%= assets[i].Nazwa %>', '<%= assets[i].Opis %>', '<%= assets[i].Rodzaj %>', '<%= assets[i].WartoscNetto %>', '<%= assets[i].DataZakupu %>', '<%= assets[i].IdSrodkiTrwale %>', '<%= assets[i].IdPracownik %>')"><i
                         class="fa fa-edit" data-toggle="tooltip" data-placement="top"
                         title="Edytuj ten przedmiot"></i>
                     </button>
               
                     <input type="hidden" id="asset" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-                    <button type="submit" class="btn btn-danger actionButtons admin-perm" data-toggle="tooltip" data-placement="top"
+                    <button type="submit" class="btn btn-danger actionButtons hr-perm" data-toggle="tooltip" data-placement="top"
                       title="Usuń ten przedmiot"><i class="fas fa-trash-alt"></i></button>
                   </form>
               
@@ -93,12 +93,12 @@
            <div class="row">
             <form action="deleteOneAsset" method="POST">
               <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-              <button type="submit" class="btn btn-outline-danger littleButtons admin-perm" data-toggle="tooltip" data-placement="top"
+              <button type="submit" class="btn btn-outline-danger littleButtons hr-perm" data-toggle="tooltip" data-placement="top"
                 title="Odejmij jedną sztukę"><i class="fa fa-minus"></i></button>
             </form>
             <form action="addOneAsset" method="POST">
               <input type="hidden" name="asset" value="<%= assets[i].IdSrodkiTrwale %>">
-              <button type="submit" class="btn btn-outline-success littleButtons admin-perm" data-toggle="tooltip" data-placement="top"
+              <button type="submit" class="btn btn-outline-success littleButtons hr-perm" data-toggle="tooltip" data-placement="top"
               title="Dodaj jedną sztukę"><i class="fa fa-plus"></i></button>
             </form>               
            </div>
@@ -133,7 +133,7 @@
         <input type="text" class="form-control formItem" id="type" name="type" placeholder="Rodzaj" required>
 
         <div class="input-group formItem">
-            <input type="number" class="form-control formItem" id="price" name="price" placeholder="Wartość netto" aria-label="Nazwa użytkownika"
+            <input type="number" min="0" class="form-control formItem" id="price" name="price" placeholder="Wartość netto" aria-label="Nazwa użytkownika"
                 aria-describedby="basic-addon2" required>
             <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">zł</span>
@@ -149,7 +149,7 @@
         <input type="date" class="form-control formItem" id="date" name="date" placeholder="Data zakupu" required>
 
         <div class="input-group formItem">
-            <input type="number" class="form-control formItem" id="amount" name="amount" placeholder="Ilość" aria-label="Nazwa użytkownika"
+            <input type="number" min="0" class="form-control formItem" id="amount" name="amount" placeholder="Ilość" aria-label="Nazwa użytkownika"
                 aria-describedby="basic-addon2" required>
             <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">sztuk</span>
@@ -212,7 +212,7 @@
               <div class="form-group row">
                   <label for="priceEdit" class="col-sm-2 col-form-label">Wartość netto:</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control formItem" id="priceEdit" name="priceEdit" placeholder="Wartość netto" required>
+                    <input type="number" min="0" class="form-control formItem" id="priceEdit" name="priceEdit" placeholder="Wartość netto" required>
                   </div>
               </div>
 

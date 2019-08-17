@@ -21,7 +21,7 @@
                       <input type="hidden" name="idAgree" value="<%=agreeInfo.IdUmowy %>">
                         <input type="text" class="form-control formItem" id="firstNameEdit" name="firstNameEdit" value="<%=workerInfo.Imie %>" placeholder="Imię" required>
                         <input type="text" class="form-control formItem" id="lastNameEdit" name="lastNameEdit" value="<%=workerInfo.Nazwisko %>" placeholder="Nazwisko" required>
-                        <input type="number" class="form-control formItem" id="telephoneEdit" name="telephoneEdit" value="<%=workerInfo.NumerTelefonu %>" placeholder="Numer telefonu" required>
+                        <input type="number" min="0" class="form-control formItem" id="telephoneEdit" name="telephoneEdit" value="<%=workerInfo.NumerTelefonu %>" placeholder="Numer telefonu" required>
                         <input type="email" class="form-control formItem" id="emailEdit" name="emailEdit" value="<%=workerInfo.Email %>" placeholder="Email" required>
                         <select class="form-control formItem" placeholder="Przełożony" id="superior" name="superiorEdit" required>
                             <option value="0">Brak przełożonego</option>
@@ -92,8 +92,8 @@
                         <input type="date" class="form-control formItem" name="startDateEdit" value="<%=agreeInfo.DataRozpoczecia %>" placeholder="Data rozpoczęcia" required>
                         <p>Data końca zatrudnienia: </p>
                         <input type="date" class="form-control formItem" name="endDateEdit" value="<%=agreeInfo.DataZakonczenia %>" placeholder="Data rozpoczęcia" required>
-                        <input type="number" class="form-control formItem" name="lumpSumEdit" value="<%=agreeInfo.StawkaRyczalt %>" placeholder="Stawka ryczałt">
-                        <input type="number" class="form-control formItem" name="hourlyRateEdit" value="<%=agreeInfo.StawkaGodzinowa %>" placeholder="Stawka godzinowa">
+                        <input type="number" min="0" class="form-control formItem" name="lumpSumEdit" value="<%=agreeInfo.StawkaRyczalt %>" placeholder="Stawka ryczałt">
+                        <input type="number" min="0" class="form-control formItem" name="hourlyRateEdit" value="<%=agreeInfo.StawkaGodzinowa %>" placeholder="Stawka godzinowa">
                         
                         <div class="row">
                           <div class='col-lg-4'><p>Plik umowy:</p>
@@ -156,7 +156,7 @@
                     </div>
                         <!-- Optional inputs -->
                         <div id="agreementEdit"> <!-- umowa o prace is checked-->
-                          <input type="number" class="form-control formItem" id="timeOfContractEdit" placeholder="Wymiar czasu" id="timeOfContractEdit" name="timeOfContractEdit">
+                          <input type="number" min="0" class="form-control formItem" id="timeOfContractEdit" placeholder="Wymiar czasu" id="timeOfContractEdit" name="timeOfContractEdit">
                         </div>
                         <div id="agreement2Edit" class="text-center"> <!-- umowa zlecenie is checked -->
                           <p>Czy jest studentem?</p>

@@ -22,8 +22,8 @@
     <input type="date" class="form-control form" name="startDate" placeholder="Data rozpoczęcia">
     <p>Data końca zatrudnienia: </p>
     <input type="date" class="form-control form" name="endDate" placeholder="Data rozpoczęcia">
-    <input type="number" class="form-control form" name="lumpSum" placeholder="Stawka ryczałt">
-    <input type="number" class="form-control form" name="hourlyRate" placeholder="Stawka godzinowa">
+    <input type="number" min="0" class="form-control form" name="lumpSum" placeholder="Stawka ryczałt">
+    <input type="number" min="0" class="form-control form" name="hourlyRate" placeholder="Stawka godzinowa">
    
     <div class="row">
       <div class="col text-center">
@@ -35,7 +35,7 @@
     
     <!-- Optional inputs -->
     <div id="agreement"> <!-- umowa o prace is checked-->
-      <input type="number" class="form-control form" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
+      <input type="number" min="0" class="form-control form" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
     </div>
     <div id="agreement2"> <!-- umowa zlecenie is checked -->
       <p>Czy jest studentem?</p>

@@ -65,7 +65,10 @@ function getAllProjects(zespolyDomenowe){
     return projectModel.findAll({
         where:{
             IdZespol: zespolyDomenowe
-        }
+        },
+        order: [
+            ['Nazwa', 'ASC'],
+        ],
     });
 }
 

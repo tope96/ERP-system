@@ -35,11 +35,7 @@ app.get('/', authController.signin);
 require('./config/passport/passport.js')(passport, models.konta_domenowe);
 
 //Sync Database
-models.sequelize.sync().then(function () {
-    console.log('Nice! Database looks fine')
-}).catch(function (err) {
-    console.log(err, "Something went wrong with the Database Update!")
-});
+
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

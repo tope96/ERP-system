@@ -44,7 +44,7 @@ module.exports = function (app, passport) {
     app.get('/productionAddCategoryFailed', isLoggedIn, productionController.productionAddCategoryFailed);
     app.get('/addProjectFailed', isLoggedIn, productionController.addProjectFailed);
 
-    app.post('/addProject', isLoggedIn, isAdmin, function (req, res) {
+    app.post('/addProject', isLoggedIn, isHR, function (req, res) {
         var projectName = req.body.projectName;
         var client = req.body.client;
         var category = req.body.category;
@@ -64,7 +64,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/deleteProject', isLoggedIn, isAdmin, function (req, res) {
+    app.post('/deleteProject', isLoggedIn, isHR, function (req, res) {
         var project = req.body.project;
 
         teamUtil.deleteProjectsTeam(project).then(function () {
@@ -76,7 +76,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/editProject', isLoggedIn, isAdmin, function (req, res) {
+    app.post('/editProject', isLoggedIn, isHR, function (req, res) {
         var project = req.body.projectIdEdit;
         var projectName = req.body.nameEdit;
         var client = req.body.clientEdit;
@@ -309,7 +309,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/addCategory', isLoggedIn, isAdmin, function (req, res) {
+    app.post('/addCategory', isLoggedIn, isHR, function (req, res) {
         var categoryName = req.body.nameCategory;
 
         projectsUtil.addCategory(categoryName, req.user.IdZespol).then(function (ok) {

@@ -107,8 +107,8 @@
                       <%if (analit[b].IdPracownik == workers[i].IdPracownik && analit[b].IdSpecjalizacja != null) {%>
                         <% for(var c=0; c<spec.length; c++){ %>
                           <%if (spec[c].IdSpecjalizacja == analit[b].IdSpecjalizacja){ %>
-                            analityk, specjalizacja: <%= spec[c].Nazwa %>
-                            Najważniejsze certyfikaty: <%= analit[b].Certyfikaty %> <br />              
+                            analityk, specjalizacja: <%= spec[c].Nazwa %><br />  
+                            Najważniejsze certyfikaty: <%= analit[b].Certyfikaty %>             
                           <% } %>
                         <% } %>
                       <% } %>
@@ -217,7 +217,7 @@
 
                     <input type="text" onkeypress="return isNumericKey(event)" class="form-control formItem" id="lastName" name="lastName" placeholder="Nazwisko" required>
                     
-                    <input type="number" class="form-control formItem" id="telephone" name="telephone" placeholder="Numer telefonu" required>
+                    <input type="number" min="0" class="form-control formItem" id="telephone" name="telephone" placeholder="Numer telefonu" required>
 
                     <input type="email" class="form-control formItem" id="email" name="email" placeholder="Email" required>
 
@@ -251,9 +251,9 @@
                     <p>Data końca zatrudnienia: </p>
                       <input type="date" class="form-control formItem" name="endDate" placeholder="Data rozpoczęcia" required>
 
-                    <input type="number" class="form-control formItem" name="lumpSum" placeholder="Stawka ryczałt" required>
+                    <input type="number" min="0" class="form-control formItem" name="lumpSum" placeholder="Stawka ryczałt" required>
 
-                    <input type="number" class="form-control formItem" name="hourlyRate" placeholder="Stawka godzinowa" required>
+                    <input type="number" min="0" class="form-control formItem" name="hourlyRate" placeholder="Stawka godzinowa" required>
 
                     <p>Plik umowy:</p>
                     <input type="file" class="form-control formItem" name="file-to-upload" class="fileInput" id="file-to-upload" accept="application/pdf" required>
@@ -263,7 +263,7 @@
                     <label class="radio-inline"><input type="radio" id="b2bRadio" name="agreement" value="3" onclick="agreementB2bView()">Umowa B2B </label>
                     
                     <div id="agreement"> <!-- umowa o prace is checked-->
-                      <input type="number" class="form-control formItem" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
+                      <input type="number" min="0" class="form-control formItem" id="timeOfContract" placeholder="Wymiar czasu" name="timeOfContract">
                     </div>
 
                     <div id="agreement2"> <!-- umowa zlecenie is checked -->
@@ -440,7 +440,7 @@
             
             <form action="addCompany" method="POST">
               <input type="text" class="form-control formItem" id="nameCompany" name="nameCompany" placeholder="Nazwa" required>
-              <input type="number" class="form-control formItem" id="nipCompany" name="nipCompany" placeholder="NIP" required>
+              <input type="number" min="0" class="form-control formItem" id="nipCompany" name="nipCompany" placeholder="NIP" required>
               <input type="text" class="form-control formItem" id="addressCompany" name="addressCompany" placeholder="Adres" required>
               <input type="text" class="form-control formItem" id="townCompany" name="townCompany" placeholder="Miasto" required>
               

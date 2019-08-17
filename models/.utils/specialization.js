@@ -1,14 +1,14 @@
 var models = require('../../models');
 var spec = models.specjalizacja;
 
-function getAllSpec() {
+function getAllSpec(){
     return spec.findAll({
 
-    }).then(function (specs) {
+    }).then(function(specs){
         return specs;
-    });
+    })
 }
 
 module.exports = {
-    getAllSpec: getAllSpec
-};
+    getAllSpec:getAllSpec
+}

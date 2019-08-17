@@ -1,6 +1,6 @@
 var models = require('../../models');
-var townUtils = require('./townUtil.js');
 var companyModel = models.firma;
+var townUtils = require('./townUtil.js');
 
 function getCompanyInfo(IdCompany) {
     return companyModel.findOne({
@@ -218,4 +218,4 @@ module.exports = {
     addCompany: addCompany,
     addCompanyReturnId: addCompanyReturnId,
     editCompanyNew: editCompanyNew
-};
+}

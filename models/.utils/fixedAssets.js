@@ -1,19 +1,22 @@
 var models = require('../../models');
 var fixedAssets = models.srodki_trwale;
 
-function getAssets(id, idTeam) {
+function getAssets(id, idTeam){
     return fixedAssets.findAll({
-        where: {
+        where:{
             IdZespol: idTeam
-        }
-    }).then(function (assetsFound) {
-        if (assetsFound) {
+        },
+        order: [
+            ['Nazwa', 'ASC'],
+        ],
+    }).then(function(assetsFound){
+        if(assetsFound){
             return assetsFound;
         }
     });
 }
 
-function addAssets(name, description, type, price, date, owner, amount, idTeam) {
+function addAssets(name, description, type, price, date, owner, amount, idTeam){
     return fixedAssets.create({
         Nazwa: name,
         Opis: description,
@@ -26,21 +29,21 @@ function addAssets(name, description, type, price, date, owner, amount, idTeam) 
     });
 }
 
-function deleteAsset(id, idTeam) {
+function deleteAsset(id, idTeam){
     return fixedAssets.destroy({
-        where: {
+        where:{
             IdSrodkiTrwale: id,
             IdZespol: idTeam
         }
     });
 }
 
-function editAsset(name, description, type, price, date, id, owner, idTeam) {
+function editAsset(name, description, type, price, date, id, owner, idTeam){
     return fixedAssets.findOne({
-        where: {
+        where:{
             IdSrodkiTrwale: id
         }
-    }).then(function (asset) {
+    }).then(function(asset){
         return asset.update({
             Opis: description,
             Rodzaj: type,
@@ -50,48 +53,47 @@ function editAsset(name, description, type, price, date, id, owner, idTeam) {
             IdZespol: idTeam,
             IdPracownik: owner
         });
-    });
+    })
 }
 
-function deleteOneasset(id, idTeam) {
+function deleteOneasset(id, idTeam){
     return fixedAssets.findOne({
-        where: {
+        where:{
             IdSrodkiTrwale: id,
             IdZespol: idTeam
         }
-    }).then(function (asset) {
+    }).then(function(asset){
         var ile = asset.Ilosc;
         return asset.update({
-            Ilosc: ile - 1
+            Ilosc: ile-1
         });
     });
 }
 
 
-function addOneAsset(id, idTeam) {
+function addOneAsset(id, idTeam){
     return fixedAssets.findOne({
-        where: {
+        where:{
             IdSrodkiTrwale: id,
             IdZespol: idTeam
         }
-    }).then(function (asset) {
+    }).then(function(asset){
         var ile = asset.Ilosc;
         return asset.update({
-            Ilosc: ile + 1
+            Ilosc: ile+1
         });
     });
 }
 
-function ifWorkerHasAsset(idWorker) {
+function ifWorkerHasAsset(idWorker){
     return fixedAssets.findOne({
-        where: {
+        where:{
             IdPracownik: idWorker
         }
-    }).then(function (found) {
-        if (found) {
-            console.log("TUTAJ FIXED ASSETS");
+    }).then(function(found){
+        if(found){
             return true;
-        } else {
+        }else{
             return false;
         }
     });
@@ -103,6 +105,6 @@ module.exports = {
     deleteAsset: deleteAsset,
     editAsset: editAsset,
     deleteOneasset: deleteOneasset,
-    addOneAsset: addOneAsset,
+    addOneAsset:addOneAsset,
     ifWorkerHasAsset: ifWorkerHasAsset
-};
+}

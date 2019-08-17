@@ -2,24 +2,24 @@ var models = require('../../models');
 var townModel = models.miasto;
 
 
-function getOrInsertTown(town) {
+function getOrInsertTown(town){
     return townModel.findOne({
-        where: {
+        where:{
             Miasto: town
         }
-    }).then(function (foundTown) {
-        if (foundTown) {
+    }).then(function(foundTown){
+        if(foundTown){
             return foundTown.IdMiasto;
-        } else {
+        }else{
             return townModel.create({
-                Miasto: town
-            }).then(function (createdTown) {
+               Miasto: town
+            }).then(function(createdTown){
                 return createdTown.IdMiasto;
-            });
+            })
         }
     });
 }
 
-module.exports = {
+module.exports={
     getOrInsertTown: getOrInsertTown
-};
+}

@@ -24,7 +24,6 @@ $(document).ready(function () {
 $(function () {
 
   $('#searchTeamsAdd').keyup(function () {
-    console.log("dd")
     var current_query = $('#searchTeamsAdd').val();
     if (current_query !== "") {
       $(".toCreate li").hide();
@@ -40,7 +39,6 @@ $(function () {
   });
 
   $('#searchTeams1').keyup(function () {
-    console.log("dd")
     var current_query = $('#searchTeams1').val();
     if (current_query !== "") {
       $(".searchInDelete li").hide();
@@ -58,7 +56,6 @@ $(function () {
 
 $(function () {
   $('#searchTeams2').keyup(function () {
-    console.log("dd")
     var current_query = $('#searchTeams2').val();
     if (current_query !== "") {
       $(".searchInAdd li").hide();
@@ -263,7 +260,6 @@ function editWorkerHide() {
 
 $(function () {
   $('#searchTeam').keyup(function () {
-    console.log("dkkfkfkffkfkfkkf");
     var current_query = $('#searchTeam').val();
     if (current_query !== "") {
       $(".list-group li").hide();

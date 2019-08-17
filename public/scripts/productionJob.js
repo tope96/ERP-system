@@ -57,7 +57,6 @@ function jobEditShow(){
   editProjectHide();
   addProjectHide();
   jobShowHide();
-  console.log('================ <%=job.IdZadanie%>');
 }
 
 function addProjectShow() {

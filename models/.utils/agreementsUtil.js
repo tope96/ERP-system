@@ -284,4 +284,4 @@ module.exports = {
     getAllAgreInfo: getAllAgreInfo,
     editAgreement: editAgreement,
     deleteOld: deleteOld
-};
+}

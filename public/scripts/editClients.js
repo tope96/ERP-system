@@ -13,8 +13,6 @@ function edit(name, firstName, lastName, tel, email, address, town, nip, clientI
   var editPanel = document.getElementById("editPanel");
   editPanel.style.display = "block";
 
-  console.log("name: " + name)
-
   document.getElementById("clientId").value = clientId;
   document.getElementById("nameEdit").value = name;
   document.getElementById("firstNameEdit").value = firstName;

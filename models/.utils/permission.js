@@ -1,33 +1,34 @@
 var models = require('../../models');
+var permission = models.uprawnienia;
 var dAccount = models.konta_domenowe;
 
-function getPermission(idWorker) {
+function getPermission(idWorker){
     return dAccount.findOne({
-        where: {
+        where:{
             IdPracownik: idWorker
         }
-    }).then(function (found) {
+    }).then(function(found){
         return found.IdUprawnienia;
     });
 }
 
-function changePermission(idWorker, idPerm) {
+function changePermission(idWorker, idPerm){
     return dAccount.findOne({
-        where: {
+        where:{
             IdPracownik: idWorker
         }
-    }).then(function (found) {
-        if (found) {
+    }).then(function(found){
+        if(found){
             return found.update({
                 IdUprawnienia: idPerm
             });
-        } else {
+        }else{
             return false;
         }
     });
 }
 
-module.exports = {
+module.exports={
     getPermission: getPermission,
     changePermission: changePermission
-};
+}

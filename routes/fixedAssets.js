@@ -28,7 +28,7 @@ module.exports = function (app, passport) {
 
     app.get('/fixedAssets', isLoggedIn, fixedAssetsController.fixedAssets);
 
-    app.post('/addAsset', isLoggedIn, isAdmin, function (req, res) {
+    app.post('/addAsset', isLoggedIn, isHR, function (req, res) {
         var name = req.body.name;
         var description = req.body.description;
         var type = req.body.type;
@@ -43,7 +43,7 @@ module.exports = function (app, passport) {
         }, 500);
     });
 
-    app.post('/deleteAsset', isLoggedIn, isAdmin, function (req, resp) {
+    app.post('/deleteAsset', isLoggedIn, isHR, function (req, resp) {
         var idAsset = req.body.asset;
         fixedAssets.deleteAsset(idAsset, req.user.IdZespol).then(function () {
             setTimeout(function () {
@@ -52,7 +52,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/deleteOneAsset', isAdmin, isLoggedIn, function (req, resp) {
+    app.post('/deleteOneAsset', isHR, isLoggedIn, function (req, resp) {
         var idAsset = req.body.asset;
         fixedAssets.deleteOneasset(idAsset, req.user.IdZespol).then(function () {
             setTimeout(function () {
@@ -61,7 +61,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/addOneAsset', isLoggedIn, isAdmin, function (req, resp) {
+    app.post('/addOneAsset', isLoggedIn, isHR, function (req, resp) {
         var idAsset = req.body.asset;
         fixedAssets.addOneAsset(idAsset, req.user.IdZespol).then(function () {
             setTimeout(function () {
@@ -70,7 +70,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post('/editAsset', isLoggedIn, isAdmin, function (req, resp) {
+    app.post('/editAsset', isLoggedIn, isHR, function (req, resp) {
         var name = req.body.nameEdit;
         var description = req.body.descriptionEdit;
         var type = req.body.typeEdit;

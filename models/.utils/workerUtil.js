@@ -1,13 +1,13 @@
 var models = require('../../models');
+var pracownik = models.pracownicy;
 var dAccount = require('./domaneAccount.js');
 var position = require('./position.js');
 var teamsUtil = require('./teamsUtil.js');
 var proposalUtil = require('./proposal.js');
 var emailUtil = require('./emails.js');
-var db = require('../../config/db');
 var analit = models.analitycy;
 var programmers = models.programisci;
-var pracownik = models.pracownicy;
+var db = require('../../config/db')
 
 function getName(id) {
     return pracownik.findOne({
@@ -42,7 +42,7 @@ function editUser(name, lastName, email, id, req, res) {
         newLastName(id, lastName);
     }
     if (email != '') {
-        newEmail(id, email);
+        newEmail( id, email);
     }
     setTimeout(function () {
         res.redirect('/profileEdited');
@@ -144,7 +144,10 @@ function getWorkers(idTeam) {
     return pracownik.findAll({
         where: {
             IdZespol: idTeam
-        }
+        },
+        order: [
+            ['Nazwisko', 'ASC'],
+        ],
     }).then(function (user) {
         if (user) {
             return user;
@@ -253,7 +256,7 @@ function addAgreeToHuman(IdWorker, IdAgree) {
                 IdUmowy: IdAgree
             });
         }
-    });
+    })
 }
 
 function human(IdWorker, IdAgree) {
@@ -342,7 +345,6 @@ function ifIsSuperior(idWorker) {
         }
     }).then(function (found) {
         if (found) {
-            console.log("TUTAJ: " + found.IdZadanie);
             return true;
         } else {
             return false;
@@ -368,4 +370,4 @@ module.exports = {
     editSpec: editSpec,
     getSpec: getSpec,
     ifIsSuperior: ifIsSuperior
-};
+}

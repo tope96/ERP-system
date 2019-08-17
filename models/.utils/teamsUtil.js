@@ -1,8 +1,8 @@
 var models = require('../../models');
-var project = require('./projects.js');
 var teams = models.zespoly;
 var teamMember = models.czlonkowie_zespolow;
 var projectTeams = models.zespoly_projektowe;
+var project = require('./projects.js');
 
 function createTeam(teamName, idTeamDom) {
     return teams.findOne({
@@ -11,7 +11,7 @@ function createTeam(teamName, idTeamDom) {
         }
     }).then(function (team) {
         if (team) {
-            //TODO: ISTNIEJE TAKI ZESPOL
+
         } else {
             return teams.create({
                 Nazwa: teamName,
@@ -20,7 +20,7 @@ function createTeam(teamName, idTeamDom) {
                 if (createdTeam) {
                     return createdTeam.IdZespol;
                 }
-            });
+            })
         }
     });
 }
@@ -85,7 +85,6 @@ function changeTeamName(idTeam, newName, idKontoDomenowe) {
         }
     }).then(function (foundTeam) {
         if (foundTeam == null) {
-            console.log('tutaj');
         } else {
             return teams.findOne({
                 where: {
@@ -170,10 +169,10 @@ function updateProjectsTeam(idProject, idTeam, oldIdTeam) {
     });
 }
 
-function deleteFromAllTeams(idWorker) {
+function deleteFromAllTeams(idWorker){
     return teamMember.destroy({
-        where: {
-            IdPracownik: idWorker
+        where:{
+            IdPracownik:idWorker
         }
     });
 }
@@ -193,4 +192,4 @@ module.exports = {
     updateProjectsTeam: updateProjectsTeam,
     deleteTeam: deleteTeam,
     deleteFromAllTeams: deleteFromAllTeams
-};
+}
