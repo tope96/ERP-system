@@ -91,7 +91,19 @@
                         <p>Data rozpoczęcia zatrudnienia: </p>
                         <input type="date" class="form-control formItem" name="startDateEdit" value="<%=agreeInfo.DataRozpoczecia %>" placeholder="Data rozpoczęcia" required>
                         <p>Data końca zatrudnienia: </p>
-                        <input type="date" class="form-control formItem" name="endDateEdit" value="<%=agreeInfo.DataZakonczenia %>" placeholder="Data rozpoczęcia" required>
+                        
+                          <%if(agreeInfo.DataZakonczenia == null){%>
+                            <input type="date" class="form-control formItem" name="endDateEdit" id="endDateEdit" value="<%=agreeInfo.DataZakonczenia %>" placeholder="Data rozpoczęcia" disabled>
+                            <div class="formItem">
+                               <input type="checkbox" value="true" name="ifNonTermEdit" id="nonTermEdit" checked> <label class="form-check-label" for="nonTermEdit">Umowa bezterminowa</label>
+                            </div>
+                            <%}else{%>
+                              <input type="date" class="form-control formItem" name="endDateEdit" id="endDateEdit" value="<%=agreeInfo.DataZakonczenia %>" placeholder="Data rozpoczęcia" required>
+                              <div class="formItem">
+                                 <input type="checkbox" value="true" name="ifNonTermEdit" id="nonTermEdit" > <label class="form-check-label" for="nonTermEdit">Umowa bezterminowa</label>
+                              </div>
+                              <%}%>
+
                         <input type="number" min="0" class="form-control formItem" name="lumpSumEdit" value="<%=agreeInfo.StawkaRyczalt %>" placeholder="Stawka ryczałt">
                         <input type="number" min="0" class="form-control formItem" name="hourlyRateEdit" value="<%=agreeInfo.StawkaGodzinowa %>" placeholder="Stawka godzinowa">
                         

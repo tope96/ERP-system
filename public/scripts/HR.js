@@ -71,6 +71,30 @@ $(function () {
   });
 });
 
+$(function () {
+  $('#nonTerm').click(function(){
+    if( $('#nonTerm').is(':checked')){
+      $('#endDate').removeAttr('required');
+      $('#endDate').attr("disabled",true);
+    }else if(!$('#nonTerm').is(':checked')){
+      $('#endDate').prop('required',true);
+      $('#endDate').attr("disabled",false);
+    }
+  });
+});
+
+$(function () {
+  $('#nonTermEdit').click(function(){
+    if( $('#nonTermEdit').is(':checked')){
+      $('#endDateEdit').removeAttr('required');
+      $('#endDateEdit').attr("disabled",true);
+    }else if(!$('#nonTermEdit').is(':checked')){
+      $('#endDateEdit').prop('required',true);
+      $('#endDateEdit').attr("disabled",false);
+    }
+  });
+});
+
   if ($('#ifEdit').length) {
     var editTeam = document.getElementById("editTeam");
     editTeam.style.display = "block";
@@ -86,7 +110,6 @@ $(function () {
   }
 
   if ($('#ifEditWorker').length) {
-  
 
     var addCompany = document.getElementById("addCompany");
     addCompany.style.display = "none";

@@ -77,11 +77,16 @@ module.exports = function (app, passport) {
         var spec = req.body.spec;
         var languages = req.body.languages;
         var certs = req.body.certs;
+        var ifNonTerm = req.body.ifNonTerm;
 
         if (req.file === 'undefined') {
             contractFileLink = null;
         } else {
             contractFileLink = req.file.filename;
+        }
+
+        if(ifNonTerm == 'true'){
+            endDate = null;
         }
 
         workersUtil.addProfile(name, lastName, email, tel, superior, req.user.IdZespol, contractFileLink).then(function (user) {
@@ -142,6 +147,7 @@ module.exports = function (app, passport) {
         var hourlyRate = req.body.hourlyRateEdit;
         var agreement = req.body.agreement;
         var agree = parseInt(agreement);//1 = o prace, 2 = zlecenie, 3 = b2b
+        var ifNonTermEdit = req.body.ifNonTermEdit;
 
         var ifStudent = req.body.ifStudentEdit;
         var ifZus = req.body.ifZusEdit;
@@ -164,6 +170,10 @@ module.exports = function (app, passport) {
 
         if (spec == -1) {
             spec = null;
+        }
+
+        if(ifNonTermEdit == 'true'){
+            endDate = null;
         }
 
         workersUtil.editUserfromHr(req, res, name, lastName, email, tel, id, position, spec, contractFileLink, superior, lang, certs);

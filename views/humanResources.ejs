@@ -146,7 +146,11 @@
                     <div class="property shadow-sm p-3 mb-2 bg-white rounded">
                       <h2> <i class="fas fa-calendar-alt"></i> Okres pracy:</h2> <br />
                       Początek zatrudnienia: <%= agrees[a].DataRozpoczecia %> <br />
-                      Koniec zatrudnienia: <%= agrees[a].DataZakonczenia %>
+                      <%if (agrees[a].DataZakonczenia == null) {%>
+                      Koniec zatrudnienia: umowa bezterminowa
+                      <%}else{%>
+                        Koniec zatrudnienia: <%= agrees[a].DataZakonczenia %>
+                       <%}%>
                     </div>
                   </div>
                 </div>
@@ -249,7 +253,13 @@
                       <input type="date" class="form-control formItem" name="startDate" placeholder="Data rozpoczęcia" required>
 
                     <p>Data końca zatrudnienia: </p>
-                      <input type="date" class="form-control formItem" name="endDate" placeholder="Data rozpoczęcia" required>
+
+                      <input type="date" class="form-control formItem" name="endDate" id="endDate" placeholder="Data rozpoczęcia" required>
+                      <div class="formItem">
+                        <input type="checkbox" value="true" name="ifNonTerm" id="nonTerm"> <label class="form-check-label" for="nonTerm">Umowa bezterminowa</label>
+                      </div>
+                      
+                </br>
 
                     <input type="number" min="0" class="form-control formItem" name="lumpSum" placeholder="Stawka ryczałt" required>
 
