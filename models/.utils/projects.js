@@ -141,7 +141,6 @@ function ifClientHasProject(idClient){
     });
 }
 
-
 module.exports = {
     getAllProjectCategory: getAllProjectCategory,
     addCategory: addCategory,
@@ -150,5 +149,6 @@ module.exports = {
     deleteProject: deleteProject,
     updateProject: updateProject,
     deleteProjectForTeam:deleteProjectForTeam,
-    ifClientHasProject: ifClientHasProject
+    ifClientHasProject: ifClientHasProject,
+    getTeamFromProject: getTeamFromProject
 }
