@@ -149,6 +149,5 @@ module.exports = {
     deleteProject: deleteProject,
     updateProject: updateProject,
     deleteProjectForTeam:deleteProjectForTeam,
-    ifClientHasProject: ifClientHasProject,
-    getTeamFromProject: getTeamFromProject
+    ifClientHasProject: ifClientHasProject
 }
