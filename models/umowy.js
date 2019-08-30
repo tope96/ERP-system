@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     umowy_b2b: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.DECIMAL(7,2),
       allowNull: true,
       references: {
         model: 'umowy_b2b',
@@ -33,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     umowy_o_prace: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.DECIMAL(7,2),
       allowNull: true,
       references: {
         model: 'umowy_o_prace',
