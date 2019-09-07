@@ -122,8 +122,11 @@
                           <input type="hidden" id="concur" value='<%= agreeMore.ZakazKonkurencji %>'>
                           <input type="hidden" id="company" value='<%= agreeMore.IdFirma %>'>
                           <script>$(document).ready(function () {
+                            console.log("jest b2b!==============!=!!!!!!");
                             var x = document.getElementById("concur").value;
                             var y = document.getElementById("company").value;
+                            console.log(x + "concur")
+                            console.log(y + " company")
                             if(x == 1){
                               document.getElementById("1").checked = true;
                             }else{
@@ -181,8 +184,8 @@
                         </div>
                         <div id="b2bEdit" class="text-center">
                           <select class="form-control" placeholder="Firma" name="companyB2bEdit" id="companyB2bEdit" id="companyB2bEdit">
-                            <% for(var i=0; i < company.length; i++) { %>
-                              <option value="<%=company[i].IdFirma %>"><%=company[i].Nazwa %>, nip: <%=company[i].Nip %></option>
+                            <% for(var a=0; a < company.length; a++) { %>
+                              <option value="<%=company[a].IdFirma %>"><%=company[a].Nazwa %>, nip: <%=company[a].Nip %></option>
                             <%}%>
                           </select>
                           <button type="button" class="btn btn-warning" onclick="addCompanyView()"><i class="fas fa-plus"></i> Dodaj firmę</button>

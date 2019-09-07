@@ -241,7 +241,7 @@ module.exports = function (app, passport) {
             workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
                 workersUtil.getWorkerInfo(IdWorker).then(function (workerInfo) {
                     workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
-                        companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                        companyUtil.getAllCopmany(req.user.IdZespol).then(function (company) {
                             agreementUtil.getAgreeInfo(workerInfo.IdUmowy).then(function (agreeMore) {
                                 agreementUtil.getAllAgreInfo(workerInfo.IdUmowy).then(function (agreeInfo) {
                                     workersUtil.getAllProgrammers().then(function (programmers) {
@@ -394,6 +394,75 @@ module.exports = function (app, passport) {
                 });
             });
         })
+    });
+
+    app.post('/deleteTeam', isLoggedIn, isHR, function (req, res) {
+        var idTeam = req.body.idTeam;
+        teamsUtil.deleteTeam(idTeam);
+        setTimeout(function () {
+            res.redirect('/humanResources');
+        }, 2000);
+        
+    });
+
+    app.post('/editTeam', isLoggedIn, isHR, function (req, res) {
+        var idTeam = req.body.idTeamEdit;
+        var teamiii = idTeam.replace("\'", "");
+        var teamiiii = teamiii.replace("\'", "");
+        domaneAccount.getLogin(req.user.IdKontoDomenowe).then(function (account) {
+            workersUtil.getWorkerInfo(account.IdPracownik).then(function (profile) {
+                workersUtil.getWorkers(req.user.IdZespol).then(function (workers) {
+                    companyUtil.getAllCopmany(req.user.IdPracownik).then(function (company) {
+                        agreementUtil.getAgreeInfo(profile.IdUmowy).then(function (agree) {
+                            workersUtil.getAllProgrammers().then(function (programmers) {
+                                workersUtil.getAllAnalit().then(function (analit) {
+                                    spec.getAllSpec().then(function (specs) {
+                                        teamsUtil.getAllTeams(req.user.IdZespol).then(function (teams) {
+                                            teamsUtil.getAllTeamsMembers().then(function (teamsMember) {
+                                                permissionUtil.getPermission(req.user.IdPracownik).then(function (permission) {
+                                                    agreementUtil.getAllAgree().then(function (agrees) {
+                                                        agreementUtil.getB2b().then(function (b2b) {
+                                                            agreementUtil.getOPrace().then(function (praca) {
+                                                                agreementUtil.getZlecenie().then(function (zlecenie) {
+                                                                    emailsUtil.getEmails(req.user.IdZespol).then(function (emails) {
+                                                                        res.render('humanResources', {
+                                                                            name: profile.Imie,
+                                                                            site: "Zasoby ludzkie",
+                                                                            workers: workers,
+                                                                            company: company,
+                                                                            agree: agree,
+                                                                            programmers: programmers,
+                                                                            analit: analit,
+                                                                            spec: specs,
+                                                                            teams: teams,
+                                                                            teamsMember: teamsMember,
+                                                                            Team: teamiiii,
+                                                                            permission: permission,
+                                                                            agrees: agrees,
+                                                                            b2b: b2b,
+                                                                            zlecenie: zlecenie,
+                                                                            praca: praca,
+                                                                            edycja: 1,
+                                                                            edycjaPracownika: 0,
+                                                                            emails: emails,
+                                                                            failed: 0
+                                                                        });
+                                                                    });
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
     });
 
     app.post('/addNewMembers', function (req, res) {

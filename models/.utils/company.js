@@ -13,6 +13,7 @@ function getCompanyInfo(IdCompany) {
 }
 
 function getAllCopmany(idTeam) {
+    console.log("JESTEM W COMPANY!")
     return companyModel.findAll({
         where: {
             IdZespol: idTeam
