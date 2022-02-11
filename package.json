@@ -21,7 +21,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-dynamic-helpers-patch": "0.0.2",
-    "express-handlebars": "^3.0.0",
+    "express-handlebars": "^5.3.1",
     "express-session": "^1.15.6",
     "generic-pool": "^3.7.1",
     "multer": "^1.4.1",
